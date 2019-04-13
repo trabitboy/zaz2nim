@@ -17,10 +17,10 @@ uih=1080
  scrsy=wh/cvsh
   
  
- love.window.setTitle("love2d titler")
+ love.window.setTitle("zaza2nim")
  --this is where the current frame is drawn
 	cvs=love.graphics.newCanvas(cvsw,cvsh)
-	ui=love.graphics.newCanvas(cvsw,cvsh)	
+	ui=love.graphics.newCanvas(uiw,uih)	
 --this is where the whole ui is drawn before resize	
 
 --typo width height (pic size)

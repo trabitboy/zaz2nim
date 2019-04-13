@@ -38,6 +38,18 @@ function love.load()
 	
 end
 
+love.keypressed = function(key, code, isrepeat)
+	
+	if key=="f1" then
+		toSave=cvs:newImageData()
+		toSave:encode("png","mycvs.png")
+	end
+	
+	
+end
+
+
+
 function rendertocanvas()
 		love.graphics.setCanvas(ui)
 		love.graphics.clear(1.0,1.0,1.0,0.0)
