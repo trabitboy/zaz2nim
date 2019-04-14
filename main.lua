@@ -7,6 +7,8 @@
 require('screenandcvs')
 require('loadfilter')
 require('touch')
+require('paintmode')
+
 
 prjfld="project/"
 
@@ -20,12 +22,11 @@ require('brush')
 -- end
 
 
-function love.load()
 
-	mybrush=love.graphics.newImage(createBrushID(16))
-	
-
+--project structure
 	frames={}
+--end project globals
+function love.load()
 	files=love.filesystem.getDirectoryItems(prjfld)
 	for i,f in ipairs(files)
 	do
@@ -35,58 +36,39 @@ function love.load()
 			table.insert(frames,loadfilter(prjfld..f))
 		end
 	end
-	
+	mybrush=love.graphics.newImage(createBrushID(16))
 end
+
+-- 
+
+	
+
+	
+-- end
+
+
+
+keyFunc = paintModeKey
 
 love.keypressed = function(key, code, isrepeat)
 	
-	if key=="f1" then
-		toSave=cvs:newImageData()
-		toSave:encode("png","mycvs.png")
-	end
+	keyFunc(key, code, isrepeat)
 	
 	
 end
 
 
 
-function rendertocanvas()
-		love.graphics.setCanvas(ui)
-		love.graphics.clear(1.0,1.0,1.0,0.0)
 
-
-	love.graphics.print('zaz2nim',0,0)
-	love.graphics.setColor(1.0,1.0,1.0,0.5)
-	love.graphics.draw(frames[1].pic,0,0)
-	love.graphics.setColor(1.0,1.0,1.0,0.5)
-	love.graphics.draw(frames[3].pic,0,0)
-	
-	love.graphics.setColor(1.0,1.0,1.0,1.0)
-	love.graphics.draw(cvs,0,0)
-	
-	love.graphics.draw(mybrush,0,0)
-
-		love.graphics.setCanvas()
-
-end
+drawFunc=paintModeDraw
 
 function love.draw()
-	 rendertocanvas()
-	-- love.graphics.setColor(0.5,0.5,0.5,1.0)
-	love.graphics.clear(0.5,0.5,0.5,1.0)
-	love.graphics.setColor(1.0,1.0,1.0,1.0)
-	love.graphics.draw(ui,0,0,0,scrsx,scrsy)
-
+	drawFunc()
 
 end
 
+updateFunc=paintModeUpdate
 
 function love.update()
-
-	if npress==true then
-	love.graphics.setCanvas(cvs)
-	love.graphics.draw(mybrush,npx,npy)
-	
-	love.graphics.setCanvas()
-	end
+	updateFunc()
 end
