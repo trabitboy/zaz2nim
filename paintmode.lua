@@ -1,7 +1,7 @@
 
 
 --main paint mode, paints to current canvas, displays light table and side buttons
-onionDepth=1
+onionDepth=1 --TODO
 
 currentIdx=2
 
@@ -52,28 +52,44 @@ local function rendertouicanvas()
 
 end
 
+function saveCanvasToFrame(idx)
+	fromGpu=cvs:newImageData()
+	frames[idx].data=fromGpu
+	frames[idx].pic=love.graphics.newImage(fromGpu)
+
+end
+
 function paintModeKey(key, code, isrepeat)
 	--simple debug for poc
 	if key=="f1" then
-		toSave=cvs:newImageData()
-		toSave:encode("png","mycvs.png")
+		-- toSave=cvs:newImageData()
+		-- toSave:encode("png","mycvs.png")
+		saveFrames()
 	end
 
 	if key=="left" then
 		if currentIdx>1 then
+			
+			--save canvas to frame
+			saveCanvasToFrame(currentIdx)
+			
 			currentIdx=currentIdx-1
 			print("frame down")
+			initCanvases(currentIdx)
 		end
-		initCanvases(currentIdx)
 		
 	end
 	
 	if key=="right" then
 		if currentIdx<maxframe then
+			--save canvas to frame
+			saveCanvasToFrame(currentIdx)
+
+
 			currentIdx=currentIdx+1
 			print("frame up")
+			initCanvases(currentIdx)
 		end
-		initCanvases(currentIdx)
 	
 	end
 	

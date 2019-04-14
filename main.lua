@@ -8,7 +8,7 @@ require('screenandcvs')
 require('loadfilter')
 require('touch')
 require('paintmode')
-
+require('loadsave')
 
 prjfld="project/"
 
