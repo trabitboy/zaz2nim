@@ -16,7 +16,7 @@ end
 
 love.mousemoved=function( x, y, dx, dy, istouch )
 	if registerdrag~=nil then
-			registerdrag.drag(registerdrag,dx/scrsx,dy/scrsy,x/scrsx,y/scrsy)
+			registerdrag.drag(registerdrag,x/scrsx,y/scrsy,dx/scrsx,dy/scrsy)
 	end
 end
 

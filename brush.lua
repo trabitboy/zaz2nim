@@ -5,7 +5,13 @@ function createBrushID(d)
 	do
 		for i=0,d-1,1
 		do
-			mine:setPixel(i,j,1.0,0.0,0.0,1.0)
+			a=1.0
+			if i<4 or i>d-4 or j<4 or j>d-4
+			then
+				a=0.5
+			end
+				
+			mine:setPixel(i,j,1.0,0.0,0.0,a)
 		
 		end
 	end

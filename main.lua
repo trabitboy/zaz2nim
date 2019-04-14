@@ -36,6 +36,9 @@ function love.load()
 			table.insert(frames,loadfilter(prjfld..f))
 		end
 	end
+	
+	initCanvases(currentIdx)
+	
 	mybrush=love.graphics.newImage(createBrushID(16))
 end
 

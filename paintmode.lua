@@ -21,7 +21,8 @@ function initCanvases(idx)
 	love.graphics.setCanvas(cvs)
 	love.graphics.clear(1.,1.,1.,0.)
 	--DBG
-	love.graphics.setColor(1.0,1.0,1.0,0.5)
+	-- love.graphics.setColor(1.0,1.0,1.0,0.5)
+	love.graphics.setColor(1.0,1.0,1.0,1.0)
 	love.graphics.draw(frames[currentIdx].pic,0,0)
 	
 	love.graphics.setCanvas()
@@ -106,13 +107,33 @@ function paintModeDraw()
 
 end
 
+
+function dragPaint(cb,x, y, dx, dy, istouch)
+	print("dx,dy "..dx.." "..dy)
+	blitBrush(lastblitx+dx,lastblity+dy)
+end
+
+
+lastblitx=nil
+lastblity=nil
+
+function blitBrush(x,y)
+	print("blit x,y "..x.." "..y)
+	love.graphics.setCanvas(cvs)
+	love.graphics.draw(mybrush,x,y)
+	love.graphics.setCanvas()
+	lastblitx=x
+	lastblity=y
+end
+
 function paintModeUpdate()
 	if npress==true then
-	love.graphics.setCanvas(cvs)
-	love.graphics.draw(mybrush,npx,npy)
-	
-	love.graphics.setCanvas()
+		-- love.graphics.setCanvas(cvs)
+		-- love.graphics.draw(mybrush,npx,npy)
+		-- love.graphics.setCanvas()
+		blitBrush(npx,npy)
+		registerdrag={drag=dragPaint}
+		npress=false
 	end
-
 end
 
