@@ -1,3 +1,16 @@
+local widgets={}
+
+function addFrame()
+	newid = love.image.newImageData(cvsw,cvsh)
+	newp=love.graphics.newImage(newid)
+	table.insert(frames,{pic=newp,data=newid})
+	maxframe=maxframe+1
+	
+end
+
+
+local wAddFrame=createpicbutton(100,100,"bplus.png",addFrame)
+table.insert(widgets,wAddFrame)
 
 
 --main paint mode, paints to current canvas, displays light table and side buttons
@@ -29,27 +42,43 @@ function initCanvases(idx)
 	
 end
 
+local function renderWidgets()
+	for i,w in ipairs(widgets)
+	do
+		w.render(w)
+	end
 
+end
 
 
 
 local function rendertouicanvas()
-		love.graphics.setCanvas(ui)
-		love.graphics.clear(1.0,1.0,1.0,0.0)
+	love.graphics.setCanvas(ui)
+	love.graphics.clear(1.0,1.0,1.0,0.0)
 
+--TODO haha compute indexes 
 
 	love.graphics.print('zaz2nim',0,0)
-	love.graphics.setColor(1.0,1.0,1.0,0.5)
-	love.graphics.draw(frames[1].pic,0,0)
-	love.graphics.setColor(1.0,1.0,1.0,0.5)
-	love.graphics.draw(frames[3].pic,0,0)
+	
+	if currentIdx-1>0 then 
+		love.graphics.setColor(1.0,1.0,1.0,0.5)
+		love.graphics.draw(frames[currentIdx-1].pic,0,0)
+	end
+
+	if frames[currentIdx+1] then 
+		love.graphics.setColor(1.0,1.0,1.0,0.5)
+		love.graphics.draw(frames[currentIdx+1].pic,0,0)
+	end
 	
 	love.graphics.setColor(1.0,1.0,1.0,1.0)
 	love.graphics.draw(cvs,0,0)
 	
 	love.graphics.draw(mybrush,0,0)
 
-		love.graphics.setCanvas()
+	renderWidgets()
+	
+	
+	love.graphics.setCanvas()
 
 end
 
@@ -128,6 +157,17 @@ end
 
 function paintModeUpdate()
 	if npress==true then
+		for i,w in ipairs (widgets)
+		do
+			ret=w.click(w,npx,npy)
+			if ret==true then
+				npress=false
+				break
+			end
+
+		end
+		
+	
 		-- love.graphics.setCanvas(cvs)
 		-- love.graphics.draw(mybrush,npx,npy)
 		-- love.graphics.setCanvas()

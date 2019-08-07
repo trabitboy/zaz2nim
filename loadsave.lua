@@ -14,7 +14,7 @@ function loadFrames()
 	for i=1,3,1
 	do
 		name=string.format("%03d",i)
-		table.insert(frames,loadfilter(prjfld..name..".png"))	
+		table.insert(frames,loadfilter(conf.prjfld..name..".png"))	
 	end
 	
 end
@@ -23,7 +23,7 @@ function saveFrames()
 	for i,f in ipairs(frames)
 	do
 		name=string.format("%03d",i)
-		f.data:encode("png",prjfld..name..".png")
+		f.data:encode("png",conf.prjfld..name..".png")
 	end
 
 end

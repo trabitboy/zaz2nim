@@ -1,25 +1,27 @@
 
 --this is where we draw ( current frame)
-cvsw=1920
-cvsh=1080
+-- cvsw=1920
+-- cvsh=1080
 --this is where we render the user interface before scaling
-uiw=1920
-uih=1080
+uiw=conf.cvsw
+uih=conf.cvsh
 
 
  -- cvsw=ww
  -- cvsh=wh
  ww=854
  wh=480
+ 
+ --TODO what happens on android ?
  love.window.setMode(ww,wh,{resizable=true})
  
- scrsx=ww/cvsw
- scrsy=wh/cvsh
+ scrsx=ww/conf.cvsw
+ scrsy=wh/conf.cvsh
   
  
  love.window.setTitle("zaza2nim")
  --this is where the current frame is drawn
-	cvs=love.graphics.newCanvas(cvsw,cvsh)
+	cvs=love.graphics.newCanvas(conf.cvsw,conf.cvsh)
 	ui=love.graphics.newCanvas(uiw,uih)	
 --this is where the whole ui is drawn before resize	
 
@@ -33,8 +35,8 @@ function love.resize( nw, nh )
 	local npw,nph=love.window.toPixels( nw, nh )
 	ww=npw
 	wh=nph
-	local pscrsx=ww/cvsw
-	local pscrsy=wh/cvsh
+	local pscrsx=ww/conf.cvsw
+	local pscrsy=wh/conf.cvsh
 	if pscrsx>pscrsy then
 		scrsy=pscrsy
 		scrsx=pscrsy

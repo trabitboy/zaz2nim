@@ -1,16 +1,31 @@
 --zaz2nim
+---- parameterize project canvas size ( 640 480 , 1920 1080 ) in config file of project 
+-- first step load from file
+
 
 --poc paint to canvs 
 -- poc save to file and scroll with ul and dl of image data
+--TASKS 
+-- add pic button
+-- note 3 neo test
+-- note 8 tab test
+-- perf logs on ul dl of tex
+-- make resolution a variable
+-- instead of blitting alpha brush (which modifies color because blends with bg even at alpha 0)
+--   use canvas to store what is done on the canvas (keep brush color with some alpha)
 
+require('picbutton')
+require('hdconf')
+-- require('sdconf')
 
-require('screenandcvs')
 require('loadfilter')
 require('touch')
 require('paintmode')
 require('loadsave')
 
-prjfld="project/"
+require('screenandcvs')
+
+
 
 require('brush')
 
@@ -21,21 +36,37 @@ require('brush')
 	-- love.graphics.setCanvas()
 -- end
 
-
+renderdecos=true
 
 --project structure
 	frames={}
 --end project globals
 function love.load()
-	files=love.filesystem.getDirectoryItems(prjfld)
-	for i,f in ipairs(files)
-	do
-		suffix=f:sub(f:len()-3,f:len())
-		print(f..' '..suffix)
-		if suffix==".png" then
-			table.insert(frames,loadfilter(prjfld..f))
-		end
-	end
+	--incorrect because the files are not ordered
+	-- files=love.filesystem.getDirectoryItems(prjfld)
+	-- for i,f in ipairs(files)
+	-- do
+		-- suffix=f:sub(f:len()-3,f:len())
+		-- print(f..' '..suffix)
+		-- if suffix==".png" then
+			-- table.insert(frames,loadfilter(prjfld..f))
+		-- end
+	-- end
+	
+	maxframe=0
+	local i = 1
+	currentName=string.format("%03d",i)..".png"
+	print("attempting load "..currentName)
+	cur=love.filesystem.getInfo(conf.prjfld..currentName)
+    while cur do
+		table.insert(frames,loadfilter(conf.prjfld..currentName))
+		maxframe=i
+		i = i + 1
+		currentName=string.format("%03d",i)..".png"
+		print("attempting load "..currentName)
+		cur=love.filesystem.getInfo(conf.prjfld..currentName)
+    end
+	
 	
 	initCanvases(currentIdx)
 	
