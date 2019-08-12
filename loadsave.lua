@@ -20,6 +20,12 @@ function loadFrames()
 end
 
 function saveFrames()
+
+	if dirtycvs==true then
+		--we need to copy current frame from rtex cvs
+		saveCanvasToFrame(currentIdx)
+	end
+
 	for i,f in ipairs(frames)
 	do
 		name=string.format("%03d",i)

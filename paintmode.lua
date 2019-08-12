@@ -20,6 +20,8 @@ currentIdx=2
 
 maxframe=3
 
+-- flag to say if canvas in video memory contains modifications ( for save without scroll )
+dirtycvs=false
 
 function initCanvases(idx)
 	-- if idx>1 then
@@ -77,6 +79,8 @@ local function rendertouicanvas()
 
 	renderWidgets()
 	
+	msgToCvs()
+	
 	
 	love.graphics.setCanvas()
 
@@ -112,6 +116,7 @@ function paintModeKey(key, code, isrepeat)
 	
 	if key=="right" then
 		if currentIdx<maxframe then
+			addMsg("next")
 			--save canvas to frame
 			saveCanvasToFrame(currentIdx)
 
@@ -153,6 +158,8 @@ function blitBrush(x,y)
 	love.graphics.setCanvas()
 	lastblitx=x
 	lastblity=y
+	
+	dirtycvs=true
 end
 
 function paintModeUpdate()

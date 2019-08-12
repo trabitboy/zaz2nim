@@ -1,6 +1,17 @@
 --zaz2nim
 ---- parameterize project canvas size ( 640 480 , 1920 1080 ) in config file of project 
--- first step load from file
+-- require of config works
+-- ui still blitted on 1080 canvas is it appropriate ?
+-- insert perf logs
+
+
+-- TODO line drawing
+-- DONE save modified buf even if no scroll
+-- TODO smooth ink shader
+-- TODO save with smooth shader
+-- TODO message system
+-- TODO virtual scroll (scene larger than screen)
+-- TODO file requester
 
 
 --poc paint to canvs 
@@ -14,9 +25,12 @@
 -- instead of blitting alpha brush (which modifies color because blends with bg even at alpha 0)
 --   use canvas to store what is done on the canvas (keep brush color with some alpha)
 
+
+require('msg')
+
 require('picbutton')
-require('hdconf')
--- require('sdconf')
+-- require('hdconf')
+require('sdconf')
 
 require('loadfilter')
 require('touch')
