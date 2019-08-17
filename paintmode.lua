@@ -144,14 +144,14 @@ end
 
 function dragPaint(cb,x, y, dx, dy, istouch)
 	print("dx,dy "..dx.." "..dy)
-	blitBrush(lastblitx+dx,lastblity+dy)
+	blitBrushLineRemember(lastblitx+dx,lastblity+dy)
 end
 
 
 lastblitx=nil
 lastblity=nil
 
-function blitBrush(x,y)
+function blitBrushRemember(x,y)
 	print("blit x,y "..x.." "..y)
 	love.graphics.setCanvas(cvs)
 	love.graphics.draw(mybrush,x,y)
@@ -161,6 +161,31 @@ function blitBrush(x,y)
 	
 	dirtycvs=true
 end
+
+--draws a line from last blit x last blit y to current coords
+function blitBrushLineRemember(x,y)
+	print("blit line x,y "..x.." "..y)
+	
+	local blits=calculateTraj(lastblitx,lastblity,x,y)
+	
+	
+	love.graphics.setCanvas(cvs)
+	
+	
+	for i,b in ipairs(blits) do
+		love.graphics.draw(mybrush,b.xbl,b.ybl)
+	end
+
+	love.graphics.setCanvas()
+	
+
+	lastblitx=x
+	lastblity=y
+	
+	dirtycvs=true
+end
+
+
 
 function paintModeUpdate()
 	if npress==true then
@@ -175,10 +200,7 @@ function paintModeUpdate()
 		end
 		
 	
-		-- love.graphics.setCanvas(cvs)
-		-- love.graphics.draw(mybrush,npx,npy)
-		-- love.graphics.setCanvas()
-		blitBrush(npx,npy)
+		blitBrushRemember(npx,npy)
 		registerdrag={drag=dragPaint}
 		npress=false
 	end

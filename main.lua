@@ -5,7 +5,9 @@
 -- insert perf logs
 
 
--- TODO line drawing
+-- WIP line interpolation
+-- TODO interpolate unit test
+-- TODO performance logs
 -- DONE save modified buf even if no scroll
 -- TODO smooth ink shader
 -- TODO save with smooth shader
@@ -31,6 +33,8 @@ require('msg')
 require('picbutton')
 -- require('hdconf')
 require('sdconf')
+
+require('interpolateLine')
 
 require('loadfilter')
 require('touch')
