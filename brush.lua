@@ -18,3 +18,52 @@ function createBrushID(d)
 	
 	return mine
 end
+
+--WIP create round brush , targetColor
+function roundBrushWithAlpha( radius) 
+
+	for j=0,radius*2-1
+	do
+		local line=''
+		for i=0,radius*2-1
+		do
+			-- // //
+			-- // //       /|
+			-- // //   c  / | b
+			-- // //     /  |
+			-- // //    -----
+			-- // //       a
+			-- // //  lower left is circle center,
+			-- // // we want to calculate c^2
+			-- // //            x c  - x p
+			-- // // a^2 = ( radius - i) ^2
+			-- // // b^2 = ( radius - j) ^2
+			-- // // c^2 = a^2 + c^2
+
+			-- looks wrong but seems to work courtesy of the square
+			local squareDistToCtr = (radius - i) * (radius - i) + (radius - j)* (radius - j)
+			local squareRadius = radius * radius;
+			if squareDistToCtr < squareRadius then
+				--TODO first debug using prints and line breaks
+				-- print("x")
+				line=line.."x"
+				-- *((Uint32 *) toCompose->pixels + j * toCompose->pitch / 4 + i)
+						-- = color;
+			else
+				-- print("_")
+				line=line.."_"
+				--TODO first debug using prints and line breaks
+			-- } else {
+				-- *((Uint32 *) toCompose->pixels + j * toCompose->pitch / 4 + i)
+						-- = transp;
+			-- }
+			end
+		end
+		print(line)
+		-- print("\n")
+-- //			printf(" %x ;", *((Uint32 *) toCompose->pixels + j
+-- //					* toCompose->pitch / 4 + i));
+	end
+		-- }
+-- //		printf("\n");
+end

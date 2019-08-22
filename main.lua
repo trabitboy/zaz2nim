@@ -5,7 +5,7 @@
 -- insert perf logs
 
 
--- WIP line interpolation
+-- DONE line interpolation
 -- TODO interpolate unit test
 -- TODO performance logs
 -- DONE save modified buf even if no scroll
@@ -14,7 +14,8 @@
 -- TODO message system
 -- TODO virtual scroll (scene larger than screen)
 -- TODO file requester
-
+-- TODO palette
+-- TODO round brush
 
 --poc paint to canvs 
 -- poc save to file and scroll with ul and dl of image data
@@ -89,6 +90,8 @@ function love.load()
 	initCanvases(currentIdx)
 	
 	mybrush=love.graphics.newImage(createBrushID(16))
+	
+	roundBrushWithAlpha(16)
 end
 
 -- 
