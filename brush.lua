@@ -22,6 +22,9 @@ end
 --WIP create round brush , targetColor
 function roundBrushWithAlpha( radius) 
 
+	round=love.image.newImageData(radius*2,radius*2)
+
+
 	for j=0,radius*2-1
 	do
 		local line=''
@@ -49,9 +52,12 @@ function roundBrushWithAlpha( radius)
 				line=line.."x"
 				-- *((Uint32 *) toCompose->pixels + j * toCompose->pitch / 4 + i)
 						-- = color;
+				round:setPixel(i,j,1.0,0.0,0.0,1.0)
+						
 			else
 				-- print("_")
 				line=line.."_"
+				round:setPixel(i,j,0.0,0.0,0.0,0.0)
 				--TODO first debug using prints and line breaks
 			-- } else {
 				-- *((Uint32 *) toCompose->pixels + j * toCompose->pitch / 4 + i)
@@ -66,4 +72,9 @@ function roundBrushWithAlpha( radius)
 	end
 		-- }
 -- //		printf("\n");
+
+	
+
+	return round
+
 end

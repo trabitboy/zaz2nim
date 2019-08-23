@@ -15,7 +15,9 @@
 -- TODO virtual scroll (scene larger than screen)
 -- TODO file requester
 -- TODO palette
--- TODO round brush
+-- WIP round brush 
+-- BUG blit of round brush has a dark outline
+-- blend mode maybe?
 
 --poc paint to canvs 
 -- poc save to file and scroll with ul and dl of image data
@@ -89,9 +91,10 @@ function love.load()
 	
 	initCanvases(currentIdx)
 	
-	mybrush=love.graphics.newImage(createBrushID(16))
+	-- mybrush=love.graphics.newImage(createBrushID(16))
+	mybrush=love.graphics.newImage(roundBrushWithAlpha(16))
+	mybrush:setFilter('nearest','nearest')
 	
-	roundBrushWithAlpha(16)
 end
 
 -- 

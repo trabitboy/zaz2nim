@@ -1,7 +1,7 @@
 local widgets={}
 
 function addFrame()
-	newid = love.image.newImageData(cvsw,cvsh)
+	newid = love.image.newImageData(conf.cvsw,conf.cvsh)
 	newp=love.graphics.newImage(newid)
 	table.insert(frames,{pic=newp,data=newid})
 	maxframe=maxframe+1
