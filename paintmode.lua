@@ -73,8 +73,11 @@ local function rendertouicanvas()
 	end
 	
 	love.graphics.setColor(1.0,1.0,1.0,1.0)
-	love.graphics.draw(cvs,0,0)
 	
+	--antialias ink of current frame
+	love.graphics.setShader(inksmooth)
+	love.graphics.draw(cvs,0,0)
+	love.graphics.setShader()
 	love.graphics.draw(mybrush,0,0)
 
 	renderWidgets()
@@ -103,6 +106,7 @@ function paintModeKey(key, code, isrepeat)
 
 	if key=="left" then
 		if currentIdx>1 then
+			addMsg("previous")
 			
 			--save canvas to frame
 			saveCanvasToFrame(currentIdx)
@@ -117,9 +121,9 @@ function paintModeKey(key, code, isrepeat)
 	if key=="right" then
 		if currentIdx<maxframe then
 			addMsg("next")
+			
 			--save canvas to frame
 			saveCanvasToFrame(currentIdx)
-
 
 			currentIdx=currentIdx+1
 			print("frame up")
@@ -135,7 +139,7 @@ end
 function paintModeDraw()
 	 rendertouicanvas()
 	-- love.graphics.setColor(0.5,0.5,0.5,1.0)
-	love.graphics.clear(0.5,0.5,0.5,1.0)
+	love.graphics.clear(0.,0.,0.,1.0)
 	love.graphics.setColor(1.0,1.0,1.0,1.0)
 	love.graphics.draw(ui,0,0,0,scrsx,scrsy)
 

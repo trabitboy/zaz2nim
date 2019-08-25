@@ -5,19 +5,22 @@
 -- insert perf logs
 
 
+-- DONE round brush 
 -- DONE line interpolation
+-- WIP smooth ink shader
+-- 		chosen ink color should be alphaed on neighboring pixels ( fireman ben style )
+-- 		TODO the notion of canvas is not the same in zaz2nim
+--		probably the canvas should be reblitted on a canvas of the same size, then scaled up?
+--		otherwise the result will look different than target res?
+-- try unit test in subfolder of project with main.lua
 -- TODO interpolate unit test
 -- TODO performance logs
 -- DONE save modified buf even if no scroll
--- TODO smooth ink shader
 -- TODO save with smooth shader
 -- TODO message system
 -- TODO virtual scroll (scene larger than screen)
 -- TODO file requester
 -- TODO palette
--- WIP round brush 
--- BUG blit of round brush has a dark outline
--- blend mode maybe?
 
 --poc paint to canvs 
 -- poc save to file and scroll with ul and dl of image data
@@ -37,6 +40,7 @@ require('picbutton')
 -- require('hdconf')
 require('sdconf')
 
+require('shaders')
 require('interpolateLine')
 
 require('loadfilter')
@@ -95,6 +99,9 @@ function love.load()
 	mybrush=love.graphics.newImage(roundBrushWithAlpha(16))
 	mybrush:setFilter('nearest','nearest')
 	
+	createInkShader()
+	
+	
 end
 
 -- 
@@ -114,9 +121,6 @@ love.keypressed = function(key, code, isrepeat)
 	
 	
 end
-
-
-
 
 drawFunc=paintModeDraw
 
