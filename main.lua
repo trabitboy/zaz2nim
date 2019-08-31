@@ -4,9 +4,13 @@
 -- ui still blitted on 1080 canvas is it appropriate ?
 -- insert perf logs
 
-
+-- BUG picked palette color is incorrect, clarify what npx npy are
+--  	clicks might be registered unscaled , scaled , ui canvas , paint canvas
+-- BUG the brush is blit top left, not centered
 -- DONE round brush 
 -- DONE line interpolation
+-- BUG scaling of SD seems incorrect until resize of window
+-- BUG add frame only adds at end of project, insertion should be possible
 -- WIP smooth ink shader
 -- 		chosen ink color should be alphaed on neighboring pixels ( fireman ben style )
 -- 		TODO the notion of canvas is not the same in zaz2nim
@@ -21,7 +25,16 @@
 -- TODO virtual scroll (scene larger than screen)
 -- TODO file requester
 -- TODO palette
+-- TODO do not use load filter for project load,
+-- having drawable is not useful ( and must take up memory )
 
+
+-- TODO sound capture test
+--https://love2d.org/forums/viewtopic.php?t=86173
+
+
+--TODO drag and drop widget for cut and paste
+-- based on mtdt titler boxes
 --poc paint to canvs 
 -- poc save to file and scroll with ul and dl of image data
 --TASKS 
@@ -46,6 +59,7 @@ require('interpolateLine')
 require('loadfilter')
 require('touch')
 require('paintmode')
+require('palette')
 require('loadsave')
 
 require('screenandcvs')
@@ -96,7 +110,7 @@ function love.load()
 	initCanvases(currentIdx)
 	
 	-- mybrush=love.graphics.newImage(createBrushID(16))
-	mybrush=love.graphics.newImage(roundBrushWithAlpha(16))
+	mybrush=love.graphics.newImage(roundBrushWithAlpha(8))
 	mybrush:setFilter('nearest','nearest')
 	
 	createInkShader()
@@ -109,11 +123,10 @@ end
 	
 
 	
--- end
+-- default mode, could be changed
 
+toPaintMode()
 
-
-keyFunc = paintModeKey
 
 love.keypressed = function(key, code, isrepeat)
 	
@@ -122,14 +135,12 @@ love.keypressed = function(key, code, isrepeat)
 	
 end
 
-drawFunc=paintModeDraw
 
 function love.draw()
 	drawFunc()
 
 end
 
-updateFunc=paintModeUpdate
 
 function love.update()
 	updateFunc()

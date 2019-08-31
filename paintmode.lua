@@ -103,6 +103,10 @@ function paintModeKey(key, code, isrepeat)
 		-- toSave:encode("png","mycvs.png")
 		saveFrames()
 	end
+	if key=="p" then
+		toPaletteMode()
+		return
+	end
 
 	if key=="left" then
 		if currentIdx>1 then
@@ -210,3 +214,9 @@ function paintModeUpdate()
 	end
 end
 
+function toPaintMode()
+	keyFunc = paintModeKey
+	drawFunc=paintModeDraw
+	updateFunc=paintModeUpdate
+
+end
