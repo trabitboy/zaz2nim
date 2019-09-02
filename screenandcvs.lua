@@ -15,9 +15,27 @@ uih=conf.cvsh
  --TODO what happens on android ?
  love.window.setMode(ww,wh,{resizable=true})
  
- scrsx=ww/conf.cvsw
- scrsy=wh/conf.cvsh
-  
+ 
+ function determineHDUicanvasZoom(nww,nwh)
+	local pscrsx=nww/conf.cvsw
+	local pscrsy=nwh/conf.cvsh
+	if pscrsx>pscrsy then
+		scrsy=pscrsy
+		scrsx=pscrsy
+	else
+		scrsy=pscrsx
+		scrsx=pscrsx
+	
+	end
+ 
+ 
+ end
+ 
+ 
+ -- scrsx=ww/conf.cvsw
+ -- scrsy=wh/conf.cvsh
+ 
+determineHDUicanvasZoom(ww,wh) 
  
  love.window.setTitle("zaza2nim")
  --this is where the current frame is drawn
@@ -35,14 +53,18 @@ function love.resize( nw, nh )
 	local npw,nph=love.window.toPixels( nw, nh )
 	ww=npw
 	wh=nph
-	local pscrsx=ww/conf.cvsw
-	local pscrsy=wh/conf.cvsh
-	if pscrsx>pscrsy then
-		scrsy=pscrsy
-		scrsx=pscrsy
-	else
-		scrsy=pscrsx
-		scrsx=pscrsx
+
+	determineHDUicanvasZoom(ww,wh) 
+
+
+	-- local pscrsx=ww/conf.cvsw
+	-- local pscrsy=wh/conf.cvsh
+	-- if pscrsx>pscrsy then
+		-- scrsy=pscrsy
+		-- scrsx=pscrsy
+	-- else
+		-- scrsy=pscrsx
+		-- scrsx=pscrsx
 	
-	end
+	-- end
 end

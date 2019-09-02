@@ -1,15 +1,20 @@
 --zaz2nim
 ---- parameterize project canvas size ( 640 480 , 1920 1080 ) in config file of project 
 -- require of config works
--- ui still blitted on 1080 canvas is it appropriate ?
 -- insert perf logs
 
--- BUG picked palette color is incorrect, clarify what npx npy are
---  	clicks might be registered unscaled , scaled , ui canvas , paint canvas
+-- test on android sd ( all devices )
+-- draw zazahead slowly then change feature = load splash
+
+-- TODO do not use load filter for project load,
+-- having drawable is not useful ( and must take up memory )
+-- TODO do we need to release tex allocated all the time ?
+-- brush
+
+-- TO DECIDE ui cvs has same size and zoom as project canvas
 -- BUG the brush is blit top left, not centered
 -- DONE round brush 
 -- DONE line interpolation
--- BUG scaling of SD seems incorrect until resize of window
 -- BUG add frame only adds at end of project, insertion should be possible
 -- WIP smooth ink shader
 -- 		chosen ink color should be alphaed on neighboring pixels ( fireman ben style )
@@ -21,12 +26,8 @@
 -- TODO performance logs
 -- DONE save modified buf even if no scroll
 -- TODO save with smooth shader
--- TODO message system
 -- TODO virtual scroll (scene larger than screen)
 -- TODO file requester
--- TODO palette
--- TODO do not use load filter for project load,
--- having drawable is not useful ( and must take up memory )
 
 
 -- TODO sound capture test
@@ -110,7 +111,7 @@ function love.load()
 	initCanvases(currentIdx)
 	
 	-- mybrush=love.graphics.newImage(createBrushID(16))
-	mybrush=love.graphics.newImage(roundBrushWithAlpha(8))
+	mybrush=love.graphics.newImage(roundBrushWithAlpha(8,0,255,0))
 	mybrush:setFilter('nearest','nearest')
 	
 	createInkShader()
