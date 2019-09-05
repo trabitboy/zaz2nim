@@ -3,7 +3,15 @@
 -- require of config works
 -- insert perf logs
 
+
+-- minimum for mobile:
+-- TODO scroll save palette buttons
 -- test on android sd ( all devices )
+-- NOTE 8 NOK GTN5110 NOK
+-- 		frames are destroyed when scrolling
+-- 		cvs save works in unit test on android
+--		try disabling display when downloading tex 
+--		try saving files when downloading
 -- draw zazahead slowly then change feature = load splash
 
 -- TODO do not use load filter for project load,

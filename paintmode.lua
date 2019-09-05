@@ -1,5 +1,8 @@
 local widgets={}
 
+--disable display when saving canvas to imagedata ( android potential workaround )
+disableDisplay=false
+
 function addFrame()
 	newid = love.image.newImageData(conf.cvsw,conf.cvsh)
 	newp=love.graphics.newImage(newid)
@@ -8,9 +11,47 @@ function addFrame()
 	
 end
 
+function prevFrame()
+		if currentIdx>1 then
+			addMsg("previous")
+			
+			--save canvas to frame
+			saveCanvasToFrame(currentIdx)
+			
+			currentIdx=currentIdx-1
+			print("frame down")
+			initCanvases(currentIdx)
+		end
+
+end
+
+function nextFrame()
+		if currentIdx<maxframe then
+			addMsg("next")
+			
+			--save canvas to frame
+			saveCanvasToFrame(currentIdx)
+
+			currentIdx=currentIdx+1
+			print("frame up")
+			initCanvases(currentIdx)
+		end
+
+
+end
+
 
 local wAddFrame=createpicbutton(100,100,"bplus.png",addFrame)
+local wNextFrame=createpicbutton(100,150,"bplus.png",nextFrame)
+local wPrevFrame=createpicbutton(100,200,"bplus.png",prevFrame)
+
+local wSaveFrames=createpicbutton(100,400,"bplus.png",saveFrames)
+
+
 table.insert(widgets,wAddFrame)
+table.insert(widgets,wPrevFrame)
+table.insert(widgets,wNextFrame)
+table.insert(widgets,wSaveFrames)
 
 
 --main paint mode, paints to current canvas, displays light table and side buttons
@@ -89,11 +130,17 @@ local function rendertouicanvas()
 
 end
 
+--TODO try disable display as workaround on android 
 function saveCanvasToFrame(idx)
+
+	disableDisplay=true
+
+	love.graphics.setCanvas()
 	fromGpu=cvs:newImageData()
 	frames[idx].data=fromGpu
 	frames[idx].pic=love.graphics.newImage(fromGpu)
-
+	
+	disableDisplay=false
 end
 
 function paintModeKey(key, code, isrepeat)
@@ -101,7 +148,9 @@ function paintModeKey(key, code, isrepeat)
 	if key=="f1" then
 		-- toSave=cvs:newImageData()
 		-- toSave:encode("png","mycvs.png")
+		addMsg('begin save')
 		saveFrames()
+		addMsg('save finished')		
 	end
 	if key=="p" then
 		toPaletteMode()
@@ -109,31 +158,31 @@ function paintModeKey(key, code, isrepeat)
 	end
 
 	if key=="left" then
-		if currentIdx>1 then
-			addMsg("previous")
+		-- if currentIdx>1 then
+			-- addMsg("previous")
 			
-			--save canvas to frame
-			saveCanvasToFrame(currentIdx)
+			-- --save canvas to frame
+			-- saveCanvasToFrame(currentIdx)
 			
-			currentIdx=currentIdx-1
-			print("frame down")
-			initCanvases(currentIdx)
-		end
-		
+			-- currentIdx=currentIdx-1
+			-- print("frame down")
+			-- initCanvases(currentIdx)
+		-- end
+		prevFrame()
 	end
 	
 	if key=="right" then
-		if currentIdx<maxframe then
-			addMsg("next")
+		-- if currentIdx<maxframe then
+			-- addMsg("next")
 			
-			--save canvas to frame
-			saveCanvasToFrame(currentIdx)
+			-- --save canvas to frame
+			-- saveCanvasToFrame(currentIdx)
 
-			currentIdx=currentIdx+1
-			print("frame up")
-			initCanvases(currentIdx)
-		end
-	
+			-- currentIdx=currentIdx+1
+			-- print("frame up")
+			-- initCanvases(currentIdx)
+		-- end
+		nextFrame()
 	end
 	
 
@@ -141,12 +190,16 @@ end
 
 
 function paintModeDraw()
-	 rendertouicanvas()
-	-- love.graphics.setColor(0.5,0.5,0.5,1.0)
-	love.graphics.clear(0.,0.,0.,1.0)
-	love.graphics.setColor(1.0,1.0,1.0,1.0)
-	love.graphics.draw(ui,0,0,0,scrsx,scrsy)
+	if disableDisplay==true then
+		-- we skip display hoping not to disturb canvas save
+	else
 
+		rendertouicanvas()
+		-- love.graphics.setColor(0.5,0.5,0.5,1.0)
+		love.graphics.clear(0.,0.,0.,1.0)
+		love.graphics.setColor(1.0,1.0,1.0,1.0)
+		love.graphics.draw(ui,0,0,0,scrsx,scrsy)
+	end
 end
 
 

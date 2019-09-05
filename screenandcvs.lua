@@ -39,7 +39,13 @@ determineHDUicanvasZoom(ww,wh)
  
  love.window.setTitle("zaza2nim")
  --this is where the current frame is drawn
-	cvs=love.graphics.newCanvas(conf.cvsw,conf.cvsh)
+ 
+ --for android, otherwise dl image data is oversized
+ settings={}
+settings.dpiscale=1.0
+
+-- cvs=love.graphics.newCanvas(640,480,settings)
+	cvs=love.graphics.newCanvas(conf.cvsw,conf.cvsh,settings)
 	ui=love.graphics.newCanvas(uiw,uih)	
 --this is where the whole ui is drawn before resize	
 
