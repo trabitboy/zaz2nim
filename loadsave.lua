@@ -20,7 +20,7 @@ function loadFrames()
 end
 
 function saveFrames()
-
+	addMsg('before save')
 	if dirtycvs==true then
 		--we need to copy current frame from rtex cvs
 		saveCanvasToFrame(currentIdx)
@@ -31,5 +31,6 @@ function saveFrames()
 		name=string.format("%03d",i)
 		f.data:encode("png",conf.prjfld..name..".png")
 	end
+	addMsg('after save')
 
 end

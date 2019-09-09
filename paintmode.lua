@@ -1,7 +1,20 @@
 local widgets={}
 
+
+buttonsPic=love.graphics.newImage("buttons.png")
+addQuad = {x=0, y=192, w=64, h=64}
+prevQuad = {x=0, y=64, w=64, h=64}
+nextQuad = {x=0, y=0, w=64, h=64}
+saveQuad = {x=0, y=128, w=64, h=64}
+
+
+
+
 --disable display when saving canvas to imagedata ( android potential workaround )
+--TODO remove
 disableDisplay=false
+
+
 
 function addFrame()
 	newid = love.image.newImageData(conf.cvsw,conf.cvsh)
@@ -41,11 +54,14 @@ function nextFrame()
 end
 
 
-local wAddFrame=createpicbutton(100,100,"bplus.png",addFrame)
-local wNextFrame=createpicbutton(100,150,"bplus.png",nextFrame)
-local wPrevFrame=createpicbutton(100,200,"bplus.png",prevFrame)
+-- local wAddFrame=createpicbutton(100,100,"bplus.png",addFrame)
+-- local wNextFrame=createpicbutton(100,150,"bplus.png",nextFrame)
+-- local wPrevFrame=createpicbutton(100,200,"bplus.png",prevFrame)
+local wAddFrame=createpicbutton(100,100,buttonsPic,addFrame,addQuad)
+local wNextFrame=createpicbutton(100,150,buttonsPic,nextFrame,nextQuad)
+local wPrevFrame=createpicbutton(100,200,buttonsPic,prevFrame,prevQuad)
 
-local wSaveFrames=createpicbutton(100,400,"bplus.png",saveFrames)
+local wSaveFrames=createpicbutton(100,350,buttonsPic,saveFrames,saveQuad)
 
 
 table.insert(widgets,wAddFrame)
@@ -196,9 +212,13 @@ function paintModeDraw()
 
 		rendertouicanvas()
 		-- love.graphics.setColor(0.5,0.5,0.5,1.0)
-		love.graphics.clear(0.,0.,0.,1.0)
+		--this is the background image of our paint
+		love.graphics.clear(1.,1.,0.,1.0)
 		love.graphics.setColor(1.0,1.0,1.0,1.0)
 		love.graphics.draw(ui,0,0,0,scrsx,scrsy)
+		
+		--dbg
+		-- love.graphics.draw(buttonsPic,nextQuad,100,100)
 	end
 end
 

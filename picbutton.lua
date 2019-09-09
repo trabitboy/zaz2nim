@@ -1,7 +1,7 @@
 
 --if consumed returns true
 local function click(b,mx,my)
-	if mx >= b.x and mx<b.x+b.w and my >= b.y and my<b.y+b.h then
+	if mx >= b.x and mx<b.x+b.coords.w and my >= b.y and my<b.y+b.coords.h then
 		print("click")
 		b.cb()
 		return true
@@ -12,18 +12,24 @@ end
 
 local function render(b)
 	if renderdecos==true then
-		love.graphics.draw(b.pic.pic,b.x,b.y)
+		
+		love.graphics.draw(b.pic,b.quad,b.x,b.y)
 	end
 
 end
 
-function createpicbutton(x,y,picfile,callback)
+
+--TODO ppass coords and create quad here 
+-- coords={ox oy w h } then we blit part of the pic
+function createpicbutton(x,y,pic,callback,coords)
 	ret={}
-	ret.pic=loadfilter(picfile)
+	ret.pic=pic
+	ret.coords=coords
+	ret.quad=love.graphics.newQuad(coords.x,coords.y,coords.w,coords.h,pic:getWidth(),pic:getHeight())
 	ret.x=x
 	ret.y=y
-	ret.w=ret.pic.data:getWidth()
-	ret.h=ret.pic.data:getHeight()
+	-- ret.w=quad.w
+	-- ret.h=quad.h
 	ret.cb=callback
 	ret.render=render
 	ret.click=click

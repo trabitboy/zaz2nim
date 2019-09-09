@@ -13,6 +13,8 @@
 --		try disabling display when downloading tex 
 --		try saving files when downloading
 -- draw zazahead slowly then change feature = load splash
+-- WIP pic button zith spritesheet
+
 
 -- TODO do not use load filter for project load,
 -- having drawable is not useful ( and must take up memory )
@@ -67,9 +69,9 @@ require('interpolateLine')
 
 require('loadfilter')
 require('touch')
+require('loadsave')
 require('paintmode')
 require('palette')
-require('loadsave')
 
 require('screenandcvs')
 
