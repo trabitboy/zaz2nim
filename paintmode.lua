@@ -1,11 +1,15 @@
+eraseMode = true -- FOR DEBUG
+
+
 local widgets={}
 
 
 buttonsPic=love.graphics.newImage("buttons.png")
-addQuad = {x=0, y=192, w=64, h=64}
+addQuad = {x=0, y=320, w=64, h=64}
 prevQuad = {x=0, y=64, w=64, h=64}
 nextQuad = {x=0, y=0, w=64, h=64}
 saveQuad = {x=0, y=128, w=64, h=64}
+eraserQuad = {x=0, y=192, w=64, h=64}
 
 
 
@@ -209,14 +213,15 @@ function paintModeDraw()
 	if disableDisplay==true then
 		-- we skip display hoping not to disturb canvas save
 	else
-
+		
 		rendertouicanvas()
 		-- love.graphics.setColor(0.5,0.5,0.5,1.0)
 		--this is the background image of our paint
 		love.graphics.clear(1.,1.,0.,1.0)
 		love.graphics.setColor(1.0,1.0,1.0,1.0)
+		-- love.graphics.setShader(eraserShader)
 		love.graphics.draw(ui,0,0,0,scrsx,scrsy)
-		
+		-- love.graphics.setShader()
 		--dbg
 		-- love.graphics.draw(buttonsPic,nextQuad,100,100)
 	end
@@ -235,7 +240,22 @@ lastblity=nil
 function blitBrushRemember(x,y)
 	print("blit x,y "..x.." "..y)
 	love.graphics.setCanvas(cvs)
+
+	if eraseMode== true then 
+		love.graphics.setBlendMode('replace')
+		--following is ok for square brush
+		-- love.graphics.setShader(eraserShader)
+		--alternative method
+		love.graphics.setColor(0.0,0.0,0.0,0.0)
+		love.graphics.circle('fill',x,y,32)
+	end
+
 	love.graphics.draw(mybrush,x,y)
+
+	love.graphics.setShader()
+
+	love.graphics.setColor(1.0,1.0,1.0,1.0)
+	love.graphics.setBlendMode('alpha')
 	love.graphics.setCanvas()
 	lastblitx=x
 	lastblity=y
@@ -251,11 +271,16 @@ function blitBrushLineRemember(x,y)
 	
 	
 	love.graphics.setCanvas(cvs)
-	
+
+	if eraseMode== true then 
+		love.graphics.setShader(eraserShader)
+	end
 	
 	for i,b in ipairs(blits) do
 		love.graphics.draw(mybrush,b.xbl,b.ybl)
 	end
+
+	love.graphics.setShader()
 
 	love.graphics.setCanvas()
 	

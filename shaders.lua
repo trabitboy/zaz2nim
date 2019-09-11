@@ -57,3 +57,28 @@ function createInkShader()
   inksmooth:send("cvsh",conf.cvsh)
 
 end
+
+
+--this is a square eraser ( shader cant return no value , compilation error )
+function createEraserShader()
+
+--returns alpha 0 so contribuges nothings .....
+-- TO DO workaround : blit eraser on separate tex, as solid color
+-- blit result of erase to new canvas with 2 cvs and eraser pane as input
+  eraserShader=love.graphics.newShader[[
+  
+    vec4 effect( vec4 color, Image texture, vec2 texture_coords, vec2 screen_coords ){
+
+    vec4 pixel = Texel(texture, texture_coords );//This is the current pixel color
+	// vec4 ink= vec4(0.0,0.0,0.0,0.5); //hard coded transp
+	vec4 ink= vec4(0.0,0.0,0.0,0.0); //hard coded transp
+	  	
+
+	return ink ;
+	//illegal to return something
+	// return;
+    }
+  ]]
+
+end
+

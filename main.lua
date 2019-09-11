@@ -125,7 +125,7 @@ function love.load()
 	mybrush:setFilter('nearest','nearest')
 	
 	createInkShader()
-	
+	createEraserShader()
 	
 end
 
