@@ -121,7 +121,8 @@ function love.load()
 	initCanvases(currentIdx)
 	
 	-- mybrush=love.graphics.newImage(createBrushID(16))
-	mybrush=love.graphics.newImage(roundBrushWithAlpha(8,0,255,0))
+	brshradius=8
+	mybrush=love.graphics.newImage(roundBrushWithAlpha(8,0.0,0.0,0.0))
 	mybrush:setFilter('nearest','nearest')
 	
 	createInkShader()

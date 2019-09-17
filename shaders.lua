@@ -8,7 +8,7 @@ function createInkShader()
       vec4 pixel = Texel(texture, texture_coords );//This is the current pixel color
 	  number pixel_w = 1.0 / cvsw;
 	  number pixel_h = 1.0 / cvsh;
-	  vec4 ink= vec4(1.0,0.0,0.0,1.0); //hard coded pure red
+	  vec4 ink= vec4(0.0,0.0,0.0,1.0); //hard coded 
 	  
 	  vec4 white= vec4(1.0,1.0,1.0,1.0);
 	  
@@ -20,8 +20,9 @@ function createInkShader()
 	  vec4 down= Texel(texture, texture_coords+voffset );
 	  vec4 up= Texel(texture, texture_coords-voffset );
 
-	  // vec4 aa= color *(0.5*pixel + 0.5*ink);
-	  vec4 aa=vec4(0.0,0.0,1.0,1.0);
+	   vec4 aa= color *(0.8*pixel + 0.2*ink);
+	   //for debug
+	   //vec4 aa=vec4(0.0,0.0,1.0,1.0);
 	  
 	  if (left==ink)  {
 	   if (pixel!=ink){

@@ -1,4 +1,4 @@
-eraseMode = true -- FOR DEBUG
+eraseMode = false -- FOR DEBUG
 
 
 local widgets={}
@@ -19,6 +19,8 @@ eraserQuad = {x=0, y=192, w=64, h=64}
 disableDisplay=false
 
 
+--ui canvas coordinates
+offsetcvs={x=200,y=0}
 
 function addFrame()
 	newid = love.image.newImageData(conf.cvsw,conf.cvsh)
@@ -61,11 +63,11 @@ end
 -- local wAddFrame=createpicbutton(100,100,"bplus.png",addFrame)
 -- local wNextFrame=createpicbutton(100,150,"bplus.png",nextFrame)
 -- local wPrevFrame=createpicbutton(100,200,"bplus.png",prevFrame)
-local wAddFrame=createpicbutton(100,100,buttonsPic,addFrame,addQuad)
-local wNextFrame=createpicbutton(100,150,buttonsPic,nextFrame,nextQuad)
-local wPrevFrame=createpicbutton(100,200,buttonsPic,prevFrame,prevQuad)
+local wAddFrame=createpicbutton(0,100,buttonsPic,addFrame,addQuad)
+local wNextFrame=createpicbutton(0,150,buttonsPic,nextFrame,nextQuad)
+local wPrevFrame=createpicbutton(0,200,buttonsPic,prevFrame,prevQuad)
 
-local wSaveFrames=createpicbutton(100,350,buttonsPic,saveFrames,saveQuad)
+local wSaveFrames=createpicbutton(0,350,buttonsPic,saveFrames,saveQuad)
 
 
 table.insert(widgets,wAddFrame)
@@ -125,19 +127,19 @@ local function rendertouicanvas()
 	
 	if currentIdx-1>0 then 
 		love.graphics.setColor(1.0,1.0,1.0,0.5)
-		love.graphics.draw(frames[currentIdx-1].pic,0,0)
+		love.graphics.draw(frames[currentIdx-1].pic,offsetcvs.x,offsetcvs.y)
 	end
 
 	if frames[currentIdx+1] then 
 		love.graphics.setColor(1.0,1.0,1.0,0.5)
-		love.graphics.draw(frames[currentIdx+1].pic,0,0)
+		love.graphics.draw(frames[currentIdx+1].pic,offsetcvs.x,offsetcvs.y)
 	end
 	
 	love.graphics.setColor(1.0,1.0,1.0,1.0)
 	
 	--antialias ink of current frame
 	love.graphics.setShader(inksmooth)
-	love.graphics.draw(cvs,0,0)
+	love.graphics.draw(cvs,offsetcvs.x,offsetcvs.y)
 	love.graphics.setShader()
 	love.graphics.draw(mybrush,0,0)
 
@@ -150,7 +152,7 @@ local function rendertouicanvas()
 
 end
 
---TODO try disable display as workaround on android 
+--TODO REMOVE try disable display as workaround on android 
 function saveCanvasToFrame(idx)
 
 	disableDisplay=true
@@ -217,7 +219,7 @@ function paintModeDraw()
 		rendertouicanvas()
 		-- love.graphics.setColor(0.5,0.5,0.5,1.0)
 		--this is the background image of our paint
-		love.graphics.clear(1.,1.,0.,1.0)
+		love.graphics.clear(1.,1.,1.,1.0)
 		love.graphics.setColor(1.0,1.0,1.0,1.0)
 		-- love.graphics.setShader(eraserShader)
 		love.graphics.draw(ui,0,0,0,scrsx,scrsy)
@@ -306,7 +308,8 @@ function paintModeUpdate()
 		end
 		
 	
-		blitBrushRemember(npx,npy)
+		--we compensate offset
+		blitBrushRemember(npx-offsetcvs.x-brshradius,npy-offsetcvs.y-brshradius)
 		registerdrag={drag=dragPaint}
 		npress=false
 	end

@@ -20,11 +20,11 @@ function createBrushID(d)
 end
 
 --WIP create round brush , targetColor
-function roundBrushWithAlpha( radius,r,g,b) 
+function roundBrushWithAlpha( radius,sr,sg,sb) 
 
-	sr=r/255
-	sg=g/255
-	sb=b/255
+	-- sr=r/255
+	-- sg=g/255
+	-- sb=b/255
 
 	round=love.image.newImageData(radius*2,radius*2)
 

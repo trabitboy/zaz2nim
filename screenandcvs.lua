@@ -3,7 +3,12 @@
 -- cvsw=1920
 -- cvsh=1080
 --this is where we render the user interface before scaling
-uiw=conf.cvsw
+-- uiw=conf.cvsw
+
+
+
+--TODO refactor, uiw is not necessarily canvas width (most screens have different aspect ratio, should be calculated from that?)
+uiw=850
 uih=conf.cvsh
 
 
