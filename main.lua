@@ -3,7 +3,7 @@
 -- require of config works
 -- insert perf logs
 
---test git line
+
 -- minimum for mobile:
 -- TODO scroll save palette buttons
 -- test on android sd ( all devices )
