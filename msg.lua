@@ -7,6 +7,7 @@ function msgToCvs()
 	my=0
 	for i,t in ipairs(msg)
 	do
+		love.graphics.setColor(0.,0.,0.,1.)
 		love.graphics.print(t,mx,my)
 		my=my+20
 	end
