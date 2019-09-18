@@ -8,8 +8,7 @@
 
 
 --TODO refactor, uiw is not necessarily canvas width (most screens have different aspect ratio, should be calculated from that?)
-uiw=850
-uih=conf.cvsh
+
 
 
  -- cvsw=ww

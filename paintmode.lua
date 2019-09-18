@@ -10,6 +10,7 @@ prevQuad = {x=0, y=64, w=64, h=64}
 nextQuad = {x=0, y=0, w=64, h=64}
 saveQuad = {x=0, y=128, w=64, h=64}
 eraserQuad = {x=0, y=192, w=64, h=64}
+-- eraserQuad = {x=0, y=192, w=64, h=64}
 
 
 
@@ -22,10 +23,12 @@ disableDisplay=false
 --ui canvas coordinates
 offsetcvs={x=200,y=0}
 
+--doesnt work in insertion for some reason
 function addFrame()
 	newid = love.image.newImageData(conf.cvsw,conf.cvsh)
 	newp=love.graphics.newImage(newid)
 	table.insert(frames,{pic=newp,data=newid})
+	-- table.insert(frames,currentIdx,{pic=newp,data=newid})
 	maxframe=maxframe+1
 	
 end
@@ -59,21 +62,28 @@ function nextFrame()
 
 end
 
+function toggleEraser()
+	eraseMode= not eraseMode 
+
+end
 
 -- local wAddFrame=createpicbutton(100,100,"bplus.png",addFrame)
 -- local wNextFrame=createpicbutton(100,150,"bplus.png",nextFrame)
 -- local wPrevFrame=createpicbutton(100,200,"bplus.png",prevFrame)
-local wAddFrame=createpicbutton(0,100,buttonsPic,addFrame,addQuad)
-local wNextFrame=createpicbutton(0,150,buttonsPic,nextFrame,nextQuad)
-local wPrevFrame=createpicbutton(0,200,buttonsPic,prevFrame,prevQuad)
+local wAddFrame=createpicbutton(0,64,buttonsPic,addFrame,addQuad)
+local wNextFrame=createpicbutton(0,128,buttonsPic,nextFrame,nextQuad)
+local wPrevFrame=createpicbutton(0,192,buttonsPic,prevFrame,prevQuad)
 
-local wSaveFrames=createpicbutton(0,350,buttonsPic,saveFrames,saveQuad)
+local wSaveFrames=createpicbutton(0,256,buttonsPic,saveFrames,saveQuad)
+
+local wToggleEraser=createpicbutton(0,320,buttonsPic,toggleEraser,eraserQuad)
 
 
 table.insert(widgets,wAddFrame)
 table.insert(widgets,wPrevFrame)
 table.insert(widgets,wNextFrame)
 table.insert(widgets,wSaveFrames)
+table.insert(widgets,wToggleEraser)
 
 
 --main paint mode, paints to current canvas, displays light table and side buttons
@@ -159,6 +169,11 @@ function saveCanvasToFrame(idx)
 
 	love.graphics.setCanvas()
 	fromGpu=cvs:newImageData()
+	
+	--gpu mem needs to be freed asap
+	frames[idx].data:release()
+	frames[idx].pic:release()
+	
 	frames[idx].data=fromGpu
 	frames[idx].pic=love.graphics.newImage(fromGpu)
 	
@@ -239,31 +254,31 @@ end
 lastblitx=nil
 lastblity=nil
 
-function blitBrushRemember(x,y)
-	print("blit x,y "..x.." "..y)
-	love.graphics.setCanvas(cvs)
+-- function blitBrushRemember(x,y)
+	-- print("blit x,y "..x.." "..y)
+	-- love.graphics.setCanvas(cvs)
 
-	if eraseMode== true then 
-		love.graphics.setBlendMode('replace')
-		--following is ok for square brush
-		-- love.graphics.setShader(eraserShader)
-		--alternative method
-		love.graphics.setColor(0.0,0.0,0.0,0.0)
-		love.graphics.circle('fill',x,y,32)
-	end
+	-- if eraseMode== true then 
+		-- love.graphics.setBlendMode('replace')
+		-- --following is ok for square brush
+		-- -- love.graphics.setShader(eraserShader)
+		-- --alternative method
+		-- love.graphics.setColor(0.0,0.0,0.0,0.0)
+		-- love.graphics.circle('fill',x,y,32)
+	-- end
 
-	love.graphics.draw(mybrush,x,y)
+	-- love.graphics.draw(mybrush,x,y)
 
-	love.graphics.setShader()
+	-- love.graphics.setShader()
 
-	love.graphics.setColor(1.0,1.0,1.0,1.0)
-	love.graphics.setBlendMode('alpha')
-	love.graphics.setCanvas()
-	lastblitx=x
-	lastblity=y
+	-- love.graphics.setColor(1.0,1.0,1.0,1.0)
+	-- love.graphics.setBlendMode('alpha')
+	-- love.graphics.setCanvas()
+	-- lastblitx=x
+	-- lastblity=y
 	
-	dirtycvs=true
-end
+	-- dirtycvs=true
+-- end
 
 --draws a line from last blit x last blit y to current coords
 function blitBrushLineRemember(x,y)
@@ -274,12 +289,20 @@ function blitBrushLineRemember(x,y)
 	
 	love.graphics.setCanvas(cvs)
 
-	if eraseMode== true then 
-		love.graphics.setShader(eraserShader)
-	end
 	
 	for i,b in ipairs(blits) do
-		love.graphics.draw(mybrush,b.xbl,b.ybl)
+		if eraseMode== true then 
+			love.graphics.setBlendMode('replace')
+			--following is ok for square brush
+			-- love.graphics.setShader(eraserShader)
+			--alternative method
+			love.graphics.setColor(0.0,0.0,0.0,0.0)
+			love.graphics.circle('fill',x,y,brshradius)
+			love.graphics.setColor(1.0,1.0,1.0,1.0)
+			love.graphics.setBlendMode('alpha')
+		else
+			love.graphics.draw(mybrush,b.xbl,b.ybl)
+		end
 	end
 
 	love.graphics.setShader()
@@ -309,7 +332,15 @@ function paintModeUpdate()
 		
 	
 		--we compensate offset
-		blitBrushRemember(npx-offsetcvs.x-brshradius,npy-offsetcvs.y-brshradius)
+		
+		xb=npx-offsetcvs.x-brshradius
+		yb=npy-offsetcvs.y-brshradius
+		
+		--change this ugly thing global thing HACK
+		lastblitx=xb
+		lastblity=yb-- this way we draw the first point , and use same function here and
+		--in drag handler
+		blitBrushLineRemember(xb,yb)
 		registerdrag={drag=dragPaint}
 		npress=false
 	end
