@@ -10,10 +10,13 @@ prevQuad = {x=0, y=64, w=64, h=64}
 nextQuad = {x=0, y=0, w=64, h=64}
 saveQuad = {x=0, y=128, w=64, h=64}
 eraserQuad = {x=0, y=192, w=64, h=64}
+copyQuad = {x=0, y=8*64, w=64, h=64}
+pasteQuad = {x=0, y=9*64, w=64, h=64}
+
 -- eraserQuad = {x=0, y=192, w=64, h=64}
 
 
-
+copySrc=nil
 
 --disable display when saving canvas to imagedata ( android potential workaround )
 --TODO remove
@@ -22,6 +25,19 @@ disableDisplay=false
 
 --ui canvas coordinates
 offsetcvs={x=200,y=0}
+
+function copyFrame()
+	copySrc=currentIdx
+end
+
+function pasteFrame()
+	love.graphics.setCanvas(cvs)
+	
+	love.graphics.draw(frames[copySrc].pic)
+	
+	love.graphics.setCanvas()
+end
+
 
 --doesnt work in insertion for some reason
 function addFrame()
@@ -78,12 +94,17 @@ local wSaveFrames=createpicbutton(0,256,buttonsPic,saveFrames,saveQuad)
 
 local wToggleEraser=createpicbutton(0,320,buttonsPic,toggleEraser,eraserQuad)
 
+local wCopyFrame=createpicbutton(0,384,buttonsPic,copyFrame,copyQuad)
+local wPasteFrame=createpicbutton(0,448,buttonsPic,pasteFrame,pasteQuad)
+
 
 table.insert(widgets,wAddFrame)
 table.insert(widgets,wPrevFrame)
 table.insert(widgets,wNextFrame)
 table.insert(widgets,wSaveFrames)
 table.insert(widgets,wToggleEraser)
+table.insert(widgets,wCopyFrame)
+table.insert(widgets,wPasteFrame)
 
 
 --main paint mode, paints to current canvas, displays light table and side buttons

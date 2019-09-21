@@ -4,8 +4,10 @@
 -- insert perf logs
 
 
+
 -- minimum for mobile:
--- TODO scroll save palette buttons
+--  scroll save TODO palette buttons
+-- WIP copy frame
 -- test on android sd ( all devices )
 -- NOTE 8 NOK GTN5110 NOK
 -- 		frames are destroyed when scrolling
