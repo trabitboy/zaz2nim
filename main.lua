@@ -61,8 +61,8 @@
 require('msg')
 
 require('picbutton')
-require('hdconf')
--- require('sdconf')
+-- require('hdconf')
+require('sdconf')
 
 require('shaders')
 require('interpolateLine')

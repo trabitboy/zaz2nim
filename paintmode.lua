@@ -27,8 +27,8 @@ offsetcvs={x=200,y=0}
 function addFrame()
 	newid = love.image.newImageData(conf.cvsw,conf.cvsh)
 	newp=love.graphics.newImage(newid)
-	table.insert(frames,{pic=newp,data=newid})
-	-- table.insert(frames,currentIdx,{pic=newp,data=newid})
+	-- table.insert(frames,{pic=newp,data=newid})
+	table.insert(frames,currentIdx+1,{pic=newp,data=newid})
 	maxframe=maxframe+1
 	
 end
