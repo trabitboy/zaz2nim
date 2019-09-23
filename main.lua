@@ -6,9 +6,17 @@
 
 
 -- minimum for mobile:
+-- settings screen with brush size
+-- auto folder creation for project on android
+-- toggle display of eraser button
 --  scroll save TODO palette buttons
--- WIP copy frame
+-- WORKS copy frame
 -- test on android sd ( all devices )
+-- NOTE 3 neo slow in hd
+-- note 8 ok
+-- note 4 untested
+-- gtn 5110 untested
+-- lenovo a310 untested
 -- NOTE 8 NOK GTN5110 NOK
 -- 		frames are destroyed when scrolling
 -- 		cvs save works in unit test on android
