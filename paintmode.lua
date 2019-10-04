@@ -12,6 +12,7 @@ saveQuad = {x=0, y=128, w=64, h=64}
 eraserQuad = {x=0, y=192, w=64, h=64}
 copyQuad = {x=0, y=8*64, w=64, h=64}
 pasteQuad = {x=0, y=9*64, w=64, h=64}
+settingsQuad = {x=0, y=10*64, w=64, h=64}
 
 -- eraserQuad = {x=0, y=192, w=64, h=64}
 
@@ -97,6 +98,8 @@ local wToggleEraser=createpicbutton(0,320,buttonsPic,toggleEraser,eraserQuad)
 local wCopyFrame=createpicbutton(0,384,buttonsPic,copyFrame,copyQuad)
 local wPasteFrame=createpicbutton(0,448,buttonsPic,pasteFrame,pasteQuad)
 
+local wSettings=createpicbutton(uiw-64,0,buttonsPic,toSettings,settingsQuad)
+
 
 table.insert(widgets,wAddFrame)
 table.insert(widgets,wPrevFrame)
@@ -105,6 +108,7 @@ table.insert(widgets,wSaveFrames)
 table.insert(widgets,wToggleEraser)
 table.insert(widgets,wCopyFrame)
 table.insert(widgets,wPasteFrame)
+table.insert(widgets,wSettings)
 
 
 --main paint mode, paints to current canvas, displays light table and side buttons
@@ -310,20 +314,28 @@ function blitBrushLineRemember(x,y)
 	
 	love.graphics.setCanvas(cvs)
 
-	
-	for i,b in ipairs(blits) do
-		if eraseMode== true then 
+	if eraseMode== true then 
 			love.graphics.setBlendMode('replace')
 			--following is ok for square brush
 			-- love.graphics.setShader(eraserShader)
 			--alternative method
 			love.graphics.setColor(0.0,0.0,0.0,0.0)
+
+	end
+	
+	for i,b in ipairs(blits) do
+		if eraseMode== true then 
 			love.graphics.circle('fill',x,y,brshradius)
-			love.graphics.setColor(1.0,1.0,1.0,1.0)
-			love.graphics.setBlendMode('alpha')
 		else
 			love.graphics.draw(mybrush,b.xbl,b.ybl)
 		end
+	end
+
+	if eraseMode== true then 
+
+		love.graphics.setColor(1.0,1.0,1.0,1.0)
+		love.graphics.setBlendMode('alpha')
+
 	end
 
 	love.graphics.setShader()

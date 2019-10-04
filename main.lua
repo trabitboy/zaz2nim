@@ -6,7 +6,7 @@
 
 
 -- minimum for mobile:
--- settings screen with brush size
+-- WIP settings screen with brush size
 -- auto folder creation for project on android
 -- toggle display of eraser button
 --  scroll save TODO palette buttons
@@ -80,8 +80,10 @@ require('interpolateLine')
 require('loadfilter')
 require('touch')
 require('loadsave')
+require('settings')
 require('paintmode')
 require('palette')
+require('playmode')
 
 require('screenandcvs')
 
@@ -131,8 +133,7 @@ function love.load()
 	initCanvases(currentIdx)
 	
 	-- mybrush=love.graphics.newImage(createBrushID(16))
-	brshradius=8
-	mybrush=love.graphics.newImage(roundBrushWithAlpha(8,0.0,0.0,0.0))
+	mybrush=love.graphics.newImage(roundBrushWithAlpha(	brshradius,0.0,0.0,0.0))
 	mybrush:setFilter('nearest','nearest')
 	
 	createInkShader()
