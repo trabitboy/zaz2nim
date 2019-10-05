@@ -68,6 +68,9 @@
 --   use canvas to store what is done on the canvas (keep brush color with some alpha)
 
 
+--global resource for all screens
+buttonsPic=love.graphics.newImage("buttons.png")
+require('widgetutils')
 require('msg')
 
 require('picbutton')

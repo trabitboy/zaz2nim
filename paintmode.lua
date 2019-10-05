@@ -4,7 +4,7 @@ eraseMode = false -- FOR DEBUG
 local widgets={}
 
 
-buttonsPic=love.graphics.newImage("buttons.png")
+
 addQuad = {x=0, y=320, w=64, h=64}
 prevQuad = {x=0, y=64, w=64, h=64}
 nextQuad = {x=0, y=0, w=64, h=64}
@@ -142,13 +142,6 @@ function initCanvases(idx)
 	
 end
 
-local function renderWidgets()
-	for i,w in ipairs(widgets)
-	do
-		w.render(w)
-	end
-
-end
 
 
 
@@ -178,7 +171,7 @@ local function rendertouicanvas()
 	love.graphics.setShader()
 	love.graphics.draw(mybrush,0,0)
 
-	renderWidgets()
+	renderWidgets(widgets)
 	
 	msgToCvs()
 	

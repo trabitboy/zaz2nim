@@ -3,8 +3,15 @@ brshLineWidth=128
 
 brshMaxRad=128
 
+local widgets={}
+
 
 cursorQuad = {x=0, y=0, w=64, h=64}
+playQuad={x=0, y=4*64, w=64, h=64}
+
+local wPlay=createpicbutton(uiw-64,0,buttonsPic,toPlayback,playQuad)
+
+table.insert(widgets,wPlay)
 
 
 function toSettings()
