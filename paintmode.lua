@@ -345,17 +345,20 @@ end
 
 
 function paintModeUpdate()
-	if npress==true then
-		for i,w in ipairs (widgets)
-		do
-			ret=w.click(w,npx,npy)
-			if ret==true then
-				npress=false
-				break
-			end
 
-		end
-		
+	--TODO make reusable per screen
+
+	if npress==true then
+		-- for i,w in ipairs (widgets)
+		-- do
+			-- ret=w.click(w,npx,npy)
+			-- if ret==true then
+				-- npress=false
+				-- break
+			-- end
+
+		-- end
+		consumeClick(widgets)
 	
 		--we compensate offset
 		

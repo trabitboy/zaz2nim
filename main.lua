@@ -83,10 +83,10 @@ require('interpolateLine')
 require('loadfilter')
 require('touch')
 require('loadsave')
+require('playmode')
 require('settings')
 require('paintmode')
 require('palette')
-require('playmode')
 
 require('screenandcvs')
 

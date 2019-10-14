@@ -10,6 +10,7 @@ brshLineWidth=128
 function toPlayback()
 	drawFunc=drawPlayback
 	updateFunc=updatePlayback
+	npress=false
 end
 
 
@@ -72,7 +73,7 @@ end
 
 function updatePlayback()
 	
-	if npress==true then
+	if npress==true and npx<64 and npy<64 then
 		-- if npx<brshLineWidth then
 			-- brshradius=npy/uih * brshMaxRad
 			-- mybrush=love.graphics.newImage(roundBrushWithAlpha(	brshradius,0.0,0.0,0.0))

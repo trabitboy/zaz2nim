@@ -33,7 +33,7 @@ local function rendertouicanvas()
 	love.graphics.draw(mybrush)
 	
 	
-	
+	renderWidgets(widgets)
 	
 	
 	
@@ -86,8 +86,14 @@ function updateSettings()
 			mybrush:setFilter('nearest','nearest')
 				
 		else
+
+			consumeClick(widgets)
 	
-			toPaintMode()
+	
+			--if newpress still not consumed
+			if npress==true then
+				toPaintMode()
+			end
 		end
 	end
 end
