@@ -1,3 +1,8 @@
+--dft setting
+framerate=5
+cycles=60/framerate 
+
+
 
 brshLineWidth=128
 
@@ -11,6 +16,7 @@ function toPlayback()
 	drawFunc=drawPlayback
 	updateFunc=updatePlayback
 	npress=false
+	cyclecount=0
 end
 
 
@@ -27,7 +33,7 @@ local function rendertouicanvas()
 	-- love.graphics.draw(mybrush)
 	
 	
-	love.graphics.draw(frames[1].pic)
+	love.graphics.draw(frames[currentIdx].pic)
 	
 	
 	
@@ -72,6 +78,19 @@ end
 
 
 function updatePlayback()
+	
+	cyclecount=cyclecount+1
+	if cyclecount>cycles then
+		cyclecount=0
+		currentIdx=currentIdx+1
+	end
+	
+	
+	if currentIdx>=maxframe then
+		currentIdx=1
+		toPaintMode()
+		return
+	end
 	
 	if npress==true and npx<64 and npy<64 then
 		-- if npx<brshLineWidth then
