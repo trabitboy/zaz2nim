@@ -2,7 +2,7 @@
 ---- parameterize project canvas size ( 640 480 , 1920 1080 ) in config file of project 
 -- require of config works
 -- insert perf logs
-
+-- palette bug > only some colors can be picked
 
 
 -- minimum for mobile:
@@ -84,9 +84,9 @@ require('loadfilter')
 require('touch')
 require('loadsave')
 require('playmode')
+require('palette')
 require('settings')
 require('paintmode')
-require('palette')
 
 require('screenandcvs')
 

@@ -10,9 +10,9 @@ prevQuad = {x=0, y=64, w=64, h=64}
 nextQuad = {x=0, y=0, w=64, h=64}
 saveQuad = {x=0, y=128, w=64, h=64}
 eraserQuad = {x=0, y=192, w=64, h=64}
+settingsQuad = {x=0, y=10*64, w=64, h=64}
 copyQuad = {x=0, y=8*64, w=64, h=64}
 pasteQuad = {x=0, y=9*64, w=64, h=64}
-settingsQuad = {x=0, y=10*64, w=64, h=64}
 
 -- eraserQuad = {x=0, y=192, w=64, h=64}
 
@@ -95,10 +95,10 @@ local wSaveFrames=createpicbutton(0,256,buttonsPic,saveFrames,saveQuad)
 
 local wToggleEraser=createpicbutton(0,320,buttonsPic,toggleEraser,eraserQuad)
 
-local wCopyFrame=createpicbutton(0,384,buttonsPic,copyFrame,copyQuad)
-local wPasteFrame=createpicbutton(0,448,buttonsPic,pasteFrame,pasteQuad)
 
 local wSettings=createpicbutton(uiw-64,0,buttonsPic,toSettings,settingsQuad)
+local wCopyFrame=createpicbutton(uiw-64,64,buttonsPic,copyFrame,copyQuad)
+local wPasteFrame=createpicbutton(uiw-64,128,buttonsPic,pasteFrame,pasteQuad)
 
 
 table.insert(widgets,wAddFrame)
