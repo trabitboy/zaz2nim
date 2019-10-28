@@ -5,14 +5,21 @@ local dragx=nil
 local leftmode=nil
 --ui scaled
 function dragFlick(me,x,y,dx,dy)
-	addMsg('drag flick called')
-	-- dragx=x
+	-- addMsg('drag flick called')
+	dragx=x
 
 end
 
-function tst()
-	addMsg('tst')
+
+function flickRelease()
+	toPaintMode()
+
 end
+
+
+-- function tst()
+	-- addMsg('tst')
+-- end
 
 
 function toFlick(bleft)
@@ -20,8 +27,10 @@ function toFlick(bleft)
 	drawFunc=drawFlick
 	updateFunc=updateFlick
 	dragx=0
-	-- registerdrag={drag=dragFlick}
-	registerdrag={drag=tst}
+	flickNb=currentIdx
+	tgt=currentIdx
+	registerdrag={drag=dragFlick,dragrelease=flickRelease}
+	-- registerdrag={drag=tst}
 end
 
 function toLeftFlick()
@@ -33,7 +42,7 @@ local function rendertouicanvas()
 	love.graphics.setCanvas(ui)
 	love.graphics.clear(1.0,1.0,1.0,0.0)
 	
-	love.graphics.draw(frames[currentIdx].pic)
+	love.graphics.draw(frames[tgt].pic)
 	
 	
 	
@@ -70,14 +79,14 @@ function updateFlick()
 	-- flx=
 	
 	
-	-- if leftmode == true then
-		-- offset=dragx
+	if leftmode == true then
+		offset=dragx
 		
-	-- end
+	end
 	-- addMsg('dragx '..dragx)
-	-- slotwidth=uiw/nb_flick
-	-- nbslot=offset/slotwidth
-	-- addMsg('nbslot '..nbslot)
+	slotwidth=uiw/nb_flick
+	nbslot=math.floor(offset/slotwidth)
+	addMsg('nbslot '..nbslot)
 	
 		-- if(leftMode ){
 			-- offset=flx;
@@ -90,14 +99,17 @@ function updateFlick()
 	
 		-- int tgt;
 		
-		-- if(leftMode){
-			-- tgt= flick_nb+nbslot;
-		-- }else{
-			-- tgt= flick_nb-nbslot;
-		-- }
-		
-		-- if( tgt<0){tgt=0;}
-		-- if(tgt>(lfn-1)){tgt=lfn-1;}
+	if leftmode ==true then
+		tgt= flickNb+nbslot
+	else
+		tgt= flickNb-nbslot
+	end
+	
+	if tgt<1 then tgt=1 end
+	if tgt>maxframe then 
+		tgt=maxframe
+		addMsg('tgt = maxframe')
+	end
 		
 		-- LOGD("flx %d offset %d nb slot %d  computed tgt %d\n",flx,offset,nbslot,tgt);
 		-- // LOGD("computed tgt %d\n",tgt);
