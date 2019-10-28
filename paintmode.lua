@@ -13,6 +13,8 @@ eraserQuad = {x=0, y=192, w=64, h=64}
 settingsQuad = {x=0, y=10*64, w=64, h=64}
 copyQuad = {x=0, y=8*64, w=64, h=64}
 pasteQuad = {x=0, y=9*64, w=64, h=64}
+lflickQuad = {x=0, y=6*64, w=64, h=64}
+
 
 -- eraserQuad = {x=0, y=192, w=64, h=64}
 
@@ -94,7 +96,7 @@ local wPrevFrame=createpicbutton(0,192,buttonsPic,prevFrame,prevQuad)
 local wSaveFrames=createpicbutton(0,256,buttonsPic,saveFrames,saveQuad)
 
 local wToggleEraser=createpicbutton(0,320,buttonsPic,toggleEraser,eraserQuad)
-
+local wLeftFlick = createpicbutton(0,384,buttonsPic,toLeftFlick,lflickQuad)
 
 local wSettings=createpicbutton(uiw-64,0,buttonsPic,toSettings,settingsQuad)
 local wCopyFrame=createpicbutton(uiw-64,64,buttonsPic,copyFrame,copyQuad)
@@ -109,6 +111,7 @@ table.insert(widgets,wToggleEraser)
 table.insert(widgets,wCopyFrame)
 table.insert(widgets,wPasteFrame)
 table.insert(widgets,wSettings)
+table.insert(widgets,wLeftFlick)
 
 
 --main paint mode, paints to current canvas, displays light table and side buttons
@@ -264,6 +267,7 @@ end
 
 
 function dragPaint(cb,x, y, dx, dy, istouch)
+	addMsg('drag paint called')
 	print("dx,dy "..dx.." "..dy)
 	blitBrushLineRemember(lastblitx+dx,lastblity+dy)
 end
@@ -359,6 +363,11 @@ function paintModeUpdate()
 
 		-- end
 		consumeClick(widgets)
+	
+		if npress==false then
+			--click has been consumed
+			return
+		end
 	
 		--we compensate offset
 		

@@ -4,13 +4,6 @@ cycles=60/framerate
 
 
 
-brshLineWidth=128
-
--- brshMaxRad=128
-
-
--- cursorQuad = {x=0, y=0, w=64, h=64}
-
 
 function toPlayback()
 	drawFunc=drawPlayback

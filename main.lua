@@ -5,6 +5,10 @@
 -- palette bug > only some colors can be picked
 
 
+-- WIP flickmode
+-- TODO zoom mode
+-- TODO shader fill mode
+
 -- minimum for mobile:
 -- WIP settings screen with brush size
 -- auto folder creation for project on android
@@ -86,6 +90,7 @@ require('loadsave')
 require('playmode')
 require('palette')
 require('settings')
+require('flickmode')
 require('paintmode')
 
 require('screenandcvs')

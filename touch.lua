@@ -16,12 +16,13 @@ end
 
 love.mousemoved=function( x, y, dx, dy, istouch )
 	if registerdrag~=nil then
+			addMsg('calling drag callback')
 			registerdrag.drag(registerdrag,x/scrsx,y/scrsy,dx/scrsx,dy/scrsy)
 	end
 end
 
 love.mousereleased = function(x, y, button)
-
+	addMsg('mouse released')
 	if registerdrag~=nil then
 		if registerdrag.dragrelease then
 			registerdrag.dragrelease(registerdrag)
