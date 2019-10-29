@@ -37,6 +37,9 @@ function toLeftFlick()
 	toFlick(true)
 end
 
+function toRightFlick()
+	toFlick(false)
+end
 
 local function rendertouicanvas()
 	love.graphics.setCanvas(ui)
@@ -81,7 +84,8 @@ function updateFlick()
 	
 	if leftmode == true then
 		offset=dragx
-		
+	else	
+		offset=uiw-dragx
 	end
 	-- addMsg('dragx '..dragx)
 	slotwidth=uiw/nb_flick

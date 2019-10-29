@@ -14,6 +14,7 @@ settingsQuad = {x=0, y=10*64, w=64, h=64}
 copyQuad = {x=0, y=8*64, w=64, h=64}
 pasteQuad = {x=0, y=9*64, w=64, h=64}
 lflickQuad = {x=0, y=6*64, w=64, h=64}
+rflickQuad = {x=0, y=7*64, w=64, h=64}
 
 
 -- eraserQuad = {x=0, y=192, w=64, h=64}
@@ -97,6 +98,9 @@ local wSaveFrames=createpicbutton(0,256,buttonsPic,saveFrames,saveQuad)
 
 local wToggleEraser=createpicbutton(0,320,buttonsPic,toggleEraser,eraserQuad)
 local wLeftFlick = createpicbutton(0,384,buttonsPic,toLeftFlick,lflickQuad)
+local wRightFlick = createpicbutton(uiw-64,384,buttonsPic,toRightFlick,rflickQuad)
+
+
 
 local wSettings=createpicbutton(uiw-64,0,buttonsPic,toSettings,settingsQuad)
 local wCopyFrame=createpicbutton(uiw-64,64,buttonsPic,copyFrame,copyQuad)
@@ -112,6 +116,7 @@ table.insert(widgets,wCopyFrame)
 table.insert(widgets,wPasteFrame)
 table.insert(widgets,wSettings)
 table.insert(widgets,wLeftFlick)
+table.insert(widgets,wRightFlick)
 
 
 --main paint mode, paints to current canvas, displays light table and side buttons
