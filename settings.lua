@@ -9,15 +9,18 @@ local widgets={}
 cursorQuad = {x=0, y=0, w=64, h=64}
 playQuad={x=0, y=4*64, w=64, h=64}
 paletteQuad={x=64, y=6*64, w=64, h=64}
+pickerQuad={x=64, y=15*64, w=64, h=64}
 
 
 
 local wPlay=createpicbutton(uiw-64,0,buttonsPic,toPlayback,playQuad)
 local wPalette =createpicbutton(uiw-64,64,buttonsPic,toPaletteMode,paletteQuad)
 
+local wPicker =createpicbutton(uiw-64,128,buttonsPic,nil,pickerQuad)
+
 table.insert(widgets,wPlay)
 table.insert(widgets,wPalette)
-
+table.insert(widgets,wPicker)
 
 function toSettings()
 	drawFunc=drawSettings

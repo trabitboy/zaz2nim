@@ -5,7 +5,8 @@
 -- palette bug > only some colors can be picked
 
 
--- WIP flickmode
+-- DONE flickmode
+--TODO colir picker
 -- TODO zoom mode
 -- TODO shader fill mode
 
