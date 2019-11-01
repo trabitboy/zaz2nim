@@ -95,6 +95,7 @@ require('playmode')
 require('palette')
 require('pickmode')
 require('settings')
+require('timecode')
 require('flickmode')
 require('paintmode')
 
@@ -141,6 +142,8 @@ function love.load()
 		print("attempting load "..currentName)
 		cur=love.filesystem.getInfo(conf.prjfld..currentName)
     end
+	
+	
 	
 	
 	initCanvases(currentIdx)

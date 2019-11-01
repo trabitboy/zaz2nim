@@ -1,16 +1,8 @@
 
--- ck={}
--- ck.r=1
--- ck.g=1
--- ck.b=1
--- ck.a=0
 
 function loadfilter(fname)
 	tofilter=love.image.newImageData( fname )
 
-	-- lw=
-	
-	-- print
 	
 
 	print("loaded im dat format "..tofilter:getFormat())
@@ -28,15 +20,6 @@ function loadfilter(fname)
 		do
 			local r,g,b,a=tofilter:getPixel(i,j)
 			todisp:setPixel(i,j,r,g,b,a)
-			-- print(r.." "..g.." "..b.." "..a)
-			-- if (r*255==ck.r and g*255==ck.g and b*255==ck.b)
-				-- or a==0. then
-				-- todisp:setPixel(i,j,0,0,0,0)
-				-- -- print("found blank pixel")
-			-- else
-				-- -- print("not blanck pixel")
-				-- todisp:setPixel(i,j,r,g,b,a)
-			-- end
 		end
 	end
 	
