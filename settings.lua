@@ -16,7 +16,7 @@ pickerQuad={x=64, y=15*64, w=64, h=64}
 local wPlay=createpicbutton(uiw-64,0,buttonsPic,toPlayback,playQuad)
 local wPalette =createpicbutton(uiw-64,64,buttonsPic,toPaletteMode,paletteQuad)
 
-local wPicker =createpicbutton(uiw-64,128,buttonsPic,nil,pickerQuad)
+local wPicker =createpicbutton(uiw-64,128,buttonsPic,toPickMode,pickerQuad)
 
 table.insert(widgets,wPlay)
 table.insert(widgets,wPalette)
