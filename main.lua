@@ -6,8 +6,11 @@
 
 
 -- DONE flickmode
---TODO colir picker
+-- TODO script to migrate zazanim project
+--TODO time code screen
+-- TODO copy range
 -- TODO zoom mode
+-- TODO queue fill mode
 -- TODO shader fill mode
 
 -- minimum for mobile:
