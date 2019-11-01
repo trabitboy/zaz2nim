@@ -12,6 +12,9 @@
 -- TODO zoom mode
 -- TODO queue fill mode
 -- TODO shader fill mode
+-- TODO bg layer
+-- TODO virtual camera
+
 
 -- minimum for mobile:
 -- WIP settings screen with brush size
@@ -135,7 +138,10 @@ function love.load()
 	print("attempting load "..currentName)
 	cur=love.filesystem.getInfo(conf.prjfld..currentName)
     while cur do
-		table.insert(frames,loadfilter(conf.prjfld..currentName))
+		frameTable =loadfilter(conf.prjfld..currentName)
+		--please note we will add other metadatas in frameTable, such as time code and optional sound
+		--we are here because cur is not nil
+		table.insert(frames,frameTable)
 		maxframe=i
 		i = i + 1
 		currentName=string.format("%03d",i)..".png"

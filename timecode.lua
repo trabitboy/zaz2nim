@@ -4,6 +4,13 @@ function loadTxtCodes()
 
 end
 
+function saveTxtCodes()
+--TODO save zzn txt codes for interop
+
+
+end
+
+
 function toTimeCode()
 	drawFunc=timeCodeDraw
 	updateFunc=timeCodeUpdate
@@ -13,9 +20,97 @@ end
 
 
 function timeCodeDraw()
+		-- //'frames"  row
+		-- int maxcol;
+		
+		-- //should be define
+		-- maxcol=TC_CLICK_W / ( BTN_BASE_W/2);
+		
+		-- int i,col,row;
+		-- col=0;row=0;
+		-- for(i=0;i<timecode;i++){
+			
+			
+			
+		   -- clipRect.x = TOFF_TCODE_X;
+		   -- clipRect.y = TOFF_TCODE_Y;
+		   -- clipRect.w = 64;
+		   -- clipRect.h = 64;
+			-- dispRect.x=TC_CLICK_UL_X+(BTN_BASE_W/2)*col;
+			-- dispRect.y=TC_CLICK_UL_Y+(BTN_BASE_W/2)*row;
+			-- dispRect.w=BTN_BASE_W/2;
+			-- dispRect.h=BTN_BASE_W/2;
+
+			-- SDL_RenderCopy(renderer,
+			-- buttons, 
+			-- &clipRect,
+			-- &dispRect
+			-- );
+				
+			-- col++;
+			
+			-- //if we are further than max col,
+			-- // we need to go below
+			-- if( col>=maxcol){
+				-- col=0;
+				-- row++;
+			-- }
+			
+		-- }
 
 end
 
 function timeCodeUpdate()
+		-- if(polled.newpress){
+			-- if( 
+				-- polled.x < (TC_CANCEL_UL_X+BTN_BASE_W)
+				-- && polled.x > TC_CANCEL_UL_X
+				-- &&	polled.y < (TC_CANCEL_UL_Y+BTN_BASE_W)
+				-- && polled.y > TC_CANCEL_UL_Y
+			   
+			-- ){
+				-- project[nb_edit_slot].timecode=timecode;
+				-- //DEBUG going bac to settings for the mo
+				-- mode=settings;
+				-- return;
+			-- }else
+			-- if( 
+				-- polled.x < (TC_MULTIPLE_UL_X+BTN_BASE_W)
+				-- && polled.x > TC_MULTIPLE_UL_X
+				-- &&	polled.y < (TC_MULTIPLE_UL_Y+BTN_BASE_W)
+				-- && polled.y > TC_MULTIPLE_UL_Y
+			   
+			-- ){
+				-- int i;
+				-- for( i=cb;i<=ce;i++){
+					-- project[i].timecode=timecode;
+				-- }
+				-- //DEBUG going bac to settings for the mo
+				-- mode=settings;
+				-- return;
+			-- // }else
+			-- // if( 
+				-- // polled.x < (TC_DEFAULT_UL_X+BTN_BASE_W)
+				-- // && polled.x > TC_DEFAULT_UL_X
+				-- // &&	polled.y < (TC_DEFAULT_UL_Y+BTN_BASE_W)
+				-- // && polled.y > TC_DEFAULT_UL_Y			   
+			-- // ){
+				-- // //TODO put back default
+			-- }else if(
+				-- polled.x < (TC_CLICK_UL_X+TC_CLICK_W)
+				-- && polled.x > TC_CLICK_UL_X
+			-- ){
+				-- //compute row and col of the click to set tc
+				-- Uint16 tx=polled.x - TC_CLICK_UL_X;
+				-- Uint16 ty=polled.y - TC_CLICK_UL_Y;
+				-- Uint16 computedCol= tx / (BTN_BASE_W/2);
+				-- Uint16 computedRow= ty / (BTN_BASE_W/2);
+				-- Uint16 computedTC=computedCol+computedRow*maxcol;
+				-- LOGD("computed click TC %d \n",computedTC);
+				-- timecode=computedTC;
+				-- //project[nb_edit_slot].timecode=computedTC;
+			-- }
+				
+		-- }
 
 end
