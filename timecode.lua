@@ -1,3 +1,7 @@
+local clockQuad = {x=64, y=64, w=64, h=64}
+realCQuad=love.graphics.newQuad(clockQuad.x,clockQuad.y,clockQuad.w,clockQuad.h,buttonsPic:getWidth(),buttonsPic:getHeight())
+
+
 --utility
 function loadTxtCodes()
 --TODO load zazanim style tcs ( for interop )
@@ -24,13 +28,16 @@ function timeCodeDraw()
 		-- int maxcol;
 		
 		-- //should be define
-		-- maxcol=TC_CLICK_W / ( BTN_BASE_W/2);
+		maxcol=(uiw-64) / ( 64 );
 		
 		-- int i,col,row;
 		-- col=0;row=0;
+		col=0
+		row=0
 		-- for(i=0;i<timecode;i++){
-			
-			
+		for i=1,frames[currentIdx].tc 
+		do
+			love.graphics.draw(buttonsPic,realCQuad,col*64,row*64) 
 			
 		   -- clipRect.x = TOFF_TCODE_X;
 		   -- clipRect.y = TOFF_TCODE_Y;
@@ -48,16 +55,16 @@ function timeCodeDraw()
 			-- );
 				
 			-- col++;
-			
+			col=col+1
 			-- //if we are further than max col,
 			-- // we need to go below
-			-- if( col>=maxcol){
-				-- col=0;
-				-- row++;
-			-- }
+			if col>=(maxcol-1)then
+				col=0
+				row=row+1
+			end
 			
 		-- }
-
+		end
 end
 
 function timeCodeUpdate()

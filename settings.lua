@@ -5,6 +5,7 @@ brshMaxRad=128
 
 local widgets={}
 
+local clockQuad = {x=64, y=64, w=64, h=64}
 
 cursorQuad = {x=0, y=0, w=64, h=64}
 playQuad={x=0, y=4*64, w=64, h=64}
@@ -18,9 +19,14 @@ local wPalette =createpicbutton(uiw-64,64,buttonsPic,toPaletteMode,paletteQuad)
 
 local wPicker =createpicbutton(uiw-64,128,buttonsPic,toPickMode,pickerQuad)
 
+local wTC =createpicbutton(uiw-64,192,buttonsPic,toTimeCode,clockQuad)
+
+
 table.insert(widgets,wPlay)
 table.insert(widgets,wPalette)
 table.insert(widgets,wPicker)
+table.insert(widgets,wTC)
+
 
 function toSettings()
 	drawFunc=drawSettings
