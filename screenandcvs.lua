@@ -15,9 +15,12 @@
  -- cvsh=wh
  
  --TODO what happens on android ?
+ dpiScl=love.window.getDPIScale()
  
  if love.system.getOS()=='Android' then
 	ww,wh=love.window.getMode()
+	ww=ww/dpiScl
+	wh=wh/dpiScl
  else
  
  ww=854
@@ -26,7 +29,6 @@
  end
  
  addMsg(" w h "..ww.. ' ' ..wh)
- dpiScl=love.window.getDPIScale()
 addMsg(" dpi scl "..dpiScl)
   
  function determineHDUicanvasZoom(nww,nwh)
