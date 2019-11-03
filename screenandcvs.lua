@@ -17,7 +17,7 @@
  --TODO what happens on android ?
  
  if love.system.getOS()=='Android' then
-	ww,wh=love.window.getDesktopDimensions()
+	ww,wh=love.window.getMode()
  else
  
  ww=854
@@ -25,6 +25,7 @@
  love.window.setMode(ww,wh,{resizable=true})
  end
  
+ addMsg(" w h "..ww.. ' ' ..wh)
  
  
  function determineHDUicanvasZoom(nww,nwh)
