@@ -91,8 +91,8 @@ end
 -- local wNextFrame=createpicbutton(100,150,"bplus.png",nextFrame)
 -- local wPrevFrame=createpicbutton(100,200,"bplus.png",prevFrame)
 local wAddFrame=createpicbutton(0,64,buttonsPic,addFrame,addQuad)
-local wNextFrame=createpicbutton(0,128,buttonsPic,nextFrame,nextQuad)
-local wPrevFrame=createpicbutton(0,192,buttonsPic,prevFrame,prevQuad)
+local wNextFrame=createpicbutton(uiw-64,0,buttonsPic,nextFrame,nextQuad)
+local wPrevFrame=createpicbutton(0,0,buttonsPic,prevFrame,prevQuad)
 
 local wSaveFrames=createpicbutton(0,256,buttonsPic,saveFrames,saveQuad)
 
@@ -102,7 +102,7 @@ local wRightFlick = createpicbutton(uiw-64,384,buttonsPic,toRightFlick,rflickQua
 
 
 
-local wSettings=createpicbutton(uiw-64,0,buttonsPic,toSettings,settingsQuad)
+local wSettings=createpicbutton(uiw-64,128,buttonsPic,toSettings,settingsQuad)
 local wCopyFrame=createpicbutton(uiw-64,64,buttonsPic,copyFrame,copyQuad)
 local wPasteFrame=createpicbutton(uiw-64,128,buttonsPic,pasteFrame,pasteQuad)
 
