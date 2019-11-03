@@ -26,8 +26,9 @@
  end
  
  addMsg(" w h "..ww.. ' ' ..wh)
- 
- 
+ dpiScl=love.window.getDPIScale()
+addMsg(" dpi scl "..dpiScl)
+  
  function determineHDUicanvasZoom(nww,nwh)
 	local pscrsx=nww/conf.cvsw
 	local pscrsy=nwh/conf.cvsh
@@ -39,7 +40,7 @@
 		scrsx=pscrsx
 	
 	end
- 
+	addMsg('zoom ' .. scrsx)
  
  end
  

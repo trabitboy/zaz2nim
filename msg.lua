@@ -11,12 +11,13 @@ function msgToCvs()
 		-- love.graphics.print(t,mx,my)
 		-- my=my+20
 	-- end
+	love.graphics.setColor(1.,0.,0.,1.)
 
 	for i = #msg, 1, -1 do
-		love.graphics.setColor(0.,0.,0.,1.)
 		love.graphics.print(msg[i],mx,my)
 		my=my+20
 	end
+	love.graphics.setColor(1.,1.,1.,1.)
 
 end
 
