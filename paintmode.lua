@@ -90,21 +90,21 @@ end
 -- local wAddFrame=createpicbutton(100,100,"bplus.png",addFrame)
 -- local wNextFrame=createpicbutton(100,150,"bplus.png",nextFrame)
 -- local wPrevFrame=createpicbutton(100,200,"bplus.png",prevFrame)
-local wAddFrame=createpicbutton(0,64,buttonsPic,addFrame,addQuad)
+local wAddFrame=createpicbutton(0,uih-64,buttonsPic,addFrame,addQuad)
 local wNextFrame=createpicbutton(uiw-64,0,buttonsPic,nextFrame,nextQuad)
 local wPrevFrame=createpicbutton(0,0,buttonsPic,prevFrame,prevQuad)
 
-local wSaveFrames=createpicbutton(0,256,buttonsPic,saveFrames,saveQuad)
+local wSaveFrames=createpicbutton(uiw-64,uih-64,buttonsPic,saveFrames,saveQuad)
 
 local wToggleEraser=createpicbutton(0,320,buttonsPic,toggleEraser,eraserQuad)
-local wLeftFlick = createpicbutton(0,384,buttonsPic,toLeftFlick,lflickQuad)
-local wRightFlick = createpicbutton(uiw-64,384,buttonsPic,toRightFlick,rflickQuad)
+local wLeftFlick = createpicbutton(0,64,buttonsPic,toLeftFlick,lflickQuad)
+local wRightFlick = createpicbutton(uiw-64,64,buttonsPic,toRightFlick,rflickQuad)
 
 
 
-local wSettings=createpicbutton(uiw-64,128,buttonsPic,toSettings,settingsQuad)
-local wCopyFrame=createpicbutton(uiw-64,64,buttonsPic,copyFrame,copyQuad)
-local wPasteFrame=createpicbutton(uiw-64,128,buttonsPic,pasteFrame,pasteQuad)
+local wSettings=createpicbutton(uiw-64,192,buttonsPic,toSettings,settingsQuad)
+local wCopyFrame=createpicbutton(0,uih-128,buttonsPic,copyFrame,copyQuad)
+local wPasteFrame=createpicbutton(uiw-64,uih-128,buttonsPic,pasteFrame,pasteQuad)
 
 
 table.insert(widgets,wAddFrame)

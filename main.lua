@@ -4,7 +4,8 @@
 -- insert perf logs
 -- palette bug > only some colors can be picked
 
-
+-- screen scalling incorrectonandroid
+--simpletouchwithout dragdoesn'twork dotimpossible
 -- DONE flickmode
 -- TODO script to migrate zazanim project
 --TODO time code screen
