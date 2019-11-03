@@ -13,11 +13,18 @@
 
  -- cvsw=ww
  -- cvsh=wh
- ww=854
- wh=480
  
  --TODO what happens on android ?
+ 
+ if love.system.getOS()=='Android' then
+	ww,wh=love.window.getDesktopDimensions()
+ else
+ 
+ ww=854
+ wh=480
  love.window.setMode(ww,wh,{resizable=true})
+ end
+ 
  
  
  function determineHDUicanvasZoom(nww,nwh)
