@@ -151,7 +151,10 @@ function love.load()
     end
 	
 	
-	
+	for sTc  in love.filesystem.lines(conf.prjfld.."timecodes.txt")
+	do
+		addMsg(sTc)
+	end
 	
 	initCanvases(currentIdx)
 	
