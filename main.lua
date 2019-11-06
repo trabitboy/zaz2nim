@@ -150,12 +150,21 @@ function love.load()
 		cur=love.filesystem.getInfo(conf.prjfld..currentName)
     end
 	
-	
-	for sTc  in love.filesystem.lines(conf.prjfld.."timecodes.txt")
-	do
-		addMsg(sTc)
+	local tcf=love.filesystem.getInfo(conf.prjfld.."timecodes.txt")
+	if tcf ~= nil then
+		for sTc  in love.filesystem.lines(conf.prjfld.."timecodes.txt")
+		do
+			addMsg(sTc)
+			addMsg(string.byte(sTc,1,3))
+			addMsg(string.sub(sTc,1,3))
+			local frmNum=tonumber(string.sub(sTc,1,3))
+			addMsg(string.sub(sTc,5,7))
+			local frmTc=tonumber(string.sub(sTc,5,7))
+			--TODO be careful zazanim has different indexes
+			frames[frmNum].tc=frmTc
+			
+		end
 	end
-	
 	initCanvases(currentIdx)
 	
 	-- mybrush=love.graphics.newImage(createBrushID(16))
