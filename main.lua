@@ -134,7 +134,7 @@ function love.load()
 	-- end
 	
 	maxframe=0
-	local i = 1
+	local i = 0
 	currentName=string.format("%03d",i)..".png"
 	print("attempting load "..currentName)
 	cur=love.filesystem.getInfo(conf.prjfld..currentName)
@@ -150,21 +150,10 @@ function love.load()
 		cur=love.filesystem.getInfo(conf.prjfld..currentName)
     end
 	
-	local tcf=love.filesystem.getInfo(conf.prjfld.."timecodes.txt")
-	if tcf ~= nil then
-		for sTc  in love.filesystem.lines(conf.prjfld.."timecodes.txt")
-		do
-			addMsg(sTc)
-			addMsg(string.byte(sTc,1,3))
-			addMsg(string.sub(sTc,1,3))
-			local frmNum=tonumber(string.sub(sTc,1,3))
-			addMsg(string.sub(sTc,5,7))
-			local frmTc=tonumber(string.sub(sTc,5,7))
-			--TODO be careful zazanim has different indexes
-			frames[frmNum].tc=frmTc
-			
-		end
-	end
+	
+	
+	loadTxtCodes()
+	
 	initCanvases(currentIdx)
 	
 	-- mybrush=love.graphics.newImage(createBrushID(16))
