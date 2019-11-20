@@ -1,6 +1,8 @@
 --BIG PERFORMANCE PB
 -- try to revert to love 11.1
+-- pb only with custom built love 11.3
 
+-- init of save directory : might not create if folder exists in prj folder
 
 --zaz2nim
 ---- parameterize project canvas size ( 640 480 , 1920 1080 ) in config file of project 

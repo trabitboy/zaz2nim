@@ -11,11 +11,11 @@ function loadFrames()
 		-- end
 	-- end
 
-	for i=1,3,1
-	do
-		name=string.format("%03d",i)
-		table.insert(frames,loadfilter(conf.prjfld..name..".png"))	
-	end
+	-- for i=1,3,1
+	-- do
+		-- name=string.format("%03d",i)
+		-- table.insert(frames,loadfilter(conf.prjfld..name..".png"))	
+	-- end
 	
 end
 
@@ -25,7 +25,8 @@ function saveFrames()
 		--we need to copy current frame from rtex cvs
 		saveCanvasToFrame(currentIdx)
 	end
-
+	--dbg
+	love.filesystem.createDirectory('tst')
 
 	--we need to check if save folder structure exist ( if new project loaded from read only template )
 	folders=mysplit(conf.prjfld,"/")
