@@ -26,6 +26,22 @@ function saveFrames()
 		saveCanvasToFrame(currentIdx)
 	end
 
+
+	--we need to check if save folder structure exist ( if new project loaded from read only template )
+	folders=mysplit(conf.prjfld,"/")
+	local prefix=""
+	for i,fld in ipairs(folders )
+	do
+		
+		info=love.filesystem.getInfo(prefix..fld)
+		if info == nil then
+			love.filesystem.createDirectory(prefix..fld)
+		end
+		
+		prefix=prefix..fld.."/" -- done here so that first exec doesn't prepend /
+		addMsg(prefix)
+	end
+
 	for i,f in ipairs(frames)
 	do
 		name=string.format("%03d",i)
