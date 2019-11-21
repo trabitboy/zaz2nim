@@ -1,6 +1,7 @@
 conf= {}
 conf.cvsw=1920
 conf.cvsh=1080
+conf.template='hd/template.png'
 uiw=1920
 uih=conf.cvsh
 conf.prjfld="project/hd/"

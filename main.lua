@@ -155,7 +155,11 @@ function love.load()
 		i = i + 1
 		currentName=string.format("%03d",i)..".png"
 		print("attempting load "..currentName)
-		cur=love.filesystem.getInfo(conf.prjfld..currentName)
+		cur=love.filesystem.getInfo(conf.prjfld..currentName) 
+		if i<4 and cur==nil then
+			--TODO load template and put in cur
+			
+		end
     end
 	
 	local tcf=love.filesystem.getInfo(conf.prjfld.."timecodes.txt")
