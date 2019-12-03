@@ -1,3 +1,7 @@
+--if the loaded frame is 
+function templateFilter()
+	
+end
 
 
 function loadFrames()
