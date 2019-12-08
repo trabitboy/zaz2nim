@@ -1,6 +1,8 @@
 --BIG PERFORMANCE PB
 -- try to revert to love 11.1
 -- pb only with custom built love 11.3
+-- is a build problem on android, works fine with 11.3 from love2d website
+
 
 -- init of save directory : might not create if folder exists in prj folder
 -- use io read io write?
@@ -145,22 +147,31 @@ function love.load()
 	maxframe=0
 	--frames are 0 based for zazanim compatibility ( tcs, etc )
 	local i = 0
-	currentName=string.format("%03d",i)..".png"
+	currentName=conf.prjfld..string.format("%03d",i)..".png"
 	print("attempting load "..currentName)
-	cur=love.filesystem.getInfo(conf.prjfld..currentName)
+	cur=love.filesystem.getInfo(currentName)
+	if cur==nil then
+		print('loading from template '..conf.template)
+		cur=love.filesystem.getInfo(conf.template)
+		print('tmpl ')
+		print(cur)
+		currentName=conf.template
+	end
+	
     while cur do
-		frameTable =loadfilter(conf.prjfld..currentName)
+		frameTable =loadfilter(currentName)
 		--please note we will add other metadatas in frameTable, such as time code and optional sound
 		--we are here because cur is not nil
 		table.insert(frames,frameTable)
 		maxframe=i
 		i = i + 1
-		currentName=string.format("%03d",i)..".png"
+		currentName=conf.prjfld..string.format("%03d",i)..".png"
 		print("attempting load "..currentName)
-		cur=love.filesystem.getInfo(conf.prjfld..currentName) 
+		cur=love.filesystem.getInfo(currentName) 
 		if i<4 and cur==nil then
 			--TODO load template and put in cur
-			
+			cur=love.filesystem.getInfo(conf.template)
+			currentName=conf.template
 		end
     end
 	

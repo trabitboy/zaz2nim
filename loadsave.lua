@@ -30,15 +30,17 @@ function saveFrames()
 		saveCanvasToFrame(currentIdx)
 	end
 	--dbg
-	love.filesystem.createDirectory('tst')
+	-- love.filesystem.createDirectory('tst')
 
 	--we need to check if save folder structure exist ( if new project loaded from read only template )
 	folders=mysplit(conf.prjfld,"/")
 	local prefix=""
 	for i,fld in ipairs(folders )
 	do
-		
+		print(fld)
+		print(prefix..fld)
 		info=love.filesystem.getInfo(prefix..fld)
+		print(info)
 		if info == nil then
 			love.filesystem.createDirectory(prefix..fld)
 		end
