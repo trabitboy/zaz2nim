@@ -25,6 +25,8 @@ end
 
 function addMsg(t)
 	table.insert(msg,t)
-	--if max_msg<= 
+	if max_msg<=tbllngth(msg) then
+		table.remove(msg,max_msg+1)	
+	end
 
 end
