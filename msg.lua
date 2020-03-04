@@ -1,3 +1,5 @@
+maxMsg=10
+
 mx=0
 my=0
 
@@ -23,5 +25,6 @@ end
 
 function addMsg(t)
 	table.insert(msg,t)
+	--if max_msg<= 
 
 end
