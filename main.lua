@@ -1,7 +1,8 @@
 --BIG PERFORMANCE PB
--- try to revert to love 11.1
--- pb only with custom built love 11.3
--- is a build problem on android, works fine with 11.3 from love2d website
+-- love 11.1, 11.3, pre-build or not
+-- try to see if events not flushed ? ( paint )
+-- log paint speed ? ( blit ) display speed?
+-- see if log lines not flushed might end up slowing down everything
 
 
 -- init of save directory : might not create if folder exists in prj folder
