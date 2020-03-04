@@ -103,7 +103,7 @@ require('sdconf')
 
 require('shaders')
 require('interpolateLine')
-
+require('tblutil')
 require('loadfilter')
 require('touch')
 require('loadsave')
