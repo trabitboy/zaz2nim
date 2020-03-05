@@ -54,6 +54,7 @@ function saveFrames()
 		name=string.format("%03d",i)
 		f.data:encode("png",conf.prjfld..name..".png")
 	end
+	saveTxtCodes()
 	addMsg('after save')
 
 end
