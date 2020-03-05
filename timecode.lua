@@ -23,9 +23,14 @@ local tcf=love.filesystem.getInfo(conf.prjfld.."timecodes.txt")
 end
 
 function saveTxtCodes()
---TODO save zzn txt codes for interop
-
-
+-- save zzn txt codes for interop
+-- first frame 001:0tc ( 3 chars tc )
+	timecodestring=""
+	for i=1,maxframe 
+	do
+		timecodestring=timecodestring..string.format("%03d",i)..":"..string.format("%03d",frames[i].tc).."\n"
+	end
+	love.filesystem.write(conf.prjfld.."timecodes.txt",timecodestring)
 end
 
 
