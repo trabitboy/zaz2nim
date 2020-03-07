@@ -1,8 +1,3 @@
---BIG PERFORMANCE PB
--- love 11.1, 11.3, pre-build or not
--- try to see if events not flushed ? ( paint )
--- log paint speed ? ( blit ) display speed?
--- see if log lines not flushed might end up slowing down everything
 
 
 -- init of save directory : might not create if folder exists in prj folder
