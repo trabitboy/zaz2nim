@@ -176,22 +176,6 @@ function love.load()
 		end
     end
 	
-	local tcf=love.filesystem.getInfo(conf.prjfld.."timecodes.txt")
-	if tcf ~= nil then
-		for sTc  in love.filesystem.lines(conf.prjfld.."timecodes.txt")
-		do
-			addMsg(sTc)
-			addMsg(string.byte(sTc,1,3))
-			addMsg(string.sub(sTc,1,3))
-			local frmNum=tonumber(string.sub(sTc,1,3))
-			addMsg(string.sub(sTc,5,7))
-			local frmTc=tonumber(string.sub(sTc,5,7))
-			--TODO be careful zazanim has different indexes
-      --funnily index crashes on win32?
-			frames[frmNum].tc=frmTc
-			
-		end
-	end
 	
 	
 	loadTxtCodes()

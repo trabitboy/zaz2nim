@@ -4,6 +4,9 @@ realCQuad=love.graphics.newQuad(clockQuad.x,clockQuad.y,clockQuad.w,clockQuad.h,
 
 --utility
 function loadTxtCodes()
+
+
+
 --TODO load zazanim style tcs ( for interop )
 local tcf=love.filesystem.getInfo(conf.prjfld.."timecodes.txt")
 	if tcf ~= nil then
