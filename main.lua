@@ -12,7 +12,8 @@
 
 -- screen scalling incorrectonandroid
 --simpletouchwithout dragdoesn'twork dotimpossible
--- DONE flickmode
+-- WIP flickmode
+-- should stopped on flicked frame
 -- TODO script to migrate zazanim project
 --TODO time code screen
 -- TODO copy range
