@@ -110,9 +110,17 @@ end
 function timeCodeUpdate()
 	 if npress==true then
 	    print('tc click')
-	    consumeClick(widgets)
+	    consumed=consumeClick(widgets)
 
+	    if consumed then return end
 
+	    --we calculate the timecode 
+	    local xtc=math.floor(npx/64)	    
+	    local ytc=math.floor(npy/64)
+	    local tmp=(ytc*uiw/64 -1 )+xtc
+	    frames[currentIdx].tc = tmp
+	    
+	    npress=false
 	 end
 		-- if(polled.newpress){
 			-- if( 

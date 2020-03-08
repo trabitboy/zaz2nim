@@ -98,7 +98,7 @@ function updateSettings()
 			brshradius=npy/uih * brshMaxRad
 			mybrush=love.graphics.newImage(roundBrushWithAlpha(	brshradius,0.0,0.0,0.0))
 			mybrush:setFilter('nearest','nearest')
-				
+			npress=false				
 		else
 
 			consumeClick(widgets)
