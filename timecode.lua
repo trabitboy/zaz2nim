@@ -1,14 +1,30 @@
 local clockQuad = {x=64, y=64, w=64, h=64}
 realCQuad=love.graphics.newQuad(clockQuad.x,clockQuad.y,clockQuad.w,clockQuad.h,buttonsPic:getWidth(),buttonsPic:getHeight())
 
+local exitQuad = {x=64, y=17*64, w=64, h=64}
+realExitQuad=love.graphics.newQuad(clockQuad.x,clockQuad.y,clockQuad.w,clockQuad.h,buttonsPic:getWidth(),buttonsPic:getHeight())
+
+
+
+function exitTC()
+	 print('exit tc ')
+	 toPaintMode()
+end
+
+wExitTc = createpicbutton(uiw-64,0,buttonsPic,exitTC,exitQuad)
+
+local widgets={}
+table.insert(widgets,wExitTc)
+
+
 
 --utility
 function loadTxtCodes()
 
 
 
---TODO load zazanim style tcs ( for interop )
-local tcf=love.filesystem.getInfo(conf.prjfld.."timecodes.txt")
+	 --TODO load zazanim style tcs ( for interop )
+       local tcf=love.filesystem.getInfo(conf.prjfld.."timecodes.txt")
 	if tcf ~= nil then
 		for sTc  in love.filesystem.lines(conf.prjfld.."timecodes.txt")
 		do
@@ -46,7 +62,9 @@ end
 
 
 function timeCodeDraw()
-		-- //'frames"  row
+	 renderWidgets(widgets)
+
+	 -- //'frames"  row
 		-- int maxcol;
 		
 		-- //should be define
@@ -90,6 +108,12 @@ function timeCodeDraw()
 end
 
 function timeCodeUpdate()
+	 if npress==true then
+	    print('tc click')
+	    consumeClick(widgets)
+
+
+	 end
 		-- if(polled.newpress){
 			-- if( 
 				-- polled.x < (TC_CANCEL_UL_X+BTN_BASE_W)
