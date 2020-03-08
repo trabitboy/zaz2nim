@@ -10,6 +10,8 @@ function toPlayback()
 	updateFunc=updatePlayback
 	npress=false
 	cyclecount=0
+	--we use it to throttle longer frames
+	elapsedTc=0
 end
 
 
@@ -75,7 +77,12 @@ function updatePlayback()
 	cyclecount=cyclecount+1
 	if cyclecount>cycles then
 		cyclecount=0
-		currentIdx=currentIdx+1
+		elapsedTc=elapsedTc+1
+
+		if elapsedTc>=frames[currentIdx].tc then
+			currentIdx=currentIdx+1
+			elapsedTc=0
+		end
 	end
 	
 	
