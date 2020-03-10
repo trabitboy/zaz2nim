@@ -12,7 +12,10 @@ end
 
 
 function flickRelease()
-	toPaintMode()
+-- for some reason this corrupts frame !!
+-- seems to copy initial on target
+--	 currentIdx=tgt
+	 toPaintMode()
 
 end
 
@@ -72,14 +75,6 @@ function updateFlick()
 -- mouse drag is redefinted, it gives us a coordinate
 
 
--- c version to port
-
-		-- // //WIP we determine offset from the right 
-		-- int offset;
-		-- int flx=polled.x;
-	-- flx=np.x
-
-	-- flx=
 	
 	
 	if leftmode == true then
@@ -92,16 +87,6 @@ function updateFlick()
 	nbslot=math.floor(offset/slotwidth)
 	addMsg('nbslot '..nbslot)
 	
-		-- if(leftMode ){
-			-- offset=flx;
-		-- }else{
-			-- offset = SCRWDTH-flx;
-		-- }
-		-- int slotwidth= SCRWDTH/NB_FLICK ;
-		-- //screen represents NB_FLICK slots ( last to the right is current )
-		-- int nbslot= offset/slotwidth;
-	
-		-- int tgt;
 		
 	if leftmode ==true then
 		tgt= flickNb+nbslot
@@ -115,32 +100,5 @@ function updateFlick()
 		addMsg('tgt = maxframe')
 	end
 		
-		-- LOGD("flx %d offset %d nb slot %d  computed tgt %d\n",flx,offset,nbslot,tgt);
-		-- // LOGD("computed tgt %d\n",tgt);
 
-		-- //is it too slow to do it all the time ?
-		-- setEditSlot(tgt);
-		-- nb_edit_slot=tgt;
-
-	--we need to track mouse up 
-
-	
-	-- cyclecount=cyclecount+1
-	-- if cyclecount>cycles then
-		-- cyclecount=0
-		-- currentIdx=currentIdx+1
-	-- end
-	
-	
-	-- if currentIdx>=maxframe then
-		-- currentIdx=1
-		-- toPaintMode()
-		-- return
-	-- end
-
-
-	
-	-- if npress==true and npx<64 and npy<64 then
-			-- toPaintMode()
-	-- end
 end

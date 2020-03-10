@@ -4,6 +4,14 @@ function calculateTraj(x1,y1,x2,y2)
 
 	ret={}
 
+	--try to floor values, and to blit even if offset  <1
+	-- this solves holes in painting when canvas is zoomed ( bigger window )
+	x1=math.floor(x1)
+	x2=math.floor(x2)
+	y1=math.floor(y1)
+	y2=math.floor(y2)
+
+
 	-- if( (x1==-1 && y1==-1)
 		-- ||( INTERPOLATE == false )
 	-- )  {

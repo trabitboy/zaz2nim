@@ -1,11 +1,7 @@
 
-
--- for some reason on linux,
--- drawing with finger is ok,
--- drawing with stylus is jerky JUST when window is resized from dflt
--- diagnostic : painting is ok if offset dx dy > 1 , speed needs to be sufficient
--- 	      what must happen in the dragpaint is that a floor or a precision loss blits nothing is offset less than 1 , maybe keep memory of offset ?
--- (keep value < 1 ?)
+-- WIP flickmode
+-- should stopped on flicked frame
+-- BUG for some reason if updating current idx, initial is copied on target !
 
 
 -- background different from clear color to see canvas boundaries
@@ -30,8 +26,6 @@
 
 -- screen scalling incorrectonandroid
 --simpletouchwithout dragdoesn'twork dotimpossible
--- WIP flickmode
--- should stopped on flicked frame
 -- TODO script to migrate zazanim project
 -- TODO copy range
 -- TODO zoom mode
