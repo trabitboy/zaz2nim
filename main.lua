@@ -1,5 +1,22 @@
 
 
+-- for some reason on linux,
+-- drawing with finger is ok,
+-- drawing with stylus is jerky JUST when window is resized from dflt
+-- diagnostic : painting is ok if offset dx dy > 1 , speed needs to be sufficient
+-- 	      what must happen in the dragpaint is that a floor or a precision loss blits nothing is offset less than 1 , maybe keep memory of offset ?
+-- (keep value < 1 ?)
+
+
+-- background different from clear color to see canvas boundaries
+-- TODO render the light table to a separate canvas,
+-- so we can blit a white bg square behind
+
+
+-- toggle display of eraser button
+--calculate offset related to ui cvs and screen size
+
+
 -- init of save directory : might not create if folder exists in prj folder
 -- use io read io write?
 
@@ -10,12 +27,12 @@
 -- insert perf logs
 -- palette bug > only some colors can be picked
 
+
 -- screen scalling incorrectonandroid
 --simpletouchwithout dragdoesn'twork dotimpossible
 -- WIP flickmode
 -- should stopped on flicked frame
 -- TODO script to migrate zazanim project
---TODO time code screen
 -- TODO copy range
 -- TODO zoom mode
 -- TODO queue fill mode
@@ -27,7 +44,6 @@
 -- minimum for mobile:
 -- WIP settings screen with brush size
 -- auto folder creation for project on android
--- toggle display of eraser button
 --  scroll save TODO palette buttons
 -- WORKS copy frame
 -- test on android sd ( all devices )
@@ -36,7 +52,7 @@
 -- note 4 untested
 -- gtn 5110 untested
 -- lenovo a310 untested
--- NOTE 8 NOK GTN5110 NOK
+-- NOTE 8 NOK GTN5110 NOK > test again
 -- 		frames are destroyed when scrolling
 -- 		cvs save works in unit test on android
 --		try disabling display when downloading tex 

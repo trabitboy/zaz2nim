@@ -27,8 +27,6 @@ copySrc=nil
 disableDisplay=false
 
 
---ui canvas coordinates
-offsetcvs={x=200,y=0}
 
 function copyFrame()
 	copySrc=currentIdx
@@ -96,13 +94,15 @@ local wPrevFrame=createpicbutton(0,0,buttonsPic,prevFrame,prevQuad)
 
 local wSaveFrames=createpicbutton(uiw-64,uih-64,buttonsPic,saveFrames,saveQuad)
 
-local wToggleEraser=createpicbutton(0,320,buttonsPic,toggleEraser,eraserQuad)
 local wLeftFlick = createpicbutton(0,64,buttonsPic,toLeftFlick,lflickQuad)
 local wRightFlick = createpicbutton(uiw-64,64,buttonsPic,toRightFlick,rflickQuad)
 
-
+--TODO group widgets by place on screen
 
 local wSettings=createpicbutton(uiw-64,192,buttonsPic,toSettings,settingsQuad)
+
+--bottom left
+local wToggleEraser=createpicbutton(0,uih-192,buttonsPic,toggleEraser,eraserQuad)
 local wCopyFrame=createpicbutton(0,uih-128,buttonsPic,copyFrame,copyQuad)
 local wPasteFrame=createpicbutton(uiw-64,uih-128,buttonsPic,pasteFrame,pasteQuad)
 
@@ -155,19 +155,20 @@ end
 
 local function rendertouicanvas()
 	love.graphics.setCanvas(ui)
-	love.graphics.clear(1.0,1.0,1.0,0.0)
+-- TODO render the light table to a separate canvas,
+-- so we can blit a white bg square behind
 
---TODO haha compute indexes 
-
-	love.graphics.print('zaz2nim',0,0)
+-- this clear defines the base of the canvas, it is at the moment used
+-- by inksmooth shader 
+	love.graphics.clear(0.,0.,0.,.0)
 	
 	if currentIdx-1>0 then 
-		love.graphics.setColor(1.0,1.0,1.0,0.5)
+		love.graphics.setColor(1.0,1.0,1.0,0.2)
 		love.graphics.draw(frames[currentIdx-1].pic,offsetcvs.x,offsetcvs.y)
 	end
 
 	if frames[currentIdx+1] then 
-		love.graphics.setColor(1.0,1.0,1.0,0.5)
+		love.graphics.setColor(1.0,1.0,1.0,0.2)
 		love.graphics.draw(frames[currentIdx+1].pic,offsetcvs.x,offsetcvs.y)
 	end
 	
@@ -191,7 +192,7 @@ end
 --TODO REMOVE try disable display as workaround on android 
 function saveCanvasToFrame(idx)
 
-	disableDisplay=true
+--	disableDisplay=true
 
 	love.graphics.setCanvas()
 	fromGpu=cvs:newImageData()
@@ -203,7 +204,7 @@ function saveCanvasToFrame(idx)
 	frames[idx].data=fromGpu
 	frames[idx].pic=love.graphics.newImage(fromGpu)
 	
-	disableDisplay=false
+--	disableDisplay=false
 end
 
 function paintModeKey(key, code, isrepeat)
@@ -253,21 +254,23 @@ end
 
 
 function paintModeDraw()
-	if disableDisplay==true then
+--	if disableDisplay==true then
 		-- we skip display hoping not to disturb canvas save
-	else
+--	else
 		
 		rendertouicanvas()
 		-- love.graphics.setColor(0.5,0.5,0.5,1.0)
-		--this is the background image of our paint
+		--this is the background color of our paint
+		--pane is transparent
 		love.graphics.clear(1.,1.,1.,1.0)
+
 		love.graphics.setColor(1.0,1.0,1.0,1.0)
 		-- love.graphics.setShader(eraserShader)
 		love.graphics.draw(ui,0,0,0,scrsx,scrsy)
 		-- love.graphics.setShader()
 		--dbg
 		-- love.graphics.draw(buttonsPic,nextQuad,100,100)
-	end
+--	end
 end
 
 

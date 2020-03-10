@@ -6,8 +6,12 @@ npy=nil
 love.mousepressed = function(x, y, button)
 	print("new touch "..x.." "..y)
 	npress=true
-	npx=x/scrsx
-	npy=y/scrsy
+	--we floor coords,integer screen coords
+	--was posing pb with painting
+	npx=math.floor(x/scrsx)
+	npy=math.floor(y/scrsy)
+
+
 	print("mousepressed scaled "..npx.." "..npy)
 	
 	-- paint(npx,npy)
@@ -17,7 +21,15 @@ end
 love.mousemoved=function( x, y, dx, dy, istouch )
 	if registerdrag~=nil then
 			addMsg('calling drag callback')
-			registerdrag.drag(registerdrag,x/scrsx,y/scrsy,dx/scrsx,dy/scrsy)
+--			local tx=math.floor(x/scrsx)
+--			local ty=math.floor(y/scrsy)
+--			local tdx=math.floor(dx/scrsx)
+--			local tdy=math.floor(dy/scrsy)
+			local tx=(x/scrsx)
+			local ty=(y/scrsy)
+			local tdx=(dx/scrsx)
+			local tdy=(dy/scrsy)
+			registerdrag.drag(registerdrag,tx,ty,tdx,tdy)
 	end
 end
 

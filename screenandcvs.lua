@@ -46,7 +46,11 @@ addMsg(" dpi scl "..dpiScl)
  
  end
  
- 
+
+--ui canvas coordinates, should be centered and calculated when uiw uih calculated
+offsetcvs={x=200,y=0}
+
+
  -- scrsx=ww/conf.cvsw
  -- scrsy=wh/conf.cvsh
  
@@ -65,10 +69,10 @@ settings.dpiscale=1.0
 --this is where the whole ui is drawn before resize	
 
 --typo width height (pic size)
-tw=80
-th=200
+--tw=80
+--th=200
 --meaninful area in the middle (to trim empty space)
-rtw=(tw/2)
+--rtw=(tw/2)
 
 function love.resize( nw, nh )
 	local npw,nph=love.window.toPixels( nw, nh )
