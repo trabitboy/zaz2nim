@@ -193,7 +193,7 @@ end
 function saveCanvasToFrame(idx)
 
 --	disableDisplay=true
-
+	print('save cvs to frame '..idx)
 	love.graphics.setCanvas()
 	fromGpu=cvs:newImageData()
 	

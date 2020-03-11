@@ -14,7 +14,13 @@ end
 function flickRelease()
 -- for some reason this corrupts frame !!
 -- seems to copy initial on target
---	 currentIdx=tgt
+
+   	 --id setting and preparing cvs go together,
+	 --should be func
+   	 currentIdx=tgt
+	 print('new idx '..currentIdx)
+	initCanvases(currentIdx)
+
 	 toPaintMode()
 
 end
@@ -65,7 +71,7 @@ function drawFlick()
 		--this is the background image of our paint
 		love.graphics.clear(1.,1.,1.,1.0)
 		love.graphics.setColor(1.0,1.0,1.0,1.0)
-		love.graphics.draw(ui,0,0,0,scrsx,scrsy)	
+		love.graphics.draw(ui,offsetcvs.x,offsetcvs.y,0,scrsx,scrsy)	
 
 end
 
