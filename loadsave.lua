@@ -1,7 +1,3 @@
---if the loaded frame is 
-function templateFilter()
-	
-end
 
 
 function loadFrames()
@@ -25,6 +21,10 @@ end
 
 function saveFrames()
 	addMsg('before save')
+
+	print(' target save directory : '..love.filesystem.getSaveDirectory())
+
+
 	if dirtycvs==true then
 		--we need to copy current frame from rtex cvs
 		saveCanvasToFrame(currentIdx)
@@ -38,11 +38,14 @@ function saveFrames()
 	for i,fld in ipairs(folders )
 	do
 		print(fld)
-		print(prefix..fld)
+		print("checking existence of "..prefix..fld)
 		info=love.filesystem.getInfo(prefix..fld)
 		print(info)
 		if info == nil then
 			love.filesystem.createDirectory(prefix..fld)
+		else
+			print ('folder exists')
+			
 		end
 		
 		prefix=prefix..fld.."/" -- done here so that first exec doesn't prepend /

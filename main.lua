@@ -1,16 +1,16 @@
 
--- WIP flickmode
--- should stopped on flicked frame
--- BUG for some reason if updating current idx, initial is copied on target !
-
+-- buttons should have same placement and size in hd and sd mode
 
 -- background different from clear color to see canvas boundaries
 -- TODO render the light table to a separate canvas,
 -- so we can blit a white bg square behind
 
+--calculate offset related to ui cvs and screen size
+
+--notion of ink color ( multiples ? )
+--paint under mode
 
 -- toggle display of eraser button
---calculate offset related to ui cvs and screen size
 
 
 -- init of save directory : might not create if folder exists in prj folder
@@ -20,6 +20,12 @@
 --zaz2nim
 ---- parameterize project canvas size ( 640 480 , 1920 1080 ) in config file of project 
 -- require of config works
+
+
+
+
+
+
 -- insert perf logs
 -- palette bug > only some colors can be picked
 
@@ -104,8 +110,8 @@ require('widgetutils')
 require('msg')
 
 require('picbutton')
--- require('hdconf')
-require('sdconf')
+require('hdconf')
+--require('sdconf')
 
 require('shaders')
 require('interpolateLine')
@@ -136,20 +142,11 @@ require('brush')
 
 renderdecos=true
 
+
 --project structure
 	frames={}
 --end project globals
 function love.load()
-	--incorrect because the files are not ordered
-	-- files=love.filesystem.getDirectoryItems(prjfld)
-	-- for i,f in ipairs(files)
-	-- do
-		-- suffix=f:sub(f:len()-3,f:len())
-		-- print(f..' '..suffix)
-		-- if suffix==".png" then
-			-- table.insert(frames,loadfilter(prjfld..f))
-		-- end
-	-- end
 	
 	maxframe=0
 	--frames are 0 based for zazanim compatibility ( tcs, etc )
