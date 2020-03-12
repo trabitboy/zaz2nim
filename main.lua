@@ -1,4 +1,15 @@
 
+--select and move area ( brush 'a la ms paint ' )
+
+--pick color tool
+
+-- menu system for opening different projects based on available templates
+-- concept : locked on a project, current project is saved,
+-- but you can change project or create new with template
+
+
+-- computer gets super hot in HD mode: try to not render screen if no change
+
 -- buttons should have same placement and size in hd and sd mode
 
 -- background different from clear color to see canvas boundaries
@@ -9,6 +20,8 @@
 
 --notion of ink color ( multiples ? )
 --paint under mode
+--fill mode
+--clean a single color mode
 
 -- toggle display of eraser button
 
@@ -112,6 +125,7 @@ require('msg')
 require('picbutton')
 require('hdconf')
 --require('sdconf')
+require('seqselection')
 
 require('shaders')
 require('interpolateLine')

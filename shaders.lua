@@ -20,7 +20,7 @@ function createInkShader()
 	  vec4 down= Texel(texture, texture_coords+voffset );
 	  vec4 up= Texel(texture, texture_coords-voffset );
 
-	   vec4 aa= color *(0.8*pixel + 0.2*ink);
+	   vec4 aa= color *(0.8*pixel + 0.1*ink);
 	   //for debug
 	   //vec4 aa=vec4(0.0,0.0,1.0,1.0);
 	  

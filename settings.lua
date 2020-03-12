@@ -10,7 +10,7 @@ local clockQuad = {x=64, y=64, w=64, h=64}
 cursorQuad = {x=0, y=0, w=64, h=64}
 playQuad={x=0, y=4*64, w=64, h=64}
 paletteQuad={x=64, y=6*64, w=64, h=64}
-pickerQuad={x=64, y=15*64, w=64, h=64}
+pickerQuad={x=0, y=15*64, w=64, h=64}
 
 
 
@@ -95,9 +95,16 @@ function updateSettings()
 	
 	if npress==true then
 		if npx<brshLineWidth then
-			brshradius=npy/uih * brshMaxRad
-			mybrush=love.graphics.newImage(roundBrushWithAlpha(	brshradius,0.0,0.0,0.0))
-			mybrush:setFilter('nearest','nearest')
+			
+
+			potradius=math.floor(npy/uih * brshMaxRad)
+			if potradius>1 then
+			   brshradius=potradius   
+			   mybrush=love.graphics.newImage(roundBrushWithAlpha(	brshradius,0.0,0.0,0.0))
+			   mybrush:setFilter('nearest','nearest')
+			else
+				print('brsh less than 1 impossible')
+			end
 			npress=false				
 		else
 

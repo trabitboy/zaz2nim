@@ -4,6 +4,5 @@ conf.cvsh=1080
 conf.template='template/hd/template.png'
 uiw=1920
 uih=conf.cvsh
-conf.prjfld="project/hd/"
 -- prjfld="project/sd/"
 brshradius=8
