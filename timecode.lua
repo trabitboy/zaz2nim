@@ -7,7 +7,7 @@ realExitQuad=love.graphics.newQuad(clockQuad.x,clockQuad.y,clockQuad.w,clockQuad
 
 
 function exitTC()
-	 print('exit tc ')
+	 print('exit tc '..frames[currentIdx].tc)
 	 toPaintMode()
 end
 
@@ -54,6 +54,7 @@ end
 
 
 function toTimeCode()
+	print ('initial time code '..frames[currentIdx].tc )
 	drawFunc=timeCodeDraw
 	updateFunc=timeCodeUpdate
 
@@ -61,117 +62,64 @@ end
 
 
 
-function timeCodeDraw()
-	 renderWidgets(widgets)
+local function rendertouicanvas()
+	love.graphics.setCanvas(ui)
+	love.graphics.clear(1.0,1.0,1.0,0.0)
 
-	 -- //'frames"  row
-		-- int maxcol;
-		
-		-- //should be define
-		maxcol=(uiw-64) / ( 64 );
-		
-		-- int i,col,row;
-		-- col=0;row=0;
-		col=0
-		row=0
-		-- for(i=0;i<timecode;i++){
-		for i=1,frames[currentIdx].tc 
-		do
-			love.graphics.draw(buttonsPic,realCQuad,col*64,row*64) 
-			
-		   -- clipRect.x = TOFF_TCODE_X;
-		   -- clipRect.y = TOFF_TCODE_Y;
-		   -- clipRect.w = 64;
-		   -- clipRect.h = 64;
-			-- dispRect.x=TC_CLICK_UL_X+(BTN_BASE_W/2)*col;
-			-- dispRect.y=TC_CLICK_UL_Y+(BTN_BASE_W/2)*row;
-			-- dispRect.w=BTN_BASE_W/2;
-			-- dispRect.h=BTN_BASE_W/2;
+	
+	renderWidgets(widgets)
 
-			-- SDL_RenderCopy(renderer,
-			-- buttons, 
-			-- &clipRect,
-			-- &dispRect
-			-- );
-				
-			-- col++;
-			col=col+1
-			-- //if we are further than max col,
-			-- // we need to go below
-			if col>=(maxcol-1)then
-				col=0
-				row=row+1
-			end
-			
-		-- }
+-- //should be define
+	maxcol=(uiw-64) / ( 64 );
+		
+	col=0
+	row=0
+
+	for i=1,frames[currentIdx].tc 
+	do
+		love.graphics.draw(buttonsPic,realCQuad,col*64,row*64) 
+		col=col+1	
+		if col>=(maxcol-1) then
+			col=0
+			row=row+1
 		end
+	end
+		
+	msgToCvs()
+	
+	love.graphics.setCanvas()
 end
+
+
+function timeCodeDraw()
+		rendertouicanvas()
+		--this is the background image of our paint
+		love.graphics.clear(1.,1.,1.,1.0)
+		love.graphics.setColor(1.0,1.0,1.0,1.0)
+		love.graphics.draw(ui,0,0,0,scrsx,scrsy)	
+		
+end
+
+
 
 function timeCodeUpdate()
 	 if npress==true then
 	    print('tc click')
 	    consumed=consumeClick(widgets)
-
-	    if consumed then return end
+	    print('consumed '..tostring(consumed))
+	    if consumed==true
+	    then
+		return
+	    end
 
 	    --we calculate the timecode 
 	    local xtc=math.floor(npx/64)	    
 	    local ytc=math.floor(npy/64)
 	    local tmp=(ytc*uiw/64 -1 )+xtc
+	    print('updating tc '..tmp)
 	    frames[currentIdx].tc = tmp
 	    
 	    npress=false
 	 end
-		-- if(polled.newpress){
-			-- if( 
-				-- polled.x < (TC_CANCEL_UL_X+BTN_BASE_W)
-				-- && polled.x > TC_CANCEL_UL_X
-				-- &&	polled.y < (TC_CANCEL_UL_Y+BTN_BASE_W)
-				-- && polled.y > TC_CANCEL_UL_Y
-			   
-			-- ){
-				-- project[nb_edit_slot].timecode=timecode;
-				-- //DEBUG going bac to settings for the mo
-				-- mode=settings;
-				-- return;
-			-- }else
-			-- if( 
-				-- polled.x < (TC_MULTIPLE_UL_X+BTN_BASE_W)
-				-- && polled.x > TC_MULTIPLE_UL_X
-				-- &&	polled.y < (TC_MULTIPLE_UL_Y+BTN_BASE_W)
-				-- && polled.y > TC_MULTIPLE_UL_Y
-			   
-			-- ){
-				-- int i;
-				-- for( i=cb;i<=ce;i++){
-					-- project[i].timecode=timecode;
-				-- }
-				-- //DEBUG going bac to settings for the mo
-				-- mode=settings;
-				-- return;
-			-- // }else
-			-- // if( 
-				-- // polled.x < (TC_DEFAULT_UL_X+BTN_BASE_W)
-				-- // && polled.x > TC_DEFAULT_UL_X
-				-- // &&	polled.y < (TC_DEFAULT_UL_Y+BTN_BASE_W)
-				-- // && polled.y > TC_DEFAULT_UL_Y			   
-			-- // ){
-				-- // //TODO put back default
-			-- }else if(
-				-- polled.x < (TC_CLICK_UL_X+TC_CLICK_W)
-				-- && polled.x > TC_CLICK_UL_X
-			-- ){
-				-- //compute row and col of the click to set tc
-				-- Uint16 tx=polled.x - TC_CLICK_UL_X;
-				-- Uint16 ty=polled.y - TC_CLICK_UL_Y;
-				-- Uint16 computedCol= tx / (BTN_BASE_W/2);
-				-- Uint16 computedRow= ty / (BTN_BASE_W/2);
-				-- Uint16 computedTC=computedCol+computedRow*maxcol;
-				-- LOGD("computed click TC %d \n",computedTC);
-				-- timecode=computedTC;
-				-- //project[nb_edit_slot].timecode=computedTC;
-			-- }
-				
-		-- }
 
 end

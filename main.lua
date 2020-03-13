@@ -1,3 +1,6 @@
+--timecode mode ; exit button not reachable on right in hd
+-- WIP now scalin ok but pb on timecode save
+-- add display of tc on main screen ( text )
 
 --select and move area ( brush 'a la ms paint ' )
 

@@ -181,18 +181,21 @@ local function rendertouicanvas()
 	love.graphics.draw(mybrush,0,0)
 
 	renderWidgets(widgets)
+
+	love.graphics.setColor(1.0,0.0,0.0,1.0)
 	
+	love.graphics.print('tc '..frames[currentIdx].tc,200,0)
+
+	love.graphics.setColor(1.0,1.0,1.0,1.0)
+
 	msgToCvs()
-	
 	
 	love.graphics.setCanvas()
 
 end
 
---TODO REMOVE try disable display as workaround on android 
 function saveCanvasToFrame(idx)
 
---	disableDisplay=true
 	print('save cvs to frame '..idx)
 	love.graphics.setCanvas()
 	fromGpu=cvs:newImageData()
@@ -204,14 +207,11 @@ function saveCanvasToFrame(idx)
 	frames[idx].data=fromGpu
 	frames[idx].pic=love.graphics.newImage(fromGpu)
 	
---	disableDisplay=false
 end
 
 function paintModeKey(key, code, isrepeat)
 	--simple debug for poc
 	if key=="f1" then
-		-- toSave=cvs:newImageData()
-		-- toSave:encode("png","mycvs.png")
 		addMsg('begin save')
 		saveFrames()
 		addMsg('save finished')		
@@ -222,30 +222,10 @@ function paintModeKey(key, code, isrepeat)
 	end
 
 	if key=="left" then
-		-- if currentIdx>1 then
-			-- addMsg("previous")
-			
-			-- --save canvas to frame
-			-- saveCanvasToFrame(currentIdx)
-			
-			-- currentIdx=currentIdx-1
-			-- print("frame down")
-			-- initCanvases(currentIdx)
-		-- end
 		prevFrame()
 	end
 	
 	if key=="right" then
-		-- if currentIdx<maxframe then
-			-- addMsg("next")
-			
-			-- --save canvas to frame
-			-- saveCanvasToFrame(currentIdx)
-
-			-- currentIdx=currentIdx+1
-			-- print("frame up")
-			-- initCanvases(currentIdx)
-		-- end
 		nextFrame()
 	end
 	
@@ -254,23 +234,13 @@ end
 
 
 function paintModeDraw()
---	if disableDisplay==true then
-		-- we skip display hoping not to disturb canvas save
---	else
 		
 		rendertouicanvas()
-		-- love.graphics.setColor(0.5,0.5,0.5,1.0)
-		--this is the background color of our paint
 		--pane is transparent
 		love.graphics.clear(1.,1.,1.,1.0)
 
 		love.graphics.setColor(1.0,1.0,1.0,1.0)
-		-- love.graphics.setShader(eraserShader)
 		love.graphics.draw(ui,0,0,0,scrsx,scrsy)
-		-- love.graphics.setShader()
-		--dbg
-		-- love.graphics.draw(buttonsPic,nextQuad,100,100)
---	end
 end
 
 

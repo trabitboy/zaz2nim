@@ -7,14 +7,16 @@ function renderWidgets(locals)
 end
 
 
+--returns true if click consumed
 function consumeClick( widgets)
 		for i,w in ipairs (widgets)
 		do
 			ret=w.click(w,npx,npy)
 			if ret==true then
 				npress=false
-				break
+				return true
 			end
 
 		end
+		return false
 end
