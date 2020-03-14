@@ -37,7 +37,9 @@ function paletteModeKey(key, code, isrepeat)
 end
 
 function toPaletteMode()
-	keyFunc = paletteModeKey
+	saveCanvasToFrame(currentIdx)
+
+	 keyFunc = paletteModeKey
 	drawFunc=paletteModeDraw
 	updateFunc=paletteModeUpdate
 
