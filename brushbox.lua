@@ -4,13 +4,13 @@
 
 
 
--- the box which has the focus (only one ) for text andbutton interqctions
+-- the box which has the focus (only one ) for text andbutton interactions
 boxfocus=nil
 
 hdlw=32
 hdlh=32
 
-dfltzoom =1.0
+local dfltzoom =1.0
 
 
 
@@ -104,15 +104,15 @@ local function tbrender(b)
 		-- b.text.render(b.text,b.x,b.y)
 		love.graphics.setColor(0.0,0.0,1.0,1.0)
 		love.graphics.setLineWidth(1)
-		love.graphics.line(0,b.y,cvsw,b.y)
-		love.graphics.line(0,b.y+b.h,cvsw,b.y+b.h)
-		love.graphics.line(b.x,0,b.x,cvsh)
-		love.graphics.line(b.x+b.w,0,b.x+b.w,cvsh)
+--		love.graphics.line(0,b.y,cvsw,b.y)
+--		love.graphics.line(0,b.y+b.h,cvsw,b.y+b.h)
+--		love.graphics.line(b.x,0,b.x,cvsh)
+--		love.graphics.line(b.x+b.w,0,b.x+b.w,cvsh)
 		--for justify center
 		love.graphics.line(b.x+b.w/2,b.y,b.x+b.w/2,b.y+b.h)
 	
 		love.graphics.setColor(1.0,1.0,1.0,1.0)
-		love.graphics.print(b.id,b.x-hdlw,b.y-hdlh)
+--		love.graphics.print(b.id,b.x-hdlw,b.y-hdlh)
 	end
 	
 	love.graphics.setColor(1.0,1.0,1.0,1.0)

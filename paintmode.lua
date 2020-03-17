@@ -1,5 +1,9 @@
 eraseMode = false -- FOR DEBUG
 
+--dirtyDisplay
+-- idea : render to a temp canvas,
+-- do this whole render only when screen changes
+-- ( paint , etc ) because x230t gets pretty hot in hd
 
 local widgets={}
 

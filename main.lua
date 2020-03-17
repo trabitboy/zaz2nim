@@ -1,20 +1,13 @@
---BUG lost pick on palette sel, probably canvas not saved when going to pal
+-- WIP computer gets super hot in HD mode: try to not render screen if no change
+-- keep display dirty flag 
 
-
---timecode mode ; exit button not reachable on right in hd
--- WIP now scalin ok but pb on timecode save
--- add display of tc on main screen ( text )
-
---select and move area ( brush 'a la ms paint ' )
-
---pick color tool
+--WIP select and move area ( brush 'a la ms paint ' )
 
 -- menu system for opening different projects based on available templates
 -- concept : locked on a project, current project is saved,
 -- but you can change project or create new with template
+-- needs refactor of load and reinit of some parts
 
-
--- computer gets super hot in HD mode: try to not render screen if no change
 
 -- buttons should have same placement and size in hd and sd mode
 
@@ -144,10 +137,10 @@ require('playmode')
 require('palette')
 require('pickmode')
 require('timecode')
+require('brushscreen')
 require('settings')
 require('flickmode')
 require('paintmode')
-
 require('screenandcvs')
 
 

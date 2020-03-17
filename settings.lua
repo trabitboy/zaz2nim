@@ -11,6 +11,7 @@ cursorQuad = {x=0, y=0, w=64, h=64}
 playQuad={x=0, y=4*64, w=64, h=64}
 paletteQuad={x=64, y=6*64, w=64, h=64}
 pickerQuad={x=0, y=15*64, w=64, h=64}
+local brushQuad={x=0, y=16*64, w=64, h=64}
 
 
 
@@ -20,12 +21,14 @@ local wPalette =createpicbutton(uiw-64,64,buttonsPic,toPaletteMode,paletteQuad)
 local wPicker =createpicbutton(uiw-64,128,buttonsPic,toPickMode,pickerQuad)
 
 local wTC =createpicbutton(uiw-64,192,buttonsPic,toTimeCode,clockQuad)
+local wBS =createpicbutton(uiw-64,256,buttonsPic,toBrushScreen,brushQuad)
 
 
 table.insert(widgets,wPlay)
 table.insert(widgets,wPalette)
 table.insert(widgets,wPicker)
 table.insert(widgets,wTC)
+table.insert(widgets,wBS)
 
 
 function toSettings()
