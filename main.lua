@@ -1,3 +1,11 @@
+--new priority items
+-- create new project, change project
+-- save brush
+-- color / paint under mode
+-- undo mode
+
+
+
 -- WIP computer gets super hot in HD mode: try to not render screen if no change
 -- keep display dirty flag 
 
@@ -137,6 +145,7 @@ require('playmode')
 require('palette')
 require('pickmode')
 require('timecode')
+require('brushsourceselection')
 require('brushscreen')
 require('settings')
 require('flickmode')

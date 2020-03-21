@@ -32,6 +32,9 @@ end
 
 
 function toFlick(bleft)
+	 -- let s make sure we save our lates drawing
+	saveCanvasToFrame(currentIdx)
+
 	leftmode=bleft
 	drawFunc=drawFlick
 	updateFunc=updateFlick

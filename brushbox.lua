@@ -16,7 +16,7 @@ local dfltzoom =1.0
 
 
 
-local function drag(b,dx,dy)
+local function drag(b,tx,ty,dx,dy)
 	if b.mode=="drag" then
 		b.x=b.x+dx
 		b.y=b.y+dy
@@ -31,7 +31,7 @@ end
 
 --if consumed returns true
 local function click(b,mx,my)
-	print("scan click of id "..b.id)
+--	print("scan click of id "..b.id)
 
 
 	if boxfocus==b then
@@ -54,7 +54,7 @@ local function click(b,mx,my)
 	
 		
 	if mx >= b.x and mx<b.x+b.w and my >= b.y and my<b.y+b.h then
-		print("click detected on id "..b.id)
+--		print("click detected on id "..b.id)
 		--before taking focus let s check focus 
 		if copywcb==true then
 			if boxfocus~=nil then
@@ -67,7 +67,7 @@ local function click(b,mx,my)
 		end
 		
 		boxfocus=b
-		zoom.value=b.tzoom
+--		zoom.value=b.tzoom
 		return true
 	end
 	return false
@@ -149,7 +149,7 @@ function createbrushbox(x,y,w,h)
 	ret.tzoom=dfltzoom
 	ret.justif=jleft
 
-	ret.dragrelease=applysnap
+	--ret.dragrelease=applysnap
 	-- ret.justif=jright
 	
 	

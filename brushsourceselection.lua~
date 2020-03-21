@@ -2,19 +2,17 @@ local exitQuad = {x=64, y=17*64, w=64, h=64}
 
 
 
-local function exitBS()
-	 print('exit bs ')
-	 toPaintMode()
+local function exitBSS()
+	 print('exit bss ')
+	 toBS()
 end
 
 local wExitBS = createpicbutton(0,0,buttonsPic,exitBS,exitQuad)
-local wToBSS = createpicbutton(uiw-64,uih-64,buttonsPic,toBrushSourceSelection,exitQuad)
 
 local currentSel = createbrushbox(100,100,200,200)
 
 local widgets={}
 table.insert(widgets,wExitBS)
-table.insert(widgets,wToBSS)
 table.insert(widgets,currentSel )
 
 local function rendertouicanvas()
@@ -28,8 +26,7 @@ local function rendertouicanvas()
 
 		
 	msgToCvs()
-
-	--love.graphics.print()
+	
 	love.graphics.setCanvas()
 end
 
@@ -63,8 +60,7 @@ local function brushScreenUpdate()
 end
 
 
-function toBrushScreen()
-	print ('initial time code '..frames[currentIdx].tc )
+function toBrushSourceSelection()
 	drawFunc=brushScreenDraw
 	updateFunc=brushScreenUpdate
 
