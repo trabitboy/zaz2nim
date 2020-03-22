@@ -64,7 +64,25 @@ end
 
 
 function toBrushScreen()
-	print ('initial time code '..frames[currentIdx].tc )
+
+	if copySrc==nil then
+	   print('no src frame')
+	   return
+	end
+
+	currentSel.x=brushSelection.x
+	print(currentSel.x  )
+	currentSel.y=brushSelection.y
+	print(currentSel.y  )
+	currentSel.w=brushSelection.w
+	print(currentSel.w  )
+	currentSel.h=brushSelection.h
+	print(currentSel.h  )
+
+	
+
+	bbsettexture(currentSel,frames[copySrc].pic)
+
 	drawFunc=brushScreenDraw
 	updateFunc=brushScreenUpdate
 

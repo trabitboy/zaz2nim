@@ -31,10 +31,16 @@ end
 
 --if consumed returns true
 local function click(b,mx,my)
---	print("scan click of id "..b.id)
+	print("scan click of brushbox ")
 
 
 	if boxfocus==b then
+		if mx >= b.x and mx<b.x+b.w and my >= b.y and my<b.y+b.h then
+		      	print('drag')
+			b.mode="drag"
+			registerdrag=b
+			return true
+		end
 		if mx >= b.x-hdlw and mx<b.x and my >= b.y-hdlh and my<b.y then
 			b.mode="drag"
 			registerdrag=b
@@ -56,18 +62,8 @@ local function click(b,mx,my)
 	if mx >= b.x and mx<b.x+b.w and my >= b.y and my<b.y+b.h then
 --		print("click detected on id "..b.id)
 		--before taking focus let s check focus 
-		if copywcb==true then
-			if boxfocus~=nil then
-				boxfocus.w=b.w
-				maintainlpl(boxfocus)
-				msg.postmsg(msg,"w copied")
-				copywcb=nil
-				return true
-			end
-		end
 		
 		boxfocus=b
---		zoom.value=b.tzoom
 		return true
 	end
 	return false
@@ -97,17 +93,18 @@ local function tbrender(b)
 	
 	
 	if renderdecos==true then
-		love.graphics.setLineWidth(3)
+	   	if b.texture~=nil then
+		brushSelQuad=   love.graphics.newQuad(brushSelection.x,brushSelection.y,brushSelection.w,brushSelection.h,b.texture:getDimensions())
+		   
+		   love.graphics.draw(b.texture,brushSelQuad,b.x,b.y)
+		end
+
+	   	love.graphics.setLineWidth(3)
 		love.graphics.rectangle("fill",b.x-hdlw,b.y-hdlh,hdlw,hdlh)
 		love.graphics.rectangle("line",b.x,b.y,b.w,b.h)
 		love.graphics.rectangle("fill",b.x+b.w,b.y+b.h,hdlw,hdlh)
-		-- b.text.render(b.text,b.x,b.y)
 		love.graphics.setColor(0.0,0.0,1.0,1.0)
 		love.graphics.setLineWidth(1)
---		love.graphics.line(0,b.y,cvsw,b.y)
---		love.graphics.line(0,b.y+b.h,cvsw,b.y+b.h)
---		love.graphics.line(b.x,0,b.x,cvsh)
---		love.graphics.line(b.x+b.w,0,b.x+b.w,cvsh)
 		--for justify center
 		love.graphics.line(b.x+b.w/2,b.y,b.x+b.w/2,b.y+b.h)
 	
@@ -121,6 +118,12 @@ local function tbrender(b)
 end
 
 
+
+--component has 2 modes, if a texture is passed,
+--the selection is shown, then scaled scaled
+function bbsettexture(bb,tex)
+	 bb.texture=tex 
+end
 
 
 function createbrushbox(x,y,w,h)
@@ -151,7 +154,8 @@ function createbrushbox(x,y,w,h)
 
 	--ret.dragrelease=applysnap
 	-- ret.justif=jright
-	
+
+	ret.texture=texture
 	
 	return ret
 end

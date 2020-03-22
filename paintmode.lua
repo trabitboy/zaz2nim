@@ -23,7 +23,7 @@ rflickQuad = {x=0, y=7*64, w=64, h=64}
 
 -- eraserQuad = {x=0, y=192, w=64, h=64}
 
-
+--index of the source frame
 copySrc=nil
 
 --disable display when saving canvas to imagedata ( android potential workaround )
