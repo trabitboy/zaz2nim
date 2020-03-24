@@ -134,10 +134,6 @@ maxframe=3
 dirtycvs=false
 
 function initCanvases(idx)
-	-- if idx>1 then
-		
-	-- end
-	
 	--we only init current to canvas, rest is programmatic ( different from zazanim, 
 	-- to have multiple tranparency layers
 	currentIdx=idx

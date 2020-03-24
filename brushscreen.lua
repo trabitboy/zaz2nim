@@ -7,15 +7,34 @@ local function exitBS()
 	 toPaintMode()
 end
 
+local currentSel = createbrushbox(100,100,200,200)
+
+
+--we stamp selection on current canvas/current frame
+local stampSelection = function()
+--TODO the cvs needs to be loaded with the relevant frame, then the frame needs to be saved
+      initCanvases(currentIdx)
+      --doesn t work, go and see code from paste button?
+      love.graphics.setCanvas(cvs)
+      love.graphics.draw(frames[copySrc].pic,currentSel.x,currentSel.y)
+      love.graphics.setCanvas()
+
+      --save result to frame
+ 	saveCanvasToFrame(currentIdx)
+	--we need to reset the texture in case we pasted on itself ( we changed frame referenced in brushbox )
+	bbsettexture(currentSel,frames[copySrc].pic)
+end
+
 local wExitBS = createpicbutton(0,0,buttonsPic,exitBS,exitQuad)
 local wToBSS = createpicbutton(uiw-64,uih-64,buttonsPic,toBrushSourceSelection,exitQuad)
+local wStamp = createpicbutton(uiw-64,0,buttonsPic,stampSelection,exitQuad)
 
-local currentSel = createbrushbox(100,100,200,200)
 
 local widgets={}
 table.insert(widgets,wExitBS)
 table.insert(widgets,wToBSS)
 table.insert(widgets,currentSel )
+table.insert(widgets,wStamp)
 
 local function rendertouicanvas()
 	love.graphics.setCanvas(ui)

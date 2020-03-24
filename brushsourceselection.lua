@@ -9,8 +9,8 @@ local currentSel = createbrushbox(100,100,200,200)
 
 local function exitBSS()
 	 print('exit bss ')
-	 brushSelection.x=currentSel.x
-	 brushSelection.y=currentSel.y
+	 brushSelection.x=currentSel.x-offsetcvs.x
+	 brushSelection.y=currentSel.y-offsetcvs.y
 	 brushSelection.w=currentSel.w
 	 brushSelection.h=currentSel.h
 	 

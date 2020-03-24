@@ -10,6 +10,7 @@
 -- keep display dirty flag 
 
 --WIP select and move area ( brush 'a la ms paint ' )
+-- offset on paste, but works
 
 -- menu system for opening different projects based on available templates
 -- concept : locked on a project, current project is saved,
