@@ -16,7 +16,16 @@ local stampSelection = function()
       initCanvases(currentIdx)
       --doesn t work, go and see code from paste button?
       love.graphics.setCanvas(cvs)
-      love.graphics.draw(frames[copySrc].pic,currentSel.x,currentSel.y)
+
+      --lets create a quad
+      local toBlit=love.graphics.newQuad(
+	brushSelection.x,
+	brushSelection.y,
+	brushSelection.w,
+	brushSelection.h,
+	frames[copySrc].pic:getDimensions()
+	)
+      love.graphics.draw(frames[copySrc].pic,toBlit,currentSel.x-offsetcvs.x,currentSel.y-offsetcvs.y)
       love.graphics.setCanvas()
 
       --save result to frame

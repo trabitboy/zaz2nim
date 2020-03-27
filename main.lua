@@ -10,7 +10,8 @@
 -- keep display dirty flag 
 
 --WIP select and move area ( brush 'a la ms paint ' )
--- offset on paste, but works
+-- selection is not croped ( doesn t use quad from bss )
+-- no scaling at the moment
 
 -- menu system for opening different projects based on available templates
 -- concept : locked on a project, current project is saved,
