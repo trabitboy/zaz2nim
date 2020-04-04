@@ -178,7 +178,7 @@ local function rendertouicanvas()
 	love.graphics.setShader(inksmooth)
 	love.graphics.draw(cvs,offsetcvs.x,offsetcvs.y)
 	love.graphics.setShader()
-	love.graphics.draw(mybrush,0,0)
+	love.graphics.draw(mybrush)
 
 	renderWidgets(widgets)
 
@@ -189,7 +189,15 @@ local function rendertouicanvas()
 	love.graphics.setColor(1.0,1.0,1.0,1.0)
 
 	msgToCvs()
-	
+
+
+	--render brush for user friendliness
+	if eraseMode==true then
+	   love.graphics.circle('line',hoverx-brshradius,hovery-brshradius,brshradius)
+	else
+		love.graphics.draw(mybrush,hoverx-brshradius,hovery-brshradius)
+	end
+
 	love.graphics.setCanvas()
 
 end
@@ -348,7 +356,7 @@ function paintModeUpdate()
 		end
 	
 		--we compensate offset
-		
+		--TODO not sure this compensation is done in drag
 		xb=npx-offsetcvs.x-brshradius
 		yb=npy-offsetcvs.y-brshradius
 		

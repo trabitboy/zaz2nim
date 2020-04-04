@@ -18,17 +18,21 @@ love.mousepressed = function(x, y, button)
 	
 end
 
+hoverx=0
+hovery=0
+
 love.mousemoved=function( x, y, dx, dy, istouch )
+	local tx=(x/scrsx)
+	local ty=(y/scrsy)
+	local tdx=(dx/scrsx)
+	local tdy=(dy/scrsy)
+
+	--we maintain these to display brush
+	hoverx=tx
+	hovery=ty
+
 	if registerdrag~=nil then
 			addMsg('calling drag callback')
---			local tx=math.floor(x/scrsx)
---			local ty=math.floor(y/scrsy)
---			local tdx=math.floor(dx/scrsx)
---			local tdy=math.floor(dy/scrsy)
-			local tx=(x/scrsx)
-			local ty=(y/scrsy)
-			local tdx=(dx/scrsx)
-			local tdy=(dy/scrsy)
 			registerdrag.drag(registerdrag,tx,ty,tdx,tdy)
 	end
 end
