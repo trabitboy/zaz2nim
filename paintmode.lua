@@ -1,3 +1,5 @@
+paintcolor={r=0.,g=0.,b=0.}
+
 eraseMode = false -- FOR DEBUG
 
 --dirtyDisplay

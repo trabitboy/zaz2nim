@@ -77,7 +77,7 @@ function updateSettings()
 			potradius=math.floor(npy/uih * brshMaxRad)
 			if potradius>1 then
 			   brshradius=potradius   
-			   mybrush=love.graphics.newImage(roundBrushWithAlpha(	brshradius,0.0,0.0,0.0))
+			   mybrush=love.graphics.newImage(roundBrushWithAlpha(	brshradius,paintcolor.r,paintcolor.g,paintcolor.b))
 			   mybrush:setFilter('nearest','nearest')
 			else
 				print('brsh less than 1 impossible')
