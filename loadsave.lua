@@ -1,22 +1,54 @@
 
 
 function loadFrames()
-	-- files=love.filesystem.getDirectoryItems(prjfld)
-	-- for i,f in ipairs(files)
-	-- do
-		-- suffix=f:sub(f:len()-3,f:len())
-		-- print(f..' '..suffix)
-		-- if suffix==".png" then
-			-- table.insert(frames,loadfilter(prjfld..f))
-		-- end
-	-- end
 
-	-- for i=1,3,1
-	-- do
-		-- name=string.format("%03d",i)
-		-- table.insert(frames,loadfilter(conf.prjfld..name..".png"))	
-	-- end
+	maxframe=0
+	--frames are 0 based for zazanim compatibility ( tcs, etc )
+	local i = 0
+	currentName=conf.prjfld..string.format("%03d",i)..".png"
+	print("attempting load "..currentName)
+	cur=love.filesystem.getInfo(currentName)
+	if cur==nil then
+		print('loading from template '..conf.template)
+		cur=love.filesystem.getInfo(conf.template)
+		print('tmpl ')
+		print(cur)
+		currentName=conf.template
+	end
 	
+    while cur do
+		frameTable =loadfilter(currentName)
+		--please note we will add other metadatas in frameTable, such as time code and optional sound
+		--we are here because cur is not nil
+
+		--TODO if file preexists load sound
+		if cur~=nil then
+		   local potsound=conf.prjfld..string.format("%03d",i)..".wav"
+		   print('looking up pot sound '..potsound)
+		   local si=love.filesystem.getInfo(potsound)
+		   if si~=nil then
+		      frameTable.sound=love.audio.newSource(potsound,'static')
+		   end
+		   print('sound loaded ')
+		   print(frameTable.sound)
+		end
+
+
+		table.insert(frames,frameTable)
+		maxframe=i
+		i = i + 1
+		currentName=conf.prjfld..string.format("%03d",i)..".png"
+		print("attempting load "..currentName)
+		cur=love.filesystem.getInfo(currentName)
+
+
+		if i<4 and cur==nil then
+			--TODO load template and put in cur
+			cur=love.filesystem.getInfo(conf.template)
+			currentName=conf.template
+		end
+    end
+
 end
 
 function saveFrames()

@@ -1,21 +1,10 @@
 
---this is where we draw ( current frame)
--- cvsw=1920
--- cvsh=1080
---this is where we render the user interface before scaling
--- uiw=conf.cvsw
+--buttons designed for 640x480 height, adjustment
+uilogich=480
 
-
-
---TODO refactor, uiw is not necessarily canvas width (most screens have different aspect ratio, should be calculated from that?)
-
-
-
- -- cvsw=ww
- -- cvsh=wh
- 
  --TODO what happens on android ?
- dpiScl=love.window.getDPIScale()
+--works, but should clarify dpiscale on forum
+dpiScl=love.window.getDPIScale()
  
  if love.system.getOS()=='Android' then
 	ww,wh=love.window.getMode()
@@ -43,7 +32,9 @@ addMsg(" dpi scl "..dpiScl)
 	
 	end
 	addMsg('zoom ' .. scrsx)
- 
+
+	buttonZoom = uih /480 --button size is ok on 480 height
+	addMsg('button zoom '..buttonZoom)
  end
  
 
@@ -51,8 +42,6 @@ addMsg(" dpi scl "..dpiScl)
 offsetcvs={x=200,y=0}
 
 
- -- scrsx=ww/conf.cvsw
- -- scrsy=wh/conf.cvsh
  
 determineHDUicanvasZoom(ww,wh) 
  
@@ -61,18 +50,10 @@ determineHDUicanvasZoom(ww,wh)
  
  --for android, otherwise dl image data is oversized
  settings={}
-settings.dpiscale=1.0
+ settings.dpiscale=1.0
 
--- cvs=love.graphics.newCanvas(640,480,settings)
 	cvs=love.graphics.newCanvas(conf.cvsw,conf.cvsh,settings)
 	ui=love.graphics.newCanvas(uiw,uih)	
---this is where the whole ui is drawn before resize	
-
---typo width height (pic size)
---tw=80
---th=200
---meaninful area in the middle (to trim empty space)
---rtw=(tw/2)
 
 function love.resize( nw, nh )
 	local npw,nph=love.window.toPixels( nw, nh )
@@ -82,14 +63,4 @@ function love.resize( nw, nh )
 	determineHDUicanvasZoom(ww,wh) 
 
 
-	-- local pscrsx=ww/conf.cvsw
-	-- local pscrsy=wh/conf.cvsh
-	-- if pscrsx>pscrsy then
-		-- scrsy=pscrsy
-		-- scrsx=pscrsy
-	-- else
-		-- scrsy=pscrsx
-		-- scrsx=pscrsx
-	
-	-- end
 end

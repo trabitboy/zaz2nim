@@ -15,13 +15,13 @@ local brushQuad={x=0, y=16*64, w=64, h=64}
 
 
 
-local wPlay=createpicbutton(uiw-64,0,buttonsPic,toPlayback,playQuad)
-local wPalette =createpicbutton(uiw-64,64,buttonsPic,toPaletteMode,paletteQuad)
+local wPlay=createpicbutton(uiw-64*buttonZoom,0,buttonsPic,toPlayback,playQuad)
+local wPalette =createpicbutton(uiw-64*buttonZoom,64*buttonZoom,buttonsPic,toPaletteMode,paletteQuad)
 
-local wPicker =createpicbutton(uiw-64,128,buttonsPic,toPickMode,pickerQuad)
+local wPicker =createpicbutton(uiw-64*buttonZoom,128*buttonZoom,buttonsPic,toPickMode,pickerQuad)
 
-local wTC =createpicbutton(uiw-64,192,buttonsPic,toTimeCode,clockQuad)
-local wBS =createpicbutton(uiw-64,256,buttonsPic,toBrushScreen,brushQuad)
+local wTC =createpicbutton(uiw-64*buttonZoom,192*buttonZoom,buttonsPic,toTimeCode,clockQuad)
+local wBS =createpicbutton(uiw-64*buttonZoom,256*buttonZoom,buttonsPic,toBrushScreen,brushQuad)
 
 
 table.insert(widgets,wPlay)

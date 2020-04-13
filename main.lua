@@ -1,9 +1,12 @@
+--save should only save dirty frames
+
 --new priority items
 -- create new project, change project
--- save brush
+-- save brush preset
 -- color / paint under mode
 -- undo mode
 
+--WIP sound load (wav with frame number )
 
 
 -- WIP computer gets super hot in HD mode: try to not render screen if no change
@@ -11,7 +14,7 @@
 
 --WIP select and move area ( brush 'a la ms paint ' )
 -- selection is not croped ( doesn t use quad from bss )
--- no scaling at the moment
+-- TODO no scaling at the moment
 
 -- menu system for opening different projects based on available templates
 -- concept : locked on a project, current project is saved,
@@ -109,7 +112,7 @@
 
 -- TODO sound capture test
 --https://love2d.org/forums/viewtopic.php?t=86173
-
+--works on linux
 
 --TODO drag and drop widget for cut and paste
 -- based on mtdt titler boxes
@@ -143,6 +146,7 @@ require('tblutil')
 require('loadfilter')
 require('touch')
 require('loadsave')
+require('screenandcvs')
 require('playmode')
 require('palette')
 require('pickmode')
@@ -152,7 +156,6 @@ require('brushscreen')
 require('settings')
 require('flickmode')
 require('paintmode')
-require('screenandcvs')
 
 
 
@@ -173,38 +176,8 @@ renderdecos=true
 --end project globals
 function love.load()
 	
-	maxframe=0
-	--frames are 0 based for zazanim compatibility ( tcs, etc )
-	local i = 0
-	currentName=conf.prjfld..string.format("%03d",i)..".png"
-	print("attempting load "..currentName)
-	cur=love.filesystem.getInfo(currentName)
-	if cur==nil then
-		print('loading from template '..conf.template)
-		cur=love.filesystem.getInfo(conf.template)
-		print('tmpl ')
-		print(cur)
-		currentName=conf.template
-	end
 	
-    while cur do
-		frameTable =loadfilter(currentName)
-		--please note we will add other metadatas in frameTable, such as time code and optional sound
-		--we are here because cur is not nil
-		table.insert(frames,frameTable)
-		maxframe=i
-		i = i + 1
-		currentName=conf.prjfld..string.format("%03d",i)..".png"
-		print("attempting load "..currentName)
-		cur=love.filesystem.getInfo(currentName) 
-		if i<4 and cur==nil then
-			--TODO load template and put in cur
-			cur=love.filesystem.getInfo(conf.template)
-			currentName=conf.template
-		end
-    end
-	
-	
+	loadFrames()	
 	
 	loadTxtCodes()
 	

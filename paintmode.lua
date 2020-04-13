@@ -23,14 +23,12 @@ lflickQuad = {x=0, y=6*64, w=64, h=64}
 rflickQuad = {x=0, y=7*64, w=64, h=64}
 
 
--- eraserQuad = {x=0, y=192, w=64, h=64}
-
 --index of the source frame
 copySrc=nil
 
 --disable display when saving canvas to imagedata ( android potential workaround )
 --TODO remove
-disableDisplay=false
+--disableDisplay=false
 
 
 
@@ -91,26 +89,28 @@ function toggleEraser()
 
 end
 
--- local wAddFrame=createpicbutton(100,100,"bplus.png",addFrame)
--- local wNextFrame=createpicbutton(100,150,"bplus.png",nextFrame)
--- local wPrevFrame=createpicbutton(100,200,"bplus.png",prevFrame)
-local wAddFrame=createpicbutton(0,uih-64,buttonsPic,addFrame,addQuad)
-local wNextFrame=createpicbutton(uiw-64,0,buttonsPic,nextFrame,nextQuad)
-local wPrevFrame=createpicbutton(0,0,buttonsPic,prevFrame,prevQuad)
 
-local wSaveFrames=createpicbutton(uiw-64,uih-64,buttonsPic,saveFrames,saveQuad)
+--TODO create widget uiw (480)
 
-local wLeftFlick = createpicbutton(0,64,buttonsPic,toLeftFlick,lflickQuad)
-local wRightFlick = createpicbutton(uiw-64,64,buttonsPic,toRightFlick,rflickQuad)
+local wPrevFrame=createpicbutton(0,0,buttonsPic,prevFrame,prevQuad,buttonZoom)
 
---TODO group widgets by place on screen
+local wSaveFrames=createpicbutton(uiw-64*buttonZoom,uih-64*buttonZoom,buttonsPic,saveFrames,saveQuad,buttonZoom)
 
-local wSettings=createpicbutton(uiw-64,192,buttonsPic,toSettings,settingsQuad)
+local wLeftFlick = createpicbutton(0,64*buttonZoom,buttonsPic,toLeftFlick,lflickQuad,buttonZoom)
+
+--top right
+local wNextFrame=createpicbutton(uiw-64*buttonZoom,0,buttonsPic,nextFrame,nextQuad,buttonZoom)
+local wRightFlick = createpicbutton(uiw-64*buttonZoom,64*buttonZoom,buttonsPic,toRightFlick,rflickQuad,buttonZoom)
+local wSettings=createpicbutton(uiw-64*buttonZoom,192*buttonZoom,buttonsPic,toSettings,settingsQuad,buttonZoom)
+
+--bottom right
+local wPasteFrame=createpicbutton(uiw-64*buttonZoom,uih-128*buttonZoom,buttonsPic,pasteFrame,pasteQuad,buttonZoom)
+
 
 --bottom left
-local wToggleEraser=createpicbutton(0,uih-192,buttonsPic,toggleEraser,eraserQuad)
-local wCopyFrame=createpicbutton(0,uih-128,buttonsPic,copyFrame,copyQuad)
-local wPasteFrame=createpicbutton(uiw-64,uih-128,buttonsPic,pasteFrame,pasteQuad)
+local wAddFrame=createpicbutton(0,uih-64*buttonZoom,buttonsPic,addFrame,addQuad,buttonZoom)
+local wToggleEraser=createpicbutton(0,uih-192*buttonZoom,buttonsPic,toggleEraser,eraserQuad,buttonZoom)
+local wCopyFrame=createpicbutton(0,uih-128*buttonZoom,buttonsPic,copyFrame,copyQuad,buttonZoom)
 
 
 table.insert(widgets,wAddFrame)
