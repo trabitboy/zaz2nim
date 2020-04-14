@@ -88,13 +88,14 @@ function saveFrames()
 
 	for i,f in ipairs(frames)
 	do
-		if f.dirty==true then 
+		--TODO we need to track insertion / moves/ offsets / creations too
+		--if f.dirty==true then 
 		   name=string.format("%03d",i)
 		   f.data:encode("png",conf.prjfld..name..".png")
 		   print(' frame '..i..' saved ')
-		else
-		   print('frame '..i..' untouched' )
-		end
+		--else
+		--   print('frame '..i..' untouched' )
+		--end
 	end
 	saveTxtCodes()
 	addMsg('after save')
