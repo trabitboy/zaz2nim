@@ -366,6 +366,9 @@ function paintModeUpdate()
 		lastblitx=xb
 		lastblity=yb-- this way we draw the first point , and use same function here and
 		--in drag handler
+
+		--we flag this frame for save
+		frames[currentIdx].dirty=true
 		blitBrushLineRemember(xb,yb)
 		registerdrag={drag=dragPaint}
 		npress=false

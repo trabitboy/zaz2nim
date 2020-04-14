@@ -20,6 +20,8 @@ function loadFrames()
 		frameTable =loadfilter(currentName)
 		--please note we will add other metadatas in frameTable, such as time code and optional sound
 		--we are here because cur is not nil
+		frameTable.dirty=false
+		--this is a save flag ( we save only modified )
 
 		--TODO if file preexists load sound
 		if cur~=nil then
@@ -86,8 +88,13 @@ function saveFrames()
 
 	for i,f in ipairs(frames)
 	do
-		name=string.format("%03d",i)
-		f.data:encode("png",conf.prjfld..name..".png")
+		if f.dirty==true then 
+		   name=string.format("%03d",i)
+		   f.data:encode("png",conf.prjfld..name..".png")
+		   print(' frame '..i..' saved ')
+		else
+		   print('frame '..i..' untouched' )
+		end
 	end
 	saveTxtCodes()
 	addMsg('after save')
