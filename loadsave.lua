@@ -53,11 +53,15 @@ function loadFrames()
 
 end
 
+
+--WIP modal doesnt work because save is blocking and display is not updated
 function saveFrames()
 	addMsg('before save')
 
+
 	print(' target save directory : '..love.filesystem.getSaveDirectory())
 
+	setModal('saving project to'..love.filesystem.getSaveDirectory())
 
 	if dirtycvs==true then
 		--we need to copy current frame from rtex cvs
@@ -99,5 +103,6 @@ function saveFrames()
 	end
 	saveTxtCodes()
 	addMsg('after save')
+	disableModal()
 
 end

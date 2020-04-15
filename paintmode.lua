@@ -202,6 +202,8 @@ local function rendertouicanvas()
 
 	love.graphics.setCanvas()
 
+	displayModal()
+
 end
 
 function saveCanvasToFrame(idx)

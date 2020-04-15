@@ -1,4 +1,8 @@
 --save should only save dirty frames
+--save should be made visible
+-- wip modal doesnt display during save
+-- TODO would be simple if save was a 'scene', that way we
+-- can save one, return , display , loop, when no more to save, we return to paintmode
 
 --new priority items
 -- create new project, change project
@@ -140,6 +144,7 @@ require('hdconf')
 --require('sdconf')
 require('seqselection')
 
+require('modal')
 require('shaders')
 require('interpolateLine')
 require('tblutil')
