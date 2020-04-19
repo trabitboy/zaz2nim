@@ -130,10 +130,6 @@ onionDepth=1 --TODO
 
 currentIdx=2
 
-maxframe=3
-
--- flag to say if canvas in video memory contains modifications ( for save without scroll )
-dirtycvs=false
 
 function initCanvases(idx)
 	--we only init current to canvas, rest is programmatic ( different from zazanim, 
@@ -377,6 +373,7 @@ function paintModeUpdate()
 	end
 end
 
+--you need to init canvas before with init canvases
 function toPaintMode()
 	keyFunc = paintModeKey
 	drawFunc=paintModeDraw

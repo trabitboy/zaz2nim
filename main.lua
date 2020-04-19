@@ -1,8 +1,10 @@
 --save should only save dirty frames
 --save should be made visible
 -- wip modal doesnt display during save
--- TODO would be simple if save was a 'scene', that way we
+-- wip would be simple if save was a 'scene', that way we
 -- can save one, return , display , loop, when no more to save, we return to paintmode
+
+-- zoom, bg color behind canvas
 
 --new priority items
 -- create new project, change project
@@ -151,6 +153,8 @@ require('tblutil')
 require('loadfilter')
 require('touch')
 require('loadsave')
+require('loadscreen')
+require('savescreen')
 require('screenandcvs')
 require('playmode')
 require('palette')
@@ -181,19 +185,24 @@ renderdecos=true
 --end project globals
 function love.load()
 	
-	
-	loadFrames()	
-	
-	loadTxtCodes()
-	
-	initCanvases(currentIdx)
-	
-	-- mybrush=love.graphics.newImage(createBrushID(16))
+
+
 	mybrush=love.graphics.newImage(roundBrushWithAlpha(	brshradius,paintcolor.r,paintcolor.g,paintcolor.b))
 	mybrush:setFilter('nearest','nearest')
 	
 	createInkShader()
 	createEraserShader()
+
+
+	-- TODO wire to load screen
+	initLoadScreen()
+
+   	--to comment if load screen in place
+--	loadFrames()	
+--	loadTxtCodes()	
+--	initCanvases(currentIdx)
+   	--to comment if load screen in place
+	
 	
 end
 
@@ -204,7 +213,7 @@ end
 	
 -- default mode, could be changed
 
-toPaintMode()
+--toPaintMode()
 
 
 love.keypressed = function(key, code, isrepeat)

@@ -1,5 +1,6 @@
 
-
+--this function is being refactored in load screen
+-- right now it is blocking and we have no progress info
 function loadFrames()
 
 	maxframe=0
