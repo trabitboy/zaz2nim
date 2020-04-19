@@ -94,7 +94,10 @@ end
 
 local wPrevFrame=createpicbutton(0,0,buttonsPic,prevFrame,prevQuad,buttonZoom)
 
-local wSaveFrames=createpicbutton(uiw-64*buttonZoom,uih-64*buttonZoom,buttonsPic,saveFrames,saveQuad,buttonZoom)
+
+
+local wSaveFrames=createpicbutton(uiw-64*buttonZoom,uih-64*buttonZoom,buttonsPic,initSaveScreen,saveQuad,buttonZoom)
+--local wSaveFrames=createpicbutton(uiw-64*buttonZoom,uih-64*buttonZoom,buttonsPic,saveFrames,saveQuad,buttonZoom)
 
 local wLeftFlick = createpicbutton(0,64*buttonZoom,buttonsPic,toLeftFlick,lflickQuad,buttonZoom)
 
