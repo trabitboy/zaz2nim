@@ -162,7 +162,14 @@ local function rendertouicanvas()
 -- this clear defines the base of the canvas, it is at the moment used
 -- by inksmooth shader 
 	love.graphics.clear(0.,0.,0.,.0)
-	
+
+
+	--let's blit a rectangle behind the frames so we see boundaries
+	love.graphics.setColor(1.,1.,1.,1.0)
+	love.graphics.rectangle('fill',offsetcvs.x,offsetcvs.y,conf.cvsw,conf.cvsh)
+	--love.graphics.setColor(1.,1.,1.,1.0)
+
+
 	if currentIdx-1>0 then 
 		love.graphics.setColor(1.0,1.0,1.0,0.2)
 		love.graphics.draw(frames[currentIdx-1].pic,offsetcvs.x,offsetcvs.y)
@@ -248,7 +255,8 @@ function paintModeDraw()
 		
 		rendertouicanvas()
 		--pane is transparent
-		love.graphics.clear(1.,1.,1.,1.0)
+--		love.graphics.clear(1.,1.,1.,1.0)
+		love.graphics.clear(.5,.5,.5,1.0)
 
 		love.graphics.setColor(1.0,1.0,1.0,1.0)
 		love.graphics.draw(ui,0,0,0,scrsx,scrsy)

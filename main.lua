@@ -1,8 +1,4 @@
 --save should only save dirty frames
---save should be made visible
--- wip modal doesnt display during save
--- wip would be simple if save was a 'scene', that way we
--- can save one, return , display , loop, when no more to save, we return to paintmode
 
 -- zoom, bg color behind canvas
 
@@ -13,7 +9,7 @@
 -- undo mode
 
 --WIP sound load (wav with frame number )
-
+-- not tested
 
 -- WIP computer gets super hot in HD mode: try to not render screen if no change
 -- keep display dirty flag 
