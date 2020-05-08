@@ -1,12 +1,17 @@
 --save should only save dirty frames
 
--- zoom, bg color behind canvas
+--WIP  zoom pos,
+--bg color behind canvas
+
+--bg layer
 
 --new priority items
 -- create new project, change project
 -- save brush preset
 -- color / paint under mode
 -- undo mode
+
+--virtual camera movements
 
 --WIP sound load (wav with frame number )
 -- not tested
@@ -156,6 +161,7 @@ require('playmode')
 require('palette')
 require('pickmode')
 require('timecode')
+require('zoompos')
 require('brushsourceselection')
 require('brushscreen')
 require('settings')

@@ -12,6 +12,7 @@ playQuad={x=0, y=4*64, w=64, h=64}
 paletteQuad={x=64, y=6*64, w=64, h=64}
 pickerQuad={x=0, y=15*64, w=64, h=64}
 local brushQuad={x=0, y=16*64, w=64, h=64}
+local zoomQuad={x=128, y=0, w=64, h=64}
 
 
 
@@ -20,8 +21,12 @@ local wPalette =createpicbutton(uiw-64*buttonZoom,64*buttonZoom,buttonsPic,toPal
 
 local wPicker =createpicbutton(uiw-64*buttonZoom,128*buttonZoom,buttonsPic,toPickMode,pickerQuad)
 
+
 local wTC =createpicbutton(uiw-64*buttonZoom,192*buttonZoom,buttonsPic,toTimeCode,clockQuad)
 local wBS =createpicbutton(uiw-64*buttonZoom,256*buttonZoom,buttonsPic,toBrushScreen,brushQuad)
+local wZP =createpicbutton(uiw-128*buttonZoom,0*buttonZoom,buttonsPic,toZoomPos,zoomQuad)
+
+
 
 
 table.insert(widgets,wPlay)
@@ -29,7 +34,7 @@ table.insert(widgets,wPalette)
 table.insert(widgets,wPicker)
 table.insert(widgets,wTC)
 table.insert(widgets,wBS)
-
+table.insert(widgets,wZP)
 
 function toSettings()
 	drawFunc=drawSettings
