@@ -1,7 +1,11 @@
 --save should only save dirty frames
 
+--URGENT change project select template
+
 --WIP  zoom pos,
 --bg color behind canvas
+
+--WIP load/play waves
 
 --bg layer
 

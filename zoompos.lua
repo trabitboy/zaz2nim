@@ -80,7 +80,9 @@ function toZoomPos()
 	bbsettexture(screenPos,frames[currentIdx].pic)
 	screenPos.x=offsetcvs.x
 	screenPos.y=offsetcvs.y
-
+	screenPos.w=conf.cvsw
+	screenPos.h=conf.cvsh
+	screenPos.keepratio=true
 
 	drawFunc=zoomPosDraw
 	updateFunc=zoomPosUpdate

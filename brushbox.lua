@@ -16,14 +16,30 @@ local dfltzoom =1.0
 
 
 
+
 local function drag(b,tx,ty,dx,dy)
 	if b.mode=="drag" then
 		b.x=b.x+dx
 		b.y=b.y+dy
 	end
 	if b.mode=="resize" then
-		b.w=b.w+dx
-		b.h=b.h+dy
+
+	--we need to determine real dx and real dy
+	--when keeping ratio
+	       local tsw= (b.w+dx)/b.w
+	       local tsh= (b.h+dy)/b.h
+
+
+	       if tsw>=tsh then
+	       	  b.w=math.floor(b.w*tsw)
+	       	  b.h=math.floor(b.h*tsw)
+	       else
+	       	  b.w=math.floor(b.w*tsh)
+	       	  b.h=math.floor(b.h*tsh)
+	       end
+
+--		b.w=b.w+dx
+--		b.h=b.h+dy
 	end
 	
 	
@@ -126,7 +142,7 @@ function bbsettexture(bb,tex)
 end
 
 
-function createbrushbox(x,y,w,h)
+function createbrushbox(x,y,w,h,keepratio)
 	ret={}
 	
 	ret.type='tbox' --used to identify targets for snap
@@ -138,7 +154,8 @@ function createbrushbox(x,y,w,h)
 	ret.y=y
 	ret.w=w
 	ret.h=h
-	
+	ret.keepratio=keepratio
+
 	ret.render=tbrender
 	ret.click=click
 	ret.drag=drag
