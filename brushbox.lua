@@ -29,7 +29,8 @@ local function drag(b,tx,ty,dx,dy)
 	       local tsw= (b.w+dx)/b.w
 	       local tsh= (b.h+dy)/b.h
 
-
+--WIP distortion so far , probably loss of precision
+--TODO calculate zoom and store zoom, let width and height of pic to display func
 	       if tsw>=tsh then
 	       	  b.w=math.floor(b.w*tsw)
 	       	  b.h=math.floor(b.h*tsw)
@@ -142,6 +143,9 @@ function bbsettexture(bb,tex)
 end
 
 
+
+--brush box represents a bitmap, so when resizing we maintain its
+-- zoom ratio
 function createbrushbox(x,y,w,h,keepratio)
 	ret={}
 	

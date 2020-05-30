@@ -3,9 +3,17 @@
 --URGENT change project select template
 
 --WIP  zoom pos,
+-- BUG keep ratio resize kills ratio
+-- BUG keep ratio resize also present on frame copy / paste
 --bg color behind canvas
 
 --WIP load/play waves
+
+-- slow erase
+
+-- fill mode
+
+-- paint behind
 
 --bg layer
 
@@ -147,7 +155,8 @@ require('msg')
 
 require('picbutton')
 require('brushbox')
-require('hdconf')
+--require('hdconf')
+require('hd43conf')
 --require('sdconf')
 require('seqselection')
 
