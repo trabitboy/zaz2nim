@@ -134,7 +134,10 @@ function addFrame()
 	-- table.insert(frames,{pic=newp,data=newid})
 	table.insert(frames,currentIdx+1,{pic=newp,data=newid,tc=10})
 	maxframe=maxframe+1
-	
+	print('number of frames '..maxframe)
+
+	maxFrameReached=maxFrameReached+1
+	print('max frames reached at a given point '..maxFrameReached)
 end
 
 function prevFrame()

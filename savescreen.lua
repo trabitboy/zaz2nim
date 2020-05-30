@@ -10,6 +10,18 @@ drawSaveScreen = function ()
  end
 end
 
+--by adding and deleting frames, we might have lowered the max number of frames since last save
+cleanMaxFrameReached = function()
+	for i=(maxframe+1),maxFrameReached
+	do
+		print('cleaning obsolete frame '..i)
+		--TODO actually delete file
+		name=string.format("%03d",i)
+		local path=conf.prjfld..name..".png"
+		love.filesystem.remove(path)
+	end
+end
+
 
 updateSaveScreen = function ()
 
@@ -17,6 +29,10 @@ updateSaveScreen = function ()
 
 		if justSaved==maxframe then
 			saveTxtCodes()
+
+			--clean extra frames on disk
+			cleanMaxFrameReached()
+
 			addMsg('after save')
 			toPaintMode()
 

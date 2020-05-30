@@ -13,6 +13,34 @@ paletteQuad={x=64, y=6*64, w=64, h=64}
 pickerQuad={x=0, y=15*64, w=64, h=64}
 local brushQuad={x=0, y=16*64, w=64, h=64}
 local zoomQuad={x=128, y=0, w=64, h=64}
+local deleteQuad={x=0, y=11*64, w=64, h=64}
+
+
+
+
+function deleteCurrentFrame()
+	 print('deletingFrame '..currentIdx)
+
+	 if maxframe<4 then
+	    print('not enough frames to delete')
+	    return
+	 end
+
+	 toDel=frames[currentIdx]
+	 toDel.data:release()
+	 toDel.pic:release()
+
+
+	 table.remove(frames,currentIdx)
+	 maxframe=maxframe-1
+
+	 if currentIdx>maxframe then
+	    currentIdx=maxframe
+	 end
+
+	 initCanvases(currentIdx)
+end
+
 
 
 
@@ -25,7 +53,7 @@ local wPicker =createpicbutton(uiw-64*buttonZoom,128*buttonZoom,buttonsPic,toPic
 local wTC =createpicbutton(uiw-64*buttonZoom,192*buttonZoom,buttonsPic,toTimeCode,clockQuad)
 local wBS =createpicbutton(uiw-64*buttonZoom,256*buttonZoom,buttonsPic,toBrushScreen,brushQuad)
 local wZP =createpicbutton(uiw-128*buttonZoom,0*buttonZoom,buttonsPic,toZoomPos,zoomQuad)
-
+local wDF =createpicbutton(uiw-192*buttonZoom,0*buttonZoom,buttonsPic,deleteCurrentFrame,deleteQuad)
 
 
 
@@ -35,6 +63,8 @@ table.insert(widgets,wPicker)
 table.insert(widgets,wTC)
 table.insert(widgets,wBS)
 table.insert(widgets,wZP)
+table.insert(widgets,wDF)
+
 
 function toSettings()
 	drawFunc=drawSettings

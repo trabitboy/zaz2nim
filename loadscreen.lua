@@ -12,7 +12,8 @@ end
 
 
 updateLoadScreen = function ()
-	
+
+
 
 	currentName=conf.prjfld..string.format("%03d",curLoadAttempt)..".png"
 	print("attempting load "..currentName)
@@ -27,6 +28,8 @@ updateLoadScreen = function ()
 	--at this point if cur == nil, we loaded everything,
 	--we return
 	if cur==nil then
+
+	   maxFrameReached=maxframe
 
 	   loadTxtCodes()
 	   initCanvases(1)
@@ -63,7 +66,7 @@ end
 initLoadScreen = function()
        maxframe=0
 	--frames are 0 based for zazanim compatibility ( tcs, etc )
-       curLoadAttempt=0
+       curLoadAttempt=1
 
        drawFunc=drawLoadScreen
        updateFunc=updateLoadScreen
