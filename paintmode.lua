@@ -29,7 +29,7 @@ prevQuad = {x=0, y=64, w=64, h=64}
 nextQuad = {x=0, y=0, w=64, h=64}
 saveQuad = {x=0, y=128, w=64, h=64}
 penQuad=  {x=64, y=192, w=64, h=64}
-undoQuad = {x=64, y=16*64, w=64, h=64}
+undoQuad = {x=64, y=18*64, w=64, h=64}
 eraserQuad = {x=0, y=192, w=64, h=64}
 settingsQuad = {x=0, y=10*64, w=64, h=64}
 copyQuad = {x=0, y=8*64, w=64, h=64}
