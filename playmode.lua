@@ -1,5 +1,5 @@
 --dft setting
-framerate=5
+framerate=8
 cycles=60/framerate 
 
 

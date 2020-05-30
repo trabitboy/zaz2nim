@@ -51,8 +51,17 @@ local function rendertouicanvas()
 	love.graphics.line(brshLineWidth,0,brshLineWidth,uih)
 	love.graphics.print('setting',400,0)
 	love.graphics.setColor(1.0,1.0,1.0,1.0)
-	love.graphics.draw(mybrush)
+
+	if eraseMode==false then
+	   love.graphics.draw(mybrush)
+	else
+	--outline of eraser
+	   love.graphics.setColor(0.0,0.0,0.0,1.0)
+	   love.graphics.circle('line',eraserRadius,eraserRadius,eraserRadius)
+	   love.graphics.setColor(1.0,1.0,1.0,1.0)
 	
+	end
+
 	renderWidgets(widgets)
 		
 	msgToCvs()
@@ -81,9 +90,17 @@ function updateSettings()
 
 			potradius=math.floor(npy/uih * brshMaxRad)
 			if potradius>1 then
-			   brshradius=potradius   
-			   mybrush=love.graphics.newImage(roundBrushWithAlpha(	brshradius,paintcolor.r,paintcolor.g,paintcolor.b))
-			   mybrush:setFilter('nearest','nearest')
+
+
+			   if eraseMode==true then
+			       eraserRadius=potradius
+			       print('eraserRadius '..potradius)
+			   else
+			   
+				brshradius=potradius   
+			   	mybrush=love.graphics.newImage(roundBrushWithAlpha(	brshradius,paintcolor.r,paintcolor.g,paintcolor.b))
+			   	mybrush:setFilter('nearest','nearest')
+			   end
 			else
 				print('brsh less than 1 impossible')
 			end

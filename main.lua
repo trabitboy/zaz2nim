@@ -1,5 +1,9 @@
 --save should only save dirty frames
 
+--default 8fps
+--dflt timecode 1
+--WIP pencil button and separate setting
+
 --URGENT change project select template
 
 --WIP  zoom pos,

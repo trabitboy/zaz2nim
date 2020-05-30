@@ -1,6 +1,7 @@
 paintcolor={r=0.,g=0.,b=0.}
 
 eraseMode = false -- FOR DEBUG
+eraserRadius=16 --dflt
 
 --dirtyDisplay
 -- idea : render to a temp canvas,
@@ -15,6 +16,7 @@ addQuad = {x=0, y=320, w=64, h=64}
 prevQuad = {x=0, y=64, w=64, h=64}
 nextQuad = {x=0, y=0, w=64, h=64}
 saveQuad = {x=0, y=128, w=64, h=64}
+penQuad=  {x=64, y=192, w=64, h=64}
 eraserQuad = {x=0, y=192, w=64, h=64}
 settingsQuad = {x=0, y=10*64, w=64, h=64}
 copyQuad = {x=0, y=8*64, w=64, h=64}
@@ -85,7 +87,11 @@ function nextFrame()
 end
 
 function toggleEraser()
-	eraseMode= not eraseMode 
+	eraseMode= true
+
+end
+function togglePen()
+	eraseMode= false
 
 end
 
@@ -111,15 +117,17 @@ local wPasteFrame=createpicbutton(uiw-64*buttonZoom,uih-128*buttonZoom,buttonsPi
 
 
 --bottom left
-local wAddFrame=createpicbutton(0,uih-64*buttonZoom,buttonsPic,addFrame,addQuad,buttonZoom)
+local wTogglePen=createpicbutton(0,uih-256*buttonZoom,buttonsPic,togglePen,penQuad,buttonZoom)
 local wToggleEraser=createpicbutton(0,uih-192*buttonZoom,buttonsPic,toggleEraser,eraserQuad,buttonZoom)
 local wCopyFrame=createpicbutton(0,uih-128*buttonZoom,buttonsPic,copyFrame,copyQuad,buttonZoom)
+local wAddFrame=createpicbutton(0,uih-64*buttonZoom,buttonsPic,addFrame,addQuad,buttonZoom)
 
 
 table.insert(widgets,wAddFrame)
 table.insert(widgets,wPrevFrame)
 table.insert(widgets,wNextFrame)
 table.insert(widgets,wSaveFrames)
+table.insert(widgets,wTogglePen)
 table.insert(widgets,wToggleEraser)
 table.insert(widgets,wCopyFrame)
 table.insert(widgets,wPasteFrame)
@@ -194,6 +202,7 @@ local function rendertouicanvas()
 	
 	love.graphics.print('tc '..frames[currentIdx].tc,200,0)
 
+	love.graphics.print("frame "..currentIdx,400,0)
 	love.graphics.setColor(1.0,1.0,1.0,1.0)
 
 	msgToCvs()
@@ -201,13 +210,14 @@ local function rendertouicanvas()
 
 	--render brush for user friendliness
 	if eraseMode==true then
-	   love.graphics.circle('line',hoverx-brshradius,hovery-brshradius,brshradius)
+	   love.graphics.circle('line',hoverx,hovery,eraserRadius)
 	else
 		love.graphics.draw(mybrush,hoverx-brshradius,hovery-brshradius)
 	end
 
 	love.graphics.setCanvas()
 
+	--TODO dunno think if used ( tentative save and load )
 	displayModal()
 
 end
@@ -318,8 +328,10 @@ function blitBrushLineRemember(x,y)
 	end
 	
 	for i,b in ipairs(blits) do
-		if eraseMode== true then 
-			love.graphics.circle('fill',x,y,brshradius)
+		if eraseMode== true then
+		--TODO why different x y ? might explain jumpiness
+		       -- TODO events are actually recorded for top left of brush, refactor to do
+			love.graphics.circle('fill',x+brshradius,y+brshradius,eraserRadius)
 		else
 			love.graphics.draw(mybrush,b.xbl,b.ybl)
 		end
