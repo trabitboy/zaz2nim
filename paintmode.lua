@@ -1,5 +1,17 @@
 paintcolor={r=0.,g=0.,b=0.}
 
+
+--on stylus up we do a copy to one of the undobuffers
+
+--maximum undo
+undoDepth=3
+--this is a circular buffer of cvs we overwrite
+undoBuf={} --table with undodepth canvases, we cycle the frame we paint on
+currentUndoBuf=1-- this changes as we paint,next target buffer
+currentUndoDepth=0 -- how many steps undo can go back
+
+initUndoBuffers()
+
 eraseMode = false -- FOR DEBUG
 eraserRadius=16 --dflt
 
@@ -17,6 +29,7 @@ prevQuad = {x=0, y=64, w=64, h=64}
 nextQuad = {x=0, y=0, w=64, h=64}
 saveQuad = {x=0, y=128, w=64, h=64}
 penQuad=  {x=64, y=192, w=64, h=64}
+undoQuad = {x=64, y=16*64, w=64, h=64}
 eraserQuad = {x=0, y=192, w=64, h=64}
 settingsQuad = {x=0, y=10*64, w=64, h=64}
 copyQuad = {x=0, y=8*64, w=64, h=64}
@@ -33,6 +46,73 @@ copySrc=nil
 --disableDisplay=false
 
 
+
+--helper to move within range of undo buf
+-- if you have 1 and apply -2, you will end up in undoDepth -1 (penultimate from the last ) 
+--function circularUndoNum(idx,op)
+--	 local ret=idx+op
+--	 if ret<1 then
+--	    local dif=math.abs(ret)-1
+--	 end
+--
+--end
+
+--when moving frames
+function resetUndo()
+	 print('undo reset')
+	 currentUndoDepth=0
+
+end
+
+--WIP WE NEED TO RESTORE PREVIOUS FRAME, NOT THE ONE WE JUST SAVED
+function undoLastStroke()
+	 print('###############')
+	 print('undo pressed')
+	 --we need undo depth > 1 to restore
+	 if currentUndoDepth>1 then
+	    print('undo depth '..currentUndoDepth)
+
+	    --next undo target will be the last backed up version
+	    --which is identical to current cvs
+	    local targetIdx = currentUndoBuf-1
+	    if targetIdx<1 then
+	       targetIdx=undoDepth
+	    end
+
+	    local restoreIdx= targetIdx-1
+	    if restoreIdx<1 then
+	       restoreIdx=undoDepth
+	    end
+
+	    print('restoring undo idx  '..restoreIdx)
+	    print(undoBuf[restoreIdx])
+
+	    
+
+	    love.graphics.setCanvas(cvs)
+	    love.graphics.clear(0.,0.,0.,0.)
+-- for test !!
+--	    love.graphics.setColor(1.,0.,0.,1.)
+
+	love.graphics.draw(undoBuf[restoreIdx])
+--	    local data  =  undoBuf[restoreIdx]:newImageData()
+--	    data:encode("png",conf.prjfld.."undotest.png")
+
+
+--	    love.graphics.print('debug',400,400)
+	    --for some reason breaks display other wise
+	    --TODO prints everywhere to follow state changes
+	    love.graphics.setCanvas()
+
+	    currentUndoBuf=targetIdx -- we just freed it, new target
+	    currentUndoDepth=currentUndoDepth-1
+	    print('new undo depth '..currentUndoDepth ..' new target '..currentUndoBuf)
+	    else
+		print('no undo possible')
+	    end
+
+
+end
 
 function copyFrame()
 	copySrc=currentIdx
@@ -67,6 +147,8 @@ function prevFrame()
 			currentIdx=currentIdx-1
 			print("frame down")
 			initCanvases(currentIdx)
+
+			resetUndo()
 		end
 
 end
@@ -81,6 +163,8 @@ function nextFrame()
 			currentIdx=currentIdx+1
 			print("frame up")
 			initCanvases(currentIdx)
+
+			resetUndo()
 		end
 
 
@@ -117,6 +201,7 @@ local wPasteFrame=createpicbutton(uiw-64*buttonZoom,uih-128*buttonZoom,buttonsPi
 
 
 --bottom left
+local wUndo=createpicbutton(0,uih-320*buttonZoom,buttonsPic,undoLastStroke,undoQuad,buttonZoom)
 local wTogglePen=createpicbutton(0,uih-256*buttonZoom,buttonsPic,togglePen,penQuad,buttonZoom)
 local wToggleEraser=createpicbutton(0,uih-192*buttonZoom,buttonsPic,toggleEraser,eraserQuad,buttonZoom)
 local wCopyFrame=createpicbutton(0,uih-128*buttonZoom,buttonsPic,copyFrame,copyQuad,buttonZoom)
@@ -134,7 +219,7 @@ table.insert(widgets,wPasteFrame)
 table.insert(widgets,wSettings)
 table.insert(widgets,wLeftFlick)
 table.insert(widgets,wRightFlick)
-
+table.insert(widgets,wUndo)
 
 --main paint mode, paints to current canvas, displays light table and side buttons
 onionDepth=1 --TODO
@@ -355,6 +440,47 @@ function blitBrushLineRemember(x,y)
 	dirtycvs=true
 end
 
+-- when a stroke has been made, we maintain undo buffer
+penUp= function()
+       print('pen up')
+
+
+       print(undoBuf[currentUndoBuf])
+
+       --TODO defensive
+       local buf=love.graphics.getCanvas()
+
+       love.graphics.setCanvas(undoBuf[currentUndoBuf])
+       --we do the backup
+      love.graphics.clear(0.,0.,0.,0.)
+--      love.graphics.setColor(1,0,0,1)
+--      love.graphics.print('composition test ')
+     love.graphics.draw(cvs)
+
+      love.graphics.setCanvas(buf)
+   	    local data  =  undoBuf[currentUndoBuf]:newImageData()
+	    data:encode("png",conf.prjfld.."undotest.png")
+
+
+
+      --love.graphics.draw(cvs)
+
+      print('buffer '..currentUndoBuf .. ' will be poped next time')
+
+      currentUndoBuf=currentUndoBuf+1
+      if currentUndoBuf>undoDepth then
+      	 currentUndoBuf=1
+      end
+      currentUndoDepth=currentUndoDepth+1
+      if currentUndoDepth>undoDepth then
+      	 currentUndoDepth=undoDepth
+      end
+      print('new target undo buf '..currentUndoBuf..' new undo depth '..currentUndoDepth)
+
+
+      print('copied to undo buf')
+
+end
 
 
 function paintModeUpdate()
@@ -391,7 +517,7 @@ function paintModeUpdate()
 		--we flag this frame for save
 		frames[currentIdx].dirty=true
 		blitBrushLineRemember(xb,yb)
-		registerdrag={drag=dragPaint}
+		registerdrag={drag=dragPaint,dragrelease=penUp}
 		npress=false
 	end
 end

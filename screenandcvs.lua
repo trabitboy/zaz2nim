@@ -49,11 +49,25 @@ determineHDUicanvasZoom(ww,wh)
  --this is where the current frame is drawn
  
  --for android, otherwise dl image data is oversized
- settings={}
- settings.dpiscale=1.0
+ technicalcvssettings={}
+ technicalcvssettings.dpiscale=1.0
 
-	cvs=love.graphics.newCanvas(conf.cvsw,conf.cvsh,settings)
+	cvs=love.graphics.newCanvas(conf.cvsw,conf.cvsh,technicalcvssettings)
 	ui=love.graphics.newCanvas(uiw,uih)	
+
+--probably settings are used just for texture download ?
+function initUndoBuffers()
+	 print ('undo buffers init')
+	 for i=1,undoDepth
+	 do
+		--we allocate backup canvases
+--		local undocvs=love.graphics.newCanvas(conf.cvsw,conf.cvsh,technicalcvssettings)
+		local undocvs=love.graphics.newCanvas(conf.cvsw,conf.cvsh)
+		undoBuf[i]=undocvs
+	 end
+
+end
+
 
 function love.resize( nw, nh )
 	local npw,nph=love.window.toPixels( nw, nh )
