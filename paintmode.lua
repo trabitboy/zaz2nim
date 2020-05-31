@@ -1,3 +1,56 @@
+--structure for documentation
+--we save setings with f6 f10
+--we restore with f1 f5
+brushPresets={
+--	f1={eraser=true,size=8},
+--	f2={size=8,color={r=1.0,g=0.0,b=0.0},brush=realblittablebrush}
+}
+
+storeInSlot= function(key)
+	print('storing '..key)
+	slot=key:sub(2,3)
+	tgtslot=slot-5
+	print('tgtslot '..tgtslot)
+	tkey='f'..tgtslot
+
+
+	if eraseMode==true then
+	   print('eraser stored')
+	   brushPresets[tkey]={eraser=true,size=eraserRadius}
+	else
+	   print('brush stored '..tkey)
+	   brushPresets[tkey]={size=brshradius,color={r=paintcolor.r,g=paintcolor.g,b=paintcolor.b},brush=mybrush}
+	end
+	
+end
+
+restoreSlot= function(key)
+	print('restoring '..key)
+
+	local pot=brushPresets[key]
+	if pot==nil then
+	   print('nothing to restore yet')
+	   return
+	end
+
+	if pot.eraser==true then
+	   print('eraser restored')
+	   eraseMode=true
+	   eraserRadius=pot.size
+	else
+	   eraseMode=false
+		print('brush restored '..tkey)
+	   brshradius=pot.size
+	   paintcolor.r=pot.color.r
+	   paintcolor.g=pot.color.g
+	   paintcolor.b=pot.color.b
+	   mybrush=pot.brush
+	end
+	
+
+end
+
+
 paintcolor={r=0.,g=0.,b=0.}
 
 
@@ -367,11 +420,11 @@ end
 
 function paintModeKey(key, code, isrepeat)
 	--simple debug for poc
-	if key=="f1" then
-		addMsg('begin save')
-		saveFrames()
-		addMsg('save finished')		
-	end
+--	if key=="enter" then
+--		addMsg('begin save')
+--		saveFrames()
+--		addMsg('save finished')		
+--	end
 	if key=="p" then
 		toPaletteMode()
 		return
@@ -392,6 +445,18 @@ function paintModeKey(key, code, isrepeat)
 	if key =='down' then
 	   smallerCurrentTool()
 	end
+
+	if key=='f6' or key=='f7' or key=='f8' or key=='f9' or key=='f10' then
+	   print('storing brush or eraser ')
+	   storeInSlot(key)
+	end
+
+	if key=='f1' or key=='f2' or key=='f3' or key=='f4' or key=='f5' then
+	   print('restoring brush or eraser ')
+	   restoreSlot(key)
+	end
+
+
 
 
 end
@@ -510,7 +575,7 @@ penUp= function()
 
       love.graphics.setCanvas(buf)
    	    local data  =  undoBuf[currentUndoBuf]:newImageData()
-	    data:encode("png",conf.prjfld.."undotest.png")
+--	    data:encode("png",conf.prjfld.."undotest.png")
 
 
 
