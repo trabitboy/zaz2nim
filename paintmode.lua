@@ -1,6 +1,9 @@
 paintcolor={r=0.,g=0.,b=0.}
 
 
+--step to change tool size with keyboard shortcuts
+brushKeyStep=4
+
 --on stylus up we do a copy to one of the undobuffers
 
 --maximum undo
@@ -325,6 +328,43 @@ function saveCanvasToFrame(idx)
 	
 end
 
+
+biggerCurrentTool=function()
+     if eraseMode==true then
+     	eraserRadius=eraserRadius+brushKeyStep
+
+     else
+	print('increasing brsh size')
+	brshradius=brshradius+brushKeyStep
+   	mybrush=love.graphics.newImage(roundBrushWithAlpha(	brshradius,paintcolor.r,paintcolor.g,paintcolor.b))
+   	mybrush:setFilter('nearest','nearest')
+
+
+     end
+
+end
+
+smallerCurrentTool=function()
+     if eraseMode==true then
+     	if eraserRadius>brushKeyStep then
+     	   eraserRadius=eraserRadius-brushKeyStep
+     	end
+
+     else
+	print('decreasing brsh size')
+	if brshradius>brushKeyStep then
+	
+		brshradius=brshradius-brushKeyStep
+   		mybrush=love.graphics.newImage(roundBrushWithAlpha(	brshradius,paintcolor.r,paintcolor.g,paintcolor.b))
+   		mybrush:setFilter('nearest','nearest')
+	end
+
+     end
+
+end
+
+
+
 function paintModeKey(key, code, isrepeat)
 	--simple debug for poc
 	if key=="f1" then
@@ -344,7 +384,15 @@ function paintModeKey(key, code, isrepeat)
 	if key=="right" then
 		nextFrame()
 	end
-	
+
+	if key=='up' then
+	   biggerCurrentTool()
+	end
+
+	if key =='down' then
+	   smallerCurrentTool()
+	end
+
 
 end
 

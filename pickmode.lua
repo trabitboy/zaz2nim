@@ -43,7 +43,7 @@ function pickModeUpdate()
 		addMsg('color '.. math.floor( r*255) ..' '.. math.floor(g*255) ..' '.. b*255)
 		addMsg('quit pick')
 		-- mybrush=love.graphics.newImage(roundBrushWithAlpha(8,r*255,g*255,b*255))
-		mybrush=love.graphics.newImage(roundBrushWithAlpha(8,r,g,b))
+		mybrush=love.graphics.newImage(roundBrushWithAlpha(brshradius,r,g,b))
 		mybrush:setFilter('nearest','nearest')
 
 		npress=false

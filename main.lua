@@ -1,3 +1,8 @@
+--pick color changes brsh size
+--arrows to change eraser or brush size
+--function keys to save / restore brush or eraser
+--bg metadata ; if flagged bg for next frames
+
 --save should only save dirty frames
 
 --default 8fps
