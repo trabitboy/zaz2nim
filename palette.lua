@@ -29,7 +29,7 @@ function paletteModeUpdate()
 		paintcolor.r=r
 		paintcolor.g=g
 		paintcolor.b=b
-		
+		npress=false		
 		toPaintMode()
 		return
 	end
