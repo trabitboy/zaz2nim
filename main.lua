@@ -1,3 +1,9 @@
+--cb ce
+-- paint under
+--stamp preview for sound adjust (story board screen)
+--fill mode
+
+
 --CRITICAL frame you come back to from playmode overwritten with last played frame
 
 -- cb ce aussi pour frame set
