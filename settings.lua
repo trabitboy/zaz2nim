@@ -18,7 +18,13 @@ local bgQuad={x=2*64, y=2*64, w=64, h=64}
 
 function toggleBg()
 	 print ('toggle frame '..currentIdx..'as bg')
-	 frames[currentIdx].bg=true
+	 if frames[currentIdx].bg==true then
+	    frames[currentIdx].bg=nil
+	 else
+	    frames[currentIdx].bg=true
+
+	 end
+
 	 maintainBgRanges()
 end
 
@@ -44,6 +50,8 @@ function deleteCurrentFrame()
 	    currentIdx=maxframe
 	 end
 
+
+	 maintainBgRanges()
 	 initCanvases(currentIdx)
 end
 

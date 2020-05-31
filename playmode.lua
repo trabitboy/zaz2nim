@@ -26,7 +26,15 @@ local function rendertouicanvas()
 	-- love.graphics.print('setting',400,0)
 	-- love.graphics.setColor(1.0,1.0,1.0,1.0)
 	-- love.graphics.draw(mybrush)
-	
+
+	--we blit optional BG
+	local key = 'f'..currentIdx
+	if mybg[key]~=nil then
+	   love.graphics.draw(frames[mybg[key]].pic)
+
+	end
+
+
 	
 	love.graphics.draw(frames[currentIdx].pic)
 	

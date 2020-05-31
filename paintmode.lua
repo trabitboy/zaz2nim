@@ -196,6 +196,8 @@ function addFrame()
 
 	maxFrameReached=maxFrameReached+1
 	print('max frames reached at a given point '..maxFrameReached)
+
+	maintainBgRanges()
 end
 
 function prevFrame()
@@ -322,6 +324,15 @@ local function rendertouicanvas()
 	love.graphics.setColor(1.,1.,1.,1.0)
 	love.graphics.rectangle('fill',offsetcvs.x,offsetcvs.y,conf.cvsw,conf.cvsh)
 	--love.graphics.setColor(1.,1.,1.,1.0)
+
+
+	--we blit optional BG
+	local key = 'f'..currentIdx
+	if mybg[key]~=nil then
+	   love.graphics.draw(frames[mybg[key]].pic,offsetcvs.x,offsetcvs.y)
+
+	end
+
 
 
 	if currentIdx-1>0 then 

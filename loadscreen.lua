@@ -8,6 +8,22 @@ maintainBgRanges=function()
 		--f2=8
 	}    
 
+	currentBG=nil
+
+	for i=1,maxframe
+	do
+		--is frame BG ?
+		if frames[i].bg==true then
+		   print('current bg becomes '..i)
+		   currentBG=i
+		end
+
+		if currentBG~=nil then
+		   local key='f'..i
+		   mybg[key]=currentBG
+		end
+
+	end
 end
 
 
@@ -41,6 +57,11 @@ updateLoadScreen = function ()
 	   maxFrameReached=maxframe
 
 	   loadTxtCodes()
+
+	   loadBgRanges()
+	   
+	   maintainBgRanges()
+
 	   initCanvases(1)
 	   toPaintMode()
 	   return

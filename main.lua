@@ -169,6 +169,8 @@ require('hd43conf')
 --require('sdconf')
 require('seqselection')
 
+serialize=require('ser')
+require('bgranges')
 require('modal')
 require('shaders')
 require('interpolateLine')
