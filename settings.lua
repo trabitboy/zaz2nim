@@ -14,7 +14,13 @@ pickerQuad={x=0, y=15*64, w=64, h=64}
 local brushQuad={x=0, y=16*64, w=64, h=64}
 local zoomQuad={x=128, y=0, w=64, h=64}
 local deleteQuad={x=0, y=11*64, w=64, h=64}
+local bgQuad={x=2*64, y=2*64, w=64, h=64}
 
+function toggleBg()
+	 print ('toggle frame '..currentIdx..'as bg')
+	 frames[currentIdx].bg=true
+	 maintainBgRanges()
+end
 
 
 
@@ -54,6 +60,7 @@ local wTC =createpicbutton(uiw-64*buttonZoom,192*buttonZoom,buttonsPic,toTimeCod
 local wBS =createpicbutton(uiw-64*buttonZoom,256*buttonZoom,buttonsPic,toBrushScreen,brushQuad)
 local wZP =createpicbutton(uiw-128*buttonZoom,0*buttonZoom,buttonsPic,toZoomPos,zoomQuad)
 local wDF =createpicbutton(uiw-192*buttonZoom,0*buttonZoom,buttonsPic,deleteCurrentFrame,deleteQuad)
+local wBG =createpicbutton(uiw-256*buttonZoom,0*buttonZoom,buttonsPic,toggleBg,bgQuad)
 
 
 
@@ -64,7 +71,7 @@ table.insert(widgets,wTC)
 table.insert(widgets,wBS)
 table.insert(widgets,wZP)
 table.insert(widgets,wDF)
-
+table.insert(widgets,wBG)
 
 function toSettings()
 	drawFunc=drawSettings

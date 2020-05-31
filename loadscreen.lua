@@ -1,5 +1,14 @@
 
+--we maintain what frame is a bg for what
+maintainBgRanges=function()
+	mybg={
+		--if a frame has a bg, it is stored here
+		-- if frame doesn appear, no bg
+		--f1=3,
+		--f2=8
+	}    
 
+end
 
 
 drawLoadScreen = function ()

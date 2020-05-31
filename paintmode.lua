@@ -78,6 +78,8 @@ eraserRadius=16 --dflt
 
 local widgets={}
 
+ decoBgQuad={x=2*64, y=2*64, w=64, h=64}
+	realDecoBgQuad=love.graphics.newQuad(decoBgQuad.x,decoBgQuad.y,decoBgQuad.w,decoBgQuad.h,buttonsPic:getWidth(),buttonsPic:getHeight())
 
 
 addQuad = {x=0, y=320, w=64, h=64}
@@ -359,10 +361,16 @@ local function rendertouicanvas()
 		love.graphics.draw(mybrush,hoverx-brshradius,hovery-brshradius)
 	end
 
+
+	if frames[currentIdx].bg==true then
+	   --display bg dec
+	   love.graphics.draw(buttonsPic,realDecoBgQuad,0,200)
+	end
+
 	love.graphics.setCanvas()
 
 	--TODO dunno think if used ( tentative save and load )
-	displayModal()
+--	displayModal()
 
 end
 
