@@ -12,6 +12,7 @@ function toPlayback()
 	cyclecount=0
 	--we use it to throttle longer frames
 	elapsedTc=0
+	pbIdx=currentIdx
 end
 
 
@@ -28,7 +29,7 @@ local function rendertouicanvas()
 	-- love.graphics.draw(mybrush)
 
 	--we blit optional BG
-	local key = 'f'..currentIdx
+	local key = 'f'..pbIdx
 	if mybg[key]~=nil then
 	   love.graphics.draw(frames[mybg[key]].pic)
 
@@ -36,29 +37,8 @@ local function rendertouicanvas()
 
 
 	
-	love.graphics.draw(frames[currentIdx].pic)
+	love.graphics.draw(frames[pbIdx].pic)
 	
-	
-	
-	-- if currentIdx-1>0 then 
-		-- love.graphics.setColor(1.0,1.0,1.0,0.5)
-		-- love.graphics.draw(frames[currentIdx-1].pic,offsetcvs.x,offsetcvs.y)
-	-- end
-
-	-- if frames[currentIdx+1] then 
-		-- love.graphics.setColor(1.0,1.0,1.0,0.5)
-		-- love.graphics.draw(frames[currentIdx+1].pic,offsetcvs.x,offsetcvs.y)
-	-- end
-	
-	-- love.graphics.setColor(1.0,1.0,1.0,1.0)
-	
-	-- --antialias ink of current frame
-	-- love.graphics.setShader(inksmooth)
-	-- love.graphics.draw(cvs,offsetcvs.x,offsetcvs.y)
-	-- love.graphics.setShader()
-	-- love.graphics.draw(mybrush,0,0)
-
-	-- renderWidgets()
 	
 	msgToCvs()
 	
@@ -86,21 +66,29 @@ function updatePlayback()
 	if cyclecount>cycles then
 		cyclecount=0
 		elapsedTc=elapsedTc+1
-
-		if elapsedTc>=frames[currentIdx].tc then
-			currentIdx=currentIdx+1
+		print('elapsed tc '..elapsedTc)
+		if elapsedTc>=frames[pbIdx].tc then
+			pbIdx=pbIdx+1
 			elapsedTc=0
+			print('next frame')
+
+			--we trigger sound if new frame has one
+			if frames[pbIdx].sound~=nil then
+			   print('playing sound for frame  '..pbIdx)
+			   love.audio.play(frames[pbIdx].sound)
+			end
+
 		end
 	end
 	
 	
-	if currentIdx>=maxframe then
-		currentIdx=1
+	if pbIdx>=maxframe then
+		pbIdx=1
 		toPaintMode()
 		return
 	end
 	
-	if npress==true and npx<64 and npy<64 then
+	if npress==true and npy>(conf.cvsh-256) then
 		-- if npx<brshLineWidth then
 			-- brshradius=npy/uih * brshMaxRad
 			-- mybrush=love.graphics.newImage(roundBrushWithAlpha(	brshradius,0.0,0.0,0.0))

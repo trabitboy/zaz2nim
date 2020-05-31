@@ -1,7 +1,12 @@
---pick color changes brsh size
---arrows to change eraser or brush size
---function keys to save / restore brush or eraser
---bg metadata ; if flagged bg for next frames
+--CRITICAL frame you come back to from playmode overwritten with last played frame
+
+-- cb ce aussi pour frame set
+-- preview screen vignettes +sounc
+
+
+--bug: copy part broken
+
+
 
 --save should only save dirty frames
 

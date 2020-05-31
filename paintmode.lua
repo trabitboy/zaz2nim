@@ -203,7 +203,7 @@ end
 function prevFrame()
 		if currentIdx>1 then
 			addMsg("previous")
-			
+			print('previous, saving canvas')
 			--save canvas to frame
 			saveCanvasToFrame(currentIdx)
 			
