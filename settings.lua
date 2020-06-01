@@ -1,4 +1,10 @@
 
+-- we store range for range operations
+-- set time code for range
+-- copy range
+rangeBeginIdx=nil
+rangeEndIdx=nil
+
 brshLineWidth=128
 
 brshMaxRad=128
@@ -15,6 +21,26 @@ local brushQuad={x=0, y=16*64, w=64, h=64}
 local zoomQuad={x=128, y=0, w=64, h=64}
 local deleteQuad={x=0, y=11*64, w=64, h=64}
 local bgQuad={x=2*64, y=2*64, w=64, h=64}
+local rangeBeginQuad={x=0*64, y=12*64, w=64, h=64}
+local rangeEndQuad={x=0*64, y=13*64, w=64, h=64}
+local pasteRangeQuad={x=0*64, y=14*64, w=64, h=64}
+
+function pasteRange()
+	 if cb==nil or ce==nil then
+	    print(' nil marker, not possible ')
+	    return
+	 end
+
+	 if ce<=cb then
+	    print(' end marker before begin marker, not possible ')
+	    return 
+	 end
+
+	 --todo paste range from current idx
+
+
+end
+
 
 function toggleBg()
 	 print ('toggle frame '..currentIdx..'as bg')
@@ -55,7 +81,15 @@ function deleteCurrentFrame()
 	 initCanvases(currentIdx)
 end
 
+function setRangeBegin()
+	 print('setRangeBegin '..currentIdx)
+	 rangeBeginIdx=currentIdx
+end
 
+function setRangeEnd()
+	 print('setRangeEnd '..currentIdx)
+	 rangeEndIdx=currentIdx
+end
 
 
 local wPlay=createpicbutton(uiw-64*buttonZoom,0,buttonsPic,toPlayback,playQuad)
@@ -69,7 +103,9 @@ local wBS =createpicbutton(uiw-64*buttonZoom,256*buttonZoom,buttonsPic,toBrushSc
 local wZP =createpicbutton(uiw-128*buttonZoom,0*buttonZoom,buttonsPic,toZoomPos,zoomQuad)
 local wDF =createpicbutton(uiw-192*buttonZoom,0*buttonZoom,buttonsPic,deleteCurrentFrame,deleteQuad)
 local wBG =createpicbutton(uiw-256*buttonZoom,0*buttonZoom,buttonsPic,toggleBg,bgQuad)
-
+local wRB =createpicbutton(uiw-320*buttonZoom,0*buttonZoom,buttonsPic,setRangeBegin,rangeBeginQuad)
+local wRE =createpicbutton(uiw-384*buttonZoom,0*buttonZoom,buttonsPic,setRangeEnd,rangeEndQuad)
+local wPR =createpicbutton(uiw-384*buttonZoom,uih-64*buttonZoom,buttonsPic,pasteRange,pasteRangeQuad)
 
 
 table.insert(widgets,wPlay)
@@ -80,6 +116,9 @@ table.insert(widgets,wBS)
 table.insert(widgets,wZP)
 table.insert(widgets,wDF)
 table.insert(widgets,wBG)
+table.insert(widgets,wRB)
+table.insert(widgets,wRE)
+table.insert(widgets,wPR)
 
 function toSettings()
 	drawFunc=drawSettings
