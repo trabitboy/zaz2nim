@@ -1,0 +1,13 @@
+--to save the brush presets on function keys
+
+
+saveBrushes=function ()
+
+
+end
+
+
+loadBrushes=function()
+
+
+end

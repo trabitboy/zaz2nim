@@ -62,6 +62,8 @@ updateLoadScreen = function ()
 	   
 	   maintainBgRanges()
 
+	   loadBrushes()
+
 	   initCanvases(1)
 	   toPaintMode()
 	   return

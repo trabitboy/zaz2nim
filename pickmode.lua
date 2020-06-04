@@ -46,6 +46,10 @@ function pickModeUpdate()
 		mybrush=love.graphics.newImage(roundBrushWithAlpha(brshradius,r,g,b))
 		mybrush:setFilter('nearest','nearest')
 
+		paintcolor.r=r
+		paintcolor.g=g
+		paintcolor.b=b
+		
 		npress=false
 		
 		toPaintMode()

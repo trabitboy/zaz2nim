@@ -30,7 +30,7 @@ updateSaveScreen = function ()
 		if justSaved==maxframe then
 			saveTxtCodes()
 			saveBgRanges()
-
+			saveBrushes()
 			--clean extra frames on disk
 			cleanMaxFrameReached()
 

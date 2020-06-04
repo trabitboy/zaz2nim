@@ -1,3 +1,18 @@
+--change project easily :
+--put all the confs in a map,
+-- activate one conf
+-- seqselection is a folder name, loaded from projects root
+-- inside of project folder, additional file to load : profile.lua
+-- contains key of projectconfig ( hd,hd43,sd )
+
+
+
+--paste range to do
+--save load brushes TODO
+--brush display
+--disable background shortcut
+--perf : freeze display if no change
+
 --cb ce
 -- paint under
 --stamp preview for sound adjust (story board screen)
@@ -201,6 +216,7 @@ require('brushsourceselection')
 require('brushscreen')
 require('settings')
 require('flickmode')
+require('brushpresets')
 require('paintmode')
 
 
