@@ -1,9 +1,9 @@
-conf= {}
-conf.cvsw=640
-conf.cvsh=480
-conf.template='template/sd/template.png'
-uiw=850
-uih=conf.cvsh
+sdconf= {}
+sdconf.cvsw=640
+sdconf.cvsh=480
+sdconf.template='template/sd/template.png'
+sdconf.uiw=850
+sdconf.uih=sdconf.cvsh
 -- prjfld="project/hd/"
 
-brshradius=8
+--brshradius=8

@@ -190,10 +190,19 @@ require('msg')
 
 require('picbutton')
 require('brushbox')
---require('hdconf')
+require('hdconf')
 require('hd43conf')
---require('sdconf')
+require('sdconf')
+
+
+--WIP we hardcode profile for now
+conf=hd43conf
+uiw=hd43conf.uiw
+uih=hd43conf.uih
+
+--TODO change to load of config file
 require('seqselection')
+
 
 serialize=require('ser')
 require('bgranges')
@@ -237,8 +246,9 @@ renderdecos=true
 	frames={}
 --end project globals
 function love.load()
-	
 
+--default
+	brshradius=8
 
 	mybrush=love.graphics.newImage(roundBrushWithAlpha(	brshradius,paintcolor.r,paintcolor.g,paintcolor.b))
 	mybrush:setFilter('nearest','nearest')

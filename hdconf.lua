@@ -1,8 +1,8 @@
-conf= {}
-conf.cvsw=1920
-conf.cvsh=1080
-conf.template='template/hd/template.png'
-uiw=1920
-uih=conf.cvsh
+hdconf= {}
+hdconf.cvsw=1920
+hdconf.cvsh=1080
+hdconf.template='template/hd43/template.png'
+hdconf.uiw=1920
+hdconf.uih=hdconf.cvsh
 -- prjfld="project/sd/"
-brshradius=8
+--brshradius=8
