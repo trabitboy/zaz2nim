@@ -1,0 +1,2 @@
+-gpu accelerated paint
+-shader support

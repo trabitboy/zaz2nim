@@ -22,6 +22,15 @@ cleanMaxFrameReached = function()
 	end
 end
 
+--when a project is created by dflt,
+-- this should be saved
+writeTemplateInfo=function()
+	local tmp="return '".. conf.key  .."' "
+	love.filesystem.write(conf.prjfld.."template.lua",tmp)
+
+end
+
+
 
 updateSaveScreen = function ()
 
@@ -33,6 +42,9 @@ updateSaveScreen = function ()
 			saveBrushes()
 			--clean extra frames on disk
 			cleanMaxFrameReached()
+
+
+			writeTemplateInfo()
 
 			addMsg('after save')
 			toPaintMode()

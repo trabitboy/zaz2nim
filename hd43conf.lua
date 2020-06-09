@@ -4,5 +4,7 @@ hd43conf.cvsh=1080
 hd43conf.template='template/hd43/template.png'
 hd43conf.uiw=1920
 hd43conf.uih=hd43conf.cvsh
+hd43conf.key='hd43'
 -- prjfld="project/sd/"
 --brshradius=8
+prjTemplates['hd43']=hd43conf

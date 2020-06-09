@@ -100,6 +100,25 @@ initLoadScreen = function()
 	--frames are 0 based for zazanim compatibility ( tcs, etc )
        curLoadAttempt=1
 
+
+       --we need to init tmpfolder for wav
+       --it is used so we can move files easily on save
+       -- on some offset operations
+       --( frames insertion, deletion ) some indexes might be lost otherwise
+
+       	twpWavFsInfo=love.filesystem.getInfo(conf.prjfld..'tmpwav/')
+	 print('tmpwav fld ')
+	 print(twpWavFsInfo)
+	if twpWavFsInfo then
+	       print('fld exist we need to delete')
+	       love.filesystem.remove(conf.prjfld..'tmpwav/')
+	else
+		--  highscores=defaulths()
+		    print('tmp wav doesnt exist')
+	 end
+	love.filesystem.createDirectory(conf.prjfld..'tmpwav/')
+
+
        drawFunc=drawLoadScreen
        updateFunc=updateLoadScreen
 end

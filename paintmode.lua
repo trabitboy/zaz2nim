@@ -397,6 +397,10 @@ function paintModeKey(key, code, isrepeat)
 		toPaletteMode()
 		return
 	end
+	if key=="s" then
+		toStoryboard()
+		return
+	end
 
 	if key=="left" then
 		prevFrame()

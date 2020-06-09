@@ -1,3 +1,11 @@
+-- WIP  move wavs on save
+-- 	since project can contract or expand,
+--	most secure way is copying the wavs in a tmpwav folders
+-- 	when saving projects, we erase originals and copy the ones from the temp folder in the right place
+-- TODO move wavs while editing
+
+
+
 --change project easily :
 --put all the confs in a map,
 -- activate one conf
@@ -8,18 +16,16 @@
 
 
 --paste range to do
---save load brushes TODO
---brush display
+--save load brushes
+--brush display  TODO
 --disable background shortcut
 --perf : freeze display if no change
 
---cb ce
 -- paint under
 --stamp preview for sound adjust (story board screen)
 --fill mode
 
 
---CRITICAL frame you come back to from playmode overwritten with last played frame
 
 -- cb ce aussi pour frame set
 -- preview screen vignettes +sounc
@@ -190,18 +196,21 @@ require('msg')
 
 require('picbutton')
 require('brushbox')
+
+--project templates
+prjTemplates={}
 require('hdconf')
 require('hd43conf')
 require('sdconf')
 
 
---WIP we hardcode profile for now
-conf=hd43conf
-uiw=hd43conf.uiw
-uih=hd43conf.uih
 
 --TODO change to load of config file
 require('seqselection')
+--WIP we hardcode profile for now
+--conf=prjTemplates['hd43']
+uiw=conf.uiw
+uih=conf.uih
 
 
 serialize=require('ser')
@@ -216,6 +225,7 @@ require('loadsave')
 require('loadscreen')
 require('savescreen')
 require('screenandcvs')
+require('storyboard')
 require('playmode')
 require('palette')
 require('pickmode')
