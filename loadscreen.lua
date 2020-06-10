@@ -88,6 +88,10 @@ updateLoadScreen = function ()
 --	      local target = love.filesystem.newFile( tmpWavFld..wName )
 --	      target:open()
 	      love.filesystem.write( tmpWavFld..wName,tmp)
+
+	      frameTable.soundLoadedFrom=wName
+	      --this data will be used to move the file properly on save
+
 	      print(' tmpwav written ')
 	   end
 	   print('sound loaded ')

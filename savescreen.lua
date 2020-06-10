@@ -58,6 +58,22 @@ updateSaveScreen = function ()
 		name=string.format("%03d",curSaveIdx)
 		f.data:encode("png",conf.prjfld..name..".png")
 		   print(' frame '..curSaveIdx..' saved ')
+
+
+		--if a sound is attached, we need to delete previous wav and rewrite it at correct index
+		if f.sound~=nil then
+		   --cleaning loaded file
+		   --TODO debug
+--		   love.filesystem.remove(conf.prjfld .. f.soundLoadedFrom)
+
+		   --saving tmp file to new location
+		   local tmp = love.filesystem.newFileData(tmpWavFld..f.soundLoadedFrom)
+		   local newName = name..'.wav' 
+--		   love.filesystem.write(conf.prjfld..newName)		   
+
+		end
+
+
 		--else
 		--   print('frame '..i..' untouched' )
 		--end
