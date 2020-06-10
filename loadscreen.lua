@@ -77,11 +77,18 @@ updateLoadScreen = function ()
 	--this is a save flag ( we save only modified )
 
 	--if file preexists load sound
-	   local potsound=conf.prjfld..string.format("%03d",curLoadAttempt)..".wav"
+	   local wName=string.format("%03d",curLoadAttempt)..".wav"
+	   local potsound=conf.prjfld..wName
 	   print('looking up pot sound '..potsound)
 	   local si=love.filesystem.getInfo(potsound)
 	   if si~=nil then
 	      frameTable.sound=love.audio.newSource(potsound,'static')
+
+	      local tmp = love.filesystem.newFileData(potsound)
+--	      local target = love.filesystem.newFile( tmpWavFld..wName )
+--	      target:open()
+	      love.filesystem.write( tmpWavFld..wName,tmp)
+	      print(' tmpwav written ')
 	   end
 	   print('sound loaded ')
 	   print(frameTable.sound)
@@ -116,7 +123,11 @@ initLoadScreen = function()
 		--  highscores=defaulths()
 		    print('tmp wav doesnt exist')
 	 end
-	love.filesystem.createDirectory(conf.prjfld..'tmpwav/')
+
+	 tmpWavFld=conf.prjfld..'tmpwav/'
+
+	 love.filesystem.createDirectory(tmpWavFld)
+
 
 
        drawFunc=drawLoadScreen
