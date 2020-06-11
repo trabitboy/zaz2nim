@@ -1,4 +1,8 @@
 
+--TODO store stamps by line ,
+-- and render whole project
+
+
 local widgets={}
 
 local stamps={}
@@ -12,14 +16,14 @@ local defaultStampH= math.floor(defaultStampW*conf.cvsw/conf.cvsh)
 local stampZoom= defaultStampW/conf.cvsw
 
 --when the algorithm below 
-function allocateStamp(x,y,frame)
+function allocateStamp(x,frame,line)
 	 stamp={}
 	 stamp.x=x
-	 stamp.y=y
+--	 stamp.y=y
 	 stamp.w=frame.tc*defaultStampW
 	 stamp.h=defaultStampH
 	 stamp.pic=frame.pic
-	 table.insert(stamps,stamp)
+	 table.insert(line,stamp)
 
 end
 
@@ -33,7 +37,12 @@ function maintainStamps()
 	 --TODO handle width
 	 --TODO start at current idx
 	 local tx=0
-	 local ty=0
+--	 local ty=0
+--	 y not relevant, we use line info
+
+	 currentLine={}
+	 lineNumber=1
+	 stamps[lineNumber]=currentLine
 
 	 for i=1,maxframe
 	 do
@@ -42,16 +51,19 @@ function maintainStamps()
 		if tx+(defaultStampW*frame.tc)<boardWidth then
 		   --we use the space 
 		   		   
-		   allocateStamp(tx,ty,frame)		   
+		   allocateStamp(tx,frame,currentLine)		   
 		   tx=tx+defaultStampW*frame.tc
 		else
-			ty=ty+defaultStampH
+--			ty=ty+defaultStampH
 			tx=0
+			lineNumber=lineNumber+1
+			currentLine={}
+			stamps[lineNumber]=currentLine
 
-			if ty>uih then return end
+--			if ty>uih then return end
 
 			--then we use the space
-			allocateStamp(tx,ty,frame)		   
+			allocateStamp(tx,frame,currentLine)		   
 			tx=tx+defaultStampW*frame.tc
 
 		end
@@ -70,17 +82,23 @@ function toStoryboard()
 end
 
 local function renderStamps()
-      for i,s in ipairs(stamps)
+      local ly=0
+
+      for i,l in ipairs(stamps)
       do
 
+	for j,s in ipairs(l)
+	do
+      
+		love.graphics.setColor(1.0,0.0,0.0,1.0)
 
-	love.graphics.setColor(1.0,0.0,0.0,1.0)
+		love.graphics.rectangle('line',s.x,ly*defaultStampH,s.w,s.h)
 
-	love.graphics.rectangle('line',s.x,s.y,s.w,s.h)
+		love.graphics.setColor(1.0,1.0,1.0,1.0)
 
-	love.graphics.setColor(1.0,1.0,1.0,1.0)
-
-	love.graphics.draw(s.pic,s.x,s.y,0,stampZoom,stampZoom)
+		love.graphics.draw(s.pic,s.x,ly*defaultStampH,0,stampZoom,stampZoom)
+	end
+	ly=ly+1
 
       end
 
