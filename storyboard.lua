@@ -9,9 +9,17 @@ local defaultStampW= math.floor( boardWidth/32 )
 
 local defaultStampH= math.floor(defaultStampW*conf.cvsw/conf.cvsh)
 
---when the algorithm below 
-function allocateStamp()
+local stampZoom= defaultStampW/conf.cvsw
 
+--when the algorithm below 
+function allocateStamp(x,y,frame)
+	 stamp={}
+	 stamp.x=x
+	 stamp.y=y
+	 stamp.w=frame.tc*defaultStampW
+	 stamp.h=defaultStampH
+	 stamp.pic=frame.pic
+	 table.insert(stamps,stamp)
 
 end
 
@@ -20,6 +28,7 @@ end
 --taking into account the width to fill,
 --and the height of the screen
 function maintainStamps()
+	 stamps={}
 	 --we start at line 0
 	 --TODO handle width
 	 --TODO start at current idx
@@ -28,19 +37,22 @@ function maintainStamps()
 
 	 for i=1,maxframe
 	 do
-
+		frame=frames[i]
 		--TODO allocation code duplicated mmmm
-		if tx+(defaultStampW*frames[i].tc)<boardWidth then
+		if tx+(defaultStampW*frame.tc)<boardWidth then
 		   --we use the space 
-		   
-		   
-
+		   		   
+		   allocateStamp(tx,ty,frame)		   
+		   tx=tx+defaultStampW*frame.tc
 		else
 			ty=ty+defaultStampH
+			tx=0
 
 			if ty>uih then return end
 
 			--then we use the space
+			allocateStamp(tx,ty,frame)		   
+			tx=tx+defaultStampW*frame.tc
 
 		end
 	 end
@@ -51,11 +63,28 @@ end
 
 function toStoryboard()
 	 print('to story board ')
+	 maintainStamps()
+
 	 drawFunc=drawStoryboard
 	updateFunc=updateStoryboard
 end
 
+local function renderStamps()
+      for i,s in ipairs(stamps)
+      do
 
+
+	love.graphics.setColor(1.0,0.0,0.0,1.0)
+
+	love.graphics.rectangle('line',s.x,s.y,s.w,s.h)
+
+	love.graphics.setColor(1.0,1.0,1.0,1.0)
+
+	love.graphics.draw(s.pic,s.x,s.y,0,stampZoom,stampZoom)
+
+      end
+
+end
 
 local function rendertouicanvas()
 	love.graphics.setCanvas(ui)
@@ -64,7 +93,11 @@ local function rendertouicanvas()
 	love.graphics.setColor(1.0,1.0,1.0,1.0)
 
 --	love.graphics.draw(frames[2].pic)
-	love.graphics.draw(frames[2].pic,0,0,0,0.1,0.1)
+--	love.graphics.draw(frames[2].pic,0,0,0,0.1,0.1)
+
+	--not sure if stamps should be widgets,
+--	as selection is across stamps
+	renderStamps()
 
 	renderWidgets(widgets)
 		

@@ -1,3 +1,15 @@
+--storyboard display and selection
+-- fill tool pour lucien
+--paint under
+-- color layer
+-- export -- generation video
+--brosses zaza
+-- changer projet depuis interface
+
+
+
+
+
 -- WIP  move wavs on save
 -- 	since project can contract or expand,
 --	most secure way is copying the wavs in a tmpwav folders

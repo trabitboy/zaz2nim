@@ -64,12 +64,16 @@ updateSaveScreen = function ()
 		if f.sound~=nil then
 		   --cleaning loaded file
 		   --TODO debug
---		   love.filesystem.remove(conf.prjfld .. f.soundLoadedFrom)
+		   local toClean =conf.prjfld .. f.soundLoadedFrom
+		   print('about to clean '..toClean )
+		   love.filesystem.remove(toClean)
 
 		   --saving tmp file to new location
 		   local tmp = love.filesystem.newFileData(tmpWavFld..f.soundLoadedFrom)
-		   local newName = name..'.wav' 
---		   love.filesystem.write(conf.prjfld..newName)		   
+		   local newName = name..'.wav'
+		   local tgtPath=conf.prjfld..newName
+		   print('writing sound '..tgtPath)
+		   love.filesystem.write(tgtPath,tmp)		   
 
 		end
 
