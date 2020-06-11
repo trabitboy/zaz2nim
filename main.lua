@@ -1,5 +1,6 @@
 --storyboard display and selection
 -- fill tool pour lucien
+-- palm rejection
 --paint under
 -- color layer
 -- export -- generation video
