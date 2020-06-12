@@ -1,14 +1,16 @@
---storyboard display and selection
+--storyboard display and selection ( easy at first , scroll buttons and cb ce mimicking settings )
 -- fill tool pour lucien
--- palm rejection
 --paint under
--- color layer
+-- palm rejection
 -- export -- generation video
 --brosses zaza
+
+
 -- changer projet depuis interface
+-- color layer
 
-
-
+--debit de peinture ( pressure and velocity ) ,
+-- trying to create smooth anime ink brush
 
 
 -- WIP  move wavs on save
