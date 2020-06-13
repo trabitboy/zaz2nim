@@ -3,16 +3,27 @@ framerate=8
 cycles=60/framerate 
 
 
-
-
-function toPlayback()
+local function playFrom (param)
 	drawFunc=drawPlayback
 	updateFunc=updatePlayback
 	npress=false
 	cyclecount=0
 	--we use it to throttle longer frames
 	elapsedTc=0
-	pbIdx=currentIdx
+	pbIdx=param
+
+
+
+end
+
+
+function playFromFirst()
+	 playFrom(1)
+end
+
+
+function toPlayback()
+	 playFrom(currentIdx)
 end
 
 

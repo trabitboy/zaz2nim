@@ -28,10 +28,11 @@ function applyToRange()
 
 	 for i=cb,ce
 	 do
+		print('frame '..i..' tc set '..frames[currentIdx].tc)
 		frames[i].tc=frames[currentIdx].tc
 
 	 end
-
+	 toPaintMode()
 end
 
 wExitTc = createpicbutton(uiw-64,0,buttonsPic,exitTC,exitQuad)

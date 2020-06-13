@@ -124,7 +124,8 @@ initSaveScreen = function()
 		addMsg(prefix)
 	end
 
-	       justSaved=0
-	       drawFunc=drawSaveScreen
-	       updateFunc=updateSaveScreen
+       justSaved=0
+       keyFunc=nil
+       drawFunc=drawSaveScreen
+       updateFunc=updateSaveScreen
 end

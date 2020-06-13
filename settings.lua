@@ -24,6 +24,15 @@ local bgQuad={x=2*64, y=2*64, w=64, h=64}
 local rangeBeginQuad={x=0*64, y=12*64, w=64, h=64}
 local rangeEndQuad={x=0*64, y=13*64, w=64, h=64}
 local pasteRangeQuad={x=0*64, y=14*64, w=64, h=64}
+local exportQuad={x=2*64, y=4*64, w=64, h=64}
+
+
+
+function composeExport()
+	 print('TODO export to avi start')
+
+end
+
 
 function pasteRange()
 	 if cb==nil or ce==nil then
@@ -106,6 +115,7 @@ local wBG =createpicbutton(uiw-256*buttonZoom,0*buttonZoom,buttonsPic,toggleBg,b
 local wRB =createpicbutton(uiw-320*buttonZoom,0*buttonZoom,buttonsPic,setRangeBegin,rangeBeginQuad,buttonZoom)
 local wRE =createpicbutton(uiw-384*buttonZoom,0*buttonZoom,buttonsPic,setRangeEnd,rangeEndQuad,buttonZoom)
 local wPR =createpicbutton(uiw-384*buttonZoom,uih-64*buttonZoom,buttonsPic,pasteRange,pasteRangeQuad,buttonZoom)
+local wEX =createpicbutton(uiw-512*buttonZoom,uih-64*buttonZoom,buttonsPic,composeExport,exportQuad,buttonZoom)
 
 
 table.insert(widgets,wPlay)
@@ -119,6 +129,7 @@ table.insert(widgets,wBG)
 table.insert(widgets,wRB)
 table.insert(widgets,wRE)
 table.insert(widgets,wPR)
+table.insert(widgets,wEX)
 
 function toSettings()
 	drawFunc=drawSettings

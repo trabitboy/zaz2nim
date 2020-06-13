@@ -1,4 +1,4 @@
-
+displayBg=true
 
 paintcolor={r=0.,g=0.,b=0.}
 
@@ -29,6 +29,9 @@ local widgets={}
 
  decoBgQuad={x=2*64, y=2*64, w=64, h=64}
 	realDecoBgQuad=love.graphics.newQuad(decoBgQuad.x,decoBgQuad.y,decoBgQuad.w,decoBgQuad.h,buttonsPic:getWidth(),buttonsPic:getHeight())
+
+ decoSoundQuad={x=1*64, y=10*64, w=64, h=64}
+	realDecoSoundQuad=love.graphics.newQuad(decoSoundQuad.x,decoSoundQuad.y,decoSoundQuad.w,decoSoundQuad.h,buttonsPic:getWidth(),buttonsPic:getHeight())
 
 
 addQuad = {x=0, y=320, w=64, h=64}
@@ -277,7 +280,7 @@ local function rendertouicanvas()
 
 	--we blit optional BG
 	local key = 'f'..currentIdx
-	if mybg[key]~=nil then
+	if mybg[key]~=nil and displayBg==true then
 	   love.graphics.draw(frames[mybg[key]].pic,offsetcvs.x,offsetcvs.y)
 
 	end
@@ -306,9 +309,9 @@ local function rendertouicanvas()
 
 	love.graphics.setColor(1.0,0.0,0.0,1.0)
 	
-	love.graphics.print('tc '..frames[currentIdx].tc,200,0)
+	love.graphics.print('tc '..frames[currentIdx].tc,200,0,0,2,2)
 
-	love.graphics.print("frame "..currentIdx,400,0)
+	love.graphics.print("frame "..currentIdx,400,0,0,2,2)
 	love.graphics.setColor(1.0,1.0,1.0,1.0)
 
 	msgToCvs()
@@ -324,8 +327,16 @@ local function rendertouicanvas()
 
 	if frames[currentIdx].bg==true then
 	   --display bg dec
-	   love.graphics.draw(buttonsPic,realDecoBgQuad,0,200)
+	   love.graphics.draw(buttonsPic,realDecoBgQuad,200,0)
 	end
+
+	if frames[currentIdx].sound~=nil then
+	   --display sound dec
+	   love.graphics.draw(buttonsPic,realDecoSoundQuad,300,0)
+	end
+
+	
+
 
 	love.graphics.setCanvas()
 
@@ -429,6 +440,13 @@ function paintModeKey(key, code, isrepeat)
 	end
 
 
+	if key=='f' then
+	   playFromFirst()
+	end
+
+	if key=='space' then
+	   displayBg=not displayBg
+	end
 
 
 end

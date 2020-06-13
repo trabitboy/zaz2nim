@@ -1,3 +1,31 @@
+--export with frame composition and frame multi
+--export to avi script
+--	 export frames correctly ( bg color, bg )
+--	 multiply frames
+--	 generate scripts ?
+--
+
+
+--display different deco on 'covered with sound '
+--bg color set 
+-- buttons that are hidden on right for select ratios
+--Paste range seems broken TODO
+--Multi TC seems broken DONE ?
+--frame number display bigger DONE
+--brush shortcuts on 1 2 3 4 5 6 7 8 9 0
+--on BG frame, eraser doesn t work TOGGLE WORKAROUND
+--deco BG  DONE
+--deco SON DONE
+--undo seems unreliable, only 1x
+--shortcut to display bg or not DONE space
+--undo doesnt seem to work on back from settings
+--desactiver paint on save KEYS disabled ? is it enough ?
+--play from first frame shortcut DONE f key
+
+--color fill
+--color destroy
+
+
 --emergency save
 --level 1
 --current frame with other name/ current frame name
@@ -249,6 +277,7 @@ require('seqselection')
 uiw=conf.uiw
 uih=conf.uih
 
+require('colorfill')
 
 serialize=require('ser')
 require('bgranges')
@@ -327,9 +356,9 @@ end
 
 
 love.keypressed = function(key, code, isrepeat)
-	
-	keyFunc(key, code, isrepeat)
-	
+	if keyFunc~=nil then	
+		keyFunc(key, code, isrepeat)
+	end
 	
 end
 
