@@ -1,3 +1,21 @@
+--emergency save
+--level 1
+--current frame with other name/ current frame name
+--level 2
+-- option to resave all projects
+--level 3
+-- diff save
+
+
+--diffsave
+--will improve android perf
+--tracke moves
+--track dirty
+--use tmp folder
+
+--palette crash if you click out of palette
+
+
 --storyboard display and selection ( easy at first , scroll buttons and cb ce mimicking settings )
 -- fill tool pour lucien
 --paint under
@@ -208,6 +226,8 @@ buttonsPic=love.graphics.newImage("buttons.png")
 require('stringutil')
 require('widgetutils')
 require('msg')
+require('zznerrorhandler')
+
 
 require('picbutton')
 require('brushbox')

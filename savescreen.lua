@@ -48,8 +48,8 @@ updateSaveScreen = function ()
 
 			addMsg('after save')
 			toPaintMode()
-
-		   return
+		   -- for critical save that calls function directly
+		   return 'finished'
 		end
 
 		--if so far we still have a frame to save
