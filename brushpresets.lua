@@ -1,5 +1,17 @@
 --to save the brush presets on function keys
 
+-- when we change presets we recompose a preview picture
+brushPreviewCanvas=nil
+
+
+--TODO
+function composeBrushPreview()
+	 --lets get maximum brush size
+	 --local max
+	 
+
+end
+
 
 --structure for documentation
 --we save setings with f6 f10

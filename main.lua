@@ -2,7 +2,7 @@
 --level 1
 --current frame with other name/ current frame name
 --level 2
--- option to resave all projects
+-- option to resave all projects DONE
 --level 3
 -- diff save
 
@@ -14,6 +14,8 @@
 --use tmp folder
 
 --palette crash if you click out of palette
+
+--event pb on pc , with wacom : on window exit pen is blocked on down
 
 
 --storyboard display and selection ( easy at first , scroll buttons and cb ce mimicking settings )
