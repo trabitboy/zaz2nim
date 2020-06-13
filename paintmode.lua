@@ -139,7 +139,7 @@ function addFrame()
 	newid = love.image.newImageData(conf.cvsw,conf.cvsh)
 	newp=love.graphics.newImage(newid)
 	-- table.insert(frames,{pic=newp,data=newid})
-	table.insert(frames,currentIdx+1,{pic=newp,data=newid,tc=10})
+	table.insert(frames,currentIdx+1,{pic=newp,data=newid,tc=1})
 	maxframe=maxframe+1
 	print('number of frames '..maxframe)
 
