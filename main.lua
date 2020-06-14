@@ -1,3 +1,9 @@
+--note 8 android, on switch back and forth from app,
+--zoom is f#cked up
+--needs an app restart
+--app seems to be functioning ok otherwise
+
+
 --export with frame composition and frame multi
 --export to avi script
 --	 export frames correctly ( bg color, bg )
@@ -254,6 +260,7 @@
 
 --global resource for all screens
 buttonsPic=love.graphics.newImage("buttons.png")
+require('list')
 require('stringutil')
 require('widgetutils')
 require('msg')

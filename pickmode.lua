@@ -76,6 +76,14 @@ function pickModeUpdate()
 
 	   	floodFill(npx,npy,paintcolor,frames[currentIdx].data,frames[currentIdx].data)
 
+
+		--image data needs to be uploaded back to gpu mem
+		frames[currentIdx].pic:release()
+		frames[currentIdx].pic=love.graphics.newImage(frames[currentIdx].data)
+
+		--TODO upload to work canvas
+		initCanvases(currentIdx)
+
 		npress=false
 		
 		toPaintMode()
