@@ -46,26 +46,17 @@ copyQuad = {x=0, y=8*64, w=64, h=64}
 pasteQuad = {x=0, y=9*64, w=64, h=64}
 lflickQuad = {x=0, y=6*64, w=64, h=64}
 rflickQuad = {x=0, y=7*64, w=64, h=64}
-
+bucketQuad = {x=64,y=0, w=64, h=64}
 
 --index of the source frame
 copySrc=nil
 
---disable display when saving canvas to imagedata ( android potential workaround )
---TODO remove
---disableDisplay=false
 
+function bucket()
+	 --sends to pick mode in alternate state
+	 toFloodFill()
+end
 
-
---helper to move within range of undo buf
--- if you have 1 and apply -2, you will end up in undoDepth -1 (penultimate from the last ) 
---function circularUndoNum(idx,op)
---	 local ret=idx+op
---	 if ret<1 then
---	    local dif=math.abs(ret)-1
---	 end
---
---end
 
 --when moving frames
 function resetUndo()
@@ -212,6 +203,7 @@ local wRightFlick = createpicbutton(uiw-64*buttonZoom,64*buttonZoom,buttonsPic,t
 local wSettings=createpicbutton(uiw-64*buttonZoom,192*buttonZoom,buttonsPic,toSettings,settingsQuad,buttonZoom)
 
 --bottom right
+local wBucket=createpicbutton(uiw-64*buttonZoom,uih-192*buttonZoom,buttonsPic,bucket,bucketQuad,buttonZoom)
 local wPasteFrame=createpicbutton(uiw-64*buttonZoom,uih-128*buttonZoom,buttonsPic,pasteFrame,pasteQuad,buttonZoom)
 
 
@@ -235,6 +227,8 @@ table.insert(widgets,wSettings)
 table.insert(widgets,wLeftFlick)
 table.insert(widgets,wRightFlick)
 table.insert(widgets,wUndo)
+table.insert(widgets,wBucket)
+
 
 --main paint mode, paints to current canvas, displays light table and side buttons
 onionDepth=1 --TODO
@@ -453,7 +447,8 @@ end
 
 
 function paintModeDraw()
-		
+
+
 		rendertouicanvas()
 		--pane is transparent
 --		love.graphics.clear(1.,1.,1.,1.0)

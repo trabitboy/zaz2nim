@@ -6,6 +6,7 @@
 --
 
 
+--create new seq putting unknown name in current project > should work (crashes)
 --display different deco on 'covered with sound '
 --bg color set 
 -- buttons that are hidden on right for select ratios

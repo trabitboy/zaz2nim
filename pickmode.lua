@@ -1,6 +1,5 @@
 
-function toPickMode()
-
+local function commonInit()
 	-- saving canvas to frame, to be sure we pick 
 	--latest changes
 	saveCanvasToFrame(currentIdx)
@@ -8,6 +7,22 @@ function toPickMode()
 
 	drawFunc = pickModeDraw
 	updateFunc = pickModeUpdate
+
+end
+
+--mode flag
+local fill=false
+
+function toFloodFill()
+	 print('init flood fill')
+	 fill=true
+	 commonInit()
+
+end
+
+function toPickMode()
+	 fill=false
+	 commonInit()
 	
 end
 
@@ -19,9 +34,9 @@ local function rendertouicanvas()
 	--display canvas?
 	--pick color frim cvs?
 	love.graphics.rectangle('fill',0,0,conf.cvsw,conf.cvsh)
-love.graphics.draw(frames[currentIdx].pic)
-msgToCvs()
-love.graphics.setCanvas()
+	love.graphics.draw(frames[currentIdx].pic)
+	msgToCvs()
+	love.graphics.setCanvas()
 
 end
 
@@ -37,12 +52,13 @@ end
 
 function pickModeUpdate()
 	if npress==true then
-	   if npx<conf.cvsw and npy<conf.cvsh then
+	   if npx<conf.cvsw and npy<conf.cvsh and fill==false  then
+	        print('pick color triggered')
+
 	   	--pick color
 		r,g,b,a=frames[currentIdx].data:getPixel(npx,npy)
 		addMsg('color '.. math.floor( r*255) ..' '.. math.floor(g*255) ..' '.. b*255)
 		addMsg('quit pick')
-		-- mybrush=love.graphics.newImage(roundBrushWithAlpha(8,r*255,g*255,b*255))
 		mybrush=love.graphics.newImage(roundBrushWithAlpha(brshradius,r,g,b))
 		mybrush:setFilter('nearest','nearest')
 
@@ -54,6 +70,17 @@ function pickModeUpdate()
 		
 		toPaintMode()
 		return
+	   elseif npx<conf.cvsw and npy<conf.cvsh and fill==true  then
+	   	--local r,g,b,a = frames[currentIdx].data:getPixel(npx,npy)
+	   	print('calling flood fill')
+
+	   	floodFill(npx,npy,paintcolor,frames[currentIdx].data,frames[currentIdx].data)
+
+		npress=false
+		
+		toPaintMode()
+		return
+
 	   else
 		npress=false
 		print('out of boundaries')
