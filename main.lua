@@ -4,6 +4,9 @@
 --app seems to be functioning ok otherwise
 
 
+--POC  color fill
+-- PLUG UNDO FOR IT
+
 --export with frame composition and frame multi
 --export to avi script
 --	 export frames correctly ( bg color, bg )
@@ -29,7 +32,6 @@
 --desactiver paint on save KEYS disabled ? is it enough ?
 --play from first frame shortcut DONE f key
 
---color fill
 --color destroy
 
 
