@@ -2,7 +2,7 @@
 --maybe test on blank project ?
 
 --for dbg
-maxiterations=4000
+maxiterations=200000
 
 --parameterized to fill source layer or other layer
 --cpu based impl
@@ -49,9 +49,9 @@ floodFill=function(fx,fy,paintingCol,sourceData,targetData)
 	treatedPixels={}
 	local j,i
 
-	for j = 0,conf.cvsh
+	for j = 0,conf.cvsh-1
 	do
-		for i=0,conf.cvsw
+		for i=0,conf.cvsw-1
 		do
 			treatedPixels[j*conf.cvsw+i]=false
 		end
@@ -73,6 +73,7 @@ floodFill=function(fx,fy,paintingCol,sourceData,targetData)
 
 
 	List.pushRight(toTreatQueue,floodOrigin)
+	treatedPixels[floodOrigin.x+floodOrigin.y*conf.cvsw]=true
 
 	while toTreatQueue.size>0 and iterations<maxiterations
 	do
@@ -80,10 +81,9 @@ floodFill=function(fx,fy,paintingCol,sourceData,targetData)
 
 		iterations=iterations+1
 
-		print('about to color '..point.x..' '..point.y..' with r '..paintingCol.r..' ' ..paintingCol.g..' b '..paintingCol.g)
+--		print('about to color '..point.x..' '..point.y..' with r '..paintingCol.r..' ' ..paintingCol.g..' b '..paintingCol.g)
 
 		targetData:setPixel(point.x,point.y,paintingCol.r,paintingCol.g,paintingCol.b,1.0)
-		treatedPixels[point.x+point.y*conf.cvsw]=true
 
 		-- lets check if we can move in all 4 dirs
 		-- left
@@ -92,6 +92,7 @@ floodFill=function(fx,fy,paintingCol,sourceData,targetData)
 		then
 --			print('left pixel treatable ')
 			List.pushRight(toTreatQueue,{x=point.x-1,y=point.y})
+			treatedPixels[point.x-1+point.y*conf.cvsw]=true
 --		else
 --			print('left pixel NOT treatable ')
 		
@@ -99,10 +100,11 @@ floodFill=function(fx,fy,paintingCol,sourceData,targetData)
 
 
 		--right
-		if point.x<(conf.cvsw) and treatedPixels[(point.x+1)+point.y*conf.cvsw]==false and floodability((point.x+1),point.y,sourceData,toFillCol)
+		if point.x<(conf.cvsw-1) and treatedPixels[(point.x+1)+point.y*conf.cvsw]==false and floodability((point.x+1),point.y,sourceData,toFillCol)
 		then
 			
 			List.pushRight(toTreatQueue,{x=point.x+1,y=point.y})
+			treatedPixels[point.x+1+point.y*conf.cvsw]=true
 		end
 
 		
@@ -111,7 +113,9 @@ floodFill=function(fx,fy,paintingCol,sourceData,targetData)
 		then
 --			print('top pixel treatable ')
 			List.pushRight(toTreatQueue,{x=point.x,y=point.y-1})
-		else
+			treatedPixels[point.x+(point.y-1)*conf.cvsw]=true
+			
+--		else
 --			print('top pixel NOT treatable ')
 		
 		end
@@ -121,6 +125,7 @@ floodFill=function(fx,fy,paintingCol,sourceData,targetData)
 		then
 --			print('bot pixel treatable ')
 			List.pushRight(toTreatQueue,{x=point.x,y=point.y+1})
+			treatedPixels[point.x+(point.y+1)*conf.cvsw]=true
 		else
 --			print('bot pixel NOT treatable ')
 		
