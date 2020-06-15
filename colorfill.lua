@@ -1,7 +1,8 @@
 --TODO color fill, works on some areas of screen, not on some other?
 --maybe test on blank project ?
 
-
+--for dbg
+maxiterations=4000
 
 --parameterized to fill source layer or other layer
 --cpu based impl
@@ -15,20 +16,20 @@ local function floodability(fx,fy,sourcedata,toFillColl)
 -- to fill coll is the picked color to fill, we fill only if new pixel is equal to picked col
 
 
-      print('floodability for '..fx..' '..fy)
+--      print('floodability for '..fx..' '..fy)
       local sr,sg,sb,sa = sourcedata:getPixel(fx,fy)
-      print('tgt color r g b '..sr..' '..sg..' '..sb)
-     print('fill color r g b '..toFillColl.r..' '..toFillColl.g..' '..toFillColl.b)
+--      print('tgt color r g b '..sr..' '..sg..' '..sb)
+--     print('fill color r g b '..toFillColl.r..' '..toFillColl.g..' '..toFillColl.b)
 
 
       if ( sr==toFillColl.r and sg==toFillColl.g and sb==toFillColl.b)  then
 	--should be filled
-	print('floodability true')
+--	print('floodability true')
 	return true
       end
 
       --should be not filled
-	print('floodability false')
+--	print('floodability FALSE')
       return false
 end
 
@@ -36,12 +37,14 @@ end
 
 
 floodFill=function(fx,fy,paintingCol,sourceData,targetData)
+	iterations=0
+	
 	--TODO do treated piexels map
 	--we have a boolean array of frame size that we navigate
 	-- [y*cvsw+x]
 
 
-	print('TODO flood fill '..fx..' '..fy..' with '..paintingCol.r..' '..paintingCol.g..' '..paintingCol.b )
+	print('broken flood fill '..fx..' '..fy..' with '..paintingCol.r..' '..paintingCol.g..' '..paintingCol.b )
 
 	treatedPixels={}
 	local j,i
@@ -71,9 +74,12 @@ floodFill=function(fx,fy,paintingCol,sourceData,targetData)
 
 	List.pushRight(toTreatQueue,floodOrigin)
 
-	while toTreatQueue.size>0
+	while toTreatQueue.size>0 and iterations<maxiterations
 	do
 		local point = List.popLeft(toTreatQueue)
+
+		iterations=iterations+1
+
 		print('about to color '..point.x..' '..point.y..' with r '..paintingCol.r..' ' ..paintingCol.g..' b '..paintingCol.g)
 
 		targetData:setPixel(point.x,point.y,paintingCol.r,paintingCol.g,paintingCol.b,1.0)
@@ -81,26 +87,44 @@ floodFill=function(fx,fy,paintingCol,sourceData,targetData)
 
 		-- lets check if we can move in all 4 dirs
 		-- left
-		--TODO fix , works with incorretct x, DUNNO with x-1
-		print('checking left pixel x '..(point.x-1) ..'y  '..point.y)
+--		print('checking left pixel x '..(point.x-1) ..'y  '..point.y)
 		if (point.x-1)>=0 and treatedPixels[(point.x-1)+point.y*conf.cvsw]==false and floodability((point.x-1),point.y,sourceData,toFillCol)
 		then
-			print('left pixel treatable ')
+--			print('left pixel treatable ')
 			List.pushRight(toTreatQueue,{x=point.x-1,y=point.y})
-		else
-			print('left pixel NOT treatable ')
+--		else
+--			print('left pixel NOT treatable ')
 		
 		end
 
 
 		--right
---		if point.x<(conf.cvsw) and treatedPixels[(point.x+1)+point.y*conf.cvsw]==false and floodability((point.x+1),point.y,sourceData,toFillCol)
---		then
+		if point.x<(conf.cvsw) and treatedPixels[(point.x+1)+point.y*conf.cvsw]==false and floodability((point.x+1),point.y,sourceData,toFillCol)
+		then
 			
---			List.pushRight(toTreatQueue,{x=point.x+1,y=point.y})
---		end
+			List.pushRight(toTreatQueue,{x=point.x+1,y=point.y})
+		end
 
 		
+--		print('checking top pixel x '..(point.x) ..'y  '..(point.y-1))
+		if (point.y-1)>=0 and treatedPixels[(point.x)+(point.y-1)*conf.cvsw]==false and floodability((point.x),(point.y-1),sourceData,toFillCol)
+		then
+--			print('top pixel treatable ')
+			List.pushRight(toTreatQueue,{x=point.x,y=point.y-1})
+		else
+--			print('top pixel NOT treatable ')
+		
+		end
+
+--		print('checking bottom pixel x '..(point.x) ..'y  '..(point.y+1))
+		if (point.y+1)<=conf.cvsh and treatedPixels[(point.x)+(point.y+1)*conf.cvsw]==false and floodability((point.x),(point.y+1),sourceData,toFillCol)
+		then
+--			print('bot pixel treatable ')
+			List.pushRight(toTreatQueue,{x=point.x,y=point.y+1})
+		else
+--			print('bot pixel NOT treatable ')
+		
+		end
 
 
 
