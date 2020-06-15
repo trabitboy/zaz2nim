@@ -12,6 +12,10 @@
 --
 
 
+--palm rejection:
+-- if multitouch detected on zazanim cpp, last paint is undoed ( canceling palmtouch )
+-- could be good workaround 
+
 --create new seq putting unknown name in current project > should work (crashes)
 --display different deco on 'covered with sound '
 --bg color set 
