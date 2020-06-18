@@ -2,7 +2,7 @@
 --maybe test on blank project ?
 
 --for dbg
-maxiterations=200000
+maxiterations=500000
 
 --parameterized to fill source layer or other layer
 --cpu based impl
@@ -27,6 +27,13 @@ local function floodability(fx,fy,sourcedata,toFillColl)
 --	print('floodability true')
 	return true
       end
+
+    if( sa>0. and sa<1. ) then
+      --TODO we fill transparent pixels but we should blend ideally
+        return true
+    end
+
+
 
       --should be not filled
 --	print('floodability FALSE')
@@ -61,10 +68,10 @@ floodFill=function(fx,fy,paintingCol,sourceData,targetData)
 
 	toTreatQueue=List.new()
 
-	floodOrigin={x=fx,y=fy}
 
 	--we fill this color, and this color only
 	local fr,fg,fb,fa = sourceData:getPixel(fx,fy)
+	floodOrigin={x=fx,y=fy}
 
 	local toFillCol = {}
 	toFillCol.r=fr
@@ -82,8 +89,20 @@ floodFill=function(fx,fy,paintingCol,sourceData,targetData)
 		iterations=iterations+1
 
 --		print('about to color '..point.x..' '..point.y..' with r '..paintingCol.r..' ' ..paintingCol.g..' b '..paintingCol.g)
-
-		targetData:setPixel(point.x,point.y,paintingCol.r,paintingCol.g,paintingCol.b,1.0)
+    pr,pg,pb,pa = targetData:getPixel(point.x,point.y)
+    
+    if pa==1.0 or pa==0.0 then
+      --easy
+      targetData:setPixel(point.x,point.y,paintingCol.r,paintingCol.g,paintingCol.b,1.0)
+    else
+      -- we blend based on alpha
+      targetData:setPixel(point.x,point.y,
+          paintingCol.r*(1.-pa)+pa*pr,
+          paintingCol.g*(1.-pa)+pa*pg,
+          paintingCol.b*(1.-pa)+pa*pb,
+          1.0)
+      
+    end
 
 		-- lets check if we can move in all 4 dirs
 		-- left

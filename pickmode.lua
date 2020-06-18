@@ -59,7 +59,8 @@ function pickModeUpdate()
 		r,g,b,a=frames[currentIdx].data:getPixel(npx,npy)
 		addMsg('color '.. math.floor( r*255) ..' '.. math.floor(g*255) ..' '.. b*255)
 		addMsg('quit pick')
-		mybrush=love.graphics.newImage(roundBrushWithAlpha(brshradius,r,g,b))
+--		mybrush=love.graphics.newImage(roundBrushWithAlpha(brshradius,r,g,b))
+		mybrush=love.graphics.newImage(roundBrushWithGradient(brshradius,r,g,b))
 		mybrush:setFilter('nearest','nearest')
 
 		paintcolor.r=r

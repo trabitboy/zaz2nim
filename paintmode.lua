@@ -362,7 +362,9 @@ biggerCurrentTool=function()
      else
 	print('increasing brsh size')
 	brshradius=brshradius+brushKeyStep
-   	mybrush=love.graphics.newImage(roundBrushWithAlpha(	brshradius,paintcolor.r,paintcolor.g,paintcolor.b))
+     		mybrush=love.graphics.newImage(roundBrushWithGradient(	brshradius,paintcolor.r,paintcolor.g,paintcolor.b))
+
+--   	mybrush=love.graphics.newImage(roundBrushWithAlpha(	brshradius,paintcolor.r,paintcolor.g,paintcolor.b))
    	mybrush:setFilter('nearest','nearest')
 
 
@@ -381,7 +383,8 @@ smallerCurrentTool=function()
 	if brshradius>brushKeyStep then
 	
 		brshradius=brshradius-brushKeyStep
-   		mybrush=love.graphics.newImage(roundBrushWithAlpha(	brshradius,paintcolor.r,paintcolor.g,paintcolor.b))
+   		mybrush=love.graphics.newImage(roundBrushWithGradient(	brshradius,paintcolor.r,paintcolor.g,paintcolor.b))
+--   		mybrush=love.graphics.newImage(roundBrushWithAlpha(	brshradius,paintcolor.r,paintcolor.g,paintcolor.b))
    		mybrush:setFilter('nearest','nearest')
 	end
 
