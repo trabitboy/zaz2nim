@@ -73,10 +73,25 @@ function maintainStamps()
 end
 
 
+function storyBoardKey(key, code, isrepeat)
+
+	if key=="enter" then
+	   print('enter')
+	   toPaintMode()
+	   return
+	end
+
+
+end
+
+
+
 function toStoryboard()
 	 print('to story board ')
 	 maintainStamps()
 
+
+	 keyFunc=storyBoardKey
 	 drawFunc=drawStoryboard
 	updateFunc=updateStoryboard
 end
