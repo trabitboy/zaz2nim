@@ -544,11 +544,9 @@ function blitBrushLineRemember(x,y)
 	dirtycvs=true
 end
 
--- when a stroke has been made, we maintain undo buffer
-penUp= function()
-       print('pen up')
 
-
+--everything stacked there can be reverted to
+saveCanvasToUndo = function()
        print(undoBuf[currentUndoBuf])
 
        --TODO defensive
@@ -583,6 +581,14 @@ penUp= function()
 
 
       print('copied to undo buf')
+
+end
+
+-- when a stroke has been made, we maintain undo buffer
+penUp= function()
+       print('pen up')
+
+      saveCanvasToUndo()
 
 end
 
@@ -628,6 +634,10 @@ end
 
 --you need to init canvas before with init canvases
 function toPaintMode()
+  
+  --that way even first paint can be undoed
+  saveCanvasToUndo()
+  
 	keyFunc = paintModeKey
 	drawFunc=paintModeDraw
 	updateFunc=paintModeUpdate
