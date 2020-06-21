@@ -1,3 +1,5 @@
+local clearColor={r=0.,g=0.,b=0.,a=0.}
+
 
 local function commonInit()
 	-- saving canvas to frame, to be sure we pick 
@@ -74,9 +76,11 @@ function pickModeUpdate()
 	   elseif npx<conf.cvsw and npy<conf.cvsh and fill==true  then
 	   	--local r,g,b,a = frames[currentIdx].data:getPixel(npx,npy)
 	   	print('calling flood fill')
-
-	   	floodFill(npx,npy,paintcolor,frames[currentIdx].data,frames[currentIdx].data)
-
+      if eraseMode==false then
+        floodFill(npx,npy,paintcolor,frames[currentIdx].data,frames[currentIdx].data)
+      else
+        floodFill(npx,npy,clearColor,frames[currentIdx].data,frames[currentIdx].data)
+      end
 
 		--image data needs to be uploaded back to gpu mem
 		frames[currentIdx].pic:release()

@@ -93,7 +93,9 @@ floodFill=function(fx,fy,paintingCol,sourceData,targetData)
     
     if pa==1.0 or pa==0.0 then
       --easy
-      targetData:setPixel(point.x,point.y,paintingCol.r,paintingCol.g,paintingCol.b,1.0)
+      --test DBG to fill with transp
+--      targetData:setPixel(point.x,point.y,paintingCol.r,paintingCol.g,paintingCol.b,1.0)
+      targetData:setPixel(point.x,point.y,paintingCol.r,paintingCol.g,paintingCol.b,paintingCol.a)
     else
       -- we blend based on alpha
       targetData:setPixel(point.x,point.y,

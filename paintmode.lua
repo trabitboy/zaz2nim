@@ -9,7 +9,7 @@ brushKeyStep=4
 --on stylus up we do a copy to one of the undobuffers
 
 --maximum undo
-undoDepth=3
+undoDepth=7
 --this is a circular buffer of cvs we overwrite
 undoBuf={} --table with undodepth canvases, we cycle the frame we paint on
 currentUndoBuf=1-- this changes as we paint,next target buffer
@@ -562,7 +562,7 @@ penUp= function()
      love.graphics.draw(cvs)
 
       love.graphics.setCanvas(buf)
-   	    local data  =  undoBuf[currentUndoBuf]:newImageData()
+--   	    local data  =  undoBuf[currentUndoBuf]:newImageData()
 --	    data:encode("png",conf.prjfld.."undotest.png")
 
 

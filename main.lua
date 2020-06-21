@@ -5,7 +5,7 @@
 
 
 --POC  color fill
--- PLUG UNDO FOR IT
+-- PLUG UNDO FOR IT WIP, fill with clear color doesn t play nice with alpha
 
 --export with frame composition and frame multi
 --export to avi script
