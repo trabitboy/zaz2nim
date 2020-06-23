@@ -46,7 +46,14 @@ function pasteRange()
 	 end
 
 	 --todo paste range from current idx
-
+  for i=cb,ce 
+  do
+    --create frame 
+    --TODO we can use add frame here
+    --paste source frame to created frame
+    --TODO we need custom code here
+    
+  end
 
 end
 
