@@ -95,8 +95,14 @@ function undoLastStroke()
 -- for test !!
 --	    love.graphics.setColor(1.,0.,0.,1.)
 
-	love.graphics.draw(undoBuf[restoreIdx])
---	    local data  =  undoBuf[restoreIdx]:newImageData()
+      love.graphics.draw(undoBuf[restoreIdx])
+  -- we need to also restore data for flood fill to work
+      --doesnt help
+      --frames[currentIdx].data:release()
+      --frames[currentIdx].data= undoBuf[restoreIdx]:newImageData()
+        
+	    --local data  =  
+      
 --	    data:encode("png",conf.prjfld.."undotest.png")
 
 
@@ -141,6 +147,7 @@ function addFrame()
 	print('max frames reached at a given point '..maxFrameReached)
 
 	maintainBgRanges()
+  saveCanvasToUndo()
 end
 
 function prevFrame()
@@ -171,6 +178,7 @@ function nextFrame()
 			initCanvases(currentIdx)
 
 			resetUndo()
+      saveCanvasToUndo()
 		end
 
 
