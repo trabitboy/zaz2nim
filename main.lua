@@ -1,3 +1,7 @@
+--paste range of frame
+--apply multi tc
+
+
 --note 8 android, on switch back and forth from app,
 --zoom is f#cked up
 --needs an app restart
@@ -6,9 +10,12 @@
 
 --POC  color fill
 -- PLUG UNDO FOR IT WIP, fill with clear color doesn t play nice with alpha
--- undo works first time for color fill, then color fill ignores borders
+-- undo works first time for color fill, then color fill ignores borders CRITICAL
 --undo needs to be stacked on next and previous buttons
 
+--display of brush presets, clickable for android
+--test sd on 640 480
+--switch hard/soft brush
 
 --export with frame composition and frame multi
 --export to avi script
