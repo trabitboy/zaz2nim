@@ -25,7 +25,7 @@
 --
 
 
---palm rejection:
+--palm rejection: ( workaround on x230t, disable touch with xsetwacom )
 -- if multitouch detected on zazanim cpp, last paint is undoed ( canceling palmtouch )
 -- could be good workaround 
 
@@ -323,6 +323,7 @@ require('timecode')
 require('zoompos')
 require('brushsourceselection')
 require('brushscreen')
+require('export')
 require('settings')
 require('flickmode')
 require('brushpresets')

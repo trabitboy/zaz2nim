@@ -30,7 +30,16 @@ local exportQuad={x=2*64, y=4*64, w=64, h=64}
 
 function composeExport()
 	 print('TODO export to avi start')
-
+    batch=createExportBatch()
+    print(batch)
+    
+    local finished =false
+    while not finished 
+    do
+      finished=batch:execute()
+    
+    end
+    
 end
 
 
