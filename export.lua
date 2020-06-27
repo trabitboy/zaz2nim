@@ -42,7 +42,9 @@ createExportBatch = function()
             local name=string.format("%03d",self.current)
             
             print ('tc '..f.tc)
-            if f.tc>0 and f.bg~=true then 
+             --and f.bg~=true python export doesnt support 
+            --gaps in range at the moment
+            if f.tc>0 then 
               
               
               --TODO we need to compose export frame

@@ -22,8 +22,9 @@
 --	 export frames correctly ( bg color, bg )
 --	 multiply frames
 --	 generate scripts ?
---
-
+-- PB frame multiply duplicated in py
+-- PB bg : python doesn t support gap in ranges
+--TODO copy wavs in export folder
 
 --palm rejection: ( workaround on x230t, disable touch with xsetwacom )
 -- if multitouch detected on zazanim cpp, last paint is undoed ( canceling palmtouch )
