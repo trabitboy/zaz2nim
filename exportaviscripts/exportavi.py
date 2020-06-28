@@ -54,14 +54,18 @@ lastwavcopied=None
 for file in ret:
     
     ff_frames.write("file '"+file+"'\n")
-    print(file+"\n")
+    print("current file : "+file+"\n")
 
-    potwav=file.replace("png","wav")
-    potwav=file[:8]+".wav"
-    #print("potwav "+potwav)
+    #dunno work
+    #potwav=file.replace("png","wav")
+
+    #TODO check on length; dunno check time for virtual frames
+
+    potwav=file[:3]+".wav"
+    print("potwav "+potwav)
     
     if potwav!=lastwavcopied :
-     print("looking up "+potwav)
+     print("looking up wav "+potwav)
     
     if potwav!=lastwavcopied and os.path.exists(projectPath+"/"+potwav) :
         print(" wav found "+potwav)
@@ -151,6 +155,9 @@ def make_executable(path):
     mode=os.stat(path).st_mode
     mode|=(mode & 0o444) >> 2 # copy R bits to X
     os.chmod(path,mode)
+
+exit()
+
 
 if executeScripts :
     for script in scripts_to_execute:

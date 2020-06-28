@@ -37,14 +37,14 @@ saveSoundFromTmpForFrame=function(f,name,spath,cleanLoaded)
 		if f.sound~=nil then
 		   --cleaning loaded file
 		   --todo debug
-		   
+      print('saving sound for '..name)
 			if cleanLoaded==true then
 				local toclean =conf.prjfld .. f.soundloadedfrom
 				print('about to clean '..toclean )
 				love.filesystem.remove(toclean)
 			end
 		   --saving tmp file to new location
-		   local tmp = love.filesystem.newfiledata(tmpwavfld..f.soundloadedfrom)
+		   local tmp = love.filesystem.newFileData(tmpWavFld..f.soundLoadedFrom)
 		   local newname = name..'.wav'
 		   local tgtpath=spath..newname
 		   print('writing sound '..tgtpath)

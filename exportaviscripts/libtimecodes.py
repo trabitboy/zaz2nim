@@ -41,8 +41,13 @@ def multiplyRemanentFrames(projectPath,exportpath,createFrames):
             if strnb in codemap:
                 #duplicate n times 00X 1 2 3 etc...
                 #assumes max 99 as timecode
+
+                # copy one time, then multiply; for match with wav
                 tc=codemap[strnb]
-                i =1
+                if createFrames :
+                    shutil.copy(currentpath,exportpath+'/'+frame)
+                ret.append(frame)
+                i =2
                 while i<=tc:
                     vnb='{0:03d}'.format(i)
                     
