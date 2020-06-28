@@ -57,6 +57,12 @@ createExportBatch = function()
               local mainFilePath=conf.prjfld..'export/'..name..".png"
               f.data:encode("png",mainFilePath)
               print('exporting '..mainFilePath)
+
+			--we need to save wav to export folder 
+			saveSoundFromTmpForFrame(f,name,conf.prjfld..'export/',false)
+
+
+
               
               if f.tc>1 then
                 --we need to copy duplicates with 3 additionals digits

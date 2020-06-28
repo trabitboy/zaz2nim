@@ -31,6 +31,31 @@ writeTemplateInfo=function()
 end
 
 
+saveSoundFromTmpForFrame=function(f,name,spath,cleanLoaded)
+
+
+		if f.sound~=nil then
+		   --cleaning loaded file
+		   --todo debug
+		   
+			if cleanLoaded==true then
+				local toclean =conf.prjfld .. f.soundloadedfrom
+				print('about to clean '..toclean )
+				love.filesystem.remove(toclean)
+			end
+		   --saving tmp file to new location
+		   local tmp = love.filesystem.newfiledata(tmpwavfld..f.soundloadedfrom)
+		   local newname = name..'.wav'
+		   local tgtpath=spath..newname
+		   print('writing sound '..tgtpath)
+		   love.filesystem.write(tgtpath,tmp)		   
+
+		end
+		
+end
+
+
+
 
 updateSaveScreen = function ()
 
@@ -61,21 +86,24 @@ updateSaveScreen = function ()
 
 
 		--if a sound is attached, we need to delete previous wav and rewrite it at correct index
-		if f.sound~=nil then
-		   --cleaning loaded file
-		   --TODO debug
-		   local toClean =conf.prjfld .. f.soundLoadedFrom
-		   print('about to clean '..toClean )
-		   love.filesystem.remove(toClean)
+		saveSoundFromTmpForFrame(f,name,conf.prjfld,true)
+		
+		
+		-- if f.sound~=nil then
+		   -- --cleaning loaded file
+		   -- --todo debug
+		   -- local toclean =conf.prjfld .. f.soundloadedfrom
+		   -- print('about to clean '..toclean )
+		   -- love.filesystem.remove(toclean)
 
-		   --saving tmp file to new location
-		   local tmp = love.filesystem.newFileData(tmpWavFld..f.soundLoadedFrom)
-		   local newName = name..'.wav'
-		   local tgtPath=conf.prjfld..newName
-		   print('writing sound '..tgtPath)
-		   love.filesystem.write(tgtPath,tmp)		   
+		   -- --saving tmp file to new location
+		   -- local tmp = love.filesystem.newfiledata(tmpwavfld..f.soundloadedfrom)
+		   -- local newname = name..'.wav'
+		   -- local tgtpath=conf.prjfld..newname
+		   -- print('writing sound '..tgtpath)
+		   -- love.filesystem.write(tgtpath,tmp)		   
 
-		end
+		-- end
 
 
 		--else
