@@ -39,7 +39,7 @@ saveSoundFromTmpForFrame=function(f,name,spath,cleanLoaded)
 		   --todo debug
       print('saving sound for '..name)
 			if cleanLoaded==true then
-				local toclean =conf.prjfld .. f.soundloadedfrom
+				local toclean =conf.prjfld .. f.soundLoadedFrom
 				print('about to clean '..toclean )
 				love.filesystem.remove(toclean)
 			end

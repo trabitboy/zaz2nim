@@ -71,7 +71,7 @@ for file in ret:
         print(" wav found "+potwav)
 
         #target wav renamed to expanded frame name for logic
-        tgtwav=file.replace("bmp","wav")
+        tgtwav=file.replace("png","wav")
         print ("copied as "+tgtwav)
 
         
@@ -156,11 +156,11 @@ def make_executable(path):
     mode|=(mode & 0o444) >> 2 # copy R bits to X
     os.chmod(path,mode)
 
-exit()
+##exit()
 
 
 if executeScripts :
     for script in scripts_to_execute:
-#    make_executable(script)
+        make_executable(script)
 #    call([script])
         os.system("./"+script)

@@ -91,7 +91,7 @@ function undoLastStroke()
 	    
 
 	    love.graphics.setCanvas(cvs)
-	    love.graphics.clear(0.,0.,0.,0.)
+	    love.graphics.clear(1.,1.,1.,0.)
 -- for test !!
 --	    love.graphics.setColor(1.,0.,0.,1.)
 

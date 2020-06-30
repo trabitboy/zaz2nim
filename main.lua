@@ -1,3 +1,7 @@
+--strange bug when colorfilling then undoing on soft brush outline : afterwards the alpha is versus black
+--even after normal stroke undo,
+-- outline of grass antialias changes
+
 --paste range of frame
 --apply multi tc
 
