@@ -25,6 +25,7 @@ local rangeBeginQuad={x=0*64, y=12*64, w=64, h=64}
 local rangeEndQuad={x=0*64, y=13*64, w=64, h=64}
 local pasteRangeQuad={x=0*64, y=14*64, w=64, h=64}
 local exportQuad={x=2*64, y=4*64, w=64, h=64}
+local pasteRangeReverseQuad={x=2*64, y=5*64, w=64, h=64}
 
 
 
@@ -43,27 +44,59 @@ function composeExport()
 end
 
 
-function pasteRange()
-	 if cb==nil or ce==nil then
+function pasteRange(directOrder)
+	 if rangeBeginIdx==nil or rangeEndIdx==nil then
 	    print(' nil marker, not possible ')
 	    return
 	 end
 
-	 if ce<=cb then
+	 if rangeEndIdx<=rangeBeginIdx then
 	    print(' end marker before begin marker, not possible ')
 	    return 
 	 end
 
-	 --todo paste range from current idx
-  for i=cb,ce 
+
+  --paste position, we paste at current +1 , current +2 .. etc
+  local pasteOffset=1
+
+	 --paste range from current idx
+  for i=rangeBeginIdx,rangeEndIdx 
   do
     --create frame 
     --TODO we can use add frame here
     --paste source frame to created frame
     --TODO we need custom code here
+    newid = love.image.newImageData(conf.cvsw,conf.cvsh)
+    newid:paste(frames[i].data,0,0,0,0,conf.cvsw,conf.cvsh)
     
+    newp=love.graphics.newImage(newid)
+    -- table.insert(frames,{pic=newp,data=newid})
+    table.insert(frames,currentIdx+pasteOffset,{pic=newp,data=newid,tc=frames[i].tc})
+    maxframe=maxframe+1
+    print('number of frames '..maxframe)
+
+    maxFrameReached=maxFrameReached+1
+    print('max frames reached at a given point '..maxFrameReached)
+
+    --just omitting this implements paste reverse
+    if directOrder==true then
+      pasteOffset=pasteOffset+1
+    end
   end
 
+
+  maintainBgRanges()
+  saveCanvasToUndo()
+
+
+end
+
+function pasteRangeDirect()
+  pasteRange(true)
+end
+
+function pasteRangeReverse()
+    pasteRange(false)
 end
 
 
@@ -130,8 +163,9 @@ local wDF =createpicbutton(uiw-192*buttonZoom,0*buttonZoom,buttonsPic,deleteCurr
 local wBG =createpicbutton(uiw-256*buttonZoom,0*buttonZoom,buttonsPic,toggleBg,bgQuad,buttonZoom)
 local wRB =createpicbutton(uiw-320*buttonZoom,0*buttonZoom,buttonsPic,setRangeBegin,rangeBeginQuad,buttonZoom)
 local wRE =createpicbutton(uiw-384*buttonZoom,0*buttonZoom,buttonsPic,setRangeEnd,rangeEndQuad,buttonZoom)
-local wPR =createpicbutton(uiw-384*buttonZoom,uih-64*buttonZoom,buttonsPic,pasteRange,pasteRangeQuad,buttonZoom)
+local wPR =createpicbutton(uiw-384*buttonZoom,uih-64*buttonZoom,buttonsPic,pasteRangeDirect,pasteRangeQuad,buttonZoom)
 local wEX =createpicbutton(uiw-512*buttonZoom,uih-64*buttonZoom,buttonsPic,composeExport,exportQuad,buttonZoom)
+local wPRR =createpicbutton(uiw-384*buttonZoom,uih-128*buttonZoom,buttonsPic,pasteRangeReverse,pasteRangeReverseQuad,buttonZoom)
 
 
 table.insert(widgets,wPlay)
@@ -146,6 +180,7 @@ table.insert(widgets,wRB)
 table.insert(widgets,wRE)
 table.insert(widgets,wPR)
 table.insert(widgets,wEX)
+table.insert(widgets,wPRR)
 
 function toSettings()
 	drawFunc=drawSettings
