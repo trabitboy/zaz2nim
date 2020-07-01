@@ -16,17 +16,17 @@ end
 
 function applyToRange()
 	 --applying current time code to selected range
-	 if cb==nil or ce==nil then
-	    print(' nil marker, not possible ')
+	 if rangeBeginIdx==nil or rangeEndIdx==nil then
+	    print(' nil marker, not possible , cb '..cb.. ' ce ' .. ce)
 	    return
 	 end
 
-	 if ce<=cb then
+	 if rangeEndIdx<=rangeBeginIdx then
 	    print(' end marker before begin marker, not possible ')
 	    return 
 	 end
 
-	 for i=cb,ce
+	 for i=rangeBeginIdx,rangeEndIdx
 	 do
 		print('frame '..i..' tc set '..frames[currentIdx].tc)
 		frames[i].tc=frames[currentIdx].tc

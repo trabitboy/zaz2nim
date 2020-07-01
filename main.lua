@@ -1,10 +1,15 @@
 --strange bug when colorfilling then undoing on soft brush outline : afterwards the alpha is versus black
 --even after normal stroke undo,
 -- outline of grass antialias changes
+-- TENTATIVE FIX
 
+
+--TODO 
 --paste range of frame
 --apply multi tc
 
+--TODO toggle soft/hard brush
+-- WITH BUBBLE MESSAGE TOGGLE ON BRUSH PRESS
 
 --note 8 android, on switch back and forth from app,
 --zoom is f#cked up

@@ -106,7 +106,10 @@ function updatePlayback()
 			-- mybrush:setFilter('nearest','nearest')
 				
 		-- else
-	
+      currentIdx=pbIdx
+      initCanvases(currentIdx)
+
+			resetUndo()
 			toPaintMode()
 		-- end
 	end
