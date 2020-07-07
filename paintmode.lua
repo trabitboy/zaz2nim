@@ -25,7 +25,6 @@ eraserRadius=16 --dflt
 -- do this whole render only when screen changes
 -- ( paint , etc ) because x230t gets pretty hot in hd
 
-local widgets={}
 
  decoBgQuad={x=2*64, y=2*64, w=64, h=64}
 	realDecoBgQuad=love.graphics.newQuad(decoBgQuad.x,decoBgQuad.y,decoBgQuad.w,decoBgQuad.h,buttonsPic:getWidth(),buttonsPic:getHeight())
@@ -194,48 +193,55 @@ function togglePen()
 end
 
 
---TODO create widget uiw (480)
-
-local wPrevFrame=createpicbutton(0,0,buttonsPic,prevFrame,prevQuad,buttonZoom)
+local widgets={}
 
 
 
-local wSaveFrames=createpicbutton(uiw-64*buttonZoom,uih-64*buttonZoom,buttonsPic,initSaveScreen,saveQuad,buttonZoom)
---local wSaveFrames=createpicbutton(uiw-64*buttonZoom,uih-64*buttonZoom,buttonsPic,saveFrames,saveQuad,buttonZoom)
-
-local wLeftFlick = createpicbutton(0,64*buttonZoom,buttonsPic,toLeftFlick,lflickQuad,buttonZoom)
-
---top right
-local wNextFrame=createpicbutton(uiw-64*buttonZoom,0,buttonsPic,nextFrame,nextQuad,buttonZoom)
-local wRightFlick = createpicbutton(uiw-64*buttonZoom,64*buttonZoom,buttonsPic,toRightFlick,rflickQuad,buttonZoom)
-local wSettings=createpicbutton(uiw-64*buttonZoom,192*buttonZoom,buttonsPic,toSettings,settingsQuad,buttonZoom)
-
---bottom right
-local wBucket=createpicbutton(uiw-64*buttonZoom,uih-192*buttonZoom,buttonsPic,bucket,bucketQuad,buttonZoom)
-local wPasteFrame=createpicbutton(uiw-64*buttonZoom,uih-128*buttonZoom,buttonsPic,pasteFrame,pasteQuad,buttonZoom)
+createPaintButtons=function()
+  widgets={}
 
 
---bottom left
-local wUndo=createpicbutton(0,uih-320*buttonZoom,buttonsPic,undoLastStroke,undoQuad,buttonZoom)
-local wTogglePen=createpicbutton(0,uih-256*buttonZoom,buttonsPic,togglePen,penQuad,buttonZoom)
-local wToggleEraser=createpicbutton(0,uih-192*buttonZoom,buttonsPic,toggleEraser,eraserQuad,buttonZoom)
-local wCopyFrame=createpicbutton(0,uih-128*buttonZoom,buttonsPic,copyFrame,copyQuad,buttonZoom)
-local wAddFrame=createpicbutton(0,uih-64*buttonZoom,buttonsPic,addFrame,addQuad,buttonZoom)
+  local wPrevFrame=createpicbutton(0,0,buttonsPic,prevFrame,prevQuad,buttonZoom)
 
 
-table.insert(widgets,wAddFrame)
-table.insert(widgets,wPrevFrame)
-table.insert(widgets,wNextFrame)
-table.insert(widgets,wSaveFrames)
-table.insert(widgets,wTogglePen)
-table.insert(widgets,wToggleEraser)
-table.insert(widgets,wCopyFrame)
-table.insert(widgets,wPasteFrame)
-table.insert(widgets,wSettings)
-table.insert(widgets,wLeftFlick)
-table.insert(widgets,wRightFlick)
-table.insert(widgets,wUndo)
-table.insert(widgets,wBucket)
+  local wSaveFrames=createpicbutton(uiw-64*buttonZoom,uih-64*buttonZoom,buttonsPic,initSaveScreen,saveQuad,buttonZoom)
+  --local wSaveFrames=createpicbutton(uiw-64*buttonZoom,uih-64*buttonZoom,buttonsPic,saveFrames,saveQuad,buttonZoom)
+
+  local wLeftFlick = createpicbutton(0,64*buttonZoom,buttonsPic,toLeftFlick,lflickQuad,buttonZoom)
+
+  --top right
+  local wNextFrame=createpicbutton(uiw-64*buttonZoom,0,buttonsPic,nextFrame,nextQuad,buttonZoom)
+  local wRightFlick = createpicbutton(uiw-64*buttonZoom,64*buttonZoom,buttonsPic,toRightFlick,rflickQuad,buttonZoom)
+  local wSettings=createpicbutton(uiw-64*buttonZoom,192*buttonZoom,buttonsPic,toSettings,settingsQuad,buttonZoom)
+
+  --bottom right
+  local wBucket=createpicbutton(uiw-64*buttonZoom,uih-192*buttonZoom,buttonsPic,bucket,bucketQuad,buttonZoom)
+  local wPasteFrame=createpicbutton(uiw-64*buttonZoom,uih-128*buttonZoom,buttonsPic,pasteFrame,pasteQuad,buttonZoom)
+
+
+  --bottom left
+  local wUndo=createpicbutton(0,uih-320*buttonZoom,buttonsPic,undoLastStroke,undoQuad,buttonZoom)
+  local wTogglePen=createpicbutton(0,uih-256*buttonZoom,buttonsPic,togglePen,penQuad,buttonZoom)
+  local wToggleEraser=createpicbutton(0,uih-192*buttonZoom,buttonsPic,toggleEraser,eraserQuad,buttonZoom)
+  local wCopyFrame=createpicbutton(0,uih-128*buttonZoom,buttonsPic,copyFrame,copyQuad,buttonZoom)
+  local wAddFrame=createpicbutton(0,uih-64*buttonZoom,buttonsPic,addFrame,addQuad,buttonZoom)
+
+
+  table.insert(widgets,wAddFrame)
+  table.insert(widgets,wPrevFrame)
+  table.insert(widgets,wNextFrame)
+  table.insert(widgets,wSaveFrames)
+  table.insert(widgets,wTogglePen)
+  table.insert(widgets,wToggleEraser)
+  table.insert(widgets,wCopyFrame)
+  table.insert(widgets,wPasteFrame)
+  table.insert(widgets,wSettings)
+  table.insert(widgets,wLeftFlick)
+  table.insert(widgets,wRightFlick)
+  table.insert(widgets,wUndo)
+  table.insert(widgets,wBucket)
+
+end
 
 
 --main paint mode, paints to current canvas, displays light table and side buttons
@@ -643,6 +649,9 @@ end
 --you need to init canvas before with init canvases
 function toPaintMode()
   
+  createPaintButtons()
+  
+  uiResize=createPaintButtons
   --that way even first paint can be undoed
   saveCanvasToUndo()
   

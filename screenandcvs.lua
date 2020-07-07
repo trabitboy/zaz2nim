@@ -23,6 +23,8 @@ dpiScl=love.window.getDPIScale()
 addMsg(" dpi scl "..dpiScl)
   
  function determineHDUicanvasZoom(nww,nwh)
+  print(" w h "..nww.. ' ' ..nwh)
+   
 	local pscrsx=nww/conf.cvsw
 	local pscrsy=nwh/conf.cvsh
 	if pscrsx>pscrsy then
@@ -33,12 +35,24 @@ addMsg(" dpi scl "..dpiScl)
 		scrsx=pscrsx
 	
 	end
-	addMsg('zoom ' .. scrsx)
+	addMsg('cvs zoom ' .. scrsx)
 
 	buttonZoom = uih /480 --button size is ok on 480 height
   
-  --uiw=nww
+  uiw=math.floor(nww/scrsx)
 	addMsg('button zoom '..buttonZoom)
+  
+  
+  if ui~=nil then
+    ui:release()
+  end
+  
+  --TODO does UIW need to be scaled before creation
+  print('creating ui cvs uiw '..uiw .. ' uih ' ..uih)
+  
+	ui=love.graphics.newCanvas(uiw,uih)	--TODO this should be determined in hduizoom to have button sticking to the righ
+  
+  
  end
  
 
@@ -59,7 +73,6 @@ determineHDUicanvasZoom(ww,wh)
 
   --TODO old canvas should be released
 	cvs=love.graphics.newCanvas(conf.cvsw,conf.cvsh,technicalcvssettings)
-	ui=love.graphics.newCanvas(uiw,uih)	--TODO this should be determined in hduizoom to have button sticking to the righ
 --TODO ui canvas should be released and changed on resize
 
 
@@ -83,6 +96,8 @@ function love.resize( nw, nh )
 	wh=nph
 
 	determineHDUicanvasZoom(ww,wh) 
-
+  if uiResize~=nil then
+    uiResize()
+  end
 
 end

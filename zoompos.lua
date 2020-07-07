@@ -17,17 +17,24 @@ local function exitZP()
 end
 
 
-local wExitZP = createpicbutton(0,0,buttonsPic,exitZP,exitQuad)
 --local wToBSS = createpicbutton(uiw-64,uih-64,buttonsPic,toBrushSourceSelection,exitQuad)
 --local wStamp = createpicbutton(uiw-64,0,buttonsPic,stampSelection,exitQuad)
 
 
 
 local widgets={}
-table.insert(widgets,wExitZP)
-table.insert(widgets,wToBSS)
-table.insert(widgets,screenPos )
-table.insert(widgets,wStamp)
+
+createZPButtons=function()
+  widgets={}
+  
+  local wExitZP = createpicbutton(0,0,buttonsPic,exitZP,exitQuad)
+ 
+  table.insert(widgets,wExitZP)
+  table.insert(widgets,wToBSS)
+  table.insert(widgets,screenPos )
+  table.insert(widgets,wStamp)
+
+end
 
 local function rendertouicanvas()
 	love.graphics.setCanvas(ui)
@@ -76,6 +83,9 @@ end
 
 
 function toZoomPos()
+
+  createZPButtons()
+  uiResize=createZPButtons
 
 	bbsettexture(screenPos,frames[currentIdx].pic)
 	screenPos.x=offsetcvs.x

@@ -35,13 +35,16 @@ function applyToRange()
 	 toPaintMode()
 end
 
-wExitTc = createpicbutton(uiw-64,0,buttonsPic,exitTC,exitQuad)
-wATRTc = createpicbutton(uiw-64,64*buttonZoom,buttonsPic,applyToRange,applyToRangeQuad)
 
 local widgets={}
-table.insert(widgets,wExitTc)
-table.insert(widgets,wATRTc)
 
+createTCButtons=function()
+  widgets={}
+  wExitTc = createpicbutton(uiw-64,0,buttonsPic,exitTC,exitQuad)
+  wATRTc = createpicbutton(uiw-64,64*buttonZoom,buttonsPic,applyToRange,applyToRangeQuad)
+  table.insert(widgets,wExitTc)
+  table.insert(widgets,wATRTc)
+end
 
 --utility
 function loadTxtCodes()
@@ -80,6 +83,11 @@ end
 
 function toTimeCode()
 	print ('initial time code '..frames[currentIdx].tc )
+  
+  createTCButtons()
+  uiResize=createTCButtons
+  
+  
 	drawFunc=timeCodeDraw
 	updateFunc=timeCodeUpdate
 

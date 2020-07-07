@@ -17,12 +17,19 @@ local function exitBSS()
 	 toBrushScreen()
 end
 
-local wExitBS = createpicbutton(0,0,buttonsPic,exitBSS,exitQuad)
-
 
 local widgets={}
-table.insert(widgets,wExitBS)
-table.insert(widgets,currentSel )
+
+createBSSButtons=function()
+  widgets={}
+  local wExitBS = createpicbutton(0,0,buttonsPic,exitBSS,exitQuad)
+
+
+  table.insert(widgets,wExitBS)
+  table.insert(widgets,currentSel )
+
+end
+
 
 local function rendertouicanvas()
 	love.graphics.setCanvas(ui)
@@ -70,6 +77,11 @@ end
 
 
 function toBrushSourceSelection()
+  
+  createBSSButtons()
+  uiResize=createBSSButtons
+  
+  
 	if copySrc==nil then
 	   addMsg(' no source frame to select from ')
 	   return

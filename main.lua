@@ -1,9 +1,11 @@
 --PRIOS
 
---WIP uiw that scales to ratio
+--WIP uiw that scales to ratio, now part of resize hook
+-- WIP right buttons need to be recreated on each resize and screen nav
 
-
--- bug note 3 : crash on first init no folder existing
+-- bug note 3 : crash on first init no folder existing  
+-- pb is note3 doesnt support full hd tex
+-- ( weird, full hd was possible with old cpp zzn sdl2render )
 -- enhanced error screen : doesn t display real error on mobile,
 -- restore this 
 
@@ -315,7 +317,7 @@ require('sdconf')
 require('seqselection')
 --WIP we hardcode profile for now
 --conf=prjTemplates['hd43']
-uiw=conf.uiw --TODO this should be determined in hduizoom to have button sticking to the righ
+--uiw=conf.uiw --TODO this should be determined in hduizoom to have button sticking to the righ
 uih=conf.uih
 
 require('colorfill')

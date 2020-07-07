@@ -34,16 +34,26 @@ local stampSelection = function()
 	bbsettexture(currentSel,frames[copySrc].pic)
 end
 
-local wExitBS = createpicbutton(0,0,buttonsPic,exitBS,exitQuad)
-local wToBSS = createpicbutton(uiw-64,uih-64,buttonsPic,toBrushSourceSelection,exitQuad)
-local wStamp = createpicbutton(uiw-64,0,buttonsPic,stampSelection,exitQuad)
-
 
 local widgets={}
-table.insert(widgets,wExitBS)
-table.insert(widgets,wToBSS)
-table.insert(widgets,currentSel )
-table.insert(widgets,wStamp)
+
+
+createBSButtons=function()
+
+
+  local wExitBS = createpicbutton(0,0,buttonsPic,exitBS,exitQuad)
+  local wToBSS = createpicbutton(uiw-64,uih-64,buttonsPic,toBrushSourceSelection,exitQuad)
+  local wStamp = createpicbutton(uiw-64,0,buttonsPic,stampSelection,exitQuad)
+
+
+  widgets={}
+  table.insert(widgets,wExitBS)
+  table.insert(widgets,wToBSS)
+  table.insert(widgets,currentSel )
+  table.insert(widgets,wStamp)
+
+end
+
 
 local function rendertouicanvas()
 	love.graphics.setCanvas(ui)
@@ -92,6 +102,11 @@ end
 
 
 function toBrushScreen()
+  createBSButtons()
+  uiResize=createBSButtons
+
+
+
 
 	if copySrc==nil then
 	   print('no src frame')

@@ -150,39 +150,49 @@ function setRangeEnd()
 end
 
 
-local wPlay=createpicbutton(uiw-64*buttonZoom,0,buttonsPic,toPlayback,playQuad,buttonZoom)
-local wPalette =createpicbutton(uiw-64*buttonZoom,64*buttonZoom,buttonsPic,toPaletteMode,paletteQuad,buttonZoom)
+local settings={}
 
-local wPicker =createpicbutton(uiw-64*buttonZoom,128*buttonZoom,buttonsPic,toPickMode,pickerQuad,buttonZoom)
+createSettingsButtons=function()
+  widgets = {}
+  
+  local wPlay=createpicbutton(uiw-64*buttonZoom,0,buttonsPic,toPlayback,playQuad,buttonZoom)
+  local wPalette =createpicbutton(uiw-64*buttonZoom,64*buttonZoom,buttonsPic,toPaletteMode,paletteQuad,buttonZoom)
 
-
-local wTC =createpicbutton(uiw-64*buttonZoom,192*buttonZoom,buttonsPic,toTimeCode,clockQuad,buttonZoom)
-local wBS =createpicbutton(uiw-64*buttonZoom,256*buttonZoom,buttonsPic,toBrushScreen,brushQuad,buttonZoom)
-local wZP =createpicbutton(uiw-128*buttonZoom,0*buttonZoom,buttonsPic,toZoomPos,zoomQuad,buttonZoom)
-local wDF =createpicbutton(uiw-192*buttonZoom,0*buttonZoom,buttonsPic,deleteCurrentFrame,deleteQuad,buttonZoom)
-local wBG =createpicbutton(uiw-256*buttonZoom,0*buttonZoom,buttonsPic,toggleBg,bgQuad,buttonZoom)
-local wRB =createpicbutton(uiw-320*buttonZoom,0*buttonZoom,buttonsPic,setRangeBegin,rangeBeginQuad,buttonZoom)
-local wRE =createpicbutton(uiw-384*buttonZoom,0*buttonZoom,buttonsPic,setRangeEnd,rangeEndQuad,buttonZoom)
-local wPR =createpicbutton(uiw-384*buttonZoom,uih-64*buttonZoom,buttonsPic,pasteRangeDirect,pasteRangeQuad,buttonZoom)
-local wEX =createpicbutton(uiw-512*buttonZoom,uih-64*buttonZoom,buttonsPic,composeExport,exportQuad,buttonZoom)
-local wPRR =createpicbutton(uiw-384*buttonZoom,uih-128*buttonZoom,buttonsPic,pasteRangeReverse,pasteRangeReverseQuad,buttonZoom)
+  local wPicker =createpicbutton(uiw-64*buttonZoom,128*buttonZoom,buttonsPic,toPickMode,pickerQuad,buttonZoom)
 
 
-table.insert(widgets,wPlay)
-table.insert(widgets,wPalette)
-table.insert(widgets,wPicker)
-table.insert(widgets,wTC)
-table.insert(widgets,wBS)
-table.insert(widgets,wZP)
-table.insert(widgets,wDF)
-table.insert(widgets,wBG)
-table.insert(widgets,wRB)
-table.insert(widgets,wRE)
-table.insert(widgets,wPR)
-table.insert(widgets,wEX)
-table.insert(widgets,wPRR)
+  local wTC =createpicbutton(uiw-64*buttonZoom,192*buttonZoom,buttonsPic,toTimeCode,clockQuad,buttonZoom)
+  local wBS =createpicbutton(uiw-64*buttonZoom,256*buttonZoom,buttonsPic,toBrushScreen,brushQuad,buttonZoom)
+  local wZP =createpicbutton(uiw-128*buttonZoom,0*buttonZoom,buttonsPic,toZoomPos,zoomQuad,buttonZoom)
+  local wDF =createpicbutton(uiw-192*buttonZoom,0*buttonZoom,buttonsPic,deleteCurrentFrame,deleteQuad,buttonZoom)
+  local wBG =createpicbutton(uiw-256*buttonZoom,0*buttonZoom,buttonsPic,toggleBg,bgQuad,buttonZoom)
+  local wRB =createpicbutton(uiw-320*buttonZoom,0*buttonZoom,buttonsPic,setRangeBegin,rangeBeginQuad,buttonZoom)
+  local wRE =createpicbutton(uiw-384*buttonZoom,0*buttonZoom,buttonsPic,setRangeEnd,rangeEndQuad,buttonZoom)
+  local wPR =createpicbutton(uiw-384*buttonZoom,uih-64*buttonZoom,buttonsPic,pasteRangeDirect,pasteRangeQuad,buttonZoom)
+  local wEX =createpicbutton(uiw-512*buttonZoom,uih-64*buttonZoom,buttonsPic,composeExport,exportQuad,buttonZoom)
+  local wPRR =createpicbutton(uiw-384*buttonZoom,uih-128*buttonZoom,buttonsPic,pasteRangeReverse,pasteRangeReverseQuad,buttonZoom)
+
+
+  table.insert(widgets,wPlay)
+  table.insert(widgets,wPalette)
+  table.insert(widgets,wPicker)
+  table.insert(widgets,wTC)
+  table.insert(widgets,wBS)
+  table.insert(widgets,wZP)
+  table.insert(widgets,wDF)
+  table.insert(widgets,wBG)
+  table.insert(widgets,wRB)
+  table.insert(widgets,wRE)
+  table.insert(widgets,wPR)
+  table.insert(widgets,wEX)
+  table.insert(widgets,wPRR)
+end
+
 
 function toSettings()
+  createSettingsButtons()
+  uiResize=createSettingsButtons
+  
 	drawFunc=drawSettings
 	updateFunc=updateSettings
 end
