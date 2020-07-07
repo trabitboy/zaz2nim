@@ -26,6 +26,7 @@ local rangeEndQuad={x=0*64, y=13*64, w=64, h=64}
 local pasteRangeQuad={x=0*64, y=14*64, w=64, h=64}
 local exportQuad={x=2*64, y=4*64, w=64, h=64}
 local pasteRangeReverseQuad={x=2*64, y=5*64, w=64, h=64}
+local switchProjectQuad={x=2*64, y=6*64, w=64, h=64}
 
 
 
@@ -149,6 +150,14 @@ function setRangeEnd()
 	 rangeEndIdx=currentIdx
 end
 
+function switchProject()
+  print ('TODO got to switch screen')
+  
+  print('TODO change currentproject.lua')
+  
+  love.event.quit( "restart" )
+end
+
 
 local settings={}
 
@@ -171,6 +180,7 @@ createSettingsButtons=function()
   local wPR =createpicbutton(uiw-384*buttonZoom,uih-64*buttonZoom,buttonsPic,pasteRangeDirect,pasteRangeQuad,buttonZoom)
   local wEX =createpicbutton(uiw-512*buttonZoom,uih-64*buttonZoom,buttonsPic,composeExport,exportQuad,buttonZoom)
   local wPRR =createpicbutton(uiw-384*buttonZoom,uih-128*buttonZoom,buttonsPic,pasteRangeReverse,pasteRangeReverseQuad,buttonZoom)
+  local wSP =createpicbutton(uiw-512*buttonZoom,uih-128*buttonZoom,buttonsPic,switchProject,switchProjectQuad,buttonZoom)
 
 
   table.insert(widgets,wPlay)
@@ -186,6 +196,7 @@ createSettingsButtons=function()
   table.insert(widgets,wPR)
   table.insert(widgets,wEX)
   table.insert(widgets,wPRR)
+  table.insert(widgets,wSP)
 end
 
 
