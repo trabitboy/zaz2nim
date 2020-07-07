@@ -15,6 +15,7 @@ love.errorhandler= function (msg)
 		local pos = 70
 		love.graphics.clear(89/255, 157/255, 220/255)
 		love.graphics.printf(p, pos, pos, love.graphics.getWidth() - pos)
+		love.graphics.printf(msg, pos, pos+30, love.graphics.getWidth() - pos)
 		love.graphics.present()
    end		
 

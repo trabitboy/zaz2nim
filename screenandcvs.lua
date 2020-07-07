@@ -1,3 +1,5 @@
+--TODO uiw needs to be screen / window width
+--TODO re allocate ui canvas ? dunno
 
 --buttons designed for 640x480 height, adjustment
 uilogich=480
@@ -34,6 +36,8 @@ addMsg(" dpi scl "..dpiScl)
 	addMsg('zoom ' .. scrsx)
 
 	buttonZoom = uih /480 --button size is ok on 480 height
+  
+  --uiw=nww
 	addMsg('button zoom '..buttonZoom)
  end
  
@@ -52,8 +56,12 @@ determineHDUicanvasZoom(ww,wh)
  technicalcvssettings={}
  technicalcvssettings.dpiscale=1.0
 
+
+  --TODO old canvas should be released
 	cvs=love.graphics.newCanvas(conf.cvsw,conf.cvsh,technicalcvssettings)
-	ui=love.graphics.newCanvas(uiw,uih)	
+	ui=love.graphics.newCanvas(uiw,uih)	--TODO this should be determined in hduizoom to have button sticking to the righ
+--TODO ui canvas should be released and changed on resize
+
 
 --probably settings are used just for texture download ?
 function initUndoBuffers()

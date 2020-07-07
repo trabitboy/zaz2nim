@@ -1,17 +1,45 @@
+--PRIOS
+
+--WIP uiw that scales to ratio
+
+
+-- bug note 3 : crash on first init no folder existing
+-- enhanced error screen : doesn t display real error on mobile,
+-- restore this 
+
+-- buttons hidden on tab a 16 spen
+-- ajust uiw to device on android
+-- desktop ?
+
+--hard brush toggle
+
+--new project wizard
+--project change
+
+--incremental save
+
+
+--WIP  zoom pos,
+-- BUG keep ratio resize kills ratio
+-- BUG keep ratio resize also present on frame copy / paste
+
+--brush selection paste :
+-- put correct images
+-- display light table
+-- scale the brush linked to selection 
+
 --strange bug when colorfilling then undoing on soft brush outline : afterwards the alpha is versus black
 --even after normal stroke undo,
 -- outline of grass antialias changes
--- TENTATIVE FIX
+-- TENTATIVE FIX m also fixed behavior of color fill after undo
 
 
---TODO 
---paste range of frame
---apply multi tc
 
 --TODO toggle soft/hard brush
 -- WITH BUBBLE MESSAGE TOGGLE ON BRUSH PRESS
 
 --note 8 android, on switch back and forth from app,
+-- not all the time ?
 --zoom is f#cked up
 --needs an app restart
 --app seems to be functioning ok otherwise
@@ -24,16 +52,12 @@
 
 --display of brush presets, clickable for android
 --test sd on 640 480
---switch hard/soft brush
 
 --export with frame composition and frame multi
 --export to avi script
 --	 export frames correctly ( bg color, bg )
 --	 multiply frames
---	 generate scripts ?
--- PB frame multiply duplicated in py
--- PB bg : python doesn t support gap in ranges
---TODO copy wavs in export folder
+--	 generate scripts WORKS
 
 --palm rejection: ( workaround on x230t, disable touch with xsetwacom )
 -- if multitouch detected on zazanim cpp, last paint is undoed ( canceling palmtouch )
@@ -43,16 +67,12 @@
 --display different deco on 'covered with sound '
 --bg color set 
 -- buttons that are hidden on right for select ratios
---Paste range seems broken TODO
---Multi TC seems broken DONE ?
 --frame number display bigger DONE
---brush shortcuts on 1 2 3 4 5 6 7 8 9 0
+--brush shortcuts on 1 2 3 4 5 6 7 8 9 0 ( function keys not on mac )
 --on BG frame, eraser doesn t work TOGGLE WORKAROUND
 --deco BG  DONE
 --deco SON DONE
---undo seems unreliable, only 1x
 --shortcut to display bg or not DONE space
---undo doesnt seem to work on back from settings
 --desactiver paint on save KEYS disabled ? is it enough ?
 --play from first frame shortcut DONE f key
 
@@ -111,16 +131,10 @@
 
 
 
---paste range to do
---save load brushes
---brush display  TODO
---disable background shortcut
---perf : freeze display if no change
+--perf and HEAT : freeze display if no change
 
 -- paint under
 --stamp preview for sound adjust (story board screen)
---fill mode
-
 
 
 -- cb ce aussi pour frame set
@@ -128,20 +142,13 @@
 
 
 --bug: copy part broken
-
-
-
 --save should only save dirty frames
 
 --default 8fps
 --dflt timecode 1
---WIP pencil button and separate setting
 
 --URGENT change project select template
 
---WIP  zoom pos,
--- BUG keep ratio resize kills ratio
--- BUG keep ratio resize also present on frame copy / paste
 --bg color behind canvas
 
 --WIP load/play waves
@@ -308,7 +315,7 @@ require('sdconf')
 require('seqselection')
 --WIP we hardcode profile for now
 --conf=prjTemplates['hd43']
-uiw=conf.uiw
+uiw=conf.uiw --TODO this should be determined in hduizoom to have button sticking to the righ
 uih=conf.uih
 
 require('colorfill')
