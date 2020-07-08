@@ -303,6 +303,7 @@ require('zznerrorhandler')
 
 
 require('picbutton')
+require('textbutton')
 require('brushbox')
 
 --project templates
