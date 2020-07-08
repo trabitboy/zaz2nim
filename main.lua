@@ -321,7 +321,6 @@ require('seqselection')
 uih=conf.uih
 
 require('colorfill')
-
 serialize=require('ser')
 require('bgranges')
 require('modal')
@@ -343,6 +342,7 @@ require('zoompos')
 require('brushsourceselection')
 require('brushscreen')
 require('export')
+require('switchproject')
 require('settings')
 require('flickmode')
 require('brushpresets')

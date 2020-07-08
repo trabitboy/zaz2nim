@@ -154,8 +154,8 @@ function switchProject()
   print ('TODO got to switch screen')
   
   print('TODO change currentproject.lua')
-  
-  love.event.quit( "restart" )
+  toSwitchProject()
+--  love.event.quit( "restart" )
 end
 
 
