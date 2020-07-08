@@ -5,7 +5,7 @@
 --lets determine max tex size
 limits=love.graphics.getSystemLimits()
 print('DBG max texture size '..limits.texturesize)
-maxTextureWH= math.floor(limits.texturesize/3)
+maxTextureWH= math.floor(limits.texturesize/4)
 print ('DBG maxTextureWH '..maxTextureWH)
 
 
