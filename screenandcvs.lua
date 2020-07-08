@@ -1,6 +1,14 @@
 --TODO uiw needs to be screen / window width
 --TODO re allocate ui canvas ? dunno
 
+
+--lets determine max tex size
+limits=love.graphics.getSystemLimits()
+print('DBG max texture size '..limits.texturesize)
+maxTextureWH= math.floor(limits.texturesize/3)
+print ('DBG maxTextureWH '..maxTextureWH)
+
+
 --buttons designed for 640x480 height, adjustment
 uilogich=480
 
@@ -39,7 +47,12 @@ addMsg(" dpi scl "..dpiScl)
 
 	buttonZoom = uih /480 --button size is ok on 480 height
   
+  
+  --TODO uiw need to be capped related to max texture size
   uiw=math.floor(nww/scrsx)
+  if uiw>maxTextureWH then
+    uiw=maxTextureWH
+  end
 	addMsg('button zoom '..buttonZoom)
   
   
