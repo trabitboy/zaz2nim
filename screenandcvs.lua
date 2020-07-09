@@ -6,6 +6,15 @@ function love.visible(v)
     addMsg(v and "Window is visible!" or "Window is not visible!");
 end
 
+function love.focus(f)
+  if f then
+    addMsg("Window is focused.")
+  else
+    addMsg("Window is not focused.")
+  end
+end
+
+
 
 --lets determine max tex size
 limits=love.graphics.getSystemLimits()
