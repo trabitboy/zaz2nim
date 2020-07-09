@@ -29,6 +29,8 @@ uilogich=480
  --TODO what happens on android ?
 --works, but should clarify dpiscale on forum
 dpiScl=love.window.getDPIScale()
+addMsg('initial dpiscale '..dpiScl)
+ 
  
  if love.system.getOS()=='Android' then
 	ww,wh=love.window.getMode()
