@@ -2,6 +2,11 @@
 --TODO re allocate ui canvas ? dunno
 
 
+function love.visible(v)
+    addMsg(v and "Window is visible!" or "Window is not visible!");
+end
+
+
 --lets determine max tex size
 limits=love.graphics.getSystemLimits()
 print('DBG max texture size '..limits.texturesize)
