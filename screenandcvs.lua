@@ -9,6 +9,14 @@ end
 function love.focus(f)
   if f then
     addMsg("Window is focused. dpiscale "..love.graphics.getDPIScale())
+    --DEBUG this is a test for cover clap on android 
+   if love.system.getOS()=='Android' then
+    ww,wh=love.window.getMode()
+    dpScl=love.graphics.getDPIScale()
+    ww=ww/dpiScl
+    wh=wh/dpiScl
+    determineHDUicanvasZoom(nww,nwh)
+   end
   else
     addMsg("Window is not focused.")
   end
