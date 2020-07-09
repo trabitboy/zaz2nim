@@ -1,5 +1,8 @@
 --PRIOS
 
+-- TODO emergency save and reload on android ( small button on top left )
+
+
 --WIP uiw that scales to ratio, now part of resize hook
 -- WIP right buttons need to be recreated on each resize and screen nav
 

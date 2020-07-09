@@ -2,13 +2,13 @@
 --TODO re allocate ui canvas ? dunno
 
 
-function love.visible(v)
+function love.visible(v) --dunno work on android
     addMsg(v and "Window is visible!" or "Window is not visible!");
 end
 
 function love.focus(f)
   if f then
-    addMsg("Window is focused.")
+    addMsg("Window is focused. dpiscale "..love.graphics.getDPIScale())
   else
     addMsg("Window is not focused.")
   end
