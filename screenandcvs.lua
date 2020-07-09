@@ -15,7 +15,7 @@ function love.focus(f)
     dpScl=love.graphics.getDPIScale()
     ww=ww/dpiScl
     wh=wh/dpiScl
-    determineHDUicanvasZoom(nww,nwh)
+    determineHDUicanvasZoom(ww,wh)
    end
   else
     addMsg("Window is not focused.")
