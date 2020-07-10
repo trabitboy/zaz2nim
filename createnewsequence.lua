@@ -1,0 +1,176 @@
+
+local exitQuad = {x=64, y=17*64, w=64, h=64}
+
+
+local newSeqTextInput=function(t)
+  newSeqName=newSeqName..t
+  
+end
+
+local createNewProjectAndReboot=function()
+    print('can we create folder for : '..newSeqName)
+  --TODO check no overwrite
+  
+  
+  --TODO create folder
+  
+  
+  --TODO create template
+  
+  --TODO modify current project
+  
+  
+  
+  --TODO restart
+
+
+end
+
+
+local function exitCNS()
+	 print('exit CNS ')
+
+	 toPaintMode()
+
+end
+
+
+
+local widgets={}
+
+local getTemplatesList=function()
+  local ret={}
+  for i,f in ipairs(love.filesystem.getDirectoryItems('template/'))
+  do
+    print ('file '..f)
+    info = love.filesystem.getInfo( 'template/'..f,     'directory' )
+    if info ~=nil then
+      print(f..' is a dir')
+      table.insert(ret,f)
+    end
+  end
+  return ret
+end
+
+local function changetemplate (folder)
+  --TODO 
+  print('changetemplate '..folder)
+  --we need to create a currenttemplate.lua
+  screenMsg=' type unused seq name then press create' 
+  newSeqName=''
+  love.keyboard.setTextInput(true)
+  love.textinput=newSeqTextInput
+end
+
+
+
+
+
+local createtemplateButton=function(i,p)
+      
+    local w = createTextButton(i*128*buttonZoom,64*buttonZoom,changetemplate,{text=p,key=p},buttonZoom)
+      
+    return w
+
+end
+
+
+
+local createCNSButtons=function()
+  Templates=getTemplatesList()
+  widgets={}
+  
+  local wExitZP = createpicbutton(0,0,buttonsPic,exitCNS,exitQuad,buttonZoom)
+  local wCreate = createpicbutton(uih/2,uiw-64*buttonZoom,buttonsPic,createNewProjectAndReboot,exitQuad,buttonZoom)
+ 
+
+  table.insert(widgets,wExitZP)
+  table.insert(widgets,wCreate)
+
+
+  --we need to create a button per template
+  for i,p in ipairs(Templates)
+  do
+      table.insert(widgets,createtemplateButton(i,p))
+    
+  end
+
+
+
+end
+
+local function rendertouicanvas()
+	love.graphics.setCanvas(ui)
+	love.graphics.clear(0.5,0.5,0.5,1.0)
+
+
+	love.graphics.setColor(0.,0.,0.,1.0)
+  love.graphics.print(screenMsg,100,200,0,4,4)
+  love.graphics.print('new seq : '..newSeqName,100,300,0,4,4)
+
+	love.graphics.setColor(1.,1.,1.,1.0)
+	renderWidgets(widgets)
+
+		
+	msgToCvs()
+
+	--love.graphics.print()
+	love.graphics.setCanvas()
+end
+
+
+local function createNewSequenceDraw()
+		rendertouicanvas()
+		--this is the background image of our paint
+		love.graphics.clear(.5,.5,.5,1.0)
+		--love.graphics.clear(1.,1.,1.,1.0)
+		love.graphics.setColor(1.0,1.0,1.0,1.0)
+		love.graphics.draw(ui,0,0,0,scrsx,scrsy)	
+		
+end
+
+
+
+local function createNewSequenceUpdate()
+	 if npress==true then
+--	    print('bs click')
+--	    addMsg('bs click')
+	    consumed=consumeClick(widgets)
+--	    print('consumed '..tostring(consumed))brushScreenbrushScreen
+	    if consumed==true
+	    then
+		return
+	    end
+
+
+	    npress=false
+	 end
+
+end
+
+
+
+
+function toCreateNewSequence()
+
+  love.keyboard.setTextInput(false)
+  
+  
+  screenMsg='select template'
+  
+  newSeqName=''
+  
+  createCNSButtons()
+  uiResize=createCNSButtons
+
+	keyFunc = nil
+
+	drawFunc=createNewSequenceDraw
+	updateFunc=createNewSequenceUpdate
+
+end
+
+
+
+
+
