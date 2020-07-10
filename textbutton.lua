@@ -18,7 +18,7 @@ local function render(b)
 		--love.graphics.draw(b.pic,b.quad,b.x,b.y,0,b.zoom,b.zoom)
     love.graphics.setColor(0.,0.,0.,1.)
     love.graphics.rectangle('line',b.x,b.y,txtBtnBaseW*b.zoom,txtBtnBaseW*b.zoom)
-    love.graphics.print(b.textAndKey.text,b.x,b.y+txtBtnBaseW/2)
+    love.graphics.print(b.textAndKey.text,b.x+txtBtnBaseW,b.y+txtBtnBaseW/2,0,b.zoom*4,b.zoom*4)
     love.graphics.setColor(1.,1.,1.,1.)
     
 	end

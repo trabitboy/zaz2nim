@@ -37,12 +37,18 @@ end
 local function changeProject (folder)
   --TODO 
   print('changeProject '..folder)
+  --we need to create a currentproject.lua
+  local lua="return '"..folder.."'"
+  print('writing '..lua)
+  love.filesystem.write('currentproject.lua',lua)
+  
+  
 end
 
 
 local createProjectButton=function(i,p)
       
-    local w = createTextButton(i*128,64,changeProject,{text=p,key=p})
+    local w = createTextButton(64,i*64*buttonZoom,changeProject,{text=p,key=p},buttonZoom)
       
     return w
 
@@ -54,9 +60,12 @@ local createSPButtons=function()
   projects=getProjectsList()
   widgets={}
   
-  local wExitZP = createpicbutton(0,0,buttonsPic,exitSP,exitQuad)
+  local wExitZP = createpicbutton(0,0,buttonsPic,exitSP,exitQuad,buttonZoom)
  
+   local wCNS = createpicbutton(0,uih-64,buttonsPic,toCreateNewSequence,exitQuad,buttonZoom)
+
   table.insert(widgets,wExitZP)
+  table.insert(widgets,wCNS)
 
 
   --we need to create a button per project
