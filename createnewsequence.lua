@@ -1,10 +1,37 @@
 
 local exitQuad = {x=64, y=17*64, w=64, h=64}
 
+local function createNewProjectFolder()
+      tgt='project/'..newSeqName
+      pot=love.filesystem.getInfo(tgt)
+
+      if pot~=nil then
+      	 screenMsg='existing project'
+      end
+
+      --TODO check if directory
+
+      love.filesystem.createDirectory(tgt)
+--    		   local tmp = love.filesystem.newFileData('template/'..newT
+
+--		   local newname = name..'.wav'
+--		   local tgtpath=spath..newname
+--		   print('writing sound '..tgtpath)
+--		   love.filesystem.write(tgtpath,tmp)		   
+	love.filesystem.write(tgt..'/template.lua',"return '".. newTemplate .."'")		  
+	--create currentproject.lua
+end
+
 
 local newSeqTextInput=function(t)
-  newSeqName=newSeqName..t
-  
+
+ newSeqName=newSeqName..t
+
+ if t=='w' then
+ love.keyboard.setTextInput(false)
+ createNewProjectFolder()
+ return
+ end
 end
 
 local createNewProjectAndReboot=function()
@@ -55,6 +82,7 @@ end
 local function changetemplate (folder)
   --TODO 
   print('changetemplate '..folder)
+  newTemplate=folder
   --we need to create a currenttemplate.lua
   screenMsg=' type unused seq name then press create' 
   newSeqName=''
