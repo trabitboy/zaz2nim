@@ -1,15 +1,25 @@
 
-local exitQuad = {x=64, y=17*64, w=64, h=64}
+local backQuad = {x=2*64, y=8*64, w=64, h=64}
+local createQuad = {x=0, y=5*64, w=64, h=64}
 
+--called on button click
 local function createNewProjectFolder()
+  
+      if string.len(newSeqName)==0 then
+          screenMsg='enter a project name'
+          return
+      end
+  
+  
+  
       tgt='project/'..newSeqName
       pot=love.filesystem.getInfo(tgt)
 
       if pot~=nil then
-      	 screenMsg='existing project'
+      	 screenMsg='project already exists'
+         return
       end
 
-      --TODO check if directory
 
       love.filesystem.createDirectory(tgt)
 --    		   local tmp = love.filesystem.newFileData('template/'..newT
@@ -18,40 +28,33 @@ local function createNewProjectFolder()
 --		   local tgtpath=spath..newname
 --		   print('writing sound '..tgtpath)
 --		   love.filesystem.write(tgtpath,tmp)		   
-	love.filesystem.write(tgt..'/template.lua',"return '".. newTemplate .."'")		  
-	--create currentproject.lua
+      love.filesystem.write(tgt..'/template.lua',"return '".. newTemplate .."'")		  
+	--TODO create currentproject.lua
+  
+  --TODO reboot
+  
+  
 end
 
 
 local newSeqTextInput=function(t)
+ if t==' ' then return end
 
  newSeqName=newSeqName..t
 
- if t=='w' then
- love.keyboard.setTextInput(false)
- createNewProjectFolder()
- return
- end
 end
 
-local createNewProjectAndReboot=function()
-    print('can we create folder for : '..newSeqName)
-  --TODO check no overwrite
-  
-  
-  --TODO create folder
-  
-  
-  --TODO create template
-  
-  --TODO modify current project
-  
-  
-  
-  --TODO restart
 
 
-end
+
+
+-- if t=='w' then
+-- love.keyboard.setTextInput(false)
+-- createNewProjectFolder()
+-- return
+-- end
+
+
 
 
 local function exitCNS()
@@ -108,8 +111,8 @@ local createCNSButtons=function()
   Templates=getTemplatesList()
   widgets={}
   
-  local wExitZP = createpicbutton(0,0,buttonsPic,exitCNS,exitQuad,buttonZoom)
-  local wCreate = createpicbutton(uih/2,uiw-64*buttonZoom,buttonsPic,createNewProjectAndReboot,exitQuad,buttonZoom)
+  local wExitZP = createpicbutton(0,0,buttonsPic,exitCNS,backQuad,buttonZoom)
+  local wCreate = createpicbutton(0,128*buttonZoom,buttonsPic,createNewProjectFolder,createQuad,buttonZoom)
  
 
   table.insert(widgets,wExitZP)

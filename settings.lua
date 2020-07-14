@@ -27,7 +27,21 @@ local pasteRangeQuad={x=0*64, y=14*64, w=64, h=64}
 local exportQuad={x=2*64, y=4*64, w=64, h=64}
 local pasteRangeReverseQuad={x=2*64, y=5*64, w=64, h=64}
 local switchProjectQuad={x=2*64, y=6*64, w=64, h=64}
+local hardBrushQuad={x=2*64, y=9*64, w=64, h=64}
+local softBrushQuad={x=2*64, y=10*64, w=64, h=64}
 
+
+local toggleHardBrush = function()
+  print('setting hard brush')
+  currentBrushFunc=roundBrushWithAlpha
+  --TODO recreate
+end
+
+local toggleSoftBrush = function()
+  print('setting soft brush')
+  currentBrushFunc=roundBrushWithGradient
+  --TODO recreate
+end
 
 
 function composeExport()
@@ -181,6 +195,9 @@ createSettingsButtons=function()
   local wEX =createpicbutton(uiw-512*buttonZoom,uih-64*buttonZoom,buttonsPic,composeExport,exportQuad,buttonZoom)
   local wPRR =createpicbutton(uiw-384*buttonZoom,uih-128*buttonZoom,buttonsPic,pasteRangeReverse,pasteRangeReverseQuad,buttonZoom)
   local wSP =createpicbutton(uiw-512*buttonZoom,uih-128*buttonZoom,buttonsPic,switchProject,switchProjectQuad,buttonZoom)
+  local wTHB =createpicbutton(uiw-576*buttonZoom,uih-256*buttonZoom,buttonsPic,toggleHardBrush,hardBrushQuad,buttonZoom)
+  local wTSB =createpicbutton(uiw-512*buttonZoom,uih-256*buttonZoom,buttonsPic,toggleSoftBrush,softBrushQuad,buttonZoom)
+
 
 
   table.insert(widgets,wPlay)
@@ -197,6 +214,9 @@ createSettingsButtons=function()
   table.insert(widgets,wEX)
   table.insert(widgets,wPRR)
   table.insert(widgets,wSP)
+  table.insert(widgets,wTHB)
+  table.insert(widgets,wTSB)
+  
 end
 
 
@@ -266,7 +286,8 @@ function updateSettings()
 
 				--TODO for test
 				brshradius=potradius   
-			   	mybrush=love.graphics.newImage(roundBrushWithGradient(	brshradius,paintcolor.r,paintcolor.g,paintcolor.b))
+			   	mybrush=love.graphics.newImage(currentBrushFunc(	brshradius,paintcolor.r,paintcolor.g,paintcolor.b))
+--			   	mybrush=love.graphics.newImage(roundBrushWithGradient(	brshradius,paintcolor.r,paintcolor.g,paintcolor.b))
 
 				--normal
 			--	mybrush=love.graphics.newImage(roundBrushWithAlpha(	brshradius,paintcolor.r,paintcolor.g,paintcolor.b))

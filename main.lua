@@ -1,25 +1,32 @@
 --PRIOS
 
--- TODO emergency save and reload on android ( small button on top left )
+--light table shader : define ink and only display ink 
+-- (useful on a project that is being colored)
 
+--use bg toggle in flick/ add bg toggle in ui
+
+--check if 0 time code is omitted in play back and export
+
+--save wav  ( could just use wav.lua and patch path )
+
+
+--WIP hard brush toggle
+
+
+--turn project screen in generic file requester ?
+
+
+-- TODO emergency save and reload on android ( small button on top left )
+-- TODO could be replaced by a small button next to previous (quarter size ) that resets zoom
+-- TODO track left resize/dpi scale bugs on android
 
 --WIP uiw that scales to ratio, now part of resize hook
 -- WIP right buttons need to be recreated on each resize and screen nav
 
--- bug note 3 : crash on first init no folder existing  
--- pb is note3 doesnt support full hd tex
--- ( weird, full hd was possible with old cpp zzn sdl2render )
--- enhanced error screen : doesn t display real error on mobile,
--- restore this 
 
--- buttons hidden on tab a 16 spen
--- ajust uiw to device on android
--- desktop ?
 
---hard brush toggle
 
---new project wizard
---project change
+--improve project change ,  save pic previews and play them on menu screen
 
 --incremental save
 
@@ -374,9 +381,10 @@ function love.load()
 
 --default
 	brshradius=8
-
+currentBrushFunc=roundBrushWithGradient
 --	mybrush=love.graphics.newImage(roundBrushWithAlpha(	brshradius,paintcolor.r,paintcolor.g,paintcolor.b))
-	mybrush=love.graphics.newImage(roundBrushWithGradient(	brshradius,paintcolor.r,paintcolor.g,paintcolor.b))
+	mybrush=love.graphics.newImage(currentBrushFunc(	brshradius,paintcolor.r,paintcolor.g,paintcolor.b))
+--	mybrush=love.graphics.newImage(roundBrushWithGradient(	brshradius,paintcolor.r,paintcolor.g,paintcolor.b))
 	mybrush:setFilter('nearest','nearest')
 	
 	createInkShader()

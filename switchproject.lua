@@ -1,13 +1,13 @@
 --project select screen
 
-local exitQuad = {x=64, y=17*64, w=64, h=64}
-
+local backQuad = {x=2*64, y=8*64, w=64, h=64}
+local createQuad= {x=0, y=5*64, w=64, h=64}
 
 
 local function exitSP()
 	 print('exit sp ')
 
---	 toPaintMode()
+--	 toPaintMode(= {x=64, y=17*64, w=64, h=64})
    love.event.quit( "restart" )
 
 end
@@ -15,7 +15,6 @@ end
 
 
 local widgets={}
-
 local getProjectsList=function()
   local ret={}
   for i,f in ipairs(love.filesystem.getDirectoryItems('project/'))
@@ -60,9 +59,9 @@ local createSPButtons=function()
   projects=getProjectsList()
   widgets={}
   
-  local wExitZP = createpicbutton(0,0,buttonsPic,exitSP,exitQuad,buttonZoom)
+  local wExitZP = createpicbutton(0,0,buttonsPic,exitSP,backQuad,buttonZoom)
  
-   local wCNS = createpicbutton(0,uih-64,buttonsPic,toCreateNewSequence,exitQuad,buttonZoom)
+   local wCNS = createpicbutton(0,uih-64,buttonsPic,toCreateNewSequence,createQuad,buttonZoom)
 
   table.insert(widgets,wExitZP)
   table.insert(widgets,wCNS)
