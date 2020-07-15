@@ -18,7 +18,7 @@ end
 --we restore with f1 f5
 brushPresets={
 --	f1={eraser=true,size=8},
---	f2={size=8,color={r=1.0,g=0.0,b=0.0}}
+--	f2={size=8,color={r=1.0,g=0.0,b=0.0,type='soft'|'hard'}}
 }
 
 --texs stored separately so we can save metadata
@@ -39,7 +39,19 @@ storeInSlot= function(key)
 	   brushPresets[tkey]={eraser=true,size=eraserRadius}
 	else
 	   print('brush stored '..tkey)
-	   brushPresets[tkey]={size=brshradius,color={r=paintcolor.r,g=paintcolor.g,b=paintcolor.b}}
+     
+     
+     if currentBrushFunc==roundBrushWithAlpha then
+        local currentType='hard'
+     elseif currentBrushFunc==roundBrushWithGradient then
+        local currentType='soft'
+     end
+	   brushPresets[tkey]={size=brshradius,color={r=paintcolor.r,g=paintcolor.g,b=paintcolor.b},type=currentType}
+     if currentBrushFunc==roundBrushWithAlpha then
+        brushPresets[tkey].type='hard'
+     elseif currentBrushFunc==roundBrushWithGradient then
+        brushPresets[tkey].type='soft'
+     end
 	   brushTexes[tkey]=mybrush
 	end
 	
@@ -60,7 +72,14 @@ restoreSlot= function(key)
 	   eraserRadius=pot.size
 	else
 	   eraseMode=false
-	   print('brush restored '..key)
+     if pot.type=='hard' then
+        currentBrushFunc=roundBrushWithAlpha
+     elseif pot.type=='soft' then
+        currentBrushFunc=roundBrushWithGradient
+     end
+
+	   
+     print('brush restored '..key)
 	   brshradius=pot.size
 	   paintcolor.r=pot.color.r
 	   paintcolor.g=pot.color.g
@@ -93,7 +112,16 @@ initBrushTexes=function()
 	do
 		if pres.eraser==nil then
 
-				local tmp=love.graphics.newImage(roundBrushWithAlpha(	pres.size,pres.color.r,pres.color.g,pres.color.b))
+        --brush func depends on template
+        local initBrushFunc=1 --just to exist
+         if pres.type=='hard' then
+            initBrushFunc=roundBrushWithAlpha
+         elseif pres.type=='soft' then
+            initBrushFunc=roundBrushWithGradient
+         end
+        
+
+				local tmp=love.graphics.newImage(initBrushFunc(	pres.size,pres.color.r,pres.color.g,pres.color.b))
 				tmp:setFilter('nearest','nearest')
 				brushTexes[k]=tmp
 				print('text brush stored for '..k)

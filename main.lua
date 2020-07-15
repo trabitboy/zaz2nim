@@ -1,5 +1,10 @@
 --PRIOS
 
+-- save brush preset including brush function
+-- display a brush preset widget in settings ( widget as to move on other screen later )
+-- for use on mobile
+
+
 --light table shader : define ink and only display ink 
 -- (useful on a project that is being colored)
 
