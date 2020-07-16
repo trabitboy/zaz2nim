@@ -64,12 +64,16 @@ function drawPlayback()
 	-- love.graphics.draw(buttonsPic)
 		rendertouicanvas()
 		--this is the background image of our paint
-		love.graphics.clear(1.,1.,1.,1.0)
+		love.graphics.clear(1.,1.,1.,1.0)--
 		love.graphics.setColor(1.0,1.0,1.0,1.0)
 		love.graphics.draw(ui,0,0,0,scrsx,scrsy)	
 
 end
 
+--data structure where we put a current repetition marker
+currentRepetition=nil
+-- contains the source repetition structure, including a transient data for the numer of run
+--= {trigger=3,target=1,repetition=4, iteration= 1 -- 3 more to go, then we cancel  }
 
 function updatePlayback()
 	
@@ -79,7 +83,52 @@ function updatePlayback()
 		elapsedTc=elapsedTc+1
 		print('elapsed tc '..elapsedTc)
 		if elapsedTc>=frames[pbIdx].tc then
+      --TODO check if next frame is a trigger, let a marker to say once finished,
+      -- you go to loop
+      
 			pbIdx=pbIdx+1
+      --only work for one tc 0
+      if (frames[pbIdx].tc<1 and pbIdx<maxframe)then
+        print('skipping 0tc frame')
+        pbIdx=pbIdx+1
+      end
+      
+      
+      --if we are already in a repetition, we do not look
+      -- (overlap forbidden )
+      if currentRepetition~=nil then
+        print('in a repetition , we do not look for more')
+        
+        --if we are in a repetition and new frame number is higher than trigger,
+        if pbIdx>currentRepetition.trigger then
+        --either we jump back ( still valid )
+          if currentRepetition.iteration<currentRepetition.repetition then
+            pbIdx=currentRepetition.target
+            currentRepetition.iteration=currentRepetition.iteration+1
+          else
+        --or we cancel repetition ( it is other )
+            currentRepetition.iteration=nil
+            currentRepetition=nil
+          end
+        end
+        
+        
+      else
+        --we look for apotential new one
+        local pot =repetitions[pbIdx]
+        if pot~=nil then 
+          print(' repetition pointer on frame '..pbIdx)
+          print(' repetitions for new idx,tgt: '..pot.target )
+          
+          --TODO setup
+          currentRepetition=pot
+          currentRepetition.iteration=0 --we jump on frame end
+        else 
+          print('no repetition for frame '..pbIdx)
+        end
+      
+      end
+      
 			elapsedTc=0
 			print('next frame')
 

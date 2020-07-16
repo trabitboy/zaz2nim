@@ -59,7 +59,9 @@ updateLoadScreen = function ()
 	   loadTxtCodes()
 
 	   loadBgRanges()
-	   
+      
+     loadRepetitions()
+     
 	   maintainBgRanges()
 
 	   loadBrushes()

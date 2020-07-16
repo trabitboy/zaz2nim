@@ -58,6 +58,13 @@ function composeExport()
     
 end
 
+--TODO make it multiply when pressed multiple times
+function repeatSeq()
+  print('repetition set  ')
+  setRepetition(rangeBeginIdx,rangeEndIdx,1)  
+  
+end
+
 
 function pasteRange(directOrder)
 	 if rangeBeginIdx==nil or rangeEndIdx==nil then
@@ -86,11 +93,15 @@ function pasteRange(directOrder)
     
     newp=love.graphics.newImage(newid)
     -- table.insert(frames,{pic=newp,data=newid})
-    table.insert(frames,currentIdx+pasteOffset,{pic=newp,data=newid,tc=frames[i].tc})
+    
+    local newFrameIdx=currentIdx+pasteOffset
+    table.insert(frames,newFrameIdx,{pic=newp,data=newid,tc=frames[i].tc})
     maxframe=maxframe+1
     print('number of frames '..maxframe)
 
     maxFrameReached=maxFrameReached+1
+    maintainRepetitionsFrameAddition(newFrameIdx)    
+    
     print('max frames reached at a given point '..maxFrameReached)
 
     --just omitting this implements paste reverse
@@ -145,12 +156,15 @@ function deleteCurrentFrame()
 	 table.remove(frames,currentIdx)
 	 maxframe=maxframe-1
 
+   maintainRepetitionsFrameDeletion(currentIdx)
+
 	 if currentIdx>maxframe then
 	    currentIdx=maxframe
 	 end
 
 
 	 maintainBgRanges()
+
 	 initCanvases(currentIdx)
 end
 
@@ -198,6 +212,7 @@ createSettingsButtons=function()
   local wTHB =createpicbutton(uiw-576*buttonZoom,uih-256*buttonZoom,buttonsPic,toggleHardBrush,hardBrushQuad,buttonZoom)
   local wTSB =createpicbutton(uiw-512*buttonZoom,uih-256*buttonZoom,buttonsPic,toggleSoftBrush,softBrushQuad,buttonZoom)
 
+  local wSR =createpicbutton(uiw-512*buttonZoom,uih-320*buttonZoom,buttonsPic,repeatSeq,softBrushQuad,buttonZoom)
 
 
   table.insert(widgets,wPlay)
@@ -216,6 +231,7 @@ createSettingsButtons=function()
   table.insert(widgets,wSP)
   table.insert(widgets,wTHB)
   table.insert(widgets,wTSB)
+  table.insert(widgets,wSR)
   
 end
 

@@ -1,5 +1,13 @@
 --PRIOS
 
+-- WIP repetition
+-- export
+-- shift on frame delete an frame: doesn work
+-- shift on frame add :to test 
+-- decoration
+-- toggle
+-- increment
+
 -- save brush preset including brush function
 -- display a brush preset widget in settings ( widget as to move on other screen later )
 -- for use on mobile
@@ -360,6 +368,7 @@ require('brushscreen')
 require('export')
 require('createnewsequence')
 require('switchproject')
+require('repetitionmarkers')
 require('settings')
 require('flickmode')
 require('brushpresets')

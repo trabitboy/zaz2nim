@@ -143,7 +143,8 @@ function addFrame()
 	newid = love.image.newImageData(conf.cvsw,conf.cvsh)
 	newp=love.graphics.newImage(newid)
 	-- table.insert(frames,{pic=newp,data=newid})
-	table.insert(frames,currentIdx+1,{pic=newp,data=newid,tc=1})
+  newFrameIdx=currentIdx+1
+	table.insert(frames,newFrameIdx,{pic=newp,data=newid,tc=1})
 	maxframe=maxframe+1
 	print('number of frames '..maxframe)
 
@@ -151,6 +152,7 @@ function addFrame()
 	print('max frames reached at a given point '..maxFrameReached)
 
 	maintainBgRanges()
+  maintainRepetitionsFrameAddition(newFrameIdx)
   saveCanvasToUndo()
 end
 
@@ -163,6 +165,19 @@ function prevFrame()
 			
 			currentIdx=currentIdx-1
 			print("frame down")
+			initCanvases(currentIdx)
+
+			resetUndo()
+		end
+
+
+    --loop to end of project
+		if currentIdx==1 then
+			addMsg("end prj")
+			--save canvas to frame
+			saveCanvasToFrame(currentIdx)
+			
+			currentIdx=maxframe
 			initCanvases(currentIdx)
 
 			resetUndo()

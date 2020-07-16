@@ -150,6 +150,8 @@ function timeCodeUpdate()
 	    local ytc=math.floor(npy/64)
 	    local tmp=(ytc*uiw/64 -1 )+xtc
 	    print('updating tc '..tmp)
+      
+      if tmp<0 then tmp=0 end
 	    frames[currentIdx].tc = tmp
 	    
 	    npress=false

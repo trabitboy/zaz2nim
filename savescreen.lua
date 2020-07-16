@@ -65,10 +65,11 @@ updateSaveScreen = function ()
 			saveTxtCodes()
 			saveBgRanges()
 			saveBrushes()
+      saveRepetitions()
 			--clean extra frames on disk
 			cleanMaxFrameReached()
 
-
+      
 			writeTemplateInfo()
 
 			addMsg('after save')
