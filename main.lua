@@ -1,20 +1,28 @@
 --PRIOS
 
+-- incremental save and moves : first in 2nd folder, to test with diffing vs slow save
+
+-- paint under shader brush
+-- replace color shader brush
+
+-- display a brush preset widget in settings ( widget as to move on other screen later )
+-- for use on mobile
+
+--light table shader : define ink and only display ink 
+-- (useful on a project that is being colored)
+
+-- TODO emergency save and reload on android ( small button on top left )
+
+-- search for dpiscale in custom gradle love build to understand how when it triggers
+
+
 -- WIP repetition
--- export
--- shift on frame delete an frame: doesn work
--- shift on frame add :to test 
+-- export TODO
 -- decoration
 -- toggle
 -- increment
 
--- save brush preset including brush function
--- display a brush preset widget in settings ( widget as to move on other screen later )
--- for use on mobile
-
-
---light table shader : define ink and only display ink 
--- (useful on a project that is being colored)
+--hard toggle : use button recreation to hide impossible button
 
 --use bg toggle in flick/ add bg toggle in ui
 
@@ -22,14 +30,10 @@
 
 --save wav  ( could just use wav.lua and patch path )
 
-
---WIP hard brush toggle
-
-
---turn project screen in generic file requester ?
+--turn project screen in generic file requester ( could be used to select wav )
 
 
--- TODO emergency save and reload on android ( small button on top left )
+
 -- TODO could be replaced by a small button next to previous (quarter size ) that resets zoom
 -- TODO track left resize/dpi scale bugs on android
 
