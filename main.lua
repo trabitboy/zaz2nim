@@ -376,6 +376,8 @@ require('repetitionmarkers')
 require('settings')
 require('flickmode')
 require('brushpresets')
+require('paintundermode')
+require('basicpaintmode')
 require('paintmode')
 
 

@@ -59,6 +59,42 @@ function createInkShader()
 
 end
 
+--WIP need to pass screen cvs
+--QUESTIONABLE since we need to pass picture texture ( so make a copy ) as input,
+--to render on a canvas ( the picture itself but transient )
+-- we don't gain anything for the coloring scenario
+function createPaintUnderShader(rs,gs,bs)
+  paintUnderShader=love.graphics.newShader[[
+  extern cvs;
+	extern number r;
+	extern number g;
+	extern number b;
+  
+    vec4 effect( vec4 color, Image texture, vec2 texture_coords, vec2 screen_coords ){
+      vec4 pixel = Texel(texture, texture_coords );//This is the current pixel color
+    
+	  vec4 ink= vec4(r,g,b,1.0); //hard coded 
+	  
+	  vec4 white= vec4(1.0,1.0,1.0,1.0);
+	  
+
+	   vec4 aa= color *(0.8*pixel + 0.1*ink);
+	   //for debug
+	   //vec4 aa=vec4(0.0,0.0,1.0,1.0);
+    
+	      return ink;
+
+
+    }
+  ]]
+  paintUnderShader:send("r",rs)
+  paintUnderShader:send("g",gs)
+  paintUnderShader:send("b",bs)
+
+end
+
+
+
 
 --this is a square eraser ( shader cant return no value , compilation error )
 function createEraserShader()
