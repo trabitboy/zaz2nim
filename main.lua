@@ -400,7 +400,7 @@ renderdecos=true
 function love.load()
 
 --default
-	brshradius=8
+	brshradius=256
 currentBrushFunc=roundBrushWithGradient
 --	mybrush=love.graphics.newImage(roundBrushWithAlpha(	brshradius,paintcolor.r,paintcolor.g,paintcolor.b))
 	mybrush=love.graphics.newImage(currentBrushFunc(	brshradius,paintcolor.r,paintcolor.g,paintcolor.b))

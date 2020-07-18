@@ -3,7 +3,7 @@
 
 --draws a line from last blit x last blit y to current coords
 function basicBlitBrushLineRemember(x,y)
-	print("blit line x,y "..x.." "..y)
+	print("basicBlitBrushLineRemember line x,y "..x.." "..y)
   
 	
   
@@ -17,6 +17,9 @@ function basicBlitBrushLineRemember(x,y)
 			--following is ok for square brush
 			-- love.graphics.setShader(eraserShader)
 			--alternative method
+      --TODO should we not set color to 1.0,1.0,1.0, 0 ?
+      -- dark alpha artifacting
+      
 			love.graphics.setColor(0.0,0.0,0.0,0.0)
 
 	end

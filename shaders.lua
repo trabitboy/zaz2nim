@@ -63,7 +63,7 @@ end
 --QUESTIONABLE since we need to pass picture texture ( so make a copy ) as input,
 --to render on a canvas ( the picture itself but transient )
 -- we don't gain anything for the coloring scenario
-function createPaintUnderShader(rs,gs,bs)
+function createPaintUnderShaderOBSOLETE(rs,gs,bs)
   paintUnderShader=love.graphics.newShader[[
   extern cvs;
 	extern number r;

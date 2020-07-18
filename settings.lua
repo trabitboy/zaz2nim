@@ -29,19 +29,32 @@ local pasteRangeReverseQuad={x=2*64, y=5*64, w=64, h=64}
 local switchProjectQuad={x=2*64, y=6*64, w=64, h=64}
 local hardBrushQuad={x=2*64, y=9*64, w=64, h=64}
 local softBrushQuad={x=2*64, y=10*64, w=64, h=64}
+local underBrushQuad={x=2*64, y=11*64, w=64, h=64}
 
 
 local toggleHardBrush = function()
   print('setting hard brush')
   currentBrushFunc=roundBrushWithAlpha
+  blitBrushLineRemember=basicBlitBrushLineRemember
   --TODO recreate
 end
 
 local toggleSoftBrush = function()
   print('setting soft brush')
   currentBrushFunc=roundBrushWithGradient
+  blitBrushLineRemember=basicBlitBrushLineRemember
   --TODO recreate
 end
+
+
+--shader brush needs extra init
+local toggleUnderBrush = function()
+  print('setting under brush')
+  currentBrushFunc=roundBrushWithAlpha 
+  --works only with hard brush
+  initPaintUnderBlitMode()
+end
+
 
 
 function composeExport()
@@ -211,6 +224,7 @@ createSettingsButtons=function()
   local wSP =createpicbutton(uiw-512*buttonZoom,uih-128*buttonZoom,buttonsPic,switchProject,switchProjectQuad,buttonZoom)
   local wTHB =createpicbutton(uiw-576*buttonZoom,uih-256*buttonZoom,buttonsPic,toggleHardBrush,hardBrushQuad,buttonZoom)
   local wTSB =createpicbutton(uiw-512*buttonZoom,uih-256*buttonZoom,buttonsPic,toggleSoftBrush,softBrushQuad,buttonZoom)
+  local wTUB =createpicbutton(uiw-576*buttonZoom,uih-320*buttonZoom,buttonsPic,toggleUnderBrush,underBrushQuad,buttonZoom)
 
   local wSR =createpicbutton(uiw-512*buttonZoom,uih-320*buttonZoom,buttonsPic,repeatSeq,softBrushQuad,buttonZoom)
 
@@ -231,6 +245,7 @@ createSettingsButtons=function()
   table.insert(widgets,wSP)
   table.insert(widgets,wTHB)
   table.insert(widgets,wTSB)
+  table.insert(widgets,wTUB)
   table.insert(widgets,wSR)
   
 end

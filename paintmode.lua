@@ -1,7 +1,9 @@
 
 --this function varies greatly depending on paint mode
 -- it stores previous paing coords for next call 
-blitBrushLineRemember=nil
+--default when starting app
+blitBrushLineRemember=  basicBlitBrushLineRemember
+
 
 --alternatePaintmode
 --BAD not a good approach as when shader painting , you pass cvs and bursh through shader, not just brush
@@ -642,8 +644,9 @@ function toPaintMode()
 --  brushShader=paintUnderShader
 --END BAD DEBUG  
   
-  blitBrushLineRemember=basicBlitBrushLineRemember
-  --DEBUG
+  --WIP:
+  
+  -- TO WIRE TO BUTTON AND INIT TO 
 --  initPaintUnderBlitMode()
   
   createPaintButtons()
