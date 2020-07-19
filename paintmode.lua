@@ -50,6 +50,9 @@ eraserRadius=16 --dflt
  decoSoundQuad={x=1*64, y=10*64, w=64, h=64}
 	realDecoSoundQuad=love.graphics.newQuad(decoSoundQuad.x,decoSoundQuad.y,decoSoundQuad.w,decoSoundQuad.h,buttonsPic:getWidth(),buttonsPic:getHeight())
 
+repDecoQuad = {x=2*64, y=12*64, w=64, h=64}
+	realRepDecoQuad=love.graphics.newQuad(repDecoQuad.x,repDecoQuad.y,repDecoQuad.w,repDecoQuad.h,buttonsPic:getWidth(),buttonsPic:getHeight())
+
 
 addQuad = {x=0, y=320, w=64, h=64}
 prevQuad = {x=0, y=64, w=64, h=64}
@@ -65,8 +68,35 @@ lflickQuad = {x=0, y=6*64, w=64, h=64}
 rflickQuad = {x=0, y=7*64, w=64, h=64}
 bucketQuad = {x=64,y=0, w=64, h=64}
 
+local incRepQuad={x=2*64, y=15*64, w=32, h=32}
+local decRepQuad={x=2*64+32, y=15*64, w=32, h=32}
+
+
+
 --index of the source frame
 copySrc=nil
+
+
+function incRep()
+  print('inc rep')
+  --TODO
+  local r=isFrameInRepetition(currentIdx)
+-- recreate buttons if changing frame, meh?
+	if r~=nil then 
+    r.repetition=r.repetition+1
+  end
+end
+
+function decRep()
+  print('dec rep')
+  --TODO
+  local r=isFrameInRepetition(currentIdx)
+-- recreate buttons if changing frame, meh?
+	if r~=nil and r.repetition>1 then 
+    r.repetition=r.repetition-1
+  end
+end
+
 
 
 function bucket()
@@ -181,7 +211,8 @@ function prevFrame()
 			initCanvases(currentIdx)
 
 			resetUndo()
-		end
+      createPaintButtons()
+    end
 
 
     --loop to end of project
@@ -194,6 +225,7 @@ function prevFrame()
 			initCanvases(currentIdx)
 
 			resetUndo()
+      createPaintButtons()
 		end
 
 end
@@ -211,6 +243,21 @@ function nextFrame()
 
 			resetUndo()
       saveCanvasToUndo()
+      createPaintButtons()
+		end
+
+		if currentIdx>=maxframe then
+			addMsg("looping")
+			
+			--save canvas to frame
+			saveCanvasToFrame(currentIdx)
+
+			currentIdx=1
+			initCanvases(currentIdx)
+
+			resetUndo()
+      saveCanvasToUndo()
+      createPaintButtons()
 		end
 
 
@@ -246,6 +293,16 @@ createPaintButtons=function()
   local wNextFrame=createpicbutton(uiw-64*buttonZoom,0,buttonsPic,nextFrame,nextQuad,buttonZoom)
   local wRightFlick = createpicbutton(uiw-64*buttonZoom,64*buttonZoom,buttonsPic,toRightFlick,rflickQuad,buttonZoom)
   local wSettings=createpicbutton(uiw-64*buttonZoom,192*buttonZoom,buttonsPic,toSettings,settingsQuad,buttonZoom)
+  local r=isFrameInRepetition(currentIdx)
+-- recreate buttons if changing frame, meh?
+	if r~=nil then 
+    local wIR =createpicbutton(uiw-64*buttonZoom,144*buttonZoom,buttonsPic,incRep,incRepQuad,buttonZoom)
+    table.insert(widgets,wIR)
+    local wDR =createpicbutton(uiw-32*buttonZoom,144*buttonZoom,buttonsPic,decRep,decRepQuad,buttonZoom)
+    table.insert(widgets,wDR)
+  end
+
+
 
   --bottom right
   local wBucket=createpicbutton(uiw-64*buttonZoom,uih-192*buttonZoom,buttonsPic,bucket,bucketQuad,buttonZoom)
@@ -258,6 +315,9 @@ createPaintButtons=function()
   local wToggleEraser=createpicbutton(0,uih-192*buttonZoom,buttonsPic,toggleEraser,eraserQuad,buttonZoom)
   local wCopyFrame=createpicbutton(0,uih-128*buttonZoom,buttonsPic,copyFrame,copyQuad,buttonZoom)
   local wAddFrame=createpicbutton(0,uih-64*buttonZoom,buttonsPic,addFrame,addQuad,buttonZoom)
+
+
+
 
 
   table.insert(widgets,wAddFrame)
@@ -376,7 +436,18 @@ local function rendertouicanvas()
 	   love.graphics.draw(buttonsPic,realDecoSoundQuad,300,0)
 	end
 
-	
+  local r=isFrameInRepetition(currentIdx)
+	if r~=nil then
+    local rx=400
+	   --display rep dec
+     for i=1,r.repetition 
+     do
+	   love.graphics.draw(buttonsPic,realRepDecoQuad,rx,0)
+     rx=rx+64
+     end
+	end
+    
+
 
 
 	love.graphics.setCanvas()

@@ -30,7 +30,8 @@ local switchProjectQuad={x=2*64, y=6*64, w=64, h=64}
 local hardBrushQuad={x=2*64, y=9*64, w=64, h=64}
 local softBrushQuad={x=2*64, y=10*64, w=64, h=64}
 local underBrushQuad={x=2*64, y=11*64, w=64, h=64}
-
+local toggleRepQuad={x=2*64, y=12*64, w=64, h=64}
+local untoggleRepQuad={x=2*64, y=13*64, w=64, h=64}
 
 local toggleHardBrush = function()
   print('setting hard brush')
@@ -71,10 +72,20 @@ function composeExport()
     
 end
 
+
+function disableRepeatSeq()
+  print('repetition unset  ')
+  local r=isFrameInRepetition(currentIdx)  
+  table.remove(repetitions,r.trigger)
+  createSettingsButtons()
+  
+end
+
 --TODO make it multiply when pressed multiple times
 function repeatSeq()
   print('repetition set  ')
   setRepetition(rangeBeginIdx,rangeEndIdx,1)  
+  createSettingsButtons()
   
 end
 
@@ -226,8 +237,16 @@ createSettingsButtons=function()
   local wTSB =createpicbutton(uiw-512*buttonZoom,uih-256*buttonZoom,buttonsPic,toggleSoftBrush,softBrushQuad,buttonZoom)
   local wTUB =createpicbutton(uiw-576*buttonZoom,uih-320*buttonZoom,buttonsPic,toggleUnderBrush,underBrushQuad,buttonZoom)
 
-  local wSR =createpicbutton(uiw-512*buttonZoom,uih-320*buttonZoom,buttonsPic,repeatSeq,softBrushQuad,buttonZoom)
-
+  --set rep or unset rep button displayed depending on state 
+  --(TODO should be widget, note here)
+  local r=isFrameInRepetition(currentIdx)
+	if r~=nil then 
+    local wUSR =createpicbutton(uiw-512*buttonZoom,uih-320*buttonZoom,buttonsPic,disableRepeatSeq,untoggleRepQuad,buttonZoom)
+    table.insert(widgets,wUSR)
+  else
+    local wSR =createpicbutton(uiw-512*buttonZoom,uih-320*buttonZoom,buttonsPic,repeatSeq,toggleRepQuad,buttonZoom)
+    table.insert(widgets,wSR)
+  end
 
   table.insert(widgets,wPlay)
   table.insert(widgets,wPalette)
@@ -246,7 +265,6 @@ createSettingsButtons=function()
   table.insert(widgets,wTHB)
   table.insert(widgets,wTSB)
   table.insert(widgets,wTUB)
-  table.insert(widgets,wSR)
   
 end
 
@@ -254,7 +272,7 @@ end
 function toSettings()
   createSettingsButtons()
   uiResize=createSettingsButtons
-  
+  keyFunc=nil
 	drawFunc=drawSettings
 	updateFunc=updateSettings
 end

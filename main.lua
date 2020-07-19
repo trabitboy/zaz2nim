@@ -1,8 +1,22 @@
 --PRIOS
 
+--paint under classic brush ( glass pane )
+
+-- TODO emergency save and reload on android OR resize screen ( small button on top left )
+
+
+-- WIP repetition
+-- export TODO
+
+
 -- incremental save and moves : first in 2nd folder, to test with diffing vs slow save
 
+
+-- DEPRIO , needs setup to test multi device ( remotely launch shader prog on lin, andro , win )
 -- paint under shader brush
+  -- doesn't work on android, garbles outline, then on second toggle, crashes 
+  -- maybe shader recreate?
+  
 -- replace color shader brush
 
 -- display a brush preset widget in settings ( widget as to move on other screen later )
@@ -11,16 +25,10 @@
 --light table shader : define ink and only display ink 
 -- (useful on a project that is being colored)
 
--- TODO emergency save and reload on android ( small button on top left )
 
 -- search for dpiscale in custom gradle love build to understand how when it triggers
 
 
--- WIP repetition
--- export TODO
--- decoration
--- toggle
--- increment
 
 --hard toggle : use button recreation to hide impossible button
 
@@ -400,7 +408,7 @@ renderdecos=true
 function love.load()
 
 --default
-	brshradius=256
+	brshradius=8
 currentBrushFunc=roundBrushWithGradient
 --	mybrush=love.graphics.newImage(roundBrushWithAlpha(	brshradius,paintcolor.r,paintcolor.g,paintcolor.b))
 	mybrush=love.graphics.newImage(currentBrushFunc(	brshradius,paintcolor.r,paintcolor.g,paintcolor.b))

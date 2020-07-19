@@ -8,6 +8,20 @@ repetitions = {}
 --
 --}
 
+--returns repetition in question, or nil if not any
+function isFrameInRepetition(idx)
+  
+  for i in pairs(repetitions)
+  do
+    local r=repetitions[i]
+    if idx <=r.trigger and idx>=r.target then
+      return r
+    end
+  end
+  
+  return nil
+end
+
 
 function setRepetition(start,seqEnd,num)
   --TODO check no other repetition overlaps, maybe cancel it ?
