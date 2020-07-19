@@ -1,4 +1,11 @@
 
+--back buffer render : some paint mode need the backbuffer to be displayed
+--TODO probably having a encapsulated render function by paint mode would be better
+backBufferRender=false
+
+--some modes like basic paint under need a cb
+penUpPaintModeCb=nil
+
 --this function varies greatly depending on paint mode
 -- it stores previous paing coords for next call 
 --default when starting app
@@ -401,9 +408,16 @@ local function rendertouicanvas()
 	love.graphics.setColor(1.0,1.0,1.0,1.0)
 	
 	--antialias ink of current frame
-	love.graphics.setShader(inksmooth)
+--	love.graphics.setShader(inksmooth)
+  if backBufferRender==true then
+    
+    love.graphics.draw(backBufferCvs,offsetcvs.x,offsetcvs.y)
+    
+  end
 	love.graphics.draw(cvs,offsetcvs.x,offsetcvs.y)
-	love.graphics.setShader()
+
+--	love.graphics.setShader()
+  
 	love.graphics.draw(mybrush)
 
 	renderWidgets(widgets)
@@ -661,6 +675,14 @@ end
 -- when a stroke has been made, we maintain undo buffer
 penUp= function()
        print('pen up')
+
+      --some modes like basic paint under do something on paint up 
+      if penUpPaintModeCb~=nil then
+        penUpPaintModeCb()
+      else
+        print('penUpPaintModeCb nil')
+        
+      end
 
       saveCanvasToUndo()
 

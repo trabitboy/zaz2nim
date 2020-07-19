@@ -114,6 +114,7 @@ determineHDUicanvasZoom(ww,wh)
   backBufferCvs=love.graphics.newCanvas(conf.cvsw,conf.cvsh,technicalcvssettings)
 --TODO ui canvas should be released and changed on resize
 
+
 --probably settings are used just for texture download ?
 function initUndoBuffers()
 	 print ('undo buffers init')

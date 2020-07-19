@@ -37,6 +37,8 @@ local toggleHardBrush = function()
   print('setting hard brush')
   currentBrushFunc=roundBrushWithAlpha
   blitBrushLineRemember=basicBlitBrushLineRemember
+  backBufferRender=false
+  penUpPaintModeCb=nil
   --TODO recreate
 end
 
@@ -44,18 +46,29 @@ local toggleSoftBrush = function()
   print('setting soft brush')
   currentBrushFunc=roundBrushWithGradient
   blitBrushLineRemember=basicBlitBrushLineRemember
+  backBufferRender=false
+penUpPaintModeCb=nil
   --TODO recreate
+  
 end
 
 
 --shader brush needs extra init
-local toggleUnderBrush = function()
+local toggleShaderUnderBrush = function()
   print('setting under brush')
   currentBrushFunc=roundBrushWithAlpha 
   --works only with hard brush
   initPaintUnderBlitMode()
+  backBufferRender=false
+  penUpPaintModeCb=nil
 end
 
+local toggleUnderBrush = function()
+  print('setting basic under brush')
+  --currentBrushFunc=roundBrushWithAlpha 
+  --works only with hard brush
+  initBasicPaintUnderBlitMode()
+end
 
 
 function composeExport()
