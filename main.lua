@@ -1,6 +1,21 @@
 --PRIOS
 
---paint under classic brush ( glass pane )
+--test harness for shader on multiple device:
+-- program that monitors shader change on disk and restart lua program
+-- could be done to work on all connected android devices through a bash script that pushes the changes,
+-- or periodic automatic git pull on device
+
+
+--color marker for color frame
+--  skip in playback and export and flick
+--  overlay display of next frame on top
+-- mode to light table only without color frames
+
+-- asynchronous save :
+-- an alternative to full save could be to save every modification as it happens ,
+-- in a background frame
+
+--paint under classic brush ( glass pane ) DONE
 
 -- TODO emergency save and reload on android OR resize screen ( small button on top left )
 

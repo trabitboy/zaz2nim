@@ -60,6 +60,13 @@ eraserRadius=16 --dflt
 repDecoQuad = {x=2*64, y=12*64, w=64, h=64}
 	realRepDecoQuad=love.graphics.newQuad(repDecoQuad.x,repDecoQuad.y,repDecoQuad.w,repDecoQuad.h,buttonsPic:getWidth(),buttonsPic:getHeight())
 
+beginRangeDecoQuad = {x=0*64, y=12*64, w=64, h=64}
+realDecoBeginRangeQuad=love.graphics.newQuad(beginRangeDecoQuad.x,beginRangeDecoQuad.y,beginRangeDecoQuad.w,beginRangeDecoQuad.h,buttonsPic:getWidth(),buttonsPic:getHeight())
+
+
+endRangeDecoQuad = {x=0*64, y=13*64, w=64, h=64}
+realDecoEndRangeQuad=love.graphics.newQuad(endRangeDecoQuad.x,endRangeDecoQuad.y,endRangeDecoQuad.w,endRangeDecoQuad.h,buttonsPic:getWidth(),buttonsPic:getHeight())
+
 
 addQuad = {x=0, y=320, w=64, h=64}
 prevQuad = {x=0, y=64, w=64, h=64}
@@ -461,6 +468,14 @@ local function rendertouicanvas()
      end
 	end
     
+	if currentIdx==rangeBeginIdx then
+	   --display bg dec
+	   love.graphics.draw(buttonsPic,realDecoBeginRangeQuad,500,0)
+	end
+	if currentIdx==rangeEndIdx then
+	   --display bg dec
+	   love.graphics.draw(buttonsPic,realDecoEndRangeQuad,500,0)
+	end
 
 
 
