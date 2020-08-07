@@ -32,6 +32,27 @@ local softBrushQuad={x=2*64, y=10*64, w=64, h=64}
 local underBrushQuad={x=2*64, y=11*64, w=64, h=64}
 local toggleRepQuad={x=2*64, y=12*64, w=64, h=64}
 local untoggleRepQuad={x=2*64, y=13*64, w=64, h=64}
+local toggleColorFrameQuad={x=2*64, y=16*64, w=64, h=64}
+local untoggleColorFrameQuad={x=2*64, y=17*64, w=64, h=64}
+
+
+local enableColorFrame=function()
+  frames[currentIdx].cf=true
+  createSettingsButtons()
+  
+  
+end
+
+local disableColorFrame=function()
+  frames[currentIdx].cf=nil
+  createSettingsButtons()
+  
+  
+end
+
+
+
+
 
 local toggleHardBrush = function()
   print('setting hard brush')
@@ -260,6 +281,17 @@ createSettingsButtons=function()
     local wSR =createpicbutton(uiw-512*buttonZoom,uih-320*buttonZoom,buttonsPic,repeatSeq,toggleRepQuad,buttonZoom)
     table.insert(widgets,wSR)
   end
+
+	if frames[currentIdx].cf==nil then 
+--    local wECF =createpicbutton(uiw-512*buttonZoom,uih-256*buttonZoom,buttonsPic,enableColorFrame,toggleColorFrameQuad,buttonZoom)
+    local wECF =createpicbutton(64*buttonZoom,0*buttonZoom,buttonsPic,enableColorFrame,toggleColorFrameQuad,buttonZoom)
+    table.insert(widgets,wECF)
+  else
+    local wDCF =createpicbutton(64*buttonZoom,0*buttonZoom,buttonsPic,disableColorFrame,untoggleColorFrameQuad,buttonZoom)
+    table.insert(widgets,wDCF)
+  end
+
+
 
   table.insert(widgets,wPlay)
   table.insert(widgets,wPalette)

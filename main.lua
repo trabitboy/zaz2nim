@@ -374,6 +374,7 @@ uih=conf.uih
 require('colorfill')
 serialize=require('ser')
 require('bgranges')
+require('colorframes')
 require('modal')
 require('shaders')
 require('interpolateLine')

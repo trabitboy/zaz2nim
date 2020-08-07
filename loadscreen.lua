@@ -60,6 +60,8 @@ updateLoadScreen = function ()
 
 	   loadBgRanges()
       
+     loadColorFrames()
+      
      loadRepetitions()
      
 	   maintainBgRanges()
