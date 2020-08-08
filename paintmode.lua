@@ -68,6 +68,9 @@ endRangeDecoQuad = {x=0*64, y=13*64, w=64, h=64}
 realDecoEndRangeQuad=love.graphics.newQuad(endRangeDecoQuad.x,endRangeDecoQuad.y,endRangeDecoQuad.w,endRangeDecoQuad.h,buttonsPic:getWidth(),buttonsPic:getHeight())
 
 
+decoColorFrameQuad = {x=2*64, y=16*64, w=64, h=64}
+realDecoColorFrameQuad=love.graphics.newQuad(decoColorFrameQuad.x,decoColorFrameQuad.y,decoColorFrameQuad.w,decoColorFrameQuad.h,buttonsPic:getWidth(),buttonsPic:getHeight())
+
 addQuad = {x=0, y=320, w=64, h=64}
 prevQuad = {x=0, y=64, w=64, h=64}
 nextQuad = {x=0, y=0, w=64, h=64}
@@ -401,13 +404,13 @@ local function rendertouicanvas()
 	end
 
 
-
-	if currentIdx-1>0 then 
+--we dont blit light table for color frame
+	if currentIdx-1>0 and frames[currentIdx].cf==nil then 
 		love.graphics.setColor(1.0,1.0,1.0,0.2)
 		love.graphics.draw(frames[currentIdx-1].pic,offsetcvs.x,offsetcvs.y)
 	end
 
-	if frames[currentIdx+1] then 
+	if frames[currentIdx+1] and frames[currentIdx].cf==nil then 
 		love.graphics.setColor(1.0,1.0,1.0,0.2)
 		love.graphics.draw(frames[currentIdx+1].pic,offsetcvs.x,offsetcvs.y)
 	end
@@ -422,6 +425,13 @@ local function rendertouicanvas()
     
   end
 	love.graphics.draw(cvs,offsetcvs.x,offsetcvs.y)
+
+  --if frame is color, we display the line art on top
+	if frames[currentIdx].cf==true then 
+		love.graphics.setColor(1.0,1.0,1.0,1.)
+		love.graphics.draw(frames[currentIdx+1].pic,offsetcvs.x,offsetcvs.y)
+	end
+  
 
 --	love.graphics.setShader()
   
@@ -477,6 +487,10 @@ local function rendertouicanvas()
 	   love.graphics.draw(buttonsPic,realDecoEndRangeQuad,500,0)
 	end
 
+  if frames[currentIdx].cf==true then
+	   --display color frame dec
+	   love.graphics.draw(buttonsPic,realDecoColorFrameQuad,550,0)
+	end
 
 
 	love.graphics.setCanvas()

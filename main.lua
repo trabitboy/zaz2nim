@@ -6,10 +6,11 @@
 -- or periodic automatic git pull on device
 
 
---color marker for color frame
+--color marker for color frame DONE
 --  skip in playback and export and flick
---  overlay display of next frame on top
--- mode to light table only without color frames
+-- composite in export 
+--  overlay display of next frame on top DONE
+-- mode to light table only without color frames WIP
 
 -- asynchronous save :
 -- an alternative to full save could be to save every modification as it happens ,
