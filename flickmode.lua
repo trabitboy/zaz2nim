@@ -11,6 +11,13 @@ function dragFlick(me,x,y,dx,dy)
 end
 
 
+--WIP
+function calculateFlickRange()
+  --when starting a flick, we should ignore frames that have a tc=0, such as bg or color
+  --to do that we need to precalculate the indexes of the flick frames
+
+end
+
 function flickRelease()
 -- for some reason this corrupts frame !!
 -- seems to copy initial on target

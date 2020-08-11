@@ -42,6 +42,10 @@ end
 
 function initBasicPaintUnderBlitMode()
   
+  --this flag is used to see if this paint mode is enabled
+  basicPaintUnderMode=true
+  
+  
   love.graphics.setCanvas(backBufferCvs )
   love.graphics.clear(1.,1.,1.,0.)
   love.graphics.setCanvas()

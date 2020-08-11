@@ -1,5 +1,7 @@
 --PRIOS
 
+--bug : when paint under enabled you cant disable
+
 --test harness for shader on multiple device:
 -- program that monitors shader change on disk and restart lua program
 -- could be done to work on all connected android devices through a bash script that pushes the changes,
@@ -7,7 +9,8 @@
 
 
 --color marker for color frame DONE
---  skip in playback and export and flick
+--  skip in (tc codes 0 ) playback and export and flick
+-- wip calculateFlickRange()
 -- composite in export 
 --  overlay display of next frame on top DONE
 -- mode to light table only without color frames WIP

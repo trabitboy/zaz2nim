@@ -61,3 +61,12 @@ function basicBlitBrushLineRemember(x,y)
 	
 	dirtycvs=true
 end
+
+
+initBasicPaintMode=function()
+  
+  blitBrushLineRemember=basicBlitBrushLineRemember
+  backBufferRender=false
+  penUpPaintModeCb=nil
+
+end

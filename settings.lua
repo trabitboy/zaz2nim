@@ -38,6 +38,7 @@ local untoggleColorFrameQuad={x=2*64, y=17*64, w=64, h=64}
 
 local enableColorFrame=function()
   frames[currentIdx].cf=true
+  frames[currentIdx].tc=0
   createSettingsButtons()
   
   
@@ -57,18 +58,22 @@ end
 local toggleHardBrush = function()
   print('setting hard brush')
   currentBrushFunc=roundBrushWithAlpha
-  blitBrushLineRemember=basicBlitBrushLineRemember
-  backBufferRender=false
-  penUpPaintModeCb=nil
+  
+  initBasicPaintMode()
+--  blitBrushLineRemember=basicBlitBrushLineRemember
+--  backBufferRender=false
+--  penUpPaintModeCb=nil
   --TODO recreate
 end
 
 local toggleSoftBrush = function()
   print('setting soft brush')
   currentBrushFunc=roundBrushWithGradient
-  blitBrushLineRemember=basicBlitBrushLineRemember
-  backBufferRender=false
-penUpPaintModeCb=nil
+  
+  initBasicPaintMode()
+--  blitBrushLineRemember=basicBlitBrushLineRemember
+--  backBufferRender=false
+--  penUpPaintModeCb=nil
   --TODO recreate
   
 end
@@ -85,10 +90,16 @@ local toggleShaderUnderBrush = function()
 end
 
 local toggleUnderBrush = function()
-  print('setting basic under brush')
-  --currentBrushFunc=roundBrushWithAlpha 
-  --works only with hard brush
-  initBasicPaintUnderBlitMode()
+  if basicPaintUnderMode==true then
+    initBasicPaintMode()
+    basicPaintUnderMode=nil  
+    
+  else
+    print('setting basic under brush')
+    --currentBrushFunc=roundBrushWithAlpha 
+    --works only with hard brush
+    initBasicPaintUnderBlitMode()
+  end
 end
 
 
@@ -190,7 +201,7 @@ function toggleBg()
 	    frames[currentIdx].bg=nil
 	 else
 	    frames[currentIdx].bg=true
-
+      frames[currentIdx].tc=0
 	 end
 
 	 maintainBgRanges()
