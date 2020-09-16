@@ -229,11 +229,11 @@ function prevFrame()
 
 			resetUndo()
       createPaintButtons()
-    end
+    
 
 
     --loop to end of project
-		if currentIdx==1 then
+		elseif currentIdx==1 then
 			addMsg("end prj")
 			--save canvas to frame
 			saveCanvasToFrame(currentIdx)
@@ -248,6 +248,7 @@ function prevFrame()
 end
 
 function nextFrame()
+    print('max frame '..maxframe)
 		if currentIdx<maxframe then
 			addMsg("next")
 			
@@ -261,9 +262,7 @@ function nextFrame()
 			resetUndo()
       saveCanvasToUndo()
       createPaintButtons()
-		end
-
-		if currentIdx>=maxframe then
+		elseif currentIdx>=maxframe then
 			addMsg("looping")
 			
 			--save canvas to frame
