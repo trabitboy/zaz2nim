@@ -15,6 +15,9 @@
 --  overlay display of next frame on top DONE
 -- mode to light table only without color frames WIP
 
+--URGENT "bg off" marker
+
+
 -- asynchronous save :
 -- an alternative to full save could be to save every modification as it happens ,
 -- in a background frame
