@@ -34,8 +34,12 @@ love.errorhandler= function (msg)
 			       			       initSaveScreen()
 			       			       criticalSave=true
 				end
-			elseif e == "touchpressed" then
-			       print('touch pressed TODO critical save')
+			elseif e == "mousepressed" then
+			      print('touch pressed TODO critical save')
+            if criticalSave==false then
+			       			       initSaveScreen()
+			       			       criticalSave=true
+            end
 			end
 		end
 		
