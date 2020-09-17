@@ -1,6 +1,9 @@
 --PRIOS
 
---bug : when paint under enabled you cant disable
+--bug : when paint under enabled you cant disable CHECK
+
+-- emergency save and TODO button and reload on android 
+
 
 --test harness for shader on multiple device:
 -- program that monitors shader change on disk and restart lua program
@@ -24,7 +27,8 @@
 
 --paint under classic brush ( glass pane ) DONE
 
--- TODO emergency save and reload on android OR resize screen ( small button on top left )
+
+-- TODO resize screen ( small button on top left )
 
 
 -- WIP repetition
