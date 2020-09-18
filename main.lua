@@ -1,6 +1,9 @@
 --PRIOS
 
---bug : when paint under enabled you cant disable
+--bug : when paint under enabled you cant disable CHECK
+
+-- emergency save and TODO button and reload on android 
+
 
 --test harness for shader on multiple device:
 -- program that monitors shader change on disk and restart lua program
@@ -15,13 +18,17 @@
 --  overlay display of next frame on top DONE
 -- mode to light table only without color frames WIP
 
+--URGENT "bg off" marker
+
+
 -- asynchronous save :
 -- an alternative to full save could be to save every modification as it happens ,
 -- in a background frame
 
 --paint under classic brush ( glass pane ) DONE
 
--- TODO emergency save and reload on android OR resize screen ( small button on top left )
+
+-- TODO resize screen ( small button on top left )
 
 
 -- WIP repetition
