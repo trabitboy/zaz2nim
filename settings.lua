@@ -60,6 +60,10 @@ local toggleHardBrush = function()
   currentBrushFunc=roundBrushWithAlpha
   
   initBasicPaintMode()
+ 	mybrush=love.graphics.newImage(currentBrushFunc(	brshradius,paintcolor.r,paintcolor.g,paintcolor.b))
+ 	mybrush:setFilter('nearest','nearest')
+ 
+  
 --  blitBrushLineRemember=basicBlitBrushLineRemember
 --  backBufferRender=false
 --  penUpPaintModeCb=nil
@@ -71,10 +75,9 @@ local toggleSoftBrush = function()
   currentBrushFunc=roundBrushWithGradient
   
   initBasicPaintMode()
---  blitBrushLineRemember=basicBlitBrushLineRemember
---  backBufferRender=false
---  penUpPaintModeCb=nil
-  --TODO recreate
+ 	mybrush=love.graphics.newImage(currentBrushFunc(	brshradius,paintcolor.r,paintcolor.g,paintcolor.b))
+ 	mybrush:setFilter('nearest','nearest')
+
   
 end
 

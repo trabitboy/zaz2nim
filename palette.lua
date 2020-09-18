@@ -17,7 +17,7 @@ function paletteModeDraw()
 end
 
 function paletteModeUpdate()
-	if npress==true then
+	if npress==true and npx<rwpal and npy<rhpal then
 		--pick color
 		r,g,b,a=legacyPalettePic.data:getPixel(npx/zxpal,npy/zypal)
 		addMsg('color '.. math.floor( r*255) ..' '.. math.floor(g*255) ..' '.. b*255)
@@ -61,6 +61,9 @@ function toPaletteMode()
 	else
 		zxpal=zypal
 	end
+
+  rwpal=pw*zxpal
+  rhpal=ph*zypal
 
 	addMsg("pal ui zoom ".. zxpal)
 
