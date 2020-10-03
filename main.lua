@@ -1,5 +1,10 @@
 --PRIOS
 
+--bug on android, undo puts bilinear onborders of paint
+
+-- image magick szems to fail on 1920x1080 files, fond qlternqtive
+
+
 --bug : when paint under enabled you cant disable CHECK
 
 -- emergency save and TODO button and reload on android 
