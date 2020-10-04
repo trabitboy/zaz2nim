@@ -2,6 +2,12 @@
 
 --bug on android, undo puts bilinear onborders of paint
 
+-- export
+--TODO handle repetitions
+--TODO handle BGs
+
+
+
 -- image magick szems to fail on 1920x1080 files, fond qlternqtive
 
 

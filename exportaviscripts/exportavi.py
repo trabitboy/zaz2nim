@@ -5,16 +5,16 @@
 #if frame is multiplied
 
 
-createFrames=True
+#createFrames=True
 
-executeScripts=True
+executeScripts=False
 
 
 #zazanim export with sound
 # takes a folder structure with frames , sounds , timecodes,
 # and generates an AVI with sound
 import shutil
-import libtimecodes
+#import libtimecodes
 import genffscripts
 import os
 from subprocess import call
@@ -22,14 +22,33 @@ from subprocess import call
 #at the moment zaz2nim is on 8 fps
 frameTime=1000/8
 
-projectPath="/home/trabitboy/love/love/lovegame/project/speedyvsclo1/export/"
+projectPath="/home/trabitboy/love/love/lovegame/project/paristriphd/export"
 
-exportPath="/tmp/speedyexport/"
+exportPath="/tmp/paristriphd/"
 
 scripts_to_execute=[]
 
 #multiply frames ( done in zaz2nim now )
-ret=libtimecodes.multiplyRemanentFrames(projectPath,exportPath,createFrames)
+#ret=libtimecodes.multiplyRemanentFrames(projectPath,exportPath,createFrames)
+
+
+
+
+with open(projectPath+"/pythonlist.txt") as f:
+        content=f.readlines()
+
+ret=[]
+#print(content)
+
+
+for x in content:
+    #we need to remove \n
+    x = x.replace('\n','')
+    ret.append(x)
+    shutil.copy(projectPath+'/'+x,exportPath+x)
+
+    
+shutil.copy(projectPath+'/list.txt',exportPath+'list.txt')
 
 #load all frame names
 print(ret)
@@ -41,8 +60,8 @@ print(ret)
 #in ms
 time=0
 
-
-ff_frames=open(exportPath+"list.txt",'w')
+#done in zazanim now
+#ff_frames=open(exportPath+"list.txt",'w')
 
 soundAndTimes=[]
 
@@ -52,8 +71,8 @@ soundAndTimes=[]
 lastwavcopied=None
 
 for file in ret:
-    
-    ff_frames.write("file '"+file+"'\n")
+ #   done in zaz2nim now  
+ #   ff_frames.write("file '"+file+"'\n")
     print("current file : "+file+"\n")
 
     #dunno work
@@ -86,7 +105,7 @@ for file in ret:
     #for each frame here we shall check if there is a sound to mix
     time+=frameTime
 
-ff_frames.close()
+#ff_frames.close()
 
 #only needed if ran from idle, cygwin should be fine
 #genffscripts.gentr(exportPath+"/trlist.sh","totrlist.txt","list.txt")

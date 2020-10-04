@@ -1,9 +1,9 @@
 import shutil
 import os
 
-projectPath="/cygdrive/c/Users/thomas/Dropbox/current_zazanim_projects/lassitude"
+projectPath="/home/trabitboy/love/love/lovegame/project/paristriphd"
 
-exportpath="/cygdrive/c/tmp/zazexport"
+exportpath="/tmp/zazexport"
 
 with open(projectPath+"/timecodes.txt") as f:
     content=f.readlines()

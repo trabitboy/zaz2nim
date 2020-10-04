@@ -5,14 +5,13 @@
 --design it as a batch with feedback ( does one, updates status, status can be rendered,
 -- job called again )
 
-
-
+--TODO handle repetitions
+--TODO handle BGs
 
 
 
 createExportBatch = function() 
   --TODO save current frame from canvas
-  --TODO write list of frames in ffmpeg list
   
 --  		timecodestring=timecodestring..string.format("%03d",i)..":"..string.format("%03d",frames[i].tc).."\n"
 --	end
@@ -24,9 +23,18 @@ createExportBatch = function()
     love.filesystem.remove(conf.prjfld..'export')
     love.filesystem.createDirectory(conf.prjfld..'export')
   
-    exportFLd=conf.prjfld..'export'
+--    tmpfflist=love.filesystem.newFile(conf.prjfld..'export/'..'list.txt')
+--    print('tmp ff list ')
+--    print(tmpfflist)
+  
   
     batch={
+      exportFLd=conf.prjfld..'export',
+      listTxtPath=conf.prjfld..'export/list.txt',
+      pythonListPath=conf.prjfld..'export/pythonlist.txt',
+      ffListTxt='',
+      pythonListTxt='',
+      
       current=0,
       execute=function (self)
         
@@ -35,6 +43,11 @@ createExportBatch = function()
                         
             if self.current>maxframe then
                 print ('we treated last')
+                
+                love.filesystem.write(self.listTxtPath,self.ffListTxt)
+                love.filesystem.write(self.pythonListPath,self.pythonListTxt)
+                
+                
                 return true --finished
             end
             
@@ -58,11 +71,12 @@ createExportBatch = function()
               f.data:encode("png",mainFilePath)
               print('exporting '..mainFilePath)
 
-			--we need to save wav to export folder 
-			saveSoundFromTmpForFrame(f,name,conf.prjfld..'export/',false)
+              --we need to save wav to export folder 
+              saveSoundFromTmpForFrame(f,name,conf.prjfld..'export/',false)
 
-
-
+          --    fflist.write(mainFilePath..'\n')
+              self.ffListTxt=self.ffListTxt.."file '"..name..".png'\n"
+              self.pythonListTxt=self.pythonListTxt..name..".png\n"
               
               if f.tc>1 then
                 --we need to copy duplicates with 3 additionals digits
@@ -71,7 +85,8 @@ createExportBatch = function()
                 do
                   --name
                   extraIdx=string.format("%03d",i)
-                  local extraFilePath=conf.prjfld..'export/'..name..extraIdx..".png"
+                  local extraFileName=name..extraIdx..".png"
+                  local extraFilePath=conf.prjfld..'export/'..extraFileName
                   
                   --copy instead of reencode
                   print('duplicating '..extraFilePath)
@@ -79,6 +94,8 @@ createExportBatch = function()
                   local tmp = love.filesystem.newFileData(mainFilePath)
                   love.filesystem.write( extraFilePath,tmp)
 
+                  self.ffListTxt=self.ffListTxt.."file '"..extraFileName.."'\n"
+                  self.pythonListTxt=self.pythonListTxt..extraFileName.."\n"
                   
                 end
                 
