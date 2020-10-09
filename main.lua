@@ -2,6 +2,9 @@
 
 --bug on android, undo puts bilinear onborders of paint
 
+--light table on paste or default position of the sub selection ( goo example )
+
+
 -- export
 --TODO handle repetitions
 --TODO handle BGs

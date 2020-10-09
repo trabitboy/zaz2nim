@@ -27,6 +27,9 @@ createExportBatch = function()
 --    print('tmp ff list ')
 --    print(tmpfflist)
   
+  --obsolete, doesn t work with alpha
+--    composePane=love.image.newImageData( conf.cvsw, conf.cvsh )
+--  composeCanvas=love.
   
     batch={
       exportFLd=conf.prjfld..'export',
@@ -47,6 +50,7 @@ createExportBatch = function()
                 love.filesystem.write(self.listTxtPath,self.ffListTxt)
                 love.filesystem.write(self.pythonListPath,self.pythonListTxt)
                 
+--                composePane:release()
                 
                 return true --finished
             end
@@ -60,6 +64,10 @@ createExportBatch = function()
             if f.tc>0 then 
               
               
+              --TODO if in repetition, we see if we can clear current exported repetition( we are beyond )
+              --TODO we determine if first frame of repetition, store repetition
+              
+              
               --TODO we need to compose export frame
               --with
               --clear color
@@ -68,7 +76,58 @@ createExportBatch = function()
               
               
               local mainFilePath=conf.prjfld..'export/'..name..".png"
-              f.data:encode("png",mainFilePath)
+              
+              --TODO clear compose pane with current bg color
+--              for j=0,(conf.cvsh-1)
+--              do
+--                for i=0,(conf.cvsw-1) 
+--                do
+--                  composePane:setPixel(i,j,1,1,1,1)
+                
+--                end
+--              end
+              
+              love.graphics.setCanvas(backBufferCvs)
+              --TODO parameterize bg color
+              love.graphics.clear(1.0,1.0,1.0,1.0)
+              
+              --TODO if frame has bg we need to compose bg
+              --TODO doesnt seem to work
+              print (self.current)
+              
+              local fkey='f'..self.current
+              if mybg[fkey]~=nil then
+                --BUG log never printed
+                print('composing with bg '..mybg[fkey])
+                
+                --TODO alpha not taken into account, use cvs
+--                composePane:paste(frames[mybg[fkey]].data,0,0,0,0,conf.cvsw,conf.cvsh)
+                love.graphics.draw(frames[mybg[fkey]].pic)
+              else
+                print('no bg to compose')
+              end
+
+              --TODO if frame has color marker we need to merge frame and color marker
+--              love.graphics.draw(frames)
+              
+              --TODO copy frame line to compose pane
+--              composePane:paste(f.data,0,0,0,0,conf.cvsw,conf.cvsh)
+              love.graphics.draw(frames[self.current].pic)
+              --TODO composition code should be mutualized between display and export
+              
+--              backBufferCvs
+              
+--              love.graphics.captureScreenshot(mainFilePath)
+              --TODO download image data and save
+              love.graphics.setCanvas()
+              local tmp = backBufferCvs:newImageData()
+              tmp:encode("png",mainFilePath)
+              tmp:release()
+              
+              
+              
+--              composePane:encode("png",mainFilePath)
+--              f.data:encode("png",mainFilePath)
               print('exporting '..mainFilePath)
 
               --we need to save wav to export folder 
