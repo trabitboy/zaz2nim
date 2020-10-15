@@ -94,6 +94,8 @@ function updatePlayback()
       end
       
       
+      --TODO should be mutualized with export
+      
       --if we are already in a repetition, we do not look
       -- (overlap forbidden )
       if currentRepetition~=nil then

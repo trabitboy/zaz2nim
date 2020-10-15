@@ -36,6 +36,8 @@ local toggleColorFrameQuad={x=2*64, y=16*64, w=64, h=64}
 local untoggleColorFrameQuad={x=2*64, y=17*64, w=64, h=64}
 
 
+
+
 local enableColorFrame=function()
   frames[currentIdx].cf=true
   frames[currentIdx].tc=0
@@ -264,6 +266,8 @@ local settings={}
 createSettingsButtons=function()
   widgets = {}
   
+  local wBrushPicker = createbrushpicker(64*buttonZoom,64*buttonZoom,buttonZoom)
+  
   local wPlay=createpicbutton(uiw-64*buttonZoom,0,buttonsPic,toPlayback,playQuad,buttonZoom)
   local wPalette =createpicbutton(uiw-64*buttonZoom,64*buttonZoom,buttonsPic,toPaletteMode,paletteQuad,buttonZoom)
 
@@ -305,6 +309,7 @@ createSettingsButtons=function()
     table.insert(widgets,wDCF)
   end
 
+  
 
 
   table.insert(widgets,wPlay)
@@ -324,7 +329,7 @@ createSettingsButtons=function()
   table.insert(widgets,wTHB)
   table.insert(widgets,wTSB)
   table.insert(widgets,wTUB)
-  
+  table.insert(widgets,wBrushPicker)
 end
 
 

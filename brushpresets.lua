@@ -4,13 +4,6 @@
 brushPreviewCanvas=nil
 
 
---TODO
-function composeBrushPreview()
-	 --lets get maximum brush size
-	 --local max
-	 
-
-end
 
 
 --structure for documentation
@@ -26,6 +19,8 @@ brushTexes ={
 	   --f2=realblittablebrush
 }
 
+
+--DIRTY takes keycode directly so slot is f'x' - 5
 storeInSlot= function(key)
 	print('storing '..key)
 	slot=key:sub(2,3)

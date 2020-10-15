@@ -37,11 +37,54 @@ createExportBatch = function()
       pythonListPath=conf.prjfld..'export/pythonlist.txt',
       ffListTxt='',
       pythonListTxt='',
-      
       current=0,
+      currenRepetition=nil, --we point repetition to export here
+      suffix='', -- to differentiate repetitions, we add a suffix -- TODO implement suffix
+      --TODO export rep
+-- contains the source repetition structure, including a transient data for the numer of run
+--= {trigger=3,target=1,repetition=4, iteration= 1 -- 3 more to go, then we cancel  }
       execute=function (self)
         
-            self.current=self.current+1
+        self.current=self.current+1
+        
+        --WIP brutally duplicated from playback mode
+        if self.currentRepetition~=nil then
+        print('in a repetition , we do not look for more')
+        
+        --if we are in a repetition and new frame number is higher than trigger,
+        if self.current>self.currentRepetition.trigger then
+        --either we jump back ( still valid )
+          if self.currentRepetition.iteration<self.currentRepetition.repetition then
+            self.current=self.currentRepetition.target
+            self.currentRepetition.iteration=self.currentRepetition.iteration+1
+          else
+        --or we cancel repetition ( it is other )
+            self.currentRepetition.iteration=nil
+            self.currentRepetition=nil
+          end
+        end
+        
+        
+      else
+        --we look for apotential new one
+        local pot =repetitions[self.current]
+        if pot~=nil then 
+          print(' repetition pointer on frame '..self.current)
+          print(' repetitions for new idx,tgt: '..pot.target )
+          
+          -- setup
+          self.currentRepetition=pot
+          self.currentRepetition.iteration=0 --we jump on frame end
+        else 
+          print('no repetition for frame '..self.current)
+        end
+      
+      end
+
+        
+        
+        
+        
             print('test trying exporting '..self.current)
                         
             if self.current>maxframe then
@@ -61,7 +104,7 @@ createExportBatch = function()
             print ('tc '..f.tc)
              --and f.bg~=true python export doesnt support 
             --gaps in range at the moment
-            if f.tc>0 then 
+            if f.tc>0 and f.bg~=true and f.cf~=true then 
               
               
               --TODO if in repetition, we see if we can clear current exported repetition( we are beyond )
