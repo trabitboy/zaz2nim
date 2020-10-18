@@ -1,6 +1,11 @@
 --PRIOS
 
+-- anim brush : as dpaint select a cycle and paste it while moving
+
+-- pencil brush : pattern + flow that is less strong ( blits per sec / move ? )
+
 --bug on android, undo puts bilinear onborders of paint
+-- only happens on overlay of BG , maybe just BG rt composition
 
 --light table on paste or default position of the sub selection ( goo example )
 
