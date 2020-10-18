@@ -1,5 +1,10 @@
 --PRIOS
 
+-- fill mode gives strange results;
+-- separate hard fill and soft fill 
+
+-- on android; on undo of fill, reverted frame has antialias
+
 -- anim brush : as dpaint select a cycle and paste it while moving
 
 -- pencil brush : pattern + flow that is less strong ( blits per sec / move ? )
