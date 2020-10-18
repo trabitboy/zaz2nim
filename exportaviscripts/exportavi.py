@@ -7,7 +7,7 @@
 
 #createFrames=True
 
-executeScripts=False
+executeScripts=True
 
 
 #zazanim export with sound
@@ -22,9 +22,9 @@ from subprocess import call
 #at the moment zaz2nim is on 8 fps
 frameTime=1000/8
 
-projectPath="/home/trabitboy/love/love/lovegame/project/paristriphd/export"
+projectPath="/home/trabitboy/love/love/lovegame/project/gitcosmilost/export"
 
-exportPath="/tmp/paristriphd/"
+exportPath="/tmp/cosmilost/"
 
 scripts_to_execute=[]
 
@@ -99,8 +99,8 @@ for file in ret:
         marker["file"]=tgtwav
         marker["start_time"]=time
         soundAndTimes.append(marker)
-        if createFrames:
-            shutil.copy(projectPath+"/"+potwav,exportPath+"/"+tgtwav)
+#        if createFrames:
+        shutil.copy(projectPath+"/"+potwav,exportPath+"/"+tgtwav)
     #after all treatment we adjust elapsed time
     #for each frame here we shall check if there is a sound to mix
     time+=frameTime
