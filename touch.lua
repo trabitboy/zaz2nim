@@ -1,7 +1,9 @@
 npress=false
 npx=nil
 npy=nil	
-	
+  
+--to see if it helps in windowed mode--love.mouse.setGrabbed( true )
+
 	
 love.mousepressed = function(x, y, button)
 	print("new touch "..x.." "..y)

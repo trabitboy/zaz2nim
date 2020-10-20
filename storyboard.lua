@@ -9,9 +9,10 @@ local stamps={}
 
 local boardWidth=math.floor(uiw*0.8)
 
-local defaultStampW= math.floor( boardWidth/32 )
+--local defaultStampW= math.floor( boardWidth/32 )
+local defaultStampW= math.floor( boardWidth/8 )
 
-local defaultStampH= math.floor(defaultStampW*conf.cvsw/conf.cvsh)
+local defaultStampH= math.floor(defaultStampW*conf.cvsh/conf.cvsw)
 
 local stampZoom= defaultStampW/conf.cvsw
 
@@ -23,6 +24,7 @@ function allocateStamp(x,frame,line)
 	 stamp.w=frame.tc*defaultStampW
 	 stamp.h=defaultStampH
 	 stamp.pic=frame.pic
+   stamp.tc=frame.tc
 	 table.insert(line,stamp)
 
 end
@@ -47,26 +49,31 @@ function maintainStamps()
 	 for i=1,maxframe
 	 do
 		frame=frames[i]
-		--TODO allocation code duplicated mmmm
-		if tx+(defaultStampW*frame.tc)<boardWidth then
-		   --we use the space 
-		   		   
-		   allocateStamp(tx,frame,currentLine)		   
-		   tx=tx+defaultStampW*frame.tc
-		else
---			ty=ty+defaultStampH
-			tx=0
-			lineNumber=lineNumber+1
-			currentLine={}
-			stamps[lineNumber]=currentLine
+    
+    if frame.tc>0 then
+      
+    
+      --TODO allocation code duplicated mmmm
+      if tx+(defaultStampW*frame.tc)<boardWidth then
+         --we use the space 
+               
+         allocateStamp(tx,frame,currentLine)		   
+         tx=tx+defaultStampW*frame.tc
+      else
+  --			ty=ty+defaultStampH
+        tx=0
+        lineNumber=lineNumber+1
+        currentLine={}
+        stamps[lineNumber]=currentLine
 
---			if ty>uih then return end
+  --			if ty>uih then return end
 
-			--then we use the space
-			allocateStamp(tx,frame,currentLine)		   
-			tx=tx+defaultStampW*frame.tc
+        --then we use the space
+        allocateStamp(tx,frame,currentLine)		   
+        tx=tx+defaultStampW*frame.tc
 
-		end
+      end
+    end
 	 end
 
 
@@ -111,7 +118,10 @@ local function renderStamps()
 
 		love.graphics.setColor(1.0,1.0,1.0,1.0)
 
-		love.graphics.draw(s.pic,s.x,ly*defaultStampH,0,stampZoom,stampZoom)
+    for k=1,s.tc 
+    do
+      love.graphics.draw(s.pic,s.x+defaultStampW*k,ly*defaultStampH,0,stampZoom,stampZoom)
+    end
 	end
 	ly=ly+1
 

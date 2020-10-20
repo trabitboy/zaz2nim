@@ -1,5 +1,9 @@
 --PRIOS
 
+--wip end bgs markers
+--wip storyboard
+
+
 -- fill mode gives strange results;
 -- separate hard fill and soft fill 
 

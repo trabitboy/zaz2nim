@@ -4,8 +4,10 @@
 saveBgRanges=function ()
 
 --we save all frame numbers that have are flagged bgs
-
+--this is a bg flag
 local bgs={}
+--this is end of bg range flag
+local endbgs={}
 
 for i=1,maxframe
 do
