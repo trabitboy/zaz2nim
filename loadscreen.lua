@@ -39,14 +39,14 @@ end
 updateLoadScreen = function ()
 
 
-
-	currentName=conf.prjfld..string.format("%03d",curLoadAttempt)..".png"
-	print("attempting load "..currentName)
-	cur=love.filesystem.getInfo(currentName)
+  currentName=string.format("%03d",curLoadAttempt)
+	currentPathAndName=conf.prjfld..currentName..".png"
+	print("attempting load "..currentPathAndName)
+	cur=love.filesystem.getInfo(currentPathAndName)
 
 	if curLoadAttempt<4 and cur==nil then
-		currentName=conf.template
-		cur=love.filesystem.getInfo(currentName)
+		currentPathAndName=conf.template
+		cur=love.filesystem.getInfo(currentPathAndName)
 		print('loading from template')
 	end
 
@@ -74,10 +74,18 @@ updateLoadScreen = function ()
 	end
 	
 
-	frameTable =loadfilter(currentName)
+	frameTable =loadfilter(currentPathAndName)
 	--please note we will add other metadatas in frameTable, such as time code and optional sound
 	--we are here because cur is not nil
-	frameTable.dirty=false
+  
+  --unedited shifted frames will just be copied from tmp if not dirty ( faster on mobile )
+  local tmp = love.filesystem.newFileData(currentPathAndName)
+  love.filesystem.write( tmpProjFld..currentName,tmp)
+
+  
+  frameTable.dirty=false
+  frameTable.shifted=false --in case of shift of index, true
+  frameTable.loadedFrom=currentName --useful to move frame on insert or remove frames
 	--this is a save flag ( we save only modified )
 
 	--if file preexists load sound
@@ -89,7 +97,7 @@ updateLoadScreen = function ()
 	      frameTable.sound=love.audio.newSource(potsound,'static')
 
 	      local tmp = love.filesystem.newFileData(potsound)
-	      love.filesystem.write( tmpWavFld..wName,tmp)
+	      love.filesystem.write( tmpProjFld..wName,tmp)
 
 	      frameTable.soundLoadedFrom=wName
 	      --this data will be used to move the file properly on save
@@ -119,20 +127,20 @@ initLoadScreen = function()
        -- on some offset operations
        --( frames insertion, deletion ) some indexes might be lost otherwise
 
-       	twpWavFsInfo=love.filesystem.getInfo(conf.prjfld..'tmpwav/')
-	 print('tmpwav fld ')
-	 print(twpWavFsInfo)
-	if twpWavFsInfo then
+  tmpProjFsInfo=love.filesystem.getInfo(conf.prjfld..'tmpproj/')
+	print('tmp proj fld ')
+	print(tmpProjFsInfo)
+	if tmpProjFsInfo then
 	       print('fld exist we need to delete')
-	       love.filesystem.remove(conf.prjfld..'tmpwav/')
+	       love.filesystem.remove(conf.prjfld..'tmpproj/')
 	else
 		--  highscores=defaulths()
-		    print('tmp wav doesnt exist')
+		    print('tmp proj doesnt exist')
 	 end
 
-	 tmpWavFld=conf.prjfld..'tmpwav/'
+	 tmpProjFld=conf.prjfld..'tmpproj/'
 
-	 love.filesystem.createDirectory(tmpWavFld)
+	 love.filesystem.createDirectory(tmpProjFld)
 
 
 

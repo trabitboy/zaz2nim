@@ -1,11 +1,27 @@
 
-
-
+--we flag when frame index has been changed by suppression or insertion
+flagShiftedFrames=function(afterIdx)
+  for i=1,maxframe 
+  do 
+    frames[i].shifted=true
+    print('frame '..i..' flagged as shifted')
+  end
+  
+  
+end
 
 drawSaveScreen = function ()
- love.graphics.clear(1.0,1.0,1.0,1.0)
-
  if justSaved>0 then
+    if frames[justSaved].dirty == true then
+      love.graphics.clear(0.0,0.0,1.0,1.0)
+    elseif frames[justSaved].shifted == true
+    
+      love.graphics.clear(0.0,1.0,0.0,1.0)
+    
+    else
+      love.graphics.clear(1.0,1.0,1.0,1.0)
+    end
+    
     love.graphics.draw(frames[justSaved].pic)
  end
 end
@@ -44,7 +60,7 @@ saveSoundFromTmpForFrame=function(f,name,spath,cleanLoaded)
 				love.filesystem.remove(toclean)
 			end
 		   --saving tmp file to new location
-		   local tmp = love.filesystem.newFileData(tmpWavFld..f.soundLoadedFrom)
+		   local tmp = love.filesystem.newFileData(tmpProjFld..f.soundLoadedFrom)
 		   local newname = name..'.wav'
 		   local tgtpath=spath..newname
 		   print('writing sound '..tgtpath)

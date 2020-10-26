@@ -205,8 +205,12 @@ function addFrame()
 	-- table.insert(frames,{pic=newp,data=newid})
   newFrameIdx=currentIdx+1
 	table.insert(frames,newFrameIdx,{pic=newp,data=newid,tc=1})
+  
 	maxframe=maxframe+1
 	print('number of frames '..maxframe)
+  
+  print('all frames after '..newFrameIdx..'shifted TODO')
+  flagShiftedFrames(newFrameIdx)
 
 	maxFrameReached=maxFrameReached+1
 	print('max frames reached at a given point '..maxFrameReached)
@@ -755,6 +759,7 @@ function paintModeUpdate()
 		blitBrushLineRemember(xb,yb)
 		registerdrag={drag=dragPaint,dragrelease=penUp}
 		npress=false
+    
 	end
 end
 

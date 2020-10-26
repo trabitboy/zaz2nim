@@ -184,7 +184,8 @@ function pasteRange(directOrder)
     end
   end
 
-
+  flagShiftedFrames(maxFrameReached)
+  
   maintainBgRanges()
   saveCanvasToUndo()
 
@@ -231,6 +232,9 @@ function deleteCurrentFrame()
 	 maxframe=maxframe-1
 
    maintainRepetitionsFrameDeletion(currentIdx)
+
+   --new current idx has been shifted due to removal
+   flagShiftedFrames(currentIdx-1)
 
 	 if currentIdx>maxframe then
 	    currentIdx=maxframe
