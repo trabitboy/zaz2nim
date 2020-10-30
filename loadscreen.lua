@@ -72,6 +72,9 @@ updateLoadScreen = function ()
 	   toPaintMode()
 	   return
 	end
+  
+  --warning: create tmp folder function part  is duplicated in save in non batch form
+  -- (executed in one go)
 	
 
 	frameTable =loadfilter(currentPathAndName)
@@ -115,18 +118,7 @@ updateLoadScreen = function ()
 
 end
 
-
-initLoadScreen = function()
-       maxframe=0
-	--frames are 0 based for zazanim compatibility ( tcs, etc )
-       curLoadAttempt=1
-
-
-       --we need to init tmpfolder for wav
-       --it is used so we can move files easily on save
-       -- on some offset operations
-       --( frames insertion, deletion ) some indexes might be lost otherwise
-
+removeOrCreateTmpDir=function()
   tmpProjFsInfo=love.filesystem.getInfo(conf.prjfld..'tmpproj/')
 	print('tmp proj fld ')
 	print(tmpProjFsInfo)
@@ -142,6 +134,37 @@ initLoadScreen = function()
 
 	 love.filesystem.createDirectory(tmpProjFld)
 
+  
+end
+
+
+initLoadScreen = function()
+       maxframe=0
+	--frames are 0 based for zazanim compatibility ( tcs, etc )
+       curLoadAttempt=1
+
+
+       --we need to init tmpfolder for wav
+       --it is used so we can move files easily on save
+       -- on some offset operations
+       --( frames insertion, deletion ) some indexes might be lost otherwise
+
+--  tmpProjFsInfo=love.filesystem.getInfo(conf.prjfld..'tmpproj/')
+--	print('tmp proj fld ')
+--	print(tmpProjFsInfo)
+--	if tmpProjFsInfo then
+--	       print('fld exist we need to delete')
+--	       love.filesystem.remove(conf.prjfld..'tmpproj/')
+--	else
+--		--  highscores=defaulths()
+--		    print('tmp proj doesnt exist')
+--	 end
+
+--	 tmpProjFld=conf.prjfld..'tmpproj/'
+
+--	 love.filesystem.createDirectory(tmpProjFld)
+  
+      removeOrCreateTmpDir()
 
 
        drawFunc=drawLoadScreen

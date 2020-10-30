@@ -87,7 +87,9 @@ function pickModeUpdate()
 		frames[currentIdx].pic:release()
 		frames[currentIdx].pic=love.graphics.newImage(frames[currentIdx].data)
 
-		--TODO upload to work canvas
+    frames[currentIdx].dirty=true
+
+		-- upload to work canvas
 		initCanvases(currentIdx)
 
 		npress=false
