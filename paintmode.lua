@@ -204,7 +204,7 @@ function addFrame()
 	newp=love.graphics.newImage(newid)
 	-- table.insert(frames,{pic=newp,data=newid})
   newFrameIdx=currentIdx+1
-	table.insert(frames,newFrameIdx,{pic=newp,data=newid,tc=1})
+	table.insert(frames,newFrameIdx,{pic=newp,data=newid,tc=1,dirty=true})
   
 	maxframe=maxframe+1
 	print('number of frames '..maxframe)

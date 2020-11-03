@@ -83,7 +83,7 @@ updateLoadScreen = function ()
   
   --unedited shifted frames will just be copied from tmp if not dirty ( faster on mobile )
   local tmp = love.filesystem.newFileData(currentPathAndName)
-  love.filesystem.write( tmpProjFld..currentName,tmp)
+  love.filesystem.write( tmpProjFld..currentName..'.png',tmp)
 
   
   frameTable.dirty=false

@@ -50,7 +50,16 @@ end
 saveFrameFromTmpForFrame=function(newName,loadedFromName)
   loadedFromPathAndName= tmpProjFld..loadedFromName..'.png'
   targetPathAndName=conf.prjfld..newName..'.png'
-  local tmp = love.filesystem.newFileData(loadedFromPathAndName)
+  print('copying '.. loadedFromPathAndName.. ' to '..targetPathAndName)
+--  local files = love.filesystem.getDirectoryItems(tmpProjFld)
+--  for k, file in ipairs(files) do
+--    print(k .. ". " .. file) --outputs something like "1. main.lua"
+--  end
+  tmp,err = love.filesystem.newFileData(loadedFromPathAndName)
+  print('pot error')
+  print(err)
+  print(' src file data ')
+  print(tmp)
   love.filesystem.write( targetPathAndName,tmp)
 
   
@@ -151,13 +160,14 @@ updateSaveScreen = function ()
 		--if so far we still have a frame to save
 		local curSaveIdx=justSaved+1
     
-		local f=frames[curSaveIdx]
+		f=frames[curSaveIdx]
 		name=string.format("%03d",curSaveIdx)
     
     if f.dirty ==true then
 		f.data:encode("png",conf.prjfld..name..".png")
 		  print(' frame '..curSaveIdx..' dirty saved ')
     elseif f.shifted==true then
+      print( ' frame '..curSaveIdx .. ' is a shift from '..f.loadedFrom )
       saveFrameFromTmpForFrame(name,f.loadedFrom)
       
     end

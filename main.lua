@@ -1,5 +1,7 @@
 --PRIOS
 
+
+
 --bug when cb or ce nil, multi set timecodes fails on nil
 
 --wip end bgs markers
@@ -7,8 +9,10 @@
 --wip shift frames on save, only save dirty
 -- shift frames registered
 -- flag dirty when pained or flood filled
--- TODO dirty on fill
+--  dirty on fill
 -- TODO dirty on paste brush
+--bug on add save delete save (crash)
+
 
 -- do save only dirty in test folder
 -- regenerate tmp folder from just saved
