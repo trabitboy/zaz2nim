@@ -75,6 +75,7 @@ saveSoundFromTmpForFrame=function(f,name,spath,cleanLoaded)
       
       --TODO what does clean loaded means ?
 			if cleanLoaded==true then
+        --FIXME isnt it in tmp that we need to clean
 				local toclean =conf.prjfld .. f.soundLoadedFrom
 				print('about to clean '..toclean )
 				love.filesystem.remove(toclean)
@@ -112,6 +113,8 @@ updateSaveScreen = function ()
 
       --we need to regenerate tmp folder with pngs and wavs at current indices
       --so that it works on next save
+      --TODO DELETE TMP FOLDER DOESNT SEEM TO WORK ON LINUX
+
       removeOrCreateTmpDir()
 
       --save frames and waves in tmp
@@ -127,12 +130,12 @@ updateSaveScreen = function ()
         print("attempting load "..currentPathAndName)
         cur=love.filesystem.getInfo(currentPathAndName)
         local tmp = love.filesystem.newFileData(currentPathAndName)
-        love.filesystem.write( tmpProjFld..currentName,tmp)
+        love.filesystem.write( tmpProjFld..currentName..".png",tmp)
         frames[j].loadedFrom=currentName --useful to move frame on insert or remove frames
     --this is a save flag ( we save only modified )
 
     --if file preexists load sound
-        local wName=string.format("%03d",curLoadAttempt)..".wav"
+        local wName=string.format("%03d",currentName)..".wav"
         local potsound=conf.prjfld..wName
         print('looking up pot sound '..potsound)
         local si=love.filesystem.getInfo(potsound)
@@ -143,9 +146,16 @@ updateSaveScreen = function ()
           love.filesystem.write( tmpProjFld..wName,tmp)
 
           frames[j].soundLoadedFrom=wName
+          
+          print('metadata updated, f '..j..' sound loaded from now '..frames[j].soundLoadedFrom)
           --this data will be used to move the file properly on save
 
           print(' tmpwav written ')
+        end
+
+        if f.sound~=nil and f.soundLoadedFrom==nil then
+          print ('ERROR metadata missing for sound in memory '..j)
+          
         end
 
       end
@@ -175,7 +185,8 @@ updateSaveScreen = function ()
 
 
 		--if a sound is attached, we need to delete previous wav and rewrite it at correct index
-		saveSoundFromTmpForFrame(f,name,conf.prjfld,true)
+    --we don t need to clean as we regenerate whole tmp dir 
+		saveSoundFromTmpForFrame(f,name,conf.prjfld,false)
 		
 		
 		-- if f.sound~=nil then

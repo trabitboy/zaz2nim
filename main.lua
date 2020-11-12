@@ -1,6 +1,12 @@
 --PRIOS
 
 
+--TODO DELETE TMP FOLDER DOESNT SEEM TO WORK ON LINUX
+
+
+--bug on project with sound,
+-- insert save insert second save fails
+-- BUG frames are saved incorrectly and tmp folder doesn seem cleaned
 
 --bug when cb or ce nil, multi set timecodes fails on nil
 

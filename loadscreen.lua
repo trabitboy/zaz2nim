@@ -118,19 +118,21 @@ updateLoadScreen = function ()
 
 end
 
+--TODO DELETE TMP FOLDER DOESNT SEEM TO WORK ON LINUX
 removeOrCreateTmpDir=function()
-  tmpProjFsInfo=love.filesystem.getInfo(conf.prjfld..'tmpproj/')
-	print('tmp proj fld ')
+  tmpProjFld=conf.prjfld..'tmpproj/'
+  tmpProjFsInfo=love.filesystem.getInfo(tmpProjFld)
+  
+	print('tmp proj fld '..tmpProjFld)
 	print(tmpProjFsInfo)
 	if tmpProjFsInfo then
 	       print('fld exist we need to delete')
-	       love.filesystem.remove(conf.prjfld..'tmpproj/')
+	       love.filesystem.remove(tmpProjFld)
 	else
 		--  highscores=defaulths()
 		    print('tmp proj doesnt exist')
 	 end
 
-	 tmpProjFld=conf.prjfld..'tmpproj/'
 
 	 love.filesystem.createDirectory(tmpProjFld)
 
