@@ -118,6 +118,20 @@ updateLoadScreen = function ()
 
 end
 
+
+
+function recursivelyDelete( item )
+        if love.filesystem.getInfo( item , "directory" ) then
+            for _, child in pairs( love.filesystem.getDirectoryItems( item )) do
+                recursivelyDelete( item .. '/' .. child )
+                love.filesystem.remove( item .. '/' .. child )
+            end
+        elseif love.filesystem.getInfo( item ) then
+            love.filesystem.remove( item )
+        end
+        love.filesystem.remove( item )
+end
+
 --TODO DELETE TMP FOLDER DOESNT SEEM TO WORK ON LINUX
 removeOrCreateTmpDir=function()
   tmpProjFld=conf.prjfld..'tmpproj/'
@@ -127,7 +141,7 @@ removeOrCreateTmpDir=function()
 	print(tmpProjFsInfo)
 	if tmpProjFsInfo then
 	       print('fld exist we need to delete')
-	       love.filesystem.remove(tmpProjFld)
+	       recursivelyDelete(tmpProjFld)
 	else
 		--  highscores=defaulths()
 		    print('tmp proj doesnt exist')

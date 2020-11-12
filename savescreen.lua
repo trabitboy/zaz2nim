@@ -65,17 +65,18 @@ saveFrameFromTmpForFrame=function(newName,loadedFromName)
   
 end
 
+
 saveSoundFromTmpForFrame=function(f,name,spath,cleanLoaded)
 
 
 		if f.sound~=nil then
-		   --cleaning loaded file
+		   --cleaning file that it represents on disk AT LAST LOAD/BEFORE SHIFT
 		   --todo debug
       print('saving sound for '..name)
       
       --TODO what does clean loaded means ?
 			if cleanLoaded==true then
-        --FIXME isnt it in tmp that we need to clean
+		   --cleaning file that it represents on disk AT LAST LOAD/BEFORE SHIFT
 				local toclean =conf.prjfld .. f.soundLoadedFrom
 				print('about to clean '..toclean )
 				love.filesystem.remove(toclean)
@@ -186,7 +187,7 @@ updateSaveScreen = function ()
 
 		--if a sound is attached, we need to delete previous wav and rewrite it at correct index
     --we don t need to clean as we regenerate whole tmp dir 
-		saveSoundFromTmpForFrame(f,name,conf.prjfld,false)
+		saveSoundFromTmpForFrame(f,name,conf.prjfld,true)
 		
 		
 		-- if f.sound~=nil then
