@@ -162,6 +162,11 @@ updateSaveScreen = function ()
       end
 
 
+      --we save a time stamp, so that if you work on multiple machines its easier to see
+      -- which project is more recent
+      tstamp=os.date()
+      love.filesystem.write(conf.prjfld..'lastsave.txt',tstamp)
+      
 			addMsg('after save')
 			toPaintMode()
 		   -- for critical save that calls function directly

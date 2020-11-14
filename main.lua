@@ -390,7 +390,7 @@
 -- make resolution a variable
 -- instead of blitting alpha brush (which modifies color because blends with bg even at alpha 0)
 --   use canvas to store what is done on the canvas (keep brush color with some alpha)
-
+print (os.date())
 
 --global resource for all screens
 buttonsPic=love.graphics.newImage("buttons.png")
