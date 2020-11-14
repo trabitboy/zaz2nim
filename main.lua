@@ -1,27 +1,16 @@
 --PRIOS
 
 
---TODO DELETE TMP FOLDER DOESNT SEEM TO WORK ON LINUX
+-- save timestamp of last save , display it on load ( to see most recent version on multiple devices )
 
-
---bug on project with sound,
--- insert save insert second save fails
--- BUG frames are saved incorrectly and tmp folder doesn seem cleaned
 
 --bug when cb or ce nil, multi set timecodes fails on nil
 
 --wip end bgs markers
 --wip storyboard
 --wip shift frames on save, only save dirty
--- shift frames registered
--- flag dirty when pained or flood filled
 --  dirty on fill
 -- TODO dirty on paste brush
---bug on add save delete save (crash)
-
-
--- do save only dirty in test folder
--- regenerate tmp folder from just saved
 
 
 

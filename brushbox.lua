@@ -111,9 +111,10 @@ local function tbrender(b)
 	
 	if renderdecos==true then
 	   	if b.texture~=nil then
-		brushSelQuad=   love.graphics.newQuad(brushSelection.x,brushSelection.y,brushSelection.w,brushSelection.h,b.texture:getDimensions())
+        --TODO NASTY GLOBAL AAAAAAAAA
+		b.brushSelQuad=   love.graphics.newQuad(brushSelection.x,brushSelection.y,brushSelection.w,brushSelection.h,b.texture:getDimensions())
 		   
-		   love.graphics.draw(b.texture,brushSelQuad,b.x,b.y)
+		   love.graphics.draw(b.texture,b.brushSelQuad,b.x,b.y)
 		end
 
 	   	love.graphics.setLineWidth(3)
@@ -154,8 +155,13 @@ function createbrushbox(x,y,w,h,keepratio)
 --	wcount=wcount+1
 	
 --	ret.id=wcount
+
+  --this is the display x y
 	ret.x=x
 	ret.y=y
+  
+  
+  
 	ret.w=w
 	ret.h=h
 	ret.keepratio=keepratio

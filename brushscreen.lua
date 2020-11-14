@@ -25,7 +25,14 @@ local stampSelection = function()
 	brushSelection.h,
 	frames[copySrc].pic:getDimensions()
 	)
-      love.graphics.draw(frames[copySrc].pic,toBlit,currentSel.x-offsetcvs.x,currentSel.y-offsetcvs.y)
+      love.graphics.draw(
+        frames[copySrc].pic,
+        toBlit,
+        currentSel.x-offsetcvs.x,
+        currentSel.y-offsetcvs.y
+--        currentSel.x,
+--        currentSel.y
+        )
       love.graphics.setCanvas()
 
       --save result to frame
@@ -100,7 +107,9 @@ local function brushScreenUpdate()
 
 end
 
-
+--WIP when returning from source selection, we might get an optional x and y to paste
+--useful to replicate scenery parts opx,opy
+--TODO seems already done log and test
 function toBrushScreen()
   createBSButtons()
   uiResize=createBSButtons
@@ -113,9 +122,17 @@ function toBrushScreen()
 	   return
 	end
 
-	currentSel.x=brushSelection.x
+
+  
+  --brushSelection is just a map
+  --current sel is the box widget
+  
+  
+  --we need to add offset, in case we work not from 0 0 
+	currentSel.x=brushSelection.x+offsetcvs.x
+  print('to bs current sel x y')
 	print(currentSel.x  )
-	currentSel.y=brushSelection.y
+	currentSel.y=brushSelection.y+offsetcvs.y
 	print(currentSel.y  )
 	currentSel.w=brushSelection.w
 	print(currentSel.w  )
