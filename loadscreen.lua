@@ -38,6 +38,8 @@ end
 
 updateLoadScreen = function ()
 
+  --used for deflt loaded
+  local dfltLoad=false
 
   currentName=string.format("%03d",curLoadAttempt)
 	currentPathAndName=conf.prjfld..currentName..".png"
@@ -48,6 +50,7 @@ updateLoadScreen = function ()
 		currentPathAndName=conf.template
 		cur=love.filesystem.getInfo(currentPathAndName)
 		print('loading from template')
+    dfltLoad=true
 	end
 
 	--at this point if cur == nil, we loaded everything,
@@ -85,8 +88,12 @@ updateLoadScreen = function ()
   local tmp = love.filesystem.newFileData(currentPathAndName)
   love.filesystem.write( tmpProjFld..currentName..'.png',tmp)
 
-  
-  frameTable.dirty=false
+  if dfltLoad==true then
+    frameTable.dirty=true
+    --we loaded from temlate, doesn t exist yet on disk
+  else
+    frameTable.dirty=false
+  end
   frameTable.shifted=false --in case of shift of index, true
   frameTable.loadedFrom=currentName --useful to move frame on insert or remove frames
 	--this is a save flag ( we save only modified )
