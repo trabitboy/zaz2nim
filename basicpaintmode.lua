@@ -24,10 +24,12 @@ function basicBlitBrushLineRemember(x,y)
 
 	end
 	
-  if brushShader~=nil then
-    print('brsh shader')
-    love.graphics.setShader(brushShader)
-  end 
+  --DBG should not be a shader here
+  -- for basic ( looks a cut n paste mistake )
+--  if brushShader~=nil then
+--    print('brsh shader')
+--    love.graphics.setShader(brushShader)
+--  end 
   
 	for i,b in ipairs(blits) do
 		if eraseMode== true then
@@ -39,9 +41,9 @@ function basicBlitBrushLineRemember(x,y)
 		end
 	end
 
-  if brushShader~=nil then
-    love.graphics.setShader()
-  end 
+--  if brushShader~=nil then
+--    love.graphics.setShader()
+--  end 
 
 
 	if eraseMode== true then 
