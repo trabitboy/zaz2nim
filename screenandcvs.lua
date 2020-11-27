@@ -1,3 +1,4 @@
+
 --TODO uiw needs to be screen / window width
 --TODO re allocate ui canvas ? dunno
 
@@ -12,7 +13,7 @@ function love.focus(f)
     --SUCCESS this is a fix for cover clap on android 
    if love.system.getOS()=='Android' then
     ww,wh=love.window.getMode()
-    dpScl=love.graphics.getDPIScale()
+    dpiScl=love.graphics.getDPIScale()
     ww=ww/dpiScl
     wh=wh/dpiScl
     determineHDUicanvasZoom(ww,wh)
