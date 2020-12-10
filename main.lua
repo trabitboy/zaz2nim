@@ -1,11 +1,19 @@
 --PRIOS
 
+-- poc paint mode: dont render if display not dirty (x230t burning hot) 
+
 --wip end bgs markers
 
--- working zoom
+-- ability to increment decrement page on project screen
+
+-- working zoom on work screen
+
+
 -- on android; on undo of fill, reverted frame has antialias
 -- on erase, same, canvas seems polluted or blend mode to be changed
 -- you draw, erase, draw on same area, on pen up > artefacts on edge of brush
+-- pb seems display only, to check on saved frames : if you switch to paint under and back,
+-- corruption disappears
 
 -- quick brutal  script  to push pull in one line project ( possibly save it auto )
 

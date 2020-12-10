@@ -1,4 +1,9 @@
 
+-- to try to stop heat problems on laptop idling:
+--we render to screen only on new event
+--local renderScreen=false
+
+
 --back buffer render : some paint mode need the backbuffer to be displayed
 --TODO probably having a encapsulated render function by paint mode would be better
 backBufferRender=false
@@ -617,14 +622,17 @@ end
 
 function paintModeDraw()
 
-
-		rendertouicanvas()
+--    if renderScreen==true then
+      rendertouicanvas()
 		--pane is transparent
 --		love.graphics.clear(1.,1.,1.,1.0)
-		love.graphics.clear(.5,.5,.5,1.0)
+      love.graphics.clear(.5,.5,.5,1.0)
 
-		love.graphics.setColor(1.0,1.0,1.0,1.0)
-		love.graphics.draw(ui,0,0,0,scrsx,scrsy)
+      love.graphics.setColor(1.0,1.0,1.0,1.0)
+      love.graphics.draw(ui,0,0,0,scrsx,scrsy)
+      
+--      renderScreen=false
+--    end
 end
 
 
@@ -632,6 +640,8 @@ function dragPaint(cb,x, y, dx, dy, istouch)
 	addMsg('drag paint called')
 	print("dx,dy "..dx.." "..dy)
 	blitBrushLineRemember(lastblitx+dx,lastblity+dy)
+  
+--  renderScreen=true
 end
 
 
@@ -717,6 +727,8 @@ penUp= function()
       end
 
       saveCanvasToUndo()
+  
+--      renderScreen=true
 
 end
 
@@ -726,6 +738,10 @@ function paintModeUpdate()
 	--TODO make reusable per screen
 
 	if npress==true then
+    
+    
+--    renderScreen=true
+    
 		-- for i,w in ipairs (widgets)
 		-- do
 			-- ret=w.click(w,npx,npy)
