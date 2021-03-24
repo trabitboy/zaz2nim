@@ -3,6 +3,8 @@
 -- poc paint mode: dont render if display not dirty (x230t burning hot) 
 
 --wip end bgs markers
+-- color marker finish
+-- hack palm rejection like zazanim
 
 -- ability to increment decrement page on project screen
 
