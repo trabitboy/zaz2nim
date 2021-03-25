@@ -46,8 +46,12 @@ local function rendertouicanvas()
 
 	end
 
-
-	
+--TO TEST display color frame 
+	lprevidx=pbIdx-1
+  if lprevidx>0 and frames[lprevidx].cf==true then
+    love.graphics.draw(frames[lprevidx].pic)
+    
+  end
 	love.graphics.draw(frames[pbIdx].pic)
 	
 	
