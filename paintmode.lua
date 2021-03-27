@@ -312,11 +312,11 @@ createPaintButtons=function()
   local wSaveFrames=createpicbutton(uiw-64*buttonZoom,uih-64*buttonZoom,buttonsPic,initSaveScreen,saveQuad,buttonZoom)
   --local wSaveFrames=createpicbutton(uiw-64*buttonZoom,uih-64*buttonZoom,buttonsPic,saveFrames,saveQuad,buttonZoom)
 
-  local wLeftFlick = createpicbutton(0,64*buttonZoom,buttonsPic,toLeftFlick,lflickQuad,buttonZoom)
+  local wLeftFlick = createpicbutton(uiw-64*buttonZoom,64*buttonZoom,buttonsPic,toLeftFlick,lflickQuad,buttonZoom)
 
   --top right
   local wNextFrame=createpicbutton(uiw-64*buttonZoom,0,buttonsPic,nextFrame,nextQuad,buttonZoom)
-  local wRightFlick = createpicbutton(uiw-64*buttonZoom,64*buttonZoom,buttonsPic,toRightFlick,rflickQuad,buttonZoom)
+  local wRightFlick = createpicbutton(0,64*buttonZoom,buttonsPic,toRightFlick,rflickQuad,buttonZoom)
   local wSettings=createpicbutton(uiw-64*buttonZoom,192*buttonZoom,buttonsPic,toSettings,settingsQuad,buttonZoom)
   local r=isFrameInRepetition(currentIdx)
 -- recreate buttons if changing frame, meh?
