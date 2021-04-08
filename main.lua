@@ -1,14 +1,14 @@
 --PRIOS
 
--- poc paint mode: dont render if display not dirty (x230t burning hot) 
 
---wip end bgs markers
 -- color marker finish
+--wip end bgs markers
+-- working zoom on work screen
 -- hack palm rejection like zazanim
 
--- ability to increment decrement page on project screen
+-- profiles : hide buttons on simpler profile
 
--- working zoom on work screen
+-- poc paint mode: dont render if display not dirty (x230t burning hot)  ON HOLD
 
 
 -- on android; on undo of fill, reverted frame has antialias

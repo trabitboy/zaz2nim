@@ -1,6 +1,9 @@
 
 nb_flick=10
 
+-- it is the displayed frame, and will become the new currentIdx when you releaseBon
+local tgt=nil
+
 local dragx=nil
 local leftmode=nil
 
@@ -24,18 +27,23 @@ function calculateFlickRange()
 
     if leftmode==true then
       --if to the left we count towards 0
-      print('left mode')
+      print('towards left mode')
       
-      lpot=currentIdx+1
+--      lpot=currentIdx+1
+      lpot=currentIdx
       
       for i=1,nb_flick 
       do
-          lpot=lpot-1
+          local slot=i-1
           if lpot>0 and frames[lpot].tc>0 then 
-              flickFrames[i]=lpot
-              print(' slot '..i..' frame '..lpot)
+              flickFrames[slot]=lpot
+              print(' slot '..slot..' frame '..lpot)
           end
           
+          
+          
+          lpot=lpot-1
+
           if lpot<1 then
               break
           end
@@ -47,21 +55,23 @@ function calculateFlickRange()
       --TODO copy do loop above
       
       --if to the right we count towards maxframe
-      lpot=currentIdx-1
+--      lpot=currentIdx-1
+      lpot=currentIdx
+      
       
       for i=1,nb_flick 
       do
-          lpot=lpot+1
+          local slot=i-1
           if lpot<=maxframe and frames[lpot].tc>0 then 
-              flickFrames[i]=lpot
-              print(' slot '..i..' frame '..lpot)
+              flickFrames[slot]=lpot
+              print(' slot '..slot..' frame '..lpot)
           end
           
-        if lpot>=maxframe then
+        lpot=lpot+1
+
+        if lpot>maxframe then
             break
         end
---        tgtflick=nb
---        print('valid flick '..  )
       end
       
       
@@ -103,7 +113,12 @@ function toFlick(bleft)
 	leftmode=bleft
 	drawFunc=drawFlick
 	updateFunc=updateFlick
-	dragx=0
+  
+  if bleft==true then
+    dragx=uiw
+  else
+    dragx=0
+  end
 	flickNb=currentIdx
 	tgt=currentIdx
   
@@ -151,9 +166,6 @@ end
 function updateFlick()
 
 -- mouse drag is redefinted, it gives us a coordinate
-
-
-	
 	
 	if leftmode == false then
 		offset=dragx
@@ -164,7 +176,8 @@ function updateFlick()
 	slotwidth=uiw/nb_flick
 	nbslot=math.floor(offset/slotwidth)
 	addMsg('nbslot '..nbslot)
-	
+  
+    print('nbslot '..nbslot)
 		
 --	if leftmode ==true then
     --TODO use lookup table ( to skip tc 0s )
