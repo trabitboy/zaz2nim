@@ -117,13 +117,6 @@ local function tbrender(b)
 	
 	if renderdecos==true then
 	   	if b.texture~=nil then
-        --TODO NASTY GLOBAL AAAAAAAAA
-        --brushSelection > necessary to display of brush selection on paste;
-        -- should be passed by copy and not used if not there; it makes it not reusable for zoompos
-        
-        
--- DBG in rewrite
---		b.brushSelQuad=   love.graphics.newQuad(brushSelection.x,brushSelection.y,brushSelection.w,brushSelection.h,b.texture:getDimensions())
 		   
        if b.texquad~=nil then
        

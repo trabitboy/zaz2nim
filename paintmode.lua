@@ -400,14 +400,15 @@ local function rendertouicanvas()
 
 	--let's blit a rectangle behind the frames so we see boundaries
 	love.graphics.setColor(1.,1.,1.,1.0)
-	love.graphics.rectangle('fill',offsetcvs.x,offsetcvs.y,conf.cvsw,conf.cvsh)
+	love.graphics.rectangle('fill',offsetcvs.x,offsetcvs.y,conf.cvsw*applicativezoom,conf.cvsh*applicativezoom)
+  --TODO scale with applicative zoom
 	--love.graphics.setColor(1.,1.,1.,1.0)
 
 
 	--we blit optional BG
 	local key = 'f'..currentIdx
 	if mybg[key]~=nil and displayBg==true then
-	   love.graphics.draw(frames[mybg[key]].pic,offsetcvs.x,offsetcvs.y)
+	   love.graphics.draw(frames[mybg[key]].pic,offsetcvs.x,offsetcvs.y,0,applicativezoom,applicativezoom)
 
 	end
 
@@ -415,12 +416,12 @@ local function rendertouicanvas()
 --we dont blit light table for color frame
 	if currentIdx-1>0 and frames[currentIdx].cf==nil then 
 		love.graphics.setColor(1.0,1.0,1.0,0.2)
-		love.graphics.draw(frames[currentIdx-1].pic,offsetcvs.x,offsetcvs.y)
+		love.graphics.draw(frames[currentIdx-1].pic,offsetcvs.x,offsetcvs.y,0,applicativezoom,applicativezoom)
 	end
 
 	if frames[currentIdx+1] and frames[currentIdx].cf==nil then 
 		love.graphics.setColor(1.0,1.0,1.0,0.2)
-		love.graphics.draw(frames[currentIdx+1].pic,offsetcvs.x,offsetcvs.y)
+		love.graphics.draw(frames[currentIdx+1].pic,offsetcvs.x,offsetcvs.y,0,applicativezoom,applicativezoom)
 	end
 	
 	love.graphics.setColor(1.0,1.0,1.0,1.0)
@@ -429,15 +430,15 @@ local function rendertouicanvas()
 --	love.graphics.setShader(inksmooth)
   if backBufferRender==true then
     
-    love.graphics.draw(backBufferCvs,offsetcvs.x,offsetcvs.y)
+    love.graphics.draw(backBufferCvs,offsetcvs.x,offsetcvs.y,0,applicativezoom,applicativezoom)
     
   end
-	love.graphics.draw(cvs,offsetcvs.x,offsetcvs.y)
+	love.graphics.draw(cvs,offsetcvs.x,offsetcvs.y,0,applicativezoom,applicativezoom)
 
   --if frame is color, we display the line art on top
 	if frames[currentIdx].cf==true then 
 		love.graphics.setColor(1.0,1.0,1.0,1.)
-		love.graphics.draw(frames[currentIdx+1].pic,offsetcvs.x,offsetcvs.y)
+		love.graphics.draw(frames[currentIdx+1].pic,offsetcvs.x,offsetcvs.y,applicativezoom,applicativezoom)
 	end
   
 
@@ -638,6 +639,8 @@ end
 
 function dragPaint(cb,x, y, dx, dy, istouch)
 	addMsg('drag paint called')
+  dx=dx/applicativezoom
+  dy=dy/applicativezoom
 	print("dx,dy "..dx.." "..dy)
 	blitBrushLineRemember(lastblitx+dx,lastblity+dy)
   
@@ -759,9 +762,10 @@ function paintModeUpdate()
 		end
 	
 		--we compensate offset
-		--TODO not sure this compensation is done in drag
-		xb=npx-offsetcvs.x-brshradius
-		yb=npy-offsetcvs.y-brshradius
+		--TODO should be scaled with applicative zoom
+    --not sure about brush radius 
+		xb= (npx-offsetcvs.x-brshradius)/applicativezoom 
+		yb=(npy-offsetcvs.y-brshradius)/applicativezoom 
 		
 		--change this ugly thing global thing HACK
 		lastblitx=xb
