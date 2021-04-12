@@ -1,9 +1,20 @@
 --PRIOS
 
+--WIP flipbook export for zaza ( thumbnails on a 4 )
+
+
+-- add small offset to top for android status bar ( couple of pixels )
+
+-- WIP working zoom on work screen
+-- brushbox cleanup
+-- calculate zoom on resize and display canvas accordingly
+-- copy value to actual work screen on ok
+
+
+
 
 -- color marker finish
 --wip end bgs markers
--- working zoom on work screen
 -- hack palm rejection like zazanim
 
 -- profiles : hide buttons on simpler profile

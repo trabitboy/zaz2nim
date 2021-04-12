@@ -38,7 +38,17 @@ local stampSelection = function()
       --save result to frame
  	saveCanvasToFrame(currentIdx)
 	--we need to reset the texture in case we pasted on itself ( we changed frame referenced in brushbox )
-	bbsettexture(currentSel,frames[copySrc].pic)
+  bbsettexture(
+    currentSel,
+    frames[copySrc].pic,
+    love.graphics.newQuad(
+      brushSelection.x,
+      brushSelection.y,
+      brushSelection.w,
+      brushSelection.h,
+      frames[copySrc].pic:getDimensions()
+    )
+  )
 end
 
 
@@ -141,7 +151,17 @@ function toBrushScreen()
 
 	
 
-	bbsettexture(currentSel,frames[copySrc].pic)
+	bbsettexture(
+    currentSel,
+    frames[copySrc].pic,
+    love.graphics.newQuad(
+      brushSelection.x,
+      brushSelection.y,
+      brushSelection.w,
+      brushSelection.h,
+      frames[copySrc].pic:getDimensions()
+    )
+  )
 
 	drawFunc=brushScreenDraw
 	updateFunc=brushScreenUpdate

@@ -88,9 +88,14 @@ function toZoomPos()
   uiResize=createZPButtons
 
 	bbsettexture(screenPos,frames[currentIdx].pic)
+  
+  
+  --TODO zoom should be copied from global
 	screenPos.x=offsetcvs.x
 	screenPos.y=offsetcvs.y
-	screenPos.w=conf.cvsw
+	
+  --this should be done auto in bbsettexture, if no quad passed
+  screenPos.w=conf.cvsw
 	screenPos.h=conf.cvsh
 	screenPos.keepratio=true
 

@@ -17,7 +17,7 @@ hdlw=32
 hdlh=32
 
 --for text
-dfltzoom =0.3
+local dfltzoom =0.3
 
 local function applysnap(b)
 	if b.snap then

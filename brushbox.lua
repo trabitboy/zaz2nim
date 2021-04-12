@@ -24,6 +24,9 @@ local function drag(b,tx,ty,dx,dy)
 	end
 	if b.mode=="resize" then
 
+  --TODO should behavior not be changed when 
+  -- not keep aspect ratio?
+
 	--we need to determine real dx and real dy
 	--when keeping ratio
 	       local tsw= (b.w+dx)/b.w
@@ -38,6 +41,9 @@ local function drag(b,tx,ty,dx,dy)
 	       	  b.w=math.floor(b.w*tsh)
 	       	  b.h=math.floor(b.h*tsh)
 	       end
+
+
+
 
 --		b.w=b.w+dx
 --		b.h=b.h+dy
@@ -112,9 +118,28 @@ local function tbrender(b)
 	if renderdecos==true then
 	   	if b.texture~=nil then
         --TODO NASTY GLOBAL AAAAAAAAA
-		b.brushSelQuad=   love.graphics.newQuad(brushSelection.x,brushSelection.y,brushSelection.w,brushSelection.h,b.texture:getDimensions())
+        --brushSelection > necessary to display of brush selection on paste;
+        -- should be passed by copy and not used if not there; it makes it not reusable for zoompos
+        
+        
+-- DBG in rewrite
+--		b.brushSelQuad=   love.graphics.newQuad(brushSelection.x,brushSelection.y,brushSelection.w,brushSelection.h,b.texture:getDimensions())
 		   
-		   love.graphics.draw(b.texture,b.brushSelQuad,b.x,b.y)
+       if b.texquad~=nil then
+       
+          love.graphics.draw(b.texture,b.texquad,b.x,b.y)
+      else
+        
+          -- if zoom has been changed, widget w is not the same as 
+          -- texture width, we align on widget w to calculate zoom
+          print('bb no quad blit')
+          local bzoom=1.0
+          if b.w~=b.texture:getWidth() then 
+              bzoom=b.w/b.texture:getWidth()
+          end  
+        
+          love.graphics.draw(b.texture,b.x,b.y,0,bzoom,bzoom)
+      end
 		end
 
 	   	love.graphics.setLineWidth(3)
@@ -138,9 +163,12 @@ end
 
 
 --component has 2 modes, if a texture is passed,
---the selection is shown, then scaled scaled
-function bbsettexture(bb,tex)
+--the selection is shown, 
+--then scaled scaled WIP
+function bbsettexture(bb,tex,quad)
 	 bb.texture=tex 
+   --if optional quad is passed, the blit is on the quad portion
+   bb.texquad=quad
 end
 
 
@@ -182,7 +210,9 @@ function createbrushbox(x,y,w,h,keepratio)
 	--ret.dragrelease=applysnap
 	-- ret.justif=jright
 
-	ret.texture=texture
+
+-- DBG for test
+--	ret.texture=texture
 	
 	return ret
 end
