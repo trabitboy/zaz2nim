@@ -3,6 +3,14 @@
 --TODO re allocate ui canvas ? dunno
 
 
+--ui canvas coordinates, should be centered and calculated when uiw uih calculated
+offsetcvs={x=200,y=0}
+--DBG
+--offsetcvs={x=768,y=0}
+
+
+
+
 function love.visible(v) --dunno work on android
     addMsg(v and "Window is visible!" or "Window is not visible!");
 end
@@ -94,8 +102,6 @@ addMsg(" dpi scl "..dpiScl)
  end
  
 
---ui canvas coordinates, should be centered and calculated when uiw uih calculated
-offsetcvs={x=200,y=0}
 
 
  

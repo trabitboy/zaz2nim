@@ -3,19 +3,22 @@
 --WIP flipbook export for zaza ( thumbnails on a 4 )
 
 
--- add small offset to top for android status bar ( couple of pixels )
+-- TODO add small offset to top for android status bar ( couple of pixels )
 
 -- WIP working zoom on work screen
--- brushbox cleanup
--- calculate zoom on resize and display canvas accordingly
--- copy value to actual work screen on ok
+-- TODO paint is offset to left and top on bigger brushes,
+-- hover brush seems correct
+--    TODO devise frame with pixel marks ( 128 256 512 ) in external editors
+--    log and check different state of the calculation to determine blit position
+-- TODO understandable icons
 
-
+--wip end bgs markers
+-- hack palm rejection like zazanim
 
 
 -- color marker finish
---wip end bgs markers
--- hack palm rejection like zazanim
+
+-- help system: flag to display ext explanations on buttons
 
 -- profiles : hide buttons on simpler profile
 
@@ -503,6 +506,11 @@ function love.load()
 
 --default
 	brshradius=8
+  --DBG
+--  brshradius=256
+  
+  
+  
 currentBrushFunc=roundBrushWithGradient
 --	mybrush=love.graphics.newImage(roundBrushWithAlpha(	brshradius,paintcolor.r,paintcolor.g,paintcolor.b))
 	mybrush=love.graphics.newImage(currentBrushFunc(	brshradius,paintcolor.r,paintcolor.g,paintcolor.b))

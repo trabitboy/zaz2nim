@@ -3,6 +3,9 @@
 --we render to screen only on new event
 --local renderScreen=false
 
+--canvas coordinates
+lastblitx=nil
+lastblity=nil
 
 --back buffer render : some paint mode need the backbuffer to be displayed
 --TODO probably having a encapsulated render function by paint mode would be better
@@ -460,9 +463,9 @@ local function rendertouicanvas()
 
 	--render brush for user friendliness
 	if eraseMode==true then
-	   love.graphics.circle('line',hoverx,hovery,eraserRadius)
+	   love.graphics.circle('line',hoverx,hovery,eraserRadius/applicativezoom)
 	else
-		love.graphics.draw(mybrush,hoverx-brshradius,hovery-brshradius)
+		love.graphics.draw(mybrush,hoverx-brshradius*applicativezoom,hovery-brshradius*applicativezoom,0,applicativezoom,applicativezoom)
 	end
 
 
@@ -639,6 +642,7 @@ end
 
 function dragPaint(cb,x, y, dx, dy, istouch)
 	addMsg('drag paint called')
+  --dx is ui cvs coordinates, we transform to painting canvas coordinates
   dx=dx/applicativezoom
   dy=dy/applicativezoom
 	print("dx,dy "..dx.." "..dy)
@@ -648,34 +652,6 @@ function dragPaint(cb,x, y, dx, dy, istouch)
 end
 
 
-lastblitx=nil
-lastblity=nil
-
--- function blitBrushRemember(x,y)
-	-- print("blit x,y "..x.." "..y)
-	-- love.graphics.setCanvas(cvs)
-
-	-- if eraseMode== true then 
-		-- love.graphics.setBlendMode('replace')
-		-- --following is ok for square brush
-		-- -- love.graphics.setShader(eraserShader)
-		-- --alternative method
-		-- love.graphics.setColor(0.0,0.0,0.0,0.0)
-		-- love.graphics.circle('fill',x,y,32)
-	-- end
-
-	-- love.graphics.draw(mybrush,x,y)
-
-	-- love.graphics.setShader()
-
-	-- love.graphics.setColor(1.0,1.0,1.0,1.0)
-	-- love.graphics.setBlendMode('alpha')
-	-- love.graphics.setCanvas()
-	-- lastblitx=x
-	-- lastblity=y
-	
-	-- dirtycvs=true
--- end
 
 
 --everything stacked there can be reverted to
@@ -738,22 +714,12 @@ end
 
 function paintModeUpdate()
 
-	--TODO make reusable per screen
 
 	if npress==true then
     
     
 --    renderScreen=true
     
-		-- for i,w in ipairs (widgets)
-		-- do
-			-- ret=w.click(w,npx,npy)
-			-- if ret==true then
-				-- npress=false
-				-- break
-			-- end
-
-		-- end
 		consumeClick(widgets)
 	
 		if npress==false then
@@ -762,12 +728,16 @@ function paintModeUpdate()
 		end
 	
 		--we compensate offset
-		--TODO should be scaled with applicative zoom
-    --not sure about brush radius 
-		xb= (npx-offsetcvs.x-brshradius)/applicativezoom 
-		yb=(npy-offsetcvs.y-brshradius)/applicativezoom 
+		--and applicative zoom
+    --and brush radius 
+    --to transform click in ui canvas coordinate to paint canvas coords
+    -- WIP blit is offset on bigger brushes
+		xb= (npx-offsetcvs.x-brshradius*applicativezoom)/applicativezoom 
+		yb=(npy-offsetcvs.y-brshradius*applicativezoom)/applicativezoom 
+--		xb= (npx-offsetcvs.x)/applicativezoom 
+--		yb=(npy-offsetcvs.y)/applicativezoom 
 		
-		--change this ugly thing global thing HACK
+		--global, TODO change ?
 		lastblitx=xb
 		lastblity=yb-- this way we draw the first point , and use same function here and
 		--in drag handler
@@ -775,7 +745,7 @@ function paintModeUpdate()
 		--we flag this frame for save
 		frames[currentIdx].dirty=true
     
-    --TODO this should be a function pointer to a function that is different depending on paint mode
+    -- this is a function pointer to a function that is different depending on paint mode
 		blitBrushLineRemember(xb,yb)
 		registerdrag={drag=dragPaint,dragrelease=penUp}
 		npress=false

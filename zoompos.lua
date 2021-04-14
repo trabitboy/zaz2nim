@@ -4,6 +4,8 @@ local exitQuad = {x=64, y=17*64, w=64, h=64}
 --there is a technical zoom (scrsx, scrsy) that scales ui canvas to screen,
 --but when blitting to ui canvas, sometimes we want to zoom in out the canvas ( result of this screen )
 applicativezoom=1.0
+--dbg
+--applicativezoom=0.5
 
 
 local screenPos = createbrushbox(100,100,200,200)

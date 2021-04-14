@@ -1,6 +1,15 @@
+
+
+
 npress=false
+
+-- ui canvas coordinates system ( not screen coordinates )
 npx=nil
 npy=nil	
+hoverx=0
+hovery=0
+  
+  
   
 --to see if it helps in windowed mode--love.mouse.setGrabbed( true )
 
@@ -20,8 +29,6 @@ love.mousepressed = function(x, y, button)
 	
 end
 
-hoverx=0
-hovery=0
 
 love.mousemoved=function( x, y, dx, dy, istouch )
 	local tx=(x/scrsx)
