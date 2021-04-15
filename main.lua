@@ -6,10 +6,7 @@
 -- TODO add small offset to top for android status bar ( couple of pixels )
 
 -- WIP working zoom on work screen
--- TODO paint is offset to left and top on bigger brushes,
--- hover brush seems correct
---    TODO devise frame with pixel marks ( 128 256 512 ) in external editors
---    log and check different state of the calculation to determine blit position
+-- todo outline over cf overlay is rotated
 -- TODO understandable icons
 
 --wip end bgs markers
