@@ -438,10 +438,10 @@ local function rendertouicanvas()
   end
 	love.graphics.draw(cvs,offsetcvs.x,offsetcvs.y,0,applicativezoom,applicativezoom)
 
-  --if frame is color, we display the line art on top
+  --if frame is color frame, we display the line art on top
 	if frames[currentIdx].cf==true then 
 		love.graphics.setColor(1.0,1.0,1.0,1.)
-		love.graphics.draw(frames[currentIdx+1].pic,offsetcvs.x,offsetcvs.y,applicativezoom,applicativezoom)
+		love.graphics.draw(frames[currentIdx+1].pic,offsetcvs.x,offsetcvs.y,0,applicativezoom,applicativezoom)
 	end
   
 
@@ -530,16 +530,23 @@ end
 
 biggerCurrentTool=function()
      if eraseMode==true then
-     	eraserRadius=eraserRadius+brushKeyStep
+      if eraserRadius<brushKeyStep then
+        einc=1
+      else
+        einc=brushKeyStep
+      end
+     	eraserRadius=eraserRadius+einc
 
      else
-	print('increasing brsh size')
-	brshradius=brshradius+brushKeyStep
-     		mybrush=love.graphics.newImage(currentBrushFunc(	brshradius,paintcolor.r,paintcolor.g,paintcolor.b))
---     		mybrush=love.graphics.newImage(roundBrushWithGradient(	brshradius,paintcolor.r,paintcolor.g,paintcolor.b))
-
---   	mybrush=love.graphics.newImage(roundBrushWithAlpha(	brshradius,paintcolor.r,paintcolor.g,paintcolor.b))
-   	mybrush:setFilter('nearest','nearest')
+      print('increasing brsh size')
+      if brshradius<brushKeyStep then
+        binc=1
+      else
+        binc=brushKeyStep
+      end
+      brshradius=brshradius+binc
+      mybrush=love.graphics.newImage(currentBrushFunc(	brshradius,paintcolor.r,paintcolor.g,paintcolor.b))
+      mybrush:setFilter('nearest','nearest')
 
 
      end
@@ -548,20 +555,32 @@ end
 
 smallerCurrentTool=function()
      if eraseMode==true then
-     	if eraserRadius>brushKeyStep then
-     	   eraserRadius=eraserRadius-brushKeyStep
+      if eraserRadius>1 then
+        if eraserRadius>brushKeyStep then
+          bdec=brushKeyStep
+          
+        else
+          bdec=1
+        end
+     	   eraserRadius=eraserRadius-bdec
      	end
 
      else
-	print('decreasing brsh size')
-	if brshradius>brushKeyStep then
-	
-		brshradius=brshradius-brushKeyStep
-   		mybrush=love.graphics.newImage(currentBrushFunc(	brshradius,paintcolor.r,paintcolor.g,paintcolor.b))
---   		mybrush=love.graphics.newImage(roundBrushWithGradient(	brshradius,paintcolor.r,paintcolor.g,paintcolor.b))
---   		mybrush=love.graphics.newImage(roundBrushWithAlpha(	brshradius,paintcolor.r,paintcolor.g,paintcolor.b))
-   		mybrush:setFilter('nearest','nearest')
-	end
+      print('decreasing brsh size')
+      if brshradius>1 then
+        if brshradius>brushKeyStep then
+          bdec=brushKeyStep
+          
+        else
+          bdec=1
+        end
+      
+        brshradius=brshradius-bdec
+          mybrush=love.graphics.newImage(currentBrushFunc(	brshradius,paintcolor.r,paintcolor.g,paintcolor.b))
+    --   		mybrush=love.graphics.newImage(roundBrushWithGradient(	brshradius,paintcolor.r,paintcolor.g,paintcolor.b))
+    --   		mybrush=love.graphics.newImage(roundBrushWithAlpha(	brshradius,paintcolor.r,paintcolor.g,paintcolor.b))
+          mybrush:setFilter('nearest','nearest')
+      end
 
      end
 

@@ -92,6 +92,17 @@ local function zoomPosUpdate()
 
 end
 
+--zoom dezoom with keyboard
+zoomPosKey=function(key, code, isrepeat)
+	if key=='up' then
+    bbzoomset(screenPos,0.5)
+	end
+
+	if key =='down' then
+    bbzoomset(screenPos,2.)
+	end 
+  
+end
 
 function toZoomPos()
 
@@ -110,6 +121,7 @@ function toZoomPos()
 	screenPos.h=conf.cvsh
 	screenPos.keepratio=true
 
+ 	keyFunc = zoomPosKey
 	drawFunc=zoomPosDraw
 	updateFunc=zoomPosUpdate
 

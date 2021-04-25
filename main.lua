@@ -1,5 +1,8 @@
 --PRIOS
 
+--WIP 64 64 ui cvs is also 64 high so unusable
+
+
 --WIP flipbook export for zaza ( thumbnails on a 4 )
 
 
@@ -437,6 +440,8 @@ require('brushbox')
 
 --project templates
 prjTemplates={}
+require('hdsqconf')
+require('sp64sqconf')
 require('hdconf')
 require('hd43conf')
 require('sdconf')

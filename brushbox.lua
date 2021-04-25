@@ -12,10 +12,11 @@ hdlh=32
 
 local dfltzoom =1.0
 
-
-
-
-
+--added to pass keyboard commands
+bbzoomset=function(b,zoomfactor)
+  b.w=math.floor(b.w*zoomfactor)
+  b.h=math.floor(b.h*zoomfactor)
+end
 
 local function drag(b,tx,ty,dx,dy)
 	if b.mode=="drag" then
