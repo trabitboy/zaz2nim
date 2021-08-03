@@ -1,0 +1,10 @@
+hdsqconf= {}
+hdsqconf.cvsw=1080
+hdsqconf.cvsh=1080
+hdsqconf.template='template/hdsq/template.png'
+--hdsqconf.uiw=1920
+hdsqconf.uih=hdsqconf.cvsh--TODO this should be determined in hduizoom to have button sticking to the righ
+hdsqconf.key='hdsq'
+-- prjfld="project/sd/"
+--brshradius=8
+prjTemplates['hdsq']=hdsqconf

@@ -1,0 +1,10 @@
+64sqconf= {}
+64sqconf.cvsw=64
+64sqconf.cvsh=64
+64sqconf.template='template/64sq/template.png'
+--64sqconf.uiw=1920
+64sqconf.uih=64sqconf.cvsh--TODO this should be determined in hduizoom to have button sticking to the righ
+64sqconf.key='64sq'
+-- prjfld="project/sd/"
+--brshradius=8
+prjTemplates['64sq']=64sqconf
