@@ -103,6 +103,8 @@ function toStoryboard()
 	updateFunc=updateStoryboard
 end
 
+
+
 local function renderStamps()
       local ly=0
 
@@ -128,6 +130,16 @@ local function renderStamps()
       end
 
 end
+
+--external hook for preview save
+function renderProjectPreviewToCurrentCvs()
+  --WIP might have extra logic in the feature,such as screen index for long 
+  --projects with multiple sb screens
+  maintainStamps()
+  renderStamps()
+end
+
+
 
 local function rendertouicanvas()
 	love.graphics.setCanvas(ui)

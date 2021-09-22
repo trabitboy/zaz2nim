@@ -1,4 +1,4 @@
-local exitQuad = {x=64, y=17*64, w=64, h=64}
+local exitQuad = {x=0, y=18*64, w=64, h=64}
 
 
 --there is a technical zoom (scrsx, scrsy) that scales ui canvas to screen,

@@ -10,11 +10,12 @@ repetitions = {}
 
 --returns repetition in question, or nil if not any
 function isFrameInRepetition(idx)
-  
+--  print('is frame '..idx .. ' in rep ')
   for i in pairs(repetitions)
   do
     local r=repetitions[i]
     if idx <=r.trigger and idx>=r.target then
+--      print(' rep found '..r.trigger.. ' ' .. r.target)
       return r
     end
   end
@@ -102,3 +103,31 @@ function maintainRepetitionsFrameAddition(addedIdx)
   
 end
 
+
+function removeRepetition(idx)
+  
+  print('remove repetition   '..idx)
+  local r=isFrameInRepetition(idx)  
+  print('current trigger '..r.trigger .. ' target ' ..r.target)
+  
+  
+  if r~=nil then
+    print(' reps number before '..tbllngth(repetitions))
+    repetitions[r.trigger]=nil
+    print(' reps number after '..tbllngth(repetitions))
+  end
+--  for i in pairs(repetitions)
+--  do
+--    rep=repetitions[i]
+--    --TODO never goes there for some reason
+--    print(' cur trig '..rep.trigger)
+--    if rep.trigger==r.trigger then
+--      print(' removing current repetition ')
+--      --not possible to remove element that way
+--      table.remove(repetitions,i)
+--      break
+--    end
+--  end
+
+  
+end

@@ -22,6 +22,7 @@ love.errorhandler= function (msg)
    local criticalSave=false
 
    return function()
+    love.graphics.setCanvas()
    	love.event.pump()
 
 

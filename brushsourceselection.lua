@@ -1,4 +1,4 @@
-local exitQuad = {x=64, y=17*64, w=64, h=64}
+local exitQuad = {x=0, y=16*64, w=64, h=64}
 
 --selection is communicated via this global
 brushSelection={x=0,y=0,w=conf.cvsw,h=conf.cvsh}

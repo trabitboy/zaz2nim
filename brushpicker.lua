@@ -1,3 +1,7 @@
+--TODO display save brush button
+--local saveBrushQuad = {x=3*64, y=0, w=64, h=64}
+
+local rSBQ = love.graphics.newQuad(3*64, 0, 64, 64,buttonsPic:getWidth(),buttonsPic:getHeight())
 
 --if consumed returns true
 local function click(b,mx,my)
@@ -47,11 +51,25 @@ local function render(b)
         love.graphics.draw(brushTexes['f'..i],b.x,b.y+64*b.zoom*(i-1))
         
       end
+      
+      if brushPresets['f'..i]~=nil and brushPresets['f'..i].eraser==true then
+       local size =brushPresets['f'..i].size
+      --outline of eraser
+       love.graphics.setColor(0.0,0.0,0.0,1.0)
+       love.graphics.circle('line',b.x+64*b.zoom/2,b.y+64*b.zoom*(i-1)+64*b.zoom/2,size)
+       love.graphics.setColor(1.0,1.0,1.0,1.0)
+        
+      end
+      
       love.graphics.setColor(0.,0.,0.,1.)
       love.graphics.rectangle('line',b.x+64*b.zoom,b.y,64*b.zoom,64*b.zoom)
       love.graphics.setColor(1.,1.,1.,1.)
       
     end
+    
+    --button to store brush
+  		love.graphics.draw(buttonsPic,rSBQ,b.x+64*b.zoom,b.y,0,b.zoom,b.zoom)
+
     
 	end
 

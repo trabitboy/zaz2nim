@@ -198,11 +198,13 @@ function copyFrame()
 end
 
 function pasteFrame()
-	love.graphics.setCanvas(cvs)
-	
-	love.graphics.draw(frames[copySrc].pic)
-	
-	love.graphics.setCanvas()
+  if copySrc~=nil then
+    love.graphics.setCanvas(cvs)
+    
+    love.graphics.draw(frames[copySrc].pic)
+    
+    love.graphics.setCanvas()
+  end
 end
 
 
@@ -312,7 +314,7 @@ createPaintButtons=function()
   local wPrevFrame=createpicbutton(0,0,buttonsPic,prevFrame,prevQuad,buttonZoom)
 
 
-  local wSaveFrames=createpicbutton(uiw-64*buttonZoom,uih-64*buttonZoom,buttonsPic,initSaveScreen,saveQuad,buttonZoom)
+  local wSaveFrames=createpicbutton(uiw-64*buttonZoom,uih-64*buttonZoom,buttonsPic,initSaveScreenFromPaintMode,saveQuad,buttonZoom)
   --local wSaveFrames=createpicbutton(uiw-64*buttonZoom,uih-64*buttonZoom,buttonsPic,saveFrames,saveQuad,buttonZoom)
 
   local wLeftFlick = createpicbutton(uiw-64*buttonZoom,64*buttonZoom,buttonsPic,toLeftFlick,lflickQuad,buttonZoom)
@@ -463,7 +465,10 @@ local function rendertouicanvas()
 
 	--render brush for user friendliness
 	if eraseMode==true then
-	   love.graphics.circle('line',hoverx,hovery,eraserRadius/applicativezoom)
+    --TODO should be done with a negative shader
+    love.graphics.setColor(1.0,0.0,1.0,1.0)
+	  love.graphics.circle('line',hoverx,hovery,eraserRadius/applicativezoom)
+    love.graphics.setColor(1.0,1.0,1.0,1.0)
 	else
 		love.graphics.draw(mybrush,hoverx-brshradius*applicativezoom,hovery-brshradius*applicativezoom,0,applicativezoom,applicativezoom)
 	end

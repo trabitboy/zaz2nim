@@ -124,14 +124,26 @@ end
 
 
 function disableRepeatSeq()
-  print('repetition unset  ')
-  local r=isFrameInRepetition(currentIdx)  
-  table.remove(repetitions,r.trigger)
+  
+  removeRepetition(currentIdx)
+  
+--  print('repetition unset  ')
+--  local r=isFrameInRepetition(idx)  
+--  print('current trigger '..r.trigger .. ' target ' ..r.target)
+  
+--  for i,rep in ipairs(repetitions)
+--  do
+--    --TODO never goes there for some reason
+--    print(' cur trig '..rep.trigger)
+--    if rep.trigger==r.trigger then
+--      table.remove(repetitions,i)
+--      break
+--    end
+--  end
   createSettingsButtons()
   
 end
 
---TODO make it multiply when pressed multiple times
 function repeatSeq()
   print('repetition set  ')
   setRepetition(rangeBeginIdx,rangeEndIdx,1)  
@@ -288,7 +300,7 @@ createSettingsButtons=function()
   local wPR =createpicbutton(uiw-384*buttonZoom,uih-64*buttonZoom,buttonsPic,pasteRangeDirect,pasteRangeQuad,buttonZoom)
   local wEX =createpicbutton(uiw-512*buttonZoom,uih-64*buttonZoom,buttonsPic,composeExport,exportQuad,buttonZoom)
   local wPRR =createpicbutton(uiw-384*buttonZoom,uih-128*buttonZoom,buttonsPic,pasteRangeReverse,pasteRangeReverseQuad,buttonZoom)
-  local wSP =createpicbutton(uiw-512*buttonZoom,uih-128*buttonZoom,buttonsPic,switchProject,switchProjectQuad,buttonZoom)
+  local wSP =createpicbutton(uiw-512*buttonZoom,uih-128*buttonZoom,buttonsPic,toSwitchProjectThroughSave,switchProjectQuad,buttonZoom)
   local wTHB =createpicbutton(uiw-576*buttonZoom,uih-256*buttonZoom,buttonsPic,toggleHardBrush,hardBrushQuad,buttonZoom)
   local wTSB =createpicbutton(uiw-512*buttonZoom,uih-256*buttonZoom,buttonsPic,toggleSoftBrush,softBrushQuad,buttonZoom)
   local wTUB =createpicbutton(uiw-576*buttonZoom,uih-320*buttonZoom,buttonsPic,toggleUnderBrush,underBrushQuad,buttonZoom)

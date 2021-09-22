@@ -96,7 +96,7 @@ addMsg(" dpi scl "..dpiScl)
   --TODO does UIW need to be scaled before creation
   print('creating ui cvs uiw '..uiw .. ' uih ' ..uih)
   
-	ui=love.graphics.newCanvas(uiw,uih)	--TODO this should be determined in hduizoom to have button sticking to the righ
+	ui=love.graphics.newCanvas(uiw,uih)	--TODO this should be determined in hduizoom to have button sticking to the right
   
   
  end

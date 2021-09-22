@@ -1,10 +1,41 @@
 --PRIOS
 
+--BLOCKER if window is square ( windows right ), and by exiting settings you land on paste button, 
+-- crash paintmode.203
+
+--WIP MSG system hover cloud for usability
+
+--brush picker doesnt display eraser
+
+--repetition removal done
+
+--TESTING if you dont save before going to project switch, you can lose your transient work if you click around
+-- trigger save before restart?
+-- DONE trigger save when going to switch project
+-- it makes for meaningless timestamp though
+
+--WIP prj preview ( save pic with few reduced frames to display on switch proj dialog )
+-- first it : generate a screenshot at cvs size with previews of the first frames, could be displayed on file load,
+-- when you click on switch project
+  --TESTING using a snapshot of story board screen looks ideal
+-- sd or hd proj incorrectly scaled but works
+
+-- DONE TESTING pagination of project list , up and down
+
+-- breaking bug: zaz demo 2 > rep from first frame produces broken file
+-- it appears a repetition with 0 target could be created >> crash
+
+-- provide default brushes 1 small hard 1 small soft 1 big hard one eraser medium
+
+-- refactor flood fill to do incremental preview
+
+
+--WARND display eraser circle on paint
+
 --WIP 64 64 ui cvs is also 64 high so unusable
 
 
 --WIP flipbook export for zaza ( thumbnails on a 4 )
-
 
 -- TODO add small offset to top for android status bar ( couple of pixels )
 
@@ -19,6 +50,7 @@
 -- color marker finish
 
 -- help system: flag to display ext explanations on buttons
+-- one alternative help display per screen ?
 
 -- profiles : hide buttons on simpler profile
 

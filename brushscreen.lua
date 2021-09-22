@@ -1,4 +1,6 @@
-local exitQuad = {x=64, y=17*64, w=64, h=64}
+local exitQuad = {x=0, y=17*64, w=64, h=64}
+local pasteQuad = {x=0, y=9*64, w=64, h=64}
+local srcQuad = {x=2*64, y=18*64, w=64, h=64}
 
 
 
@@ -59,8 +61,8 @@ createBSButtons=function()
 
 
   local wExitBS = createpicbutton(0,0,buttonsPic,exitBS,exitQuad)
-  local wToBSS = createpicbutton(uiw-64,uih-64,buttonsPic,toBrushSourceSelection,exitQuad)
-  local wStamp = createpicbutton(uiw-64,0,buttonsPic,stampSelection,exitQuad)
+  local wToBSS = createpicbutton(uiw-64,uih-64,buttonsPic,toBrushSourceSelection,srcQuad)
+  local wStamp = createpicbutton(uiw-64,0,buttonsPic,stampSelection,pasteQuad)
 
 
   widgets={}

@@ -29,10 +29,13 @@ local function createNewProjectFolder()
 --		   print('writing sound '..tgtpath)
 --		   love.filesystem.write(tgtpath,tmp)		   
       love.filesystem.write(tgt..'/template.lua',"return '".. newTemplate .."'")		  
-	--TODO create currentproject.lua
+	--create currentproject.lua
   
-  --TODO reboot
+  changeProjectOnStart (newSeqName)
   
+  
+  --reboot
+   love.event.quit( "restart" )
   
 end
 
@@ -136,8 +139,8 @@ local function rendertouicanvas()
 
 
 	love.graphics.setColor(0.,0.,0.,1.0)
-  love.graphics.print(screenMsg,100,200,0,4,4)
-  love.graphics.print('new seq : '..newSeqName,100,300,0,4,4)
+  love.graphics.print(screenMsg,200,64,0,4,4)
+  love.graphics.print('new seq : '..newSeqName,200,300,0,4,4)
 
 	love.graphics.setColor(1.,1.,1.,1.0)
 	renderWidgets(widgets)

@@ -63,8 +63,11 @@ function loadTxtCodes()
 			addMsg(string.sub(sTc,5,7))
 			local frmTc=tonumber(string.sub(sTc,5,7))
 			--TODO be careful zazanim has different indexes
-			frames[frmNum].tc=frmTc
-			
+      if frames[frmNum]~=nil then
+        frames[frmNum].tc=frmTc
+      else
+        print('warning idx out of range '..frmNum)
+			end
 		end
 	end
 end

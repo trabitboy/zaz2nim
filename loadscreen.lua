@@ -187,6 +187,10 @@ initLoadScreen = function()
 
 --	 love.filesystem.createDirectory(tmpProjFld)
   
+      --for DBG 
+      local loveSaveDirectory=love.filesystem.getAppdataDirectory()
+      print(" app data directory : "..loveSaveDirectory)
+  
       removeOrCreateTmpDir()
 
 

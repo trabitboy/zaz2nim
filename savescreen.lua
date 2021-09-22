@@ -1,3 +1,5 @@
+--default callback
+local callback=toPaintMode
 
 --we flag when frame index has been changed by suppression or insertion
 flagShiftedFrames=function(afterIdx)
@@ -91,9 +93,25 @@ saveSoundFromTmpForFrame=function(f,name,spath,cleanLoaded)
 		end
 		
 end
-
-
-
+  
+--WIP in each project folder we save a 640x480 preview pic that has thumbnails of the first project frames
+savePreviewPic= function()
+  --probably I should look at how resource is released love.graphics.newCanvas()
+  --TODO using a snapshot of story board screen looks ideal
+  
+  local curCvs=love.graphics.getCanvas()
+  
+  love.graphics.setCanvas(ui)
+  love.graphics.clear(1.,1.,1.,1.)
+  renderProjectPreviewToCurrentCvs()
+  love.graphics.setCanvas()
+  
+ 	local fromGpu=ui:newImageData()
+  fromGpu:encode(
+  "png",conf.prjfld.."preview1.png")
+  love.graphics.setCanvas(curCvs)
+  
+end
 
 updateSaveScreen = function ()
 
@@ -110,6 +128,8 @@ updateSaveScreen = function ()
 
       
 			writeTemplateInfo()
+
+      savePreviewPic()
 
 
       --we need to regenerate tmp folder with pngs and wavs at current indices
@@ -168,7 +188,8 @@ updateSaveScreen = function ()
       love.filesystem.write(conf.prjfld..'lastsave.txt',tstamp)
       
 			addMsg('after save')
-			toPaintMode()
+--			toPaintMode()
+      callback()
 		   -- for critical save that calls function directly
 		   return 'finished'
 		end
@@ -224,9 +245,11 @@ updateSaveScreen = function ()
 end
 
 
-initSaveScreen = function()
+initSaveScreen = function(cb)
 
 	addMsg('before save')
+  callback=cb
+
 
 	print(' target save directory : '..love.filesystem.getSaveDirectory())
 
@@ -259,4 +282,15 @@ initSaveScreen = function()
        keyFunc=nil
        drawFunc=drawSaveScreen
        updateFunc=updateSaveScreen
+end
+
+initSaveScreenFromPaintMode =function ()
+  initSaveScreen(toPaintMode)
+  
+end
+
+toSwitchProjectThroughSave=function()
+  initSaveScreen(toSwitchProject)
+  
+  
 end

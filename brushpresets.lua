@@ -137,7 +137,7 @@ loadBrushes=function()
     initBrushTexes ()--these can not be serialized
  else
 --  highscores=defaulths()
-    print('no brushes file')
+    print('no brushes file, TODO load defaults')
  end
 
 
