@@ -1,6 +1,6 @@
-local exitQuad = {x=0, y=17*64, w=64, h=64}
+local exitQuad = {x=4*64, y=0, w=64, h=64}
 local pasteQuad = {x=0, y=9*64, w=64, h=64}
-local srcQuad = {x=2*64, y=18*64, w=64, h=64}
+local srcQuad = {x=6*64, y=1*64, w=64, h=64}
 
 
 

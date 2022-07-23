@@ -30,29 +30,27 @@ end
 
 local function rendertouicanvas()
 	love.graphics.setCanvas(ui)
-	love.graphics.clear(1.0,1.0,1.0,0.0)
+	love.graphics.clear(0.5,0.5,0.5,0.5)
 
--- --TODO haha compute indexes 
-	-- love.graphics.setColor(1.0,.0,.0,1.0)
-	-- love.graphics.line(brshLineWidth,0,brshLineWidth,uih)
-	-- love.graphics.print('setting',400,0)
-	-- love.graphics.setColor(1.0,1.0,1.0,1.0)
-	-- love.graphics.draw(mybrush)
+	love.graphics.setColor(1.,1.,1.,1.0)
+	love.graphics.rectangle('fill',offsetcvs.x,offsetcvs.y,conf.cvsw*applicativezoom,conf.cvsh*applicativezoom)
+
+
 
 	--we blit optional BG
 	local key = 'f'..pbIdx
 	if mybg[key]~=nil then
-	   love.graphics.draw(frames[mybg[key]].pic)
+	   love.graphics.draw(frames[mybg[key]].pic,offsetcvs.x,offsetcvs.y)
 
 	end
 
 --TO TEST display color frame 
 	lprevidx=pbIdx-1
   if lprevidx>0 and frames[lprevidx].cf==true then
-    love.graphics.draw(frames[lprevidx].pic)
+    love.graphics.draw(frames[lprevidx].pic,offsetcvs.x,offsetcvs.y)
     
   end
-	love.graphics.draw(frames[pbIdx].pic)
+	love.graphics.draw(frames[pbIdx].pic,offsetcvs.x,offsetcvs.y)
 	
 	
 	msgToCvs()
@@ -68,7 +66,7 @@ function drawPlayback()
 	-- love.graphics.draw(buttonsPic)
 		rendertouicanvas()
 		--this is the background image of our paint
-		love.graphics.clear(1.,1.,1.,1.0)--
+		love.graphics.clear(1.,1.,1.,0.0)--
 		love.graphics.setColor(1.0,1.0,1.0,1.0)
 		love.graphics.draw(ui,0,0,0,scrsx,scrsy)	
 

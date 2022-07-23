@@ -39,6 +39,12 @@ local function createNewProjectFolder()
   
 end
 
+local newSeqKeyFunc=function(k)
+  print(k)
+  if k=='escape' or k=='backspace' then
+    newSeqName=''
+  end
+end
 
 local newSeqTextInput=function(t)
  if t==' ' then return end
@@ -197,7 +203,7 @@ function toCreateNewSequence()
   createCNSButtons()
   uiResize=createCNSButtons
 
-	keyFunc = nil
+	keyFunc = newSeqKeyFunc
 
 	drawFunc=createNewSequenceDraw
 	updateFunc=createNewSequenceUpdate

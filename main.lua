@@ -1,6 +1,39 @@
 --PRIOS
 
---BLOCKER if window is square ( windows right ), and by exiting settings you land on paste button, 
+--TODO antialiased transparent buttons
+
+--TODO animated splash on load (anim done) 
+-- could use preview save ? or load an anim then load current anim via callback?
+
+--TODO share project on android? see how to access share api
+
+--TODO open project folder on desktop?
+
+--TODO export application:desktop app thqt runs ffmpeg
+--first idea: do it in subfolder ? would enable to use files from top folder
+--test execution of ffmpeg
+--test execution of ffmpeg from .love
+
+
+--WIP animated button that emits sound and zooms on click
+
+--POTENTIAL BUG if zoom and cvs pos is not by default, paste brush doesnot seem to work 
+
+
+--POTENTIAL BUG if you paste a whole frame on blank canvas, move and save, frame not saved?
+--STEPS:
+-- buttons project
+-- copy allbuttons
+-- paste on 3rd frame
+-- save 
+-- 3rd frame not save
+-- suspicion : dirty flag not set on paste?
+
+--when in 'paint under mode', no visual cue on paint screen
+--when writing new project name, no possibility to correct what is typed,
+-- or escape
+
+--FIXED BLOCKER if window is square ( windows right ), and by exiting settings you land on paste button, 
 -- crash paintmode.203
 
 --WIP MSG system hover cloud for usability
@@ -455,7 +488,11 @@
 print (os.date())
 
 --global resource for all screens
-buttonsPic=love.graphics.newImage("buttons.png")
+buttonsPic=love.graphics.newImage(
+--  "sqbuttons.png"
+  "buttons2.png"
+--  "buttons.png"
+  )
 require('list')
 require('stringutil')
 require('widgetutils')
@@ -464,6 +501,7 @@ require('zznerrorhandler')
 
 
 require('picbutton')
+require('anpicbutton')
 require('textbutton')
 require('brushbox')
 

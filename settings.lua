@@ -33,7 +33,7 @@ local underBrushQuad={x=2*64, y=11*64, w=64, h=64}
 local toggleRepQuad={x=2*64, y=12*64, w=64, h=64}
 local untoggleRepQuad={x=2*64, y=13*64, w=64, h=64}
 local toggleColorFrameQuad={x=2*64, y=16*64, w=64, h=64}
-local untoggleColorFrameQuad={x=2*64, y=17*64, w=64, h=64}
+local untoggleColorFrameQuad={x=6*64, y=0, w=64, h=64}
 
 
 

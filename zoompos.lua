@@ -1,4 +1,4 @@
-local exitQuad = {x=0, y=18*64, w=64, h=64}
+local exitQuad = {x=4*64, y=1*64, w=64, h=64}
 
 
 --there is a technical zoom (scrsx, scrsy) that scales ui canvas to screen,
@@ -120,6 +120,10 @@ function toZoomPos()
   screenPos.w=conf.cvsw
 	screenPos.h=conf.cvsh
 	screenPos.keepratio=true
+
+
+  bbzoomset(screenPos,applicativezoom)
+
 
  	keyFunc = zoomPosKey
 	drawFunc=zoomPosDraw

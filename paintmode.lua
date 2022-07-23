@@ -79,12 +79,16 @@ realDecoEndRangeQuad=love.graphics.newQuad(endRangeDecoQuad.x,endRangeDecoQuad.y
 decoColorFrameQuad = {x=2*64, y=16*64, w=64, h=64}
 realDecoColorFrameQuad=love.graphics.newQuad(decoColorFrameQuad.x,decoColorFrameQuad.y,decoColorFrameQuad.w,decoColorFrameQuad.h,buttonsPic:getWidth(),buttonsPic:getHeight())
 
+--TODO 
+underPMDecoQuad = {x=2*64, y=11*64, w=64, h=64}
+realUnderPMDecoQuad=love.graphics.newQuad(underPMDecoQuad.x,underPMDecoQuad.y,underPMDecoQuad.w,underPMDecoQuad.h,buttonsPic:getWidth(),buttonsPic:getHeight())
+
 addQuad = {x=0, y=320, w=64, h=64}
 prevQuad = {x=0, y=64, w=64, h=64}
 nextQuad = {x=0, y=0, w=64, h=64}
 saveQuad = {x=0, y=128, w=64, h=64}
 penQuad=  {x=64, y=192, w=64, h=64}
-undoQuad = {x=64, y=18*64, w=64, h=64}
+undoQuad = {x=64*5, y=64, w=64, h=64}
 eraserQuad = {x=0, y=192, w=64, h=64}
 settingsQuad = {x=0, y=10*64, w=64, h=64}
 copyQuad = {x=0, y=8*64, w=64, h=64}
@@ -219,7 +223,7 @@ function addFrame()
 	maxframe=maxframe+1
 	print('number of frames '..maxframe)
   
-  print('all frames after '..newFrameIdx..'shifted TODO')
+  print('all frames after '..newFrameIdx..'shifted ')
   flagShiftedFrames(newFrameIdx)
 
 	maxFrameReached=maxFrameReached+1
@@ -228,6 +232,9 @@ function addFrame()
 	maintainBgRanges()
   maintainRepetitionsFrameAddition(newFrameIdx)
   saveCanvasToUndo()
+  
+  --reuse
+  nextFrame()
 end
 
 function prevFrame()
@@ -311,7 +318,7 @@ createPaintButtons=function()
   widgets={}
 
 
-  local wPrevFrame=createpicbutton(0,0,buttonsPic,prevFrame,prevQuad,buttonZoom)
+  local wPrevFrame=createanpicbutton(0,0,buttonsPic,prevFrame,prevQuad,buttonZoom)
 
 
   local wSaveFrames=createpicbutton(uiw-64*buttonZoom,uih-64*buttonZoom,buttonsPic,initSaveScreenFromPaintMode,saveQuad,buttonZoom)
@@ -320,7 +327,7 @@ createPaintButtons=function()
   local wLeftFlick = createpicbutton(uiw-64*buttonZoom,64*buttonZoom,buttonsPic,toLeftFlick,lflickQuad,buttonZoom)
 
   --top right
-  local wNextFrame=createpicbutton(uiw-64*buttonZoom,0,buttonsPic,nextFrame,nextQuad,buttonZoom)
+  local wNextFrame=createanpicbutton(uiw-64*buttonZoom,0,buttonsPic,nextFrame,nextQuad,buttonZoom)
   local wRightFlick = createpicbutton(0,64*buttonZoom,buttonsPic,toRightFlick,rflickQuad,buttonZoom)
   local wSettings=createpicbutton(uiw-64*buttonZoom,192*buttonZoom,buttonsPic,toSettings,settingsQuad,buttonZoom)
   local r=isFrameInRepetition(currentIdx)
@@ -336,15 +343,15 @@ createPaintButtons=function()
 
   --bottom right
   local wBucket=createpicbutton(uiw-64*buttonZoom,uih-192*buttonZoom,buttonsPic,bucket,bucketQuad,buttonZoom)
-  local wPasteFrame=createpicbutton(uiw-64*buttonZoom,uih-128*buttonZoom,buttonsPic,pasteFrame,pasteQuad,buttonZoom)
+  local wPasteFrame=createanpicbutton(uiw-64*buttonZoom,uih-128*buttonZoom,buttonsPic,pasteFrame,pasteQuad,buttonZoom)
 
 
   --bottom left
-  local wUndo=createpicbutton(0,uih-320*buttonZoom,buttonsPic,undoLastStroke,undoQuad,buttonZoom)
-  local wTogglePen=createpicbutton(0,uih-256*buttonZoom,buttonsPic,togglePen,penQuad,buttonZoom)
-  local wToggleEraser=createpicbutton(0,uih-192*buttonZoom,buttonsPic,toggleEraser,eraserQuad,buttonZoom)
-  local wCopyFrame=createpicbutton(0,uih-128*buttonZoom,buttonsPic,copyFrame,copyQuad,buttonZoom)
-  local wAddFrame=createpicbutton(0,uih-64*buttonZoom,buttonsPic,addFrame,addQuad,buttonZoom)
+  local wUndo=createanpicbutton(0,uih-320*buttonZoom,buttonsPic,undoLastStroke,undoQuad,buttonZoom)
+  local wTogglePen=createanpicbutton(0,uih-256*buttonZoom,buttonsPic,togglePen,penQuad,buttonZoom)
+  local wToggleEraser=createanpicbutton(0,uih-192*buttonZoom,buttonsPic,toggleEraser,eraserQuad,buttonZoom)
+  local wCopyFrame=createanpicbutton(0,uih-128*buttonZoom,buttonsPic,copyFrame,copyQuad,buttonZoom)
+  local wAddFrame=createanpicbutton(0,uih-64*buttonZoom,buttonsPic,addFrame,addQuad,buttonZoom)
 
 
 
@@ -509,6 +516,12 @@ local function rendertouicanvas()
 	   love.graphics.draw(buttonsPic,realDecoColorFrameQuad,550,0)
 	end
 
+  if basicPaintUnderMode==true then
+	   --display under paint dec
+--     print('paint under')
+	   love.graphics.draw(buttonsPic,realUnderPMDecoQuad,600,0)
+	end
+
 
 	love.graphics.setCanvas()
 
@@ -644,6 +657,9 @@ function paintModeKey(key, code, isrepeat)
 	   displayBg=not displayBg
 	end
 
+  if key=='return' then
+    love.window.setFullscreen(true)
+  end
 
 end
 

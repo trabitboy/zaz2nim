@@ -1,7 +1,7 @@
 local clockQuad = {x=64, y=64, w=64, h=64}
 realCQuad=love.graphics.newQuad(clockQuad.x,clockQuad.y,clockQuad.w,clockQuad.h,buttonsPic:getWidth(),buttonsPic:getHeight())
 
-local exitQuad = {x=0, y=18*64, w=64, h=64}
+local exitQuad = {x=4*64, y=64, w=64, h=64}
 realExitQuad=love.graphics.newQuad(clockQuad.x,clockQuad.y,clockQuad.w,clockQuad.h,buttonsPic:getWidth(),buttonsPic:getHeight())
 
 local applyToRangeQuad = {x=64, y=9*64, w=64, h=64}

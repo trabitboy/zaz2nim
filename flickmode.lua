@@ -141,7 +141,7 @@ local function rendertouicanvas()
 	love.graphics.clear(1.0,1.0,1.0,0.0)
 	
   if tgt~=nil then
-    love.graphics.draw(frames[tgt].pic)
+    love.graphics.draw(frames[tgt].pic,offsetcvs.x,offsetcvs.y)
 	end
 	
 	
@@ -158,7 +158,7 @@ function drawFlick()
 		--this is the background image of our paint
 		love.graphics.clear(1.,1.,1.,1.0)
 		love.graphics.setColor(1.0,1.0,1.0,1.0)
-		love.graphics.draw(ui,offsetcvs.x,offsetcvs.y,0,scrsx,scrsy)	
+		love.graphics.draw(ui,0,0,0,scrsx,scrsy)	
 
 end
 
