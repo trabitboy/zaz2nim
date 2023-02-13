@@ -25,6 +25,7 @@ drawSaveScreen = function ()
     end
     
     love.graphics.draw(frames[justSaved].pic)
+    displayHoverMsg()
  end
 end
 
@@ -248,6 +249,7 @@ end
 initSaveScreen = function(cb)
 
 	addMsg('before save')
+  setHoverMsg('saving project')
   callback=cb
 
 

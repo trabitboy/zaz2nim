@@ -181,7 +181,8 @@ function pasteRange(directOrder)
     -- table.insert(frames,{pic=newp,data=newid})
     
     local newFrameIdx=currentIdx+pasteOffset
-    table.insert(frames,newFrameIdx,{pic=newp,data=newid,tc=frames[i].tc})
+    --WIP we choose that cb ce frames are saved from id
+    table.insert(frames,newFrameIdx,{pic=newp,data=newid,tc=frames[i].tc,dirty=true})
     maxframe=maxframe+1
     print('number of frames '..maxframe)
 
@@ -391,7 +392,9 @@ function drawSettings()
 	-- love.graphics.draw(buttonsPic)
 		rendertouicanvas()
 		--this is the background image of our paint
-		love.graphics.clear(1.,1.,1.,1.0)
+--		love.graphics.clear(1.,1.,1.,1.0)
+    love.graphics.clear(.5,.5,.5,1.0)
+
 		love.graphics.setColor(1.0,1.0,1.0,1.0)
 		love.graphics.draw(ui,0,0,0,scrsx,scrsy)	
 

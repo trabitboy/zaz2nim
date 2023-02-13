@@ -40,8 +40,8 @@ local widgets={}
 
 createTCButtons=function()
   widgets={}
-  wExitTc = createpicbutton(uiw-64,0,buttonsPic,exitTC,exitQuad)
-  wATRTc = createpicbutton(uiw-64,64*buttonZoom,buttonsPic,applyToRange,applyToRangeQuad)
+  wExitTc = createpicbutton(uiw-64*buttonZoom,0,buttonsPic,exitTC,exitQuad,buttonZoom)--0,buttonZoom,buttonZoom
+  wATRTc = createpicbutton(uiw-64*buttonZoom,64*buttonZoom,buttonsPic,applyToRange,applyToRangeQuad,buttonZoom)
   table.insert(widgets,wExitTc)
   table.insert(widgets,wATRTc)
 end
@@ -86,7 +86,8 @@ end
 
 function toTimeCode()
 	print ('initial time code '..frames[currentIdx].tc )
-  
+  addMsg('applicative zoom '..applicativezoom)
+  addMsg('button zoom '..buttonZoom)
   createTCButtons()
   uiResize=createTCButtons
   
@@ -106,14 +107,16 @@ local function rendertouicanvas()
 	renderWidgets(widgets)
 
 -- //should be define
-	maxcol=(uiw-64) / ( 64 );
+	maxcol=(uiw-64*buttonZoom) / ( 64*buttonZoom );
+--	maxcol=(uiw-applicativezoom) / ( applicativezoom );
 		
 	col=0
 	row=0
 
 	for i=1,frames[currentIdx].tc 
 	do
-		love.graphics.draw(buttonsPic,realCQuad,col*64,row*64) 
+--		love.graphics.draw(buttonsPic,realCQuad,col*64*applicativezoom,row*64*applicativezoom,0,applicativezoom,applicativezoom) 
+		love.graphics.draw(buttonsPic,realCQuad,col*64*buttonZoom,row*64*buttonZoom,0,buttonZoom,buttonZoom) 
 		col=col+1	
 		if col>=(maxcol-1) then
 			col=0
@@ -130,7 +133,9 @@ end
 function timeCodeDraw()
 		rendertouicanvas()
 		--this is the background image of our paint
-		love.graphics.clear(1.,1.,1.,1.0)
+--		love.graphics.clear(1.,1.,1.,1.0)
+    love.graphics.clear(.5,.5,.5,1.0)
+
 		love.graphics.setColor(1.0,1.0,1.0,1.0)
 		love.graphics.draw(ui,0,0,0,scrsx,scrsy)	
 		
@@ -149,9 +154,10 @@ function timeCodeUpdate()
 	    end
 
 	    --we calculate the timecode 
-	    local xtc=math.floor(npx/64)	    
-	    local ytc=math.floor(npy/64)
-	    local tmp=(ytc*uiw/64 -1 )+xtc
+	    local xtc=math.floor(npx/(64*buttonZoom))	    
+	    local ytc=math.floor(npy/(64*buttonZoom))
+	    local tmp=(ytc*uiw/(64*buttonZoom -1) )+xtc
+      math.floor(tmp)
 	    print('updating tc '..tmp)
       
       if tmp<0 then tmp=0 end

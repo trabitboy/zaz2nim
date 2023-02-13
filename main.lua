@@ -1,6 +1,11 @@
 --PRIOS
 
---TODO antialiased transparent buttons
+--WIP correct size of buttons on timecode screen
+--TODO scratch record time code
+
+--WIP display hover msg
+
+--DONE antialiased transparent buttons
 
 --TODO animated splash on load (anim done) 
 -- could use preview save ? or load an anim then load current anim via callback?
@@ -33,7 +38,7 @@
 --when writing new project name, no possibility to correct what is typed,
 -- or escape
 
---FIXED BLOCKER if window is square ( windows right ), and by exiting settings you land on paste button, 
+--FIXED  if window is square ( windows right ), and by exiting settings you land on paste button, 
 -- crash paintmode.203
 
 --WIP MSG system hover cloud for usability
@@ -490,7 +495,8 @@ print (os.date())
 --global resource for all screens
 buttonsPic=love.graphics.newImage(
 --  "sqbuttons.png"
-  "buttons2.png"
+  "buttons3.png"
+--  "buttons2.png"
 --  "buttons.png"
   )
 require('list')
@@ -556,8 +562,10 @@ require('shaderpaintundermode')
 require('basicpaintundermode')
 require('basicpaintmode')
 require('paintmode')
+require("hovermessage")
 
 
+setHoverMsg('welcome to zazanim (^o^)',200)
 
 require('brush')
 
@@ -583,7 +591,11 @@ function love.load()
   
   
   
-currentBrushFunc=roundBrushWithGradient
+--currentBrushFunc=roundBrushWithGradient
+currentBrushFunc=roundBrushWithAlpha
+
+
+
 --	mybrush=love.graphics.newImage(roundBrushWithAlpha(	brshradius,paintcolor.r,paintcolor.g,paintcolor.b))
 	mybrush=love.graphics.newImage(currentBrushFunc(	brshradius,paintcolor.r,paintcolor.g,paintcolor.b))
 --	mybrush=love.graphics.newImage(roundBrushWithGradient(	brshradius,paintcolor.r,paintcolor.g,paintcolor.b))

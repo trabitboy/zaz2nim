@@ -522,6 +522,7 @@ local function rendertouicanvas()
 	   love.graphics.draw(buttonsPic,realUnderPMDecoQuad,600,0)
 	end
 
+  displayHoverMsg()
 
 	love.graphics.setCanvas()
 
@@ -658,7 +659,12 @@ function paintModeKey(key, code, isrepeat)
 	end
 
   if key=='return' then
-    love.window.setFullscreen(true)
+    
+    if love.window.getFullscreen()==true then
+      love.window.setFullscreen(false)
+    else
+      love.window.setFullscreen(true)
+    end
   end
 
 end

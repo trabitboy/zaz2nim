@@ -1,4 +1,6 @@
 local exitQuad = {x=4*64, y=1*64, w=64, h=64}
+local unzoom8Quad = {x=3*64, y=1*64, w=64, h=64}
+local zoom8Quad = {x=0, y=320, w=64, h=64}
 
 
 --there is a technical zoom (scrsx, scrsy) that scales ui canvas to screen,
@@ -19,6 +21,7 @@ local function exitZP()
 	 --copy zoom
 
    applicativezoom=1.0
+   --why only change app zoom in this case?
    if screenPos.w~=screenPos.texture:getWidth() then 
               applicativezoom=screenPos.w/screenPos.texture:getWidth()
    end  
@@ -27,6 +30,15 @@ local function exitZP()
 	 toPaintMode()
 end
 
+
+function zoom8()
+  bbzoomset(screenPos,2.)
+end
+
+function unzoom8()
+  
+  bbzoomset(screenPos,0.5)
+end
 
 --local wToBSS = createpicbutton(uiw-64,uih-64,buttonsPic,toBrushSourceSelection,exitQuad)
 --local wStamp = createpicbutton(uiw-64,0,buttonsPic,stampSelection,exitQuad)
@@ -38,9 +50,13 @@ local widgets={}
 createZPButtons=function()
   widgets={}
   
-  local wExitZP = createpicbutton(0,0,buttonsPic,exitZP,exitQuad)
+  local wExitZP = createpicbutton(0,0,buttonsPic,exitZP,exitQuad,buttonZoom)
+  local wZoom8 = createpicbutton(0,uih-64*buttonZoom,buttonsPic,zoom8,zoom8Quad,buttonZoom)
+  local wUnzoom8 = createpicbutton(uiw-64*buttonZoom,uih-64*buttonZoom,buttonsPic,unzoom8,unzoom8Quad,buttonZoom)
  
   table.insert(widgets,wExitZP)
+  table.insert(widgets,wUnzoom8)
+  table.insert(widgets,wZoom8)
   table.insert(widgets,wToBSS)
   table.insert(widgets,screenPos )
   table.insert(widgets,wStamp)
@@ -57,7 +73,7 @@ local function rendertouicanvas()
 
 		
 	msgToCvs()
-
+  displayHoverMsg()
 	--love.graphics.print()
 	love.graphics.setCanvas()
 end

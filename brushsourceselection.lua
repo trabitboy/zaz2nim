@@ -22,7 +22,7 @@ local widgets={}
 
 createBSSButtons=function()
   widgets={}
-  local wExitBS = createpicbutton(0,0,buttonsPic,exitBSS,exitQuad)
+  local wExitBS = createpicbutton(0,0,buttonsPic,exitBSS,exitQuad,buttonZoom)
 
 
   table.insert(widgets,wExitBS)

@@ -60,9 +60,9 @@ local widgets={}
 createBSButtons=function()
 
 
-  local wExitBS = createpicbutton(0,0,buttonsPic,exitBS,exitQuad)
-  local wToBSS = createpicbutton(uiw-64,uih-64,buttonsPic,toBrushSourceSelection,srcQuad)
-  local wStamp = createpicbutton(uiw-64,0,buttonsPic,stampSelection,pasteQuad)
+  local wExitBS = createpicbutton(0,0,buttonsPic,exitBS,exitQuad,buttonZoom)
+  local wToBSS = createpicbutton(uiw-64*buttonZoom,uih-64*buttonZoom,buttonsPic,toBrushSourceSelection,srcQuad,buttonZoom)
+  local wStamp = createpicbutton(uiw-64*buttonZoom,0,buttonsPic,stampSelection,pasteQuad,buttonZoom)
 
 
   widgets={}
