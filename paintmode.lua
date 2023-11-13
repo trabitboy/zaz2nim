@@ -1,7 +1,10 @@
 
--- to try to stop heat problems on laptop idling:
+--WIP, not working to try to stop heat problems on laptop idling:
 --we render to screen only on new event
 --local renderScreen=false
+
+--disable light table
+lightTable=true
 
 --canvas coordinates
 lastblitx=nil
@@ -64,6 +67,14 @@ eraserRadius=16 --dflt
 
  decoSoundQuad={x=1*64, y=10*64, w=64, h=64}
 	realDecoSoundQuad=love.graphics.newQuad(decoSoundQuad.x,decoSoundQuad.y,decoSoundQuad.w,decoSoundQuad.h,buttonsPic:getWidth(),buttonsPic:getHeight())
+
+
+ decoHardBrushQuad={x=2*64, y=9*64, w=64, h=64}
+	realHardBrushQuad=love.graphics.newQuad(decoHardBrushQuad.x,decoHardBrushQuad.y,decoHardBrushQuad.w,decoHardBrushQuad.h,buttonsPic:getWidth(),buttonsPic:getHeight())
+
+ decoSoftBrushQuad={x=2*64, y=10*64, w=64, h=64}
+	realSoftBrushQuad=love.graphics.newQuad(decoSoftBrushQuad.x,decoSoftBrushQuad.y,decoSoftBrushQuad.w,decoSoftBrushQuad.h,buttonsPic:getWidth(),buttonsPic:getHeight())
+
 
 repDecoQuad = {x=2*64, y=12*64, w=64, h=64}
 	realRepDecoQuad=love.graphics.newQuad(repDecoQuad.x,repDecoQuad.y,repDecoQuad.w,repDecoQuad.h,buttonsPic:getWidth(),buttonsPic:getHeight())
@@ -142,6 +153,7 @@ function resetUndo()
 end
 
 --WIP WE NEED TO RESTORE PREVIOUS FRAME, NOT THE ONE WE JUST SAVED
+--WIP adds anti alias on TAB A 16
 function undoLastStroke()
 	 print('###############')
 	 print('undo pressed')
@@ -171,6 +183,10 @@ function undoLastStroke()
 -- for test !!
 --	    love.graphics.setColor(1.,0.,0.,1.)
 
+      --tentative fix for undo that blurs the screen
+      --WIP BUG not working on taba , maybe on store undo buf?
+      undoBuf[restoreIdx]:setFilter('nearest','nearest')
+      
       love.graphics.draw(undoBuf[restoreIdx])
   -- we need to also restore data for flood fill to work
       --doesnt help
@@ -204,7 +220,7 @@ end
 function pasteFrame()
   if copySrc~=nil then
     love.graphics.setCanvas(cvs)
-    
+    frames[copySrc].pic:setFilter('nearest','nearest')
     love.graphics.draw(frames[copySrc].pic)
     
     love.graphics.setCanvas()
@@ -391,6 +407,7 @@ function initCanvases(idx)
 	--DBG
 	-- love.graphics.setColor(1.0,1.0,1.0,0.5)
 	love.graphics.setColor(1.0,1.0,1.0,1.0)
+  frames[currentIdx].pic:setFilter('nearest','nearest')
 	love.graphics.draw(frames[currentIdx].pic,0,0)
 	
 	love.graphics.setCanvas()
@@ -426,12 +443,12 @@ local function rendertouicanvas()
 
 
 --we dont blit light table for color frame
-	if currentIdx-1>0 and frames[currentIdx].cf==nil then 
+	if lightTable==true and currentIdx-1>0 and frames[currentIdx].cf==nil then 
 		love.graphics.setColor(1.0,1.0,1.0,0.2)
 		love.graphics.draw(frames[currentIdx-1].pic,offsetcvs.x,offsetcvs.y,0,applicativezoom,applicativezoom)
 	end
 
-	if frames[currentIdx+1] and frames[currentIdx].cf==nil then 
+	if lightTable==true and frames[currentIdx+1] and frames[currentIdx].cf==nil then 
 		love.graphics.setColor(1.0,1.0,1.0,0.2)
 		love.graphics.draw(frames[currentIdx+1].pic,offsetcvs.x,offsetcvs.y,0,applicativezoom,applicativezoom)
 	end
@@ -521,6 +538,17 @@ local function rendertouicanvas()
 --     print('paint under')
 	   love.graphics.draw(buttonsPic,realUnderPMDecoQuad,600,0)
 	end
+
+	if currentBrushFunc==roundBrushWithAlpha then
+	   --display sound dec
+	   love.graphics.draw(buttonsPic,realHardBrushQuad,650,0)
+	elseif currentBrushFunc==roundBrushWithGradient then
+	   --display sound dec
+	   love.graphics.draw(buttonsPic,realSoftBrushQuad,650,0)
+  
+  end
+
+
 
   displayHoverMsg()
 
@@ -712,6 +740,10 @@ saveCanvasToUndo = function()
       love.graphics.clear(0.,0.,0.,0.)
 --      love.graphics.setColor(1,0,0,1)
 --      love.graphics.print('composition test ')
+
+    --WIP tentative fix for antialias on tab a 16 love 11.3a
+    cvs:setFilter('nearest','nearest')
+
      love.graphics.draw(cvs)
 
       love.graphics.setCanvas(buf)

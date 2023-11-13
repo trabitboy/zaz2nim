@@ -144,6 +144,10 @@ local function rendertouicanvas()
     love.graphics.draw(frames[tgt].pic,offsetcvs.x,offsetcvs.y)
 	end
 	
+  --WIP rdr frame num not current idx changed when flicking, look in model
+	love.graphics.setColor(1.0,0.0,0.0,1.0)
+--  love.graphics.print(currentIdx,0,0,0,4,4)
+	love.graphics.setColor(1.0,1.0,1.0,1.0)
 	
 	msgToCvs()
 	

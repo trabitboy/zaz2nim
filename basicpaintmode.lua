@@ -70,5 +70,5 @@ initBasicPaintMode=function()
   blitBrushLineRemember=basicBlitBrushLineRemember
   backBufferRender=false
   penUpPaintModeCb=nil
-
+  basicPaintUnderMode=false
 end

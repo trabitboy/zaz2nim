@@ -98,7 +98,7 @@ end
 --WIP in each project folder we save a 640x480 preview pic that has thumbnails of the first project frames
 savePreviewPic= function()
   --probably I should look at how resource is released love.graphics.newCanvas()
-  --TODO using a snapshot of story board screen looks ideal
+  -- using a snapshot of story board screen looks ideal
   
   local curCvs=love.graphics.getCanvas()
   
@@ -130,7 +130,8 @@ updateSaveScreen = function ()
       
 			writeTemplateInfo()
 
-      savePreviewPic()
+      --too slow on mobile, moved to switch select screen
+      --savePreviewPic()
 
 
       --we need to regenerate tmp folder with pngs and wavs at current indices

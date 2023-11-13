@@ -1,3 +1,69 @@
+-- flicking screen: 
+--    render frame number
+--    render bg
+
+--android > custom buid of love2d to workaround the "blackfreeze coming from background app"
+--      first log events to see if a restart could be triggered from a certain event
+
+--linux > custom build of love2d to limit framerate
+
+
+--append to tgt copies the same frame multiple times on mobile TEST
+
+--hard soft disable under flag, review the state changes > TEST
+
+--option to disable preview composition on save (too slow on android)
+--> just compose preview on switch project, not on save > TO TEST
+
+--TODO investigate save via coroutine on frame move (left right)
+
+--BUG love2d android > sometimes maximizing, love2d gives black screen
+--  try to add logs to see if love 2d actually still active
+
+--BUG WIP
+-- on android , conf.lua fullscreen settings makes app super zoomed
+-- TODO
+--   try to call setfullscreen programmatically,
+--   then call zoomcalculation (screenandcvs)
+
+--usability: when zooming in zoompos screen, 
+-- keep center of screen
+
+
+--paste screen > render onion skinning and bg
+
+
+-- ability to select behind light table color
+
+
+--WIP copy frames to other project
+-- select frame range ok
+-- select tgt prj ok
+-- TODO confirmation modal
+-- save to target prj
+--    lets copy at the end to begin with
+-- WIP test
+-- TODO check template of target prj
+--    as a first step prevent append if different
+
+--when pasting on frame, if no brush stroke
+-- not saved because not flagged as dirty
+
+-- coller ecran flou 
+-- under fait du flou (coloration lisere blanc)
+-- gomme fait n importe quoi en under
+
+-- bouger la brosse
+
+-- bouton revenir settings>paint mode
+
+
+
+--WIP trying to spare battery on x230T
+--TODO display frequency of draw call
+love.window.setVSync(3)
+--TODO display time since last draw on paint mode
+
 --PRIOS
 
 --WIP correct size of buttons on timecode screen
@@ -101,7 +167,7 @@
 -- pb seems display only, to check on saved frames : if you switch to paint under and back,
 -- corruption disappears
 
--- quick brutal  script  to push pull in one line project ( possibly save it auto )
+-- quick brutal script  to push pull in one line project ( possibly save it auto )
 
 -- save timestamp of last save , display it on load ( to see most recent version on multiple devices )
 
@@ -555,6 +621,7 @@ require('createnewsequence')
 require('switchproject')
 require('repetitionmarkers')
 require('brushpicker')
+require('appendtotgt')
 require('settings')
 require('flickmode')
 require('brushpresets')
@@ -580,7 +647,9 @@ renderdecos=true
 
 
 --project structure
-	frames={}
+	frames={
+    
+    }
 --end project globals
 function love.load()
 

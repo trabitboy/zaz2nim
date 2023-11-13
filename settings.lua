@@ -34,8 +34,14 @@ local toggleRepQuad={x=2*64, y=12*64, w=64, h=64}
 local untoggleRepQuad={x=2*64, y=13*64, w=64, h=64}
 local toggleColorFrameQuad={x=2*64, y=16*64, w=64, h=64}
 local untoggleColorFrameQuad={x=6*64, y=0, w=64, h=64}
+local toggleLightTableQuad = {x=3*64, y=2*64, w=64, h=64}
+local copyToOtherProjectQuad = {x=3*64, y=3*64, w=64, h=64}
 
 
+toggleLightTable=function ()
+  lightTable= not lightTable
+  setHoverMsg('light table '..tostring(lightTable) )
+end
 
 
 local enableColorFrame=function()
@@ -84,6 +90,7 @@ local toggleSoftBrush = function()
 end
 
 
+--DISABLED IN UI, NOT WORKING ON ANDROID
 --shader brush needs extra init
 local toggleShaderUnderBrush = function()
   print('setting under brush')
@@ -278,6 +285,33 @@ function switchProject()
 end
 
 
+function copyFramesToOtherPrj(folder)
+  setHoverMsg('WIPcopy '..rangeBeginIdx ..' to '..rangeEndIdx.. ' to '..folder,600)
+  
+  print('DBG APPEND '..folder)
+  local tgtfld="project/"..folder.."/"
+  appendToOtherProject(tgtfld,rangeBeginIdx,rangeEndIdx)
+
+  --is following necessary?
+  toSettings()
+end
+
+function copyToOtherProject()
+--  setHoverMsg('WIP copy to other prj')
+  
+  if rangeBeginIdx~=nil and rangeEndIdx~=nil then
+    setHoverMsg('WIP copy to other prj')
+    --TODO select other project (prj selection callback?)
+    --TODO do the copy and show report
+    toSelectProject(copyFramesToOtherPrj)
+  else 
+    setHoverMsg('CB CE not set')
+
+  end
+  
+end
+
+
 local settings={}
 
 createSettingsButtons=function()
@@ -327,6 +361,9 @@ createSettingsButtons=function()
   end
 
   
+  local wTLT =createpicbutton(uiw-384*buttonZoom,uih-192*buttonZoom,buttonsPic,toggleLightTable,toggleLightTableQuad,buttonZoom)  
+
+  local wCTAP =createpicbutton(uiw-384*buttonZoom,uih-256*buttonZoom,buttonsPic,copyToOtherProject,copyToOtherProjectQuad,buttonZoom)  
 
 
   table.insert(widgets,wPlay)
@@ -346,7 +383,10 @@ createSettingsButtons=function()
   table.insert(widgets,wTHB)
   table.insert(widgets,wTSB)
   table.insert(widgets,wTUB)
+  table.insert(widgets,wTLT)
   table.insert(widgets,wBrushPicker)
+  table.insert(widgets,wCTAP)
+  
 end
 
 
@@ -382,7 +422,8 @@ local function rendertouicanvas()
 	renderWidgets(widgets)
 		
 	msgToCvs()
-	
+	displayHoverMsg()
+  
 	love.graphics.setCanvas()
 end
 

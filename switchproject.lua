@@ -1,21 +1,55 @@
 --project select screen
 
 -- preview to see projects story boards when you click around ( tex )
+--WIP
+local selectProjectMode='switch'
+-- 'switch' to create or open other project  ,'select' to select anotherproject as target for frames copy
+
+--this is set by 'toselectmode()' and called back with path and directory selected
+local selectProjectCb=nil
+
 local preview = nil
+
+local tgtFld=nil
+
 
 local backQuad = {x=2*64, y=8*64, w=64, h=64}
 local createQuad= {x=0, y=5*64, w=64, h=64}
 
 
+local function selectTarget(folder)
+
+  setHoverMsg("tst sel "..folder)
+  tgtFld=folder
+
+  --WIP if preview available, load it
+  if love.filesystem.getInfo('project/'..folder..'/preview1.png') then
+    print('preview found and loaded')
+    preview=love.graphics.newImage('project/'..folder..'/preview1.png')
+  end
+
+end
+
 local createProjectButton=function(i,p)
+    
+    local bcb={}
+    
+    if selectProjectMode=='select' then 
+      bcb=selectTarget
+    elseif selectProjectMode=='switch' then 
+      bcb=changeProjectOnStart
+    end
       
-    local w = createTextButton(64*buttonZoom,i*64*buttonZoom,changeProjectOnStart,{text=p,key=p},buttonZoom)
+    local w = createTextButton(64*buttonZoom,i*64*buttonZoom,bcb,{text=p,key=p},buttonZoom)
       
     return w
 
 end
 
 local widgets={}
+
+--returns project names as table with strings
+
 local getProjectsList=function()
   local ret={}
   for i,f in ipairs(love.filesystem.getDirectoryItems('project/'))
@@ -30,9 +64,17 @@ local getProjectsList=function()
   return ret
 end
 
+local function execCb()
+  if tgtFld~=nil then
+    selectProjectCb(tgtFld)
+  else 
+    return
+  end
+  
+end
 
-local function exitSP()
-	 print('exit sp ')
+local function restartToChange()
+	 print('switching project, restarting ')
 
 --	 toPaintMode(= {x=64, y=17*64, w=64, h=64})
    love.event.quit( "restart" )
@@ -59,16 +101,21 @@ createSPButtons=function()
   projects=getProjectsList()
   widgets={}
   
-  local wExitZP = createpicbutton(0,0,buttonsPic,exitSP,backQuad,buttonZoom)
- 
-   local wCNS = createpicbutton(0,uih-192,buttonsPic,toCreateNewSequence,createQuad,buttonZoom)
-
+  if selectProjectMode=='switch' then
+    local wRTCZP = createpicbutton(0,0,buttonsPic,restartToChange,backQuad,buttonZoom)
+    table.insert(widgets,wRTCZP)
+   
+     local wCNS = createpicbutton(0,uih-192,buttonsPic,toCreateNewSequence,createQuad,buttonZoom)
+    table.insert(widgets,wCNS)
+  elseif selectProjectMode=='select' then
+    --TODO insert button do selection action
+    local wRTCZP = createpicbutton(0,0,buttonsPic,execCb,backQuad,buttonZoom)
+    table.insert(widgets,wRTCZP)
+  end
 
   local wPrevPage=createpicbutton(uiw-64*buttonZoom,0,buttonsPic,pageBack,prevQuad,buttonZoom)
   local wNextPage=createpicbutton(uiw-64*buttonZoom,uih-192,buttonsPic,pageNext,nextQuad,buttonZoom)
 
-  table.insert(widgets,wExitZP)
-  table.insert(widgets,wCNS)
   table.insert(widgets,wPrevPage)
   table.insert(widgets,wNextPage)
 
@@ -133,6 +180,7 @@ local function rendertouicanvas()
 
 		
 	msgToCvs()
+	displayHoverMsg()
 
 	--love.graphics.print()
 	love.graphics.setCanvas()
@@ -187,9 +235,9 @@ switchProjectKey=function(key, code, isrepeat)
   
 end
 
-
-function toSwitchProject()
-
+function selectScreenCommonInit()
+  savePreviewPic()
+  
   pageNumber=1 --default
   --TODO calculate number of items by page
   itemsByPage=6 --TODO make dynamic ? is it necessary?
@@ -203,7 +251,18 @@ function toSwitchProject()
  	keyFunc = switchProjectKey
 	drawFunc=switchProjectDraw
 	updateFunc=switchProjectUpdate
+end
 
+function toSwitchProject()
+  selectProjectMode='switch'
+  selectScreenCommonInit()
+
+end
+
+function toSelectProject(cb)
+  selectProjectMode='select'
+  selectScreenCommonInit()
+  selectProjectCb=cb
 end
 
 

@@ -2,7 +2,7 @@
 --if not present, we use a default location
 
  local currentFsInfo=love.filesystem.getInfo('currentproject.lua')
- print('current project file file ')
+ print('current project file  ')
  print(currentFsInfo)
  if currentFsInfo then
     --we found a project config
