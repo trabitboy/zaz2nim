@@ -1,9 +1,25 @@
+--disableScaling=true
+
+--blit x flipped > works but display not flipped before blit WIP
+
+--color fill/pick with appzoom and offset WIP, COMPLICATED
+-- documentation about screen calculation?
+-- code for pick pixel mutualized from paint mode
+-- pick works, but crash near left boundary
+-- > go and mutualize boundary check for paint mode if existing,
+--   check boundaries calculation with screen coordinates
+
 -- flicking screen: 
---    render frame number
---    render bg
+--    render frame number DONE
+--    render bg DONE
+--    render color?
+
 
 --android > custom buid of love2d to workaround the "blackfreeze coming from background app"
 --      first log events to see if a restart could be triggered from a certain event
+-- stress test app developed
+-- did not freeze yet
+--    restoring app is not same action as clicking icon again (which restarts)
 
 --linux > custom build of love2d to limit framerate
 
@@ -61,7 +77,8 @@
 
 --WIP trying to spare battery on x230T
 --TODO display frequency of draw call
-love.window.setVSync(3)
+--doesnt seem to work
+--love.window.setVSync(3)
 --TODO display time since last draw on paint mode
 
 --PRIOS
@@ -556,7 +573,7 @@ love.window.setVSync(3)
 -- make resolution a variable
 -- instead of blitting alpha brush (which modifies color because blends with bg even at alpha 0)
 --   use canvas to store what is done on the canvas (keep brush color with some alpha)
-print (os.date())
+--print (os.date())
 
 --global resource for all screens
 buttonsPic=love.graphics.newImage(
@@ -587,11 +604,7 @@ require('sdconf')
 
 
 
---TODO change to load of config file
 require('seqselection')
---WIP we hardcode profile for now
---conf=prjTemplates['hd43']
---uiw=conf.uiw --TODO this should be determined in hduizoom to have button sticking to the righ
 uih=conf.uih
 
 require('colorfill')
@@ -603,7 +616,7 @@ require('shaders')
 require('interpolateLine')
 require('tblutil')
 require('loadfilter')
-require('touch')
+require('touchcommon')
 require('loadsave')
 require('loadscreen')
 require('savescreen')
@@ -637,11 +650,6 @@ setHoverMsg('welcome to zazanim (^o^)',200)
 require('brush')
 
 
--- function paint(x,y)
-	-- love.graphics.setCanvas(ui)
-	-- love.graphics.draw(mybrush,x,y)
-	-- love.graphics.setCanvas()
--- end
 
 renderdecos=true
 
@@ -670,30 +678,21 @@ currentBrushFunc=roundBrushWithAlpha
 --	mybrush=love.graphics.newImage(roundBrushWithGradient(	brshradius,paintcolor.r,paintcolor.g,paintcolor.b))
 	mybrush:setFilter('nearest','nearest')
 	
+  --TODO shouldnt it be disabled as unused
 	createInkShader()
 	createEraserShader()
 
 
-	-- TODO wire to load screen
 	initLoadScreen()
 
-   	--to comment if load screen in place
---	loadFrames()	
---	loadTxtCodes()	
---	initCanvases(currentIdx)
-   	--to comment if load screen in place
 	
 	
 end
 
--- 
 
 	
 
 	
--- default mode, could be changed
-
---toPaintMode()
 
 
 love.keypressed = function(key, code, isrepeat)

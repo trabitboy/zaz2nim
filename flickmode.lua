@@ -139,14 +139,22 @@ end
 local function rendertouicanvas()
 	love.graphics.setCanvas(ui)
 	love.graphics.clear(1.0,1.0,1.0,0.0)
-	
+  
+	
+	--we blit optional BG
+	local key = 'f'..tgt
+	if mybg[key]~=nil then
+	   love.graphics.draw(frames[mybg[key]].pic,offsetcvs.x,offsetcvs.y)
+
+	end
+
   if tgt~=nil then
     love.graphics.draw(frames[tgt].pic,offsetcvs.x,offsetcvs.y)
 	end
 	
   --WIP rdr frame num not current idx changed when flicking, look in model
 	love.graphics.setColor(1.0,0.0,0.0,1.0)
---  love.graphics.print(currentIdx,0,0,0,4,4)
+  love.graphics.print(tgt,0,0,0,4,4)
 	love.graphics.setColor(1.0,1.0,1.0,1.0)
 	
 	msgToCvs()

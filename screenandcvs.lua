@@ -76,6 +76,14 @@ addMsg(" dpi scl "..dpiScl)
 		scrsx=pscrsx
 	
 	end
+  
+
+  if disableScaling~=nil then
+    addMsg('WARNING dbg scaling')
+    scrsx=1.
+    scrsy=1.
+  end
+
 	addMsg('cvs zoom ' .. scrsx)
 
 	buttonZoom = uih /480 --button size is ok on 480 height

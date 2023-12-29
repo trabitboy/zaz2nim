@@ -120,9 +120,19 @@ local function tbrender(b)
 	   	if b.texture~=nil then
 		   
        if b.texquad~=nil then
-       
-          love.graphics.draw(b.texture,b.texquad,b.x,b.y)
+         --WIP are we going here ?
+       --not sure this is used ?
+          local xZoom=1.
+          if b.xFlip ==true then
+            --WIP never reached
+            xZoom=-xZoom
+            addMsg('bb xflip rdr '..xZoom)
+          end
+          --reached
+          addMsg('bb quad rdr')
+          love.graphics.draw(b.texture,b.texquad,b.x,b.y,0,xZoom)
       else
+          --TODO apparently never used
         
           -- if zoom has been changed, widget w is not the same as 
           -- texture width, we align on widget w to calculate zoom
@@ -132,7 +142,16 @@ local function tbrender(b)
               bzoom=b.w/b.texture:getWidth()
           end  
         
-          love.graphics.draw(b.texture,b.x,b.y,0,bzoom,bzoom)
+          local xZoom=bzoom
+          --never riched
+          addMsg('bb rdr ')
+          --TODO use xFlip APPARENTLY NOT USED PLEASE CLEAN
+          if b.xFlip ==true then
+            addMsg('bb xflip rdr')
+            xZoom=-xZoom
+          end
+          --TODO SEEMS UNUSED
+          love.graphics.draw(b.texture,b.x,b.y,0,xZoom,bzoom)
       end
 		end
 
@@ -159,17 +178,21 @@ end
 --component has 2 modes, if a texture is passed,
 --the selection is shown, 
 --then scaled scaled WIP
-function bbsettexture(bb,tex,quad)
+function bbsettexture(bb,tex,quad,xFlip)
+  addMsg('bb set tex xflip '..tostring(xFlip))
 	 bb.texture=tex 
    --if optional quad is passed, the blit is on the quad portion
    bb.texquad=quad
+   if xFlip~=nil then
+    bb.xFlip=xFLip            
+   end
 end
 
 
 
 --brush box represents a bitmap, so when resizing we maintain its
 -- zoom ratio
-function createbrushbox(x,y,w,h,keepratio)
+function createbrushbox(x,y,w,h,keepratio,xFlip)
 	ret={}
 	
 	ret.type='tbox' --used to identify targets for snap
@@ -200,7 +223,11 @@ function createbrushbox(x,y,w,h,keepratio)
 	ret.char=0
 	ret.tzoom=dfltzoom
 	ret.justif=jleft
-
+  if xFlip==true then
+    ret.xFLip=true
+  else
+    ret.xFLip=false
+  end
 	--ret.dragrelease=applysnap
 	-- ret.justif=jright
 

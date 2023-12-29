@@ -419,8 +419,6 @@ end
 
 local function rendertouicanvas()
 	love.graphics.setCanvas(ui)
--- TODO render the light table to a separate canvas,
--- so we can blit a white bg square behind
 
 -- this clear defines the base of the canvas, it is at the moment used
 -- by inksmooth shader 
@@ -809,13 +807,13 @@ function paintModeUpdate()
 		--and applicative zoom
     --and brush radius 
     --to transform click in ui canvas coordinate to paint canvas coords
-    -- WIP blit is offset on bigger brushes
-		xb= (npx-offsetcvs.x-brshradius*applicativezoom)/applicativezoom 
-		yb=(npy-offsetcvs.y-brshradius*applicativezoom)/applicativezoom 
---		xb= (npx-offsetcvs.x)/applicativezoom 
---		yb=(npy-offsetcvs.y)/applicativezoom 
+--		xb= (npx-offsetcvs.x-brshradius*applicativezoom)/applicativezoom 
+--		yb=(npy-offsetcvs.y-brshradius*applicativezoom)/applicativezoom 
+    
+		xb,yb=getTouchOnCanvas(brshradius)
 		
-		--global, TODO change ?
+	
+	--global
 		lastblitx=xb
 		lastblity=yb-- this way we draw the first point , and use same function here and
 		--in drag handler

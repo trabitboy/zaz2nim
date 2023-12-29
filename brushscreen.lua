@@ -10,7 +10,7 @@ local function exitBS()
 end
 
 local currentSel = createbrushbox(100,100,200,200)
-
+local xFlip=false
 
 --we stamp selection on current canvas/current frame
 local stampSelection = function()
@@ -19,6 +19,12 @@ local stampSelection = function()
       --doesn t work, go and see code from paste button?
       love.graphics.setCanvas(cvs)
 
+  local xBlitZoom=1.
+  local xBlitFlipOff=0
+  if xFlip==true then
+      xBlitZoom=-1.
+      xBlitFlipOff=brushSelection.w
+  end
       --lets create a quad
       local toBlit=love.graphics.newQuad(
 	brushSelection.x,
@@ -30,10 +36,11 @@ local stampSelection = function()
       love.graphics.draw(
         frames[copySrc].pic,
         toBlit,
-        currentSel.x-offsetcvs.x,
-        currentSel.y-offsetcvs.y
---        currentSel.x,
---        currentSel.y
+        currentSel.x-offsetcvs.x+xBlitFlipOff,
+        currentSel.y-offsetcvs.y,
+        0.,
+        xBlitZoom,
+        1.
         )
       love.graphics.setCanvas()
 
@@ -49,13 +56,28 @@ local stampSelection = function()
       brushSelection.w,
       brushSelection.h,
       frames[copySrc].pic:getDimensions()
-    )
+    ),
+   xFlip
   )
 end
 
 
 local widgets={}
 
+toggleXFlip=function()
+  addMsg('toggle xflip')
+  
+  xFlip=not xFlip
+  
+  if xFlip then
+    setHoverMsg('x flip')
+  else
+    setHoverMsg('no x flip')
+  end
+  --NOT WORKING
+  --WIP dirty dirty, no clear sequence to communicate to widget
+--  currentSel.xFLip=xFlip
+end
 
 createBSButtons=function()
 
@@ -63,6 +85,7 @@ createBSButtons=function()
   local wExitBS = createpicbutton(0,0,buttonsPic,exitBS,exitQuad,buttonZoom)
   local wToBSS = createpicbutton(uiw-64*buttonZoom,uih-64*buttonZoom,buttonsPic,toBrushSourceSelection,srcQuad,buttonZoom)
   local wStamp = createpicbutton(uiw-64*buttonZoom,0,buttonsPic,stampSelection,pasteQuad,buttonZoom)
+  local wXflip = createpicbutton(uiw-64*buttonZoom,uih-128*buttonZoom,buttonsPic,toggleXFlip,exitQuad,buttonZoom)
 
 
   widgets={}
@@ -70,6 +93,7 @@ createBSButtons=function()
   table.insert(widgets,wToBSS)
   table.insert(widgets,currentSel )
   table.insert(widgets,wStamp)
+  table.insert(widgets,wXflip)
 
 end
 
@@ -86,6 +110,7 @@ local function rendertouicanvas()
 		
 	msgToCvs()
 
+  displayHoverMsg()
 	--love.graphics.print()
 	love.graphics.setCanvas()
 end
@@ -162,7 +187,8 @@ function toBrushScreen()
       brushSelection.w,
       brushSelection.h,
       frames[copySrc].pic:getDimensions()
-    )
+    ),
+    xFLip
   )
 
 	drawFunc=brushScreenDraw
