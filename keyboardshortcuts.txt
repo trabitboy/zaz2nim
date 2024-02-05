@@ -1,0 +1,16 @@
+keyboard shortcuts:
+
+paint mode :
+- p > palette mode
+- s > storyboard (WIP)
+- left> prev frame
+- right> next frame
+- up> bigger brush/eraser
+- down> smaller brush/eraser
+- space> display/hide bg
+- f> play from first frame
+- enter > toggle full screen
+- f1>f5 get stored brush
+- f6>f10 store brush
+
+

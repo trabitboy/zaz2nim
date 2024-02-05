@@ -12,6 +12,17 @@ function calculateTraj(x1,y1,x2,y2)
 	y2=math.floor(y2)
 
 
+  --TODO trying to patch in a single dot blit 
+  --(when you just patch the mouse)
+  if x1==x2 and y1==y2 then
+    
+      blt={}
+			blt.xbl = x2
+			blt.ybl =y2
+			table.insert(ret,blt)
+      return ret
+  end
+
 	-- if( (x1==-1 && y1==-1)
 		-- ||( INTERPOLATE == false )
 	-- )  {

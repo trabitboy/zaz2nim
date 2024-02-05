@@ -427,11 +427,31 @@ local function rendertouicanvas()
 
 	--let's blit a rectangle behind the frames so we see boundaries
 	love.graphics.setColor(1.,1.,1.,1.0)
+  
+  
 	love.graphics.rectangle('fill',offsetcvs.x,offsetcvs.y,conf.cvsw*applicativezoom,conf.cvsh*applicativezoom)
-  --TODO scale with applicative zoom
-	--love.graphics.setColor(1.,1.,1.,1.0)
-
-
+  
+  if checkerboardAlpha==true then
+    --if we want alpha display ^^ (hack)
+    love.graphics.setColor(.5,.5,.5,1.0)
+    local nsqw=conf.cvsw*applicativezoom/32
+    nsqw=math.floor(nsqw)
+    local nsqh=conf.cvsh*applicativezoom/32
+    nsqh=math.floor(nsqh)
+    local dsq=false
+    for j =1,nsqh 
+    do
+      for i=1,nsqw 
+      do
+        dsq= not dsq
+        if dsq==true then
+          love.graphics.rectangle('fill',offsetcvs.x+i*32,offsetcvs.y+j*32,32,32)
+        end
+      end
+    end
+  love.graphics.setColor(1.,1.,1.,1.0)
+  end
+  
 	--we blit optional BG
 	local key = 'f'..currentIdx
 	if mybg[key]~=nil and displayBg==true then
@@ -815,7 +835,8 @@ function paintModeUpdate()
 	
 	--global
 		lastblitx=xb
-		lastblity=yb-- this way we draw the first point , and use same function here and
+		lastblity=yb
+    -- this way we draw the first point , and use same function here and
 		--in drag handler
 
 		--we flag this frame for save

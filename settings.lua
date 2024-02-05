@@ -28,14 +28,20 @@ local exportQuad={x=2*64, y=4*64, w=64, h=64}
 local pasteRangeReverseQuad={x=2*64, y=5*64, w=64, h=64}
 local switchProjectQuad={x=2*64, y=6*64, w=64, h=64}
 local hardBrushQuad={x=2*64, y=9*64, w=64, h=64}
+local hardBrushEnabledQuad={x=3*64, y=9*64, w=64, h=64}
 local softBrushQuad={x=2*64, y=10*64, w=64, h=64}
+local softBrushQuadEnabled={x=3*64, y=10*64, w=64, h=64}
 local underBrushQuad={x=2*64, y=11*64, w=64, h=64}
+local underBrushQuadEnabled={x=2*64, y=11*64, w=64, h=64}
 local toggleRepQuad={x=2*64, y=12*64, w=64, h=64}
 local untoggleRepQuad={x=2*64, y=13*64, w=64, h=64}
 local toggleColorFrameQuad={x=2*64, y=16*64, w=64, h=64}
 local untoggleColorFrameQuad={x=6*64, y=0, w=64, h=64}
 local toggleLightTableQuad = {x=3*64, y=2*64, w=64, h=64}
 local copyToOtherProjectQuad = {x=3*64, y=3*64, w=64, h=64}
+
+--check mark to say if paint modes are enabled?
+--local selectedQuad = {x=4*64, y=1*64, w=64, h=64}
 
 
 toggleLightTable=function ()
@@ -71,6 +77,9 @@ local toggleHardBrush = function()
  	mybrush=love.graphics.newImage(currentBrushFunc(	brshradius,paintcolor.r,paintcolor.g,paintcolor.b))
  	mybrush:setFilter('nearest','nearest')
  
+   --we maintain this for UI
+--  isHardPaintEnabled=true
+
   
 --  blitBrushLineRemember=basicBlitBrushLineRemember
 --  backBufferRender=false
@@ -86,6 +95,8 @@ local toggleSoftBrush = function()
  	mybrush=love.graphics.newImage(currentBrushFunc(	brshradius,paintcolor.r,paintcolor.g,paintcolor.b))
  	mybrush:setFilter('nearest','nearest')
 
+  --we maintain this for UI
+--  isHardPaintEnabled=false
   
 end
 
@@ -102,12 +113,16 @@ local toggleShaderUnderBrush = function()
 end
 
 local toggleUnderBrush = function()
+    --we maintain this for UI
+--  isHardPaintEnabled=true
+
   if basicPaintUnderMode==true then
     initBasicPaintMode()
     basicPaintUnderMode=nil  
     
   else
     print('setting basic under brush')
+    addMsg('under brush')
     --currentBrushFunc=roundBrushWithAlpha 
     --works only with hard brush
     initBasicPaintUnderBlitMode()
@@ -117,6 +132,7 @@ end
 
 function composeExport()
 	 print('TODO export to avi start')
+   addMsg('start export to folder')
     batch=createExportBatch()
     print(batch)
     
@@ -153,6 +169,7 @@ end
 
 function repeatSeq()
   print('repetition set  ')
+  addMsg('repetition set  ')
   setRepetition(rangeBeginIdx,rangeEndIdx,1)  
   createSettingsButtons()
   
@@ -237,7 +254,7 @@ end
 
 function deleteCurrentFrame()
 	 print('deletingFrame '..currentIdx)
-
+   
 	 if maxframe<4 then
 	    print('not enough frames to delete')
 	    return
@@ -264,6 +281,7 @@ function deleteCurrentFrame()
 	 maintainBgRanges()
 
 	 initCanvases(currentIdx)
+   setHoverMsg('frame '..currentIdx..' deleted ')
 end
 
 function setRangeBegin()
@@ -336,9 +354,18 @@ createSettingsButtons=function()
   local wEX =createpicbutton(uiw-512*buttonZoom,uih-64*buttonZoom,buttonsPic,composeExport,exportQuad,buttonZoom)
   local wPRR =createpicbutton(uiw-384*buttonZoom,uih-128*buttonZoom,buttonsPic,pasteRangeReverse,pasteRangeReverseQuad,buttonZoom)
   local wSP =createpicbutton(uiw-512*buttonZoom,uih-128*buttonZoom,buttonsPic,toSwitchProjectThroughSave,switchProjectQuad,buttonZoom)
-  local wTHB =createpicbutton(uiw-576*buttonZoom,uih-256*buttonZoom,buttonsPic,toggleHardBrush,hardBrushQuad,buttonZoom)
+  --WIP
+--  if isHardBrushEnabled==true then
+    local wTHB =createpicbutton(uiw-576*buttonZoom,uih-256*buttonZoom,buttonsPic,toggleHardBrush,hardBrushEnabledQuad,buttonZoom)
+    table.insert(widgets,wTHB)
+--  else 
+--    local wTHB =createpicbutton(uiw-576*buttonZoom,uih-256*buttonZoom,buttonsPic,toggleHardBrush,hardBrushQuad, buttonZoom)
+--    table.insert(widgets,wTHB)
+--  end
   local wTSB =createpicbutton(uiw-512*buttonZoom,uih-256*buttonZoom,buttonsPic,toggleSoftBrush,softBrushQuad,buttonZoom)
+  
   local wTUB =createpicbutton(uiw-576*buttonZoom,uih-320*buttonZoom,buttonsPic,toggleUnderBrush,underBrushQuad,buttonZoom)
+  
 
   --set rep or unset rep button displayed depending on state 
   --(TODO should be widget, note here)
@@ -380,7 +407,6 @@ createSettingsButtons=function()
   table.insert(widgets,wEX)
   table.insert(widgets,wPRR)
   table.insert(widgets,wSP)
-  table.insert(widgets,wTHB)
   table.insert(widgets,wTSB)
   table.insert(widgets,wTUB)
   table.insert(widgets,wTLT)

@@ -1,8 +1,36 @@
+--color picker on main paint screen
+-- merge color tool
+--   > new paint mode
+--   > step1: takes colors at 2 edges of a square and averages them
+
+checkerboardAlpha=false
 --disableScaling=true
+
+--TODO ability to do a nice palete
+-- trasnparency?
+--mix 2 colors ?
+
+
+--reminder to save after xx secs 
+-- flick mode crashes if very small flipbook (5 frames) probably you can go below 0
+-- (research) save frame when you do next, previous, and time
+
+
+--button to return to paint from settings
+--display wether painting or erasing
+
+--buttons for under hard and soft that show wether enabled or not 
+-- toggle like rep
+-- WIP button drawn but flag not maintained, try add msg
+-- WIP change revert , check how flag is asserted / displayed on paint mode,
+-- so as to not rewrite a second logic
+--pas mal le bordel le changement entre soft <> hard <> under, clarify
+
+--transparency mode to disable bg or show it differently in paint mode
 
 --blit x flipped > works but display not flipped before blit WIP
 
---color fill/pick with appzoom and offset WIP, COMPLICATED
+--color fill/pick with appzoom and offset WIP, TESTING
 -- documentation about screen calculation?
 -- code for pick pixel mutualized from paint mode
 -- pick works, but crash near left boundary
@@ -73,7 +101,7 @@
 
 -- bouton revenir settings>paint mode
 
-
+--
 
 --WIP trying to spare battery on x230T
 --TODO display frequency of draw call
@@ -578,7 +606,8 @@
 --global resource for all screens
 buttonsPic=love.graphics.newImage(
 --  "sqbuttons.png"
-  "buttons3.png"
+  "buttons4.png"
+--  "buttons3.png"
 --  "buttons2.png"
 --  "buttons.png"
   )

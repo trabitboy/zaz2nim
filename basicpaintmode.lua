@@ -64,6 +64,13 @@ function basicBlitBrushLineRemember(x,y)
 	dirtycvs=true
 end
 
+--function isHardPaintEnabled()
+--  if blitBrushLineRemember==basicBlitBrushLineRemember then
+--    return true
+--  else
+--    return false
+--  end
+--end
 
 initBasicPaintMode=function()
   
@@ -71,4 +78,5 @@ initBasicPaintMode=function()
   backBufferRender=false
   penUpPaintModeCb=nil
   basicPaintUnderMode=false
+
 end

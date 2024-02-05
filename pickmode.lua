@@ -66,6 +66,8 @@ function pickModeUpdate()
 --    addMsg(' ajusted offnpx offnpy ')
     addMsg('pick mode newpress npx '..npx..' npy '..npy)
     local xcvs,ycvs=getTouchOnCanvas(0)
+    xcvs=math.floor(xcvs)
+    ycvs=math.floor(ycvs)
     addMsg('canvas coord: '..xcvs..' '..ycvs)
     
     if xcvs>=0 and ycvs>=0
