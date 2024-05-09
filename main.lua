@@ -1,14 +1,16 @@
 --color picker on main paint screen
+--TODO ability to do a nice palete
+-- trasnparency?
+--mix 2 colors ?
 -- merge color tool
 --   > new paint mode
 --   > step1: takes colors at 2 edges of a square and averages them
 
+--one line blit 
+
 checkerboardAlpha=false
 --disableScaling=true
 
---TODO ability to do a nice palete
--- trasnparency?
---mix 2 colors ?
 
 
 --reminder to save after xx secs 
@@ -667,6 +669,7 @@ require('appendtotgt')
 require('settings')
 require('flickmode')
 require('brushpresets')
+require('mixpaintbasicmode')
 require('shaderpaintundermode')
 require('basicpaintundermode')
 require('basicpaintmode')

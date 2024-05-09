@@ -101,8 +101,16 @@ end
 local function rendertouicanvas()
 	love.graphics.setCanvas(ui)
 	love.graphics.clear(1.0,1.0,1.0,0.0)
-
+  love.graphics.rectangle('fill',offsetcvs.x,offsetcvs.y,conf.cvsw*applicativezoom,conf.cvsh*applicativezoom)
+  
 --	let's render the picture we will render the paste on
+	--we blit optional BG
+	local key = 'f'..currentIdx
+	if mybg[key]~=nil and displayBg==true then
+	   love.graphics.draw(frames[mybg[key]].pic,offsetcvs.x,offsetcvs.y,0,applicativezoom,applicativezoom)
+
+	end
+
 	love.graphics.draw(frames[currentIdx].pic,offsetcvs.x,offsetcvs.y)
 
 	renderWidgets(widgets)
@@ -119,7 +127,9 @@ end
 local function brushScreenDraw()
 		rendertouicanvas()
 		--this is the background image of our paint
-		love.graphics.clear(1.,1.,1.,1.0)
+--		love.graphics.clear(1.,1.,1.,1.0)
+    love.graphics.clear(.5,.5,.5,1.0)
+
 		love.graphics.setColor(1.0,1.0,1.0,1.0)
 		love.graphics.draw(ui,0,0,0,scrsx,scrsy)	
 		
