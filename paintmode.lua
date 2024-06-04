@@ -669,6 +669,16 @@ function paintModeKey(key, code, isrepeat)
 		return
 	end
 
+  if key=="u" then
+    toPickMode()
+    return
+  end
+
+  if key=="b" then
+    bucket()
+    return
+  end
+
 	if key=="left" then
 		prevFrame()
 	end

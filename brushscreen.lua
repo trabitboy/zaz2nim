@@ -19,8 +19,14 @@ local stampSelection = function()
       --doesn t work, go and see code from paste button?
       love.graphics.setCanvas(cvs)
 
+  --flip logic
   local xBlitZoom=1.
   local xBlitFlipOff=0
+  
+  --TODO here get zoom from brush box to paste with zoom
+  
+  
+  
   if xFlip==true then
       xBlitZoom=-1.
       xBlitFlipOff=brushSelection.w
@@ -32,7 +38,10 @@ local stampSelection = function()
 	brushSelection.w,
 	brushSelection.h,
 	frames[copySrc].pic:getDimensions()
-	)
+)
+  --quick fix but should be done at long time
+    frames[copySrc].pic:setFilter('nearest','nearest')
+      
       love.graphics.draw(
         frames[copySrc].pic,
         toBlit,

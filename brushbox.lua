@@ -43,7 +43,7 @@ local function drag(b,tx,ty,dx,dy)
 	       	  b.h=math.floor(b.h*tsh)
 	       end
 
-
+--TODO zoom should also be changed
 
 
 --		b.w=b.w+dx
@@ -133,7 +133,8 @@ local function tbrender(b)
           love.graphics.draw(b.texture,b.texquad,b.x,b.y,0,xZoom)
       else
           --TODO apparently never used
-        
+          --WIP try to comment to see if this can go
+       
           -- if zoom has been changed, widget w is not the same as 
           -- texture width, we align on widget w to calculate zoom
           print('bb no quad blit')
