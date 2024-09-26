@@ -22,9 +22,9 @@ from subprocess import call
 #at the moment zaz2nim is on 8 fps
 frameTime=1000/8
 
-projectPath="/home/trabitboy/love/love/lovegame/project/aaaaZAZdemo_01/export/"
+projectPath="/home/trabitboy/.local/share/love/zaz2nim/project/duneparody/export/"
 
-exportPath="/tmp/ZAZdemo_01/"
+exportPath="/tmp/duneparody/"
 
 scripts_to_execute=[]
 

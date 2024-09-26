@@ -1,3 +1,10 @@
+--WIP flickmode test/fix
+-- linux: flicking outside window crashes
+-- on slugcolo, when flicking order of frames is all over the place
+
+--BUG color frame not merged with next frame in export
+
+
 --color picker on main paint screen
 --TODO ability to do a nice palete
 -- trasnparency?
@@ -14,7 +21,6 @@ checkerboardAlpha=false
 
 
 --reminder to save after xx secs 
--- flick mode crashes if very small flipbook (5 frames) probably you can go below 0
 -- (research) save frame when you do next, previous, and time
 
 

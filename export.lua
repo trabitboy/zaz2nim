@@ -106,7 +106,7 @@ createExportBatch = function()
             --gaps in range at the moment
             if f.tc>0 and f.bg~=true and f.cf~=true then 
               
-              
+              print('about to export '..self.current)
               --TODO if in repetition, we see if we can clear current exported repetition( we are beyond )
               --TODO we determine if first frame of repetition, store repetition
               
@@ -152,6 +152,17 @@ createExportBatch = function()
 
               --TODO if frame has color marker we need to merge frame and color marker
 --              love.graphics.draw(frames)
+              --WIP check if previous frame is a color marker, if yes paste colorframe first
+              if frames[self.current-1]~=nil 
+              and frames[self.current-1].cf==true
+              then
+                print(' previous is color frame ')
+                --love.graphics.print(
+                love.graphics.draw(frames[self.current-1].pic)
+              else
+                print(' previous is not color frame ')
+
+              end
               
               --TODO copy frame line to compose pane
 --              composePane:paste(f.data,0,0,0,0,conf.cvsw,conf.cvsh)

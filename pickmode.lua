@@ -105,8 +105,10 @@ function pickModeUpdate()
       --image data needs to be uploaded back to gpu mem
         frames[currentIdx].pic:release()
         frames[currentIdx].pic=love.graphics.newImage(frames[currentIdx].data)
+        --TODO set filter here
 
         frames[currentIdx].dirty=true
+        --TODO check if actually saved on fill
 
         -- upload to work canvas
         initCanvases(currentIdx)

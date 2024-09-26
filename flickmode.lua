@@ -19,7 +19,8 @@ function dragFlick(me,x,y,dx,dy)
 end
 
 
---WIP
+--WIP 
+--TODO add logs for range calculated 
 function calculateFlickRange()
   --when starting a flick, we should ignore frames that have a tc=0, such as bg or color
   --to do that we need to precalculate the indexes of the flick frames
@@ -31,10 +32,28 @@ function calculateFlickRange()
       
 --      lpot=currentIdx+1
       lpot=currentIdx
+      --lets skip if current frame is color
+      if frames[lpot].tc==0 then 
+        lpot=lpot-1
+        print('skipping current frame because tc=0')
+      end 
+      
       
       for i=1,nb_flick 
       do
+          --slot 0 is current slot (before moving flick)                                                               
           local slot=i-1
+          if lpot<1 then
+              
+              flickFrames[slot]=1
+              print(' slot '..slot..' frame '..lpot)
+              --TODO all slots still need to be filled with last picked up number, otherwise it will
+              --crash if you flick to empty slot
+--              break
+          end
+          
+          --TODO if first one is a color or tc=0 frame, skip until first suitable
+          --(otherwise instant crash)
           if lpot>0 and frames[lpot].tc>0 then 
               flickFrames[slot]=lpot
               print(' slot '..slot..' frame '..lpot)
@@ -44,12 +63,11 @@ function calculateFlickRange()
           
           lpot=lpot-1
 
-          if lpot<1 then
-              break
-          end
 --        tgtflick=nb
 --        print('valid flick '..  )
       end
+      --end of loop
+      
     else
       print('right mode')
       --TODO copy do loop above
@@ -58,10 +76,23 @@ function calculateFlickRange()
 --      lpot=currentIdx-1
       lpot=currentIdx
       
+      --lets skip if current frame is color
+      if frames[lpot].tc==0 then 
+        lpot=lpot+1
+        print('skipping current frame because tc=0')
+      end 
       
       for i=1,nb_flick 
       do
           local slot=i-1
+          if lpot>maxframe then
+                flickFrames[slot]=maxframe
+                print(' slot '..slot..' frame '..lpot)
+              
+              --break
+          end
+          
+          
           if lpot<=maxframe and frames[lpot].tc>0 then 
               flickFrames[slot]=lpot
               print(' slot '..slot..' frame '..lpot)
@@ -69,9 +100,6 @@ function calculateFlickRange()
           
         lpot=lpot+1
 
-        if lpot>maxframe then
-            break
-        end
       end
       
       
