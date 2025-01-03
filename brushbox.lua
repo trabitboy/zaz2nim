@@ -27,27 +27,33 @@ local function drag(b,tx,ty,dx,dy)
 
   --TODO should behavior not be changed when 
   -- not keep aspect ratio?
+		if b.keepratio==true then
 
-	--we need to determine real dx and real dy
-	--when keeping ratio
-	       local tsw= (b.w+dx)/b.w
-	       local tsh= (b.h+dy)/b.h
+		--WIP w and h should not be changed in this mode,
+		--just zoom
+		--we need to determine real dx and real dy
+		--when keeping ratio
+			local tsw= (b.w+dx)/b.w
+			local tsh= (b.h+dy)/b.h
 
---WIP distortion so far , probably loss of precision
---TODO calculate zoom and store zoom, let width and height of pic to display func
-	       if tsw>=tsh then
-	       	  b.w=math.floor(b.w*tsw)
-	       	  b.h=math.floor(b.h*tsw)
-	       else
-	       	  b.w=math.floor(b.w*tsh)
-	       	  b.h=math.floor(b.h*tsh)
-	       end
+	--WIP distortion so far , probably loss of precision
+	--TODO calculate zoom and store zoom, let width and height of pic to display func
+			if tsw>=tsh then
+				b.w=math.floor(b.w*tsw)
+				b.h=math.floor(b.h*tsw)
+			else
+				b.w=math.floor(b.w*tsh)
+				b.h=math.floor(b.h*tsh)
+			end
 
---TODO zoom should also be changed
+			b.tzoom=b.w/b.initw
+			print("zoom is "..b.tzoom)
+		else
+			--we change coordsm not zoom
+			b.w=b.w+dx
+			b.h=b.h+dy
 
-
---		b.w=b.w+dx
---		b.h=b.h+dy
+		end
 	end
 	
 	
@@ -59,7 +65,7 @@ local function click(b,mx,my)
 
 
 	if boxfocus==b then
-		if mx >= b.x and mx<b.x+b.w and my >= b.y and my<b.y+b.h then
+		if mx >= b.x and mx<b.x+b.w*b.tzoom and my >= b.y and my<b.y+b.h*b.tzoom then
 		      	print('drag')
 			b.mode="drag"
 			registerdrag=b
@@ -74,7 +80,7 @@ local function click(b,mx,my)
 	end
 
 	if boxfocus==b then
-		if mx >= b.x+b.w and mx<b.x+b.w+hdlw and my >= b.y+b.h and my<b.y+b.h+hdlh then
+		if mx >= b.x+b.w*b.tzoom and mx<b.x+b.w*b.tzoom+hdlw and my >= b.y+b.h*b.tzoom and my<b.y+b.h*b.tzoom+hdlh then
 			b.mode="resize"
 			registerdrag=b
 			return true
@@ -82,8 +88,8 @@ local function click(b,mx,my)
 	
 	end
 	
-		
-	if mx >= b.x and mx<b.x+b.w and my >= b.y and my<b.y+b.h then
+		--WIP resize click broken with zoom
+	if mx >= b.x and mx<b.x+b.w*b.tzoom and my >= b.y and my<b.y+b.h*b.tzoom then
 --		print("click detected on id "..b.id)
 		--before taking focus let s check focus 
 		
@@ -130,36 +136,27 @@ local function tbrender(b)
           end
           --reached
           addMsg('bb quad rdr')
-          love.graphics.draw(b.texture,b.texquad,b.x,b.y,0,xZoom)
-      else
-          --TODO apparently never used
-          --WIP try to comment to see if this can go
-       
-          -- if zoom has been changed, widget w is not the same as 
-          -- texture width, we align on widget w to calculate zoom
-          print('bb no quad blit')
-          local bzoom=1.0
-          if b.w~=b.texture:getWidth() then 
-              bzoom=b.w/b.texture:getWidth()
-          end  
-        
-          local xZoom=bzoom
-          --never riched
-          addMsg('bb rdr ')
-          --TODO use xFlip APPARENTLY NOT USED PLEASE CLEAN
-          if b.xFlip ==true then
-            addMsg('bb xflip rdr')
-            xZoom=-xZoom
-          end
-          --TODO SEEMS UNUSED
-          love.graphics.draw(b.texture,b.x,b.y,0,xZoom,bzoom)
+          love.graphics.draw(
+			b.texture,
+			b.texquad,
+			b.x,
+			b.y,
+			0,
+			xZoom*b.tzoom
+			-- *0.5
+			,
+			1*b.tzoom
+			-- *0.25
+			
+		)
+
       end
 		end
 
 	   	love.graphics.setLineWidth(3)
 		love.graphics.rectangle("fill",b.x-hdlw,b.y-hdlh,hdlw,hdlh)
-		love.graphics.rectangle("line",b.x,b.y,b.w,b.h)
-		love.graphics.rectangle("fill",b.x+b.w,b.y+b.h,hdlw,hdlh)
+		love.graphics.rectangle("line",b.x,b.y,b.w*b.tzoom,b.h*b.tzoom)
+		love.graphics.rectangle("fill",b.x+b.w*b.tzoom,b.y+b.h*b.tzoom,hdlw,hdlh)
 		love.graphics.setColor(0.0,0.0,1.0,1.0)
 		love.graphics.setLineWidth(1)
 		--for justify center
@@ -206,7 +203,8 @@ function createbrushbox(x,y,w,h,keepratio,xFlip)
 	ret.x=x
 	ret.y=y
   
-  
+	--used for zoom calculation after resize
+	ret.initw=w --we dont change that ever
   
 	ret.w=w
 	ret.h=h

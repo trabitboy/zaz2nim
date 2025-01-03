@@ -9,7 +9,7 @@ local function exitBS()
 	 toPaintMode()
 end
 
-local currentSel = createbrushbox(100,100,200,200)
+local currentSel = createbrushbox(100,100,200,200,true)
 local xFlip=false
 
 --we stamp selection on current canvas/current frame
@@ -31,6 +31,11 @@ local stampSelection = function()
       xBlitZoom=-1.
       xBlitFlipOff=brushSelection.w
   end
+
+
+  --lets poll if zoom changed
+  brushSelection.zoom=currentSel.tzoom
+  
       --lets create a quad
       local toBlit=love.graphics.newQuad(
 	brushSelection.x,
@@ -48,8 +53,11 @@ local stampSelection = function()
         currentSel.x-offsetcvs.x+xBlitFlipOff,
         currentSel.y-offsetcvs.y,
         0.,
-        xBlitZoom,
-        1.
+        xBlitZoom*brushSelection.zoom,
+        -- *0.5
+        
+        1*brushSelection.zoom
+        -- .*0.5
         )
       love.graphics.setCanvas()
 
@@ -184,7 +192,8 @@ function toBrushScreen()
   --current sel is the box widget
   
   
-  --we need to add offset, in case we work not from 0 0 
+
+  -- brushselection comes from brush source selection screen
 	currentSel.x=brushSelection.x+offsetcvs.x
   print('to bs current sel x y')
 	print(currentSel.x  )
@@ -192,12 +201,13 @@ function toBrushScreen()
 	print(currentSel.y  )
 	currentSel.w=brushSelection.w
 	print(currentSel.w  )
-	currentSel.h=brushSelection.h
+	currentSel.initw=brushSelection.w
+  currentSel.h=brushSelection.h
 	print(currentSel.h  )
-
+  currentSel.tzoom=brushSelection.zoom
 	
 
-	bbsettexture(
+ 	bbsettexture(
     currentSel,
     frames[copySrc].pic,
     love.graphics.newQuad(

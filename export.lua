@@ -11,12 +11,6 @@
 
 
 createExportBatch = function() 
-  --TODO save current frame from canvas
-  
---  		timecodestring=timecodestring..string.format("%03d",i)..":"..string.format("%03d",frames[i].tc).."\n"
---	end
---	--love.filesystem.write(conf.prjfld.."timecodes.txt",timecodestring)
-
   
   
     --lets create export folder
@@ -27,9 +21,6 @@ createExportBatch = function()
 --    print('tmp ff list ')
 --    print(tmpfflist)
   
-  --obsolete, doesn t work with alpha
---    composePane=love.image.newImageData( conf.cvsw, conf.cvsh )
---  composeCanvas=love.
   
     batch={
       exportFLd=conf.prjfld..'export',
@@ -93,7 +84,6 @@ createExportBatch = function()
                 love.filesystem.write(self.listTxtPath,self.ffListTxt)
                 love.filesystem.write(self.pythonListPath,self.pythonListTxt)
                 
---                composePane:release()
                 
                 return true --finished
             end
@@ -107,28 +97,18 @@ createExportBatch = function()
             if f.tc>0 and f.bg~=true and f.cf~=true then 
               
               print('about to export '..self.current)
-              --TODO if in repetition, we see if we can clear current exported repetition( we are beyond )
-              --TODO we determine if first frame of repetition, store repetition
               
               
-              --TODO we need to compose export frame
+              --we need to compose export frame
               --with
               --clear color
               --bg
+              --color frame
               --front
               
               
               local mainFilePath=conf.prjfld..'export/'..name..".png"
               
-              --TODO clear compose pane with current bg color
---              for j=0,(conf.cvsh-1)
---              do
---                for i=0,(conf.cvsw-1) 
---                do
---                  composePane:setPixel(i,j,1,1,1,1)
-                
---                end
---              end
               
               love.graphics.setCanvas(backBufferCvs)
               --TODO parameterize bg color
@@ -143,16 +123,12 @@ createExportBatch = function()
                 --BUG log never printed
                 print('composing with bg '..mybg[fkey])
                 
-                --TODO alpha not taken into account, use cvs
---                composePane:paste(frames[mybg[fkey]].data,0,0,0,0,conf.cvsw,conf.cvsh)
                 love.graphics.draw(frames[mybg[fkey]].pic)
               else
                 print('no bg to compose')
               end
 
-              --TODO if frame has color marker we need to merge frame and color marker
---              love.graphics.draw(frames)
-              --WIP check if previous frame is a color marker, if yes paste colorframe first
+              --check if previous frame is a color marker, if yes paste colorframe first
               if frames[self.current-1]~=nil 
               and frames[self.current-1].cf==true
               then
@@ -164,30 +140,18 @@ createExportBatch = function()
 
               end
               
-              --TODO copy frame line to compose pane
---              composePane:paste(f.data,0,0,0,0,conf.cvsw,conf.cvsh)
               love.graphics.draw(frames[self.current].pic)
-              --TODO composition code should be mutualized between display and export
               
---              backBufferCvs
-              
---              love.graphics.captureScreenshot(mainFilePath)
-              --TODO download image data and save
               love.graphics.setCanvas()
               local tmp = backBufferCvs:newImageData()
               tmp:encode("png",mainFilePath)
               tmp:release()
               
-              
-              
---              composePane:encode("png",mainFilePath)
---              f.data:encode("png",mainFilePath)
               print('exporting '..mainFilePath)
 
               --we need to save wav to export folder 
               saveSoundFromTmpForFrame(f,name,conf.prjfld..'export/',false)
 
-          --    fflist.write(mainFilePath..'\n')
               self.ffListTxt=self.ffListTxt.."file '"..name..".png'\n"
               self.pythonListTxt=self.pythonListTxt..name..".png\n"
               

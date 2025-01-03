@@ -1,6 +1,23 @@
+--WIP zoom and flip in copy paste
+-- brush source selection track scale and commit to other svreen
+-- logs
+-- brush box needs alternate modes for resize :
+-- maintain zoom and ratio ,
+-- or change w and height
+
+
+
+
+--WIP sync scripts
+--TEST on gdx jam folders
+--TODO generate them on project create
+--or create script to init allfolders on local linux ?
+
 --WIP flickmode test/fix
 -- linux: flicking outside window crashes
 -- on slugcolo, when flicking order of frames is all over the place
+
+
 
 --BUG color frame not merged with next frame in export
 

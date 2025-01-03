@@ -1,11 +1,15 @@
 local exitQuad = {x=0, y=16*64, w=64, h=64}
 
 --selection is communicated via this global
-brushSelection={x=0,y=0,w=conf.cvsw,h=conf.cvsh}
+brushSelection={x=0,y=0,w=conf.cvsw,h=conf.cvsh,
+-- zoom=0.5
+zoom=1.0
+
+}
 
 
 
-local currentSel = createbrushbox(100,100,200,200)
+local currentSel = createbrushbox(100,100,200,200,false)
 
 local function exitBSS()
 	 print('exit bss ')
