@@ -203,7 +203,8 @@ function toBrushScreen()
 	print(currentSel.w  )
 	currentSel.initw=brushSelection.w
   currentSel.h=brushSelection.h
-	print(currentSel.h  )
+	currentSel.inith=brushSelection.h
+  print(currentSel.h  )
   currentSel.tzoom=brushSelection.zoom
 	
 

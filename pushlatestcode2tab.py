@@ -5,7 +5,7 @@ import os
 
 
 
-phoneCodeLocation='/storage/self/primary/Android/data/trabitboy.zzn/files/games'
+tabCodeLocation='/storage/self/primary'
 
 localSource='/home/trabitboy/Dropbox/lua/zaz2nim'
 
@@ -33,14 +33,14 @@ def pushfiles(files):
 
     for source in files :
         print("file to push :"+source)
-        result=subprocess.run(['adb','push',source,phoneCodeLocation+'/lovegame/'+source])
+        result=subprocess.run(['adb','push',source,tabCodeLocation+'/lovegame/'+source])
         print(result)
 
 backPhoneCodeName=datetime.datetime.now().strftime("%Y%m%d%H%M%S")+'backzzn'
 
-rename_file_on_device(phoneCodeLocation+'/lovegame', phoneCodeLocation+'/'+backPhoneCodeName)
+# rename_file_on_device(tabCodeLocation+'/lovegame', tabCodeLocation+'/'+backPhoneCodeName)
 
-create_code_folder_on_device(phoneCodeLocation+'/', 'lovegame')
+# create_code_folder_on_device(tabCodeLocation+'/', 'lovegame')
 
 sourceFiles=os.listdir(localSource)
 

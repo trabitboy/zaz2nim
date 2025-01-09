@@ -18,7 +18,7 @@ backBufferRender=false
 penUpPaintModeCb=nil
 
 --this function varies greatly depending on paint mode
--- it stores previous paing coords for next call 
+-- it stores previous paint coords for next call 
 --default when starting app
 blitBrushLineRemember=  basicBlitBrushLineRemember
 
@@ -328,17 +328,97 @@ end
 
 local widgets={}
 
+--tables to store button creation configurations
+--all buttons on the left,2 columns
+--all buttons on the right, 2 columns
+--1 column left and 1 column right (default)
 
+--WIP
+
+togglePaintButtons=function ()
+	if currentConfButtons==confButtonsDefault then
+		currentConfButtons=confButtonsRight
+	else
+		currentConfButtons=confButtonsDefault
+	end
+	createPaintButtons()
+end
+
+
+confButtonsDefault={
+	--left
+	{x=0,y=0,call=prevFrame,quad=prevQuad},
+	{x=0,y=64*buttonZoom,call=toRightFlick,quad=rflickQuad},
+	{x=0,y=uih-320*buttonZoom,call=undoLastStroke,quad=undoQuad},
+	{x=0,y=uih-256*buttonZoom,call=togglePen,quad=penQuad},
+	{x=0,y=uih-192*buttonZoom,call=toggleEraser,quad=eraserQuad},
+	{x=0,y=uih-128*buttonZoom,call=copyFrame,quad=copyQuad},
+	{x=0,y=uih-64*buttonZoom,call=addFrame,quad=addQuad},
+
+	--right
+	{x=uiw-64*buttonZoom,y=0,call=nextFrame,quad=nextQuad},
+	{x=uiw-64*buttonZoom,y=64*buttonZoom,call=toLeftFlick,quad=lflickQuad},
+	{x=uiw-64*buttonZoom,y=128*buttonZoom,call=togglePaintButtons,quad=undoQuad},
+	{x=uiw-64*buttonZoom,y=192*buttonZoom,call=toSettings,quad=settingsQuad},
+	{x=uiw-64*buttonZoom,y=uih-192*buttonZoom,call=bucket,quad=bucketQuad},
+	{x=uiw-64*buttonZoom,y=uih-128*buttonZoom,call=pasteFrame,quad=pasteQuad},
+
+
+	{x=uiw-64*buttonZoom,y=uih-64*buttonZoom,call=initSaveScreenFromPaintMode,quad=saveQuad},
+
+}
+
+
+
+--conf buttons 2 columns right
+confButtonsRight={
+	--left
+	{x=uiw-128*buttonZoom,y=0,call=prevFrame,quad=prevQuad},
+	{x=uiw-128*buttonZoom,y=64*buttonZoom,call=toRightFlick,quad=rflickQuad},
+	{x=uiw-128*buttonZoom,y=uih-320*buttonZoom,call=undoLastStroke,quad=undoQuad},
+	{x=uiw-128*buttonZoom,y=uih-256*buttonZoom,call=togglePen,quad=penQuad},
+	{x=uiw-128*buttonZoom,y=uih-192*buttonZoom,call=toggleEraser,quad=eraserQuad},
+	{x=uiw-128*buttonZoom,y=uih-128*buttonZoom,call=copyFrame,quad=copyQuad},
+	{x=uiw-128*buttonZoom,y=uih-64*buttonZoom,call=addFrame,quad=addQuad},
+
+	--right
+	{x=uiw-64*buttonZoom,y=0,call=nextFrame,quad=nextQuad},
+	{x=uiw-64*buttonZoom,y=64*buttonZoom,call=toLeftFlick,quad=lflickQuad},
+	{x=uiw-64*buttonZoom,y=128*buttonZoom,call=togglePaintButtons,quad=undoQuad},
+	{x=uiw-64*buttonZoom,y=192*buttonZoom,call=toSettings,quad=settingsQuad},
+	{x=uiw-64*buttonZoom,y=uih-192*buttonZoom,call=bucket,quad=bucketQuad},
+	{x=uiw-64*buttonZoom,y=uih-128*buttonZoom,call=pasteFrame,quad=pasteQuad},
+	{x=uiw-64*buttonZoom,y=uih-64*buttonZoom,call=initSaveScreenFromPaintMode,quad=saveQuad},
+}
+
+currentConfButtons=
+confButtonsDefault
+-- confButtonsRight
 
 createPaintButtons=function()
   widgets={}
 
+  createfromconf=true
 
+
+  if createfromconf==true then
+	print('NEW creating paint buttons from conf')
+	for k,v in ipairs(
+		currentConfButtons
+		-- confButtonsDefault
+		-- confButtonsRight
+	)
+	do
+	  local w=createpicbutton(v.x,v.y,buttonsPic,v.call,v.quad,buttonZoom)
+	  table.insert(widgets,w)
+	end
+	return
+  end
+  print('LEGACY creating paint buttons')
   local wPrevFrame=createanpicbutton(0,0,buttonsPic,prevFrame,prevQuad,buttonZoom)
 
 
   local wSaveFrames=createpicbutton(uiw-64*buttonZoom,uih-64*buttonZoom,buttonsPic,initSaveScreenFromPaintMode,saveQuad,buttonZoom)
-  --local wSaveFrames=createpicbutton(uiw-64*buttonZoom,uih-64*buttonZoom,buttonsPic,saveFrames,saveQuad,buttonZoom)
 
   local wLeftFlick = createpicbutton(uiw-64*buttonZoom,64*buttonZoom,buttonsPic,toLeftFlick,lflickQuad,buttonZoom)
 
@@ -566,7 +646,11 @@ local function rendertouicanvas()
   
   end
 
-
+  if currentConfButtons==confButtonsRight then
+	--draw line rectangle on left third of screen to show no paint zone
+	love.graphics.setColor(1.0,0.0,0.0,1.0)
+	love.graphics.rectangle('line',0,0,uiw/3,uih)
+  end
 
   displayHoverMsg()
 
@@ -710,6 +794,13 @@ function paintModeKey(key, code, isrepeat)
 	   playFromFirst()
 	end
 
+
+	if key=='k' then
+		togglePaintButtons()
+	
+	end
+ 
+
 	if key=='space' then
 	   displayBg=not displayBg
 	end
@@ -832,14 +923,18 @@ function paintModeUpdate()
 			--click has been consumed
 			return
 		end
-	
+
+		--if we are with all buttons on right we want to avoid paint
+		if npx<uiw/3 and currentConfButtons==confButtonsRight then
+			return
+		end
+
+
 		--we compensate offset
 		--and applicative zoom
     --and brush radius 
     --to transform click in ui canvas coordinate to paint canvas coords
---		xb= (npx-offsetcvs.x-brshradius*applicativezoom)/applicativezoom 
---		yb=(npy-offsetcvs.y-brshradius*applicativezoom)/applicativezoom 
-    
+
 		xb,yb=getTouchOnCanvas(brshradius)
 		
 	

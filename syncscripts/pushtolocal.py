@@ -4,6 +4,12 @@ import os
 import subprocess
 import sys
 
+#check target folder exists and create it if not
+def checkfolder():
+    if not os.path.exists(paths.localProject):
+        print("creating folder:"+paths.localProject)
+        os.makedirs(paths.localProject)
+
 
 #copy all files from local master folder to local project folder
 def copylocal():
@@ -23,5 +29,5 @@ def copylocal():
         print("copying file:"+file)
         shutil.copy(file,paths.localProject)
 
-
+checkfolder()
 copylocal()

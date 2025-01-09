@@ -35,6 +35,60 @@ drawLoadScreen = function ()
  end
 end
 
+--looks in /import for pics to scale and add at the end of the project 
+function importPhoto()
+	print('importing photo')
+	--list fies in import sub folder
+	local files=love.filesystem.getDirectoryItems(conf.prjfld..'import')
+	--print all files in import
+	for k,v in ipairs(files) do
+		print(k,v)
+		--if filename starts with 'done_' we skip it
+		if string.sub(v,1,5)~='done_' then
+			--if filename ends with .png we load it
+			--TO REVIEW
+
+				--load the file
+				local initPic=love.image.newImageData(conf.prjfld..'import/'..v)
+				local picToImport=love.graphics.newImage(initPic)
+				--scale the file
+				local w=picToImport:getWidth()
+				local h=picToImport:getHeight()
+
+				local scale=conf.cvsw/w
+
+				love.graphics.setCanvas(cvs)
+
+				love.graphics.draw(picToImport,0,0,0,scale,scale)
+				love.graphics.setCanvas()
+
+				--let us save canvas to disk for debug
+				local scaledPic=cvs:newImageData()
+				scaledPic:encode('png',conf.prjfld..'import/done_'..v..'scaled.png')
+				--get pic imagedata
+				-- local initPic=picToImport:getData()
+				initPic:encode('png',conf.prjfld..'import/done_'..v..'init.png')
+
+				picToImport:release()
+				initPic:release()
+				local frameTable={
+					data=scaledPic,
+					pic=love.graphics.newImage(scaledPic),
+					shifted=false,
+					loadedFrom=nil,
+					dirty=true,
+					tc=1
+				}
+				table.insert(frames,frameTable)
+				maxframe=maxframe+1
+				-- --rename the file to 'done_' so we don't load it again
+				-- love.filesystem.write(conf.prjfld..'import/done_'..v,'')
+				scaledPic:release()
+				love.filesystem.remove(conf.prjfld..'import/'..v)
+			end
+	end
+	print('after imported files')
+end
 
 updateLoadScreen = function ()
 
@@ -70,6 +124,9 @@ updateLoadScreen = function ()
 	   maintainBgRanges()
 
 	   loadBrushes()
+
+		--insrt optional photo import
+		importPhoto()
 
 	   initCanvases(1)
 	   toPaintMode()

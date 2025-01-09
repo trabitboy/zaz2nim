@@ -18,16 +18,28 @@ function getTouchOnCanvas(brad)
 end 
 
   
---to see if it helps in windowed mode--love.mouse.setGrabbed( true )
+--to see if it helps in windowed mode
+--love.mouse.setGrabbed( true )
 
+
+love.touchpressed=function ( id, x, y, dx, dy, pressure )
+	-- print('TOUCH id '..id)
+end
 	
 love.mousepressed = function(x, y, button)
 	print("new touch "..x.." "..y)
+
+-- --TODO WIP filter even if no paint zone is defined
+-- 	if currentConfButtons==confButtonsRight and x<ww/3 then
+-- 		return
+-- 	end
+
 	npress=true
-	--we floor coords,integer screen coords
+--we floor coords,integer screen coords
 	--was posing pb with painting
 	npx=math.floor(x/scrsx)
 	npy=math.floor(y/scrsy)
+
 
 
 	print("mousepressed scaled to ui canvas "..npx.." "..npy)

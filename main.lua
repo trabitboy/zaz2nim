@@ -1,9 +1,6 @@
 --WIP zoom and flip in copy paste
--- brush source selection track scale and commit to other svreen
--- logs
--- brush box needs alternate modes for resize :
--- maintain zoom and ratio ,
--- or change w and height
+-- zoom works but selection box is wrong 
+-- maybe can be simplified by always chamging zoom ?
 
 
 
@@ -715,7 +712,7 @@ renderdecos=true
     }
 --end project globals
 function love.load()
-
+	love.window.setVSync(2)
 --default
 	brshradius=8
   --DBG
@@ -760,7 +757,7 @@ end
 
 function love.draw()
 	drawFunc()
-
+	love.graphics.print('TEST'..love.timer.getFPS())
 end
 
 

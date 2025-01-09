@@ -10,7 +10,7 @@ applicativezoom=1.0
 --applicativezoom=0.5
 
 
-local screenPos = createbrushbox(100,100,200,200)
+local screenPos = createbrushbox(100,100,200,200,true)
 
 local function exitZP()
 	 print('exit zp ')
@@ -30,6 +30,14 @@ local function exitZP()
 	 toPaintMode()
 end
 
+function resetZoom()
+	print('reset zoom')
+	bbresetzoom(screenPos)
+	screenPos.x=offsetcvs.x
+	screenPos.y=offsetcvs.y
+
+end
+  
 
 function zoom8()
   bbzoomset(screenPos,2.)
@@ -52,14 +60,16 @@ createZPButtons=function()
   
   local wExitZP = createpicbutton(0,0,buttonsPic,exitZP,exitQuad,buttonZoom)
   local wZoom8 = createpicbutton(0,uih-64*buttonZoom,buttonsPic,zoom8,zoom8Quad,buttonZoom)
+  local wreset = createpicbutton(uiw-64*buttonZoom,uih-128*buttonZoom,buttonsPic,resetZoom,unzoom8Quad,buttonZoom)
   local wUnzoom8 = createpicbutton(uiw-64*buttonZoom,uih-64*buttonZoom,buttonsPic,unzoom8,unzoom8Quad,buttonZoom)
  
   table.insert(widgets,wExitZP)
   table.insert(widgets,wUnzoom8)
   table.insert(widgets,wZoom8)
-  table.insert(widgets,wToBSS)
+--   table.insert(widgets,wToBSS)
+  table.insert(widgets,wreset)
+--   table.insert(widgets,wStamp)
   table.insert(widgets,screenPos )
-  table.insert(widgets,wStamp)
 
 end
 
@@ -134,11 +144,12 @@ function toZoomPos()
 	
   --this should be done auto in bbsettexture, if no quad passed
   screenPos.w=conf.cvsw
+  screenPos.initw=conf.cvsw
 	screenPos.h=conf.cvsh
-	screenPos.keepratio=true
+	screenPos.inith=conf.cvsh
 
-
-  bbzoomset(screenPos,applicativezoom)
+--WIP to check and update
+--   bbzoomset(screenPos,applicativezoom)
 
 
  	keyFunc = zoomPosKey
