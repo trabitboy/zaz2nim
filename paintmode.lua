@@ -3,6 +3,9 @@
 --we render to screen only on new event
 --local renderScreen=false
 
+zznHand='right'
+--'left'
+
 --disable light table
 lightTable=true
 
@@ -337,7 +340,7 @@ local widgets={}
 
 togglePaintButtons=function ()
 	if currentConfButtons==confButtonsDefault then
-		currentConfButtons=confButtonsRight
+		currentConfButtons=alternateConfButtons
 	else
 		currentConfButtons=confButtonsDefault
 	end
@@ -391,9 +394,45 @@ confButtonsRight={
 	{x=uiw-64*buttonZoom,y=uih-64*buttonZoom,call=initSaveScreenFromPaintMode,quad=saveQuad},
 }
 
+--conf buttons 2 columns leftx
+confButtonsLeft={
+	--left
+	{x=0,y=0,call=prevFrame,quad=prevQuad},
+	{x=0,y=64*buttonZoom,call=toRightFlick,quad=rflickQuad},
+	{x=0,y=uih-320*buttonZoom,call=undoLastStroke,quad=undoQuad},
+	{x=0,y=uih-256*buttonZoom,call=togglePen,quad=penQuad},
+	{x=0,y=uih-192*buttonZoom,call=toggleEraser,quad=eraserQuad},
+	{x=0,y=uih-128*buttonZoom,call=copyFrame,quad=copyQuad},
+	{x=0,y=uih-64*buttonZoom,call=addFrame,quad=addQuad},
+
+	--right
+	{x=64*buttonZoom,y=0,call=nextFrame,quad=nextQuad},
+	{x=64*buttonZoom,y=64*buttonZoom,call=toLeftFlick,quad=lflickQuad},
+	{x=64*buttonZoom,y=128*buttonZoom,call=togglePaintButtons,quad=undoQuad},
+	{x=64*buttonZoom,y=192*buttonZoom,call=toSettings,quad=settingsQuad},
+	{x=64*buttonZoom,y=uih-192*buttonZoom,call=bucket,quad=bucketQuad},
+	{x=64*buttonZoom,y=uih-128*buttonZoom,call=pasteFrame,quad=pasteQuad},
+	{x=64*buttonZoom,y=uih-64*buttonZoom,call=initSaveScreenFromPaintMode,quad=saveQuad},
+}
+
 currentConfButtons=
 confButtonsDefault
+-- confButtonsLeft
+
+if zznHand=='left' then
+	alternateConfButtons=
+	confButtonsRight
+else
+	alternateConfButtons=
+	confButtonsLeft
+end
+-- alternateConfButtons=
+-- confButtonsLeft
+
+-- alternateConfButtons=
 -- confButtonsRight
+
+-- confButtonsDefault
 
 createPaintButtons=function()
   widgets={}
@@ -652,6 +691,11 @@ local function rendertouicanvas()
 	love.graphics.rectangle('line',0,0,uiw/3,uih)
   end
 
+  if currentConfButtons==confButtonsLeft then
+	--draw line rectangle on left third of screen to show no paint zone
+	love.graphics.setColor(1.0,0.0,0.0,1.0)
+	love.graphics.rectangle('line',2*uiw/3,0,uiw/3,uih)
+  end
   displayHoverMsg()
 
 	love.graphics.setCanvas()
@@ -926,6 +970,10 @@ function paintModeUpdate()
 
 		--if we are with all buttons on right we want to avoid paint
 		if npx<uiw/3 and currentConfButtons==confButtonsRight then
+			return
+		end
+		--if we are with all buttons on left we want to avoid paint
+		if npx>2*uiw/3 and currentConfButtons==confButtonsLeft then
 			return
 		end
 
