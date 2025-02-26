@@ -534,7 +534,21 @@ function initCanvases(idx)
 end
 
 
+function rdrLightTable()
+	if lightTable==true and currentIdx-1>0 and frames[currentIdx].cf==nil then 
+		love.graphics.setColor(1.0,1.0,1.0,0.2)
+		love.graphics.draw(frames[currentIdx-1].pic,offsetcvs.x,offsetcvs.y,0,applicativezoom,applicativezoom)
+	end
 
+	if lightTable==true and frames[currentIdx+1] and frames[currentIdx].cf==nil then 
+		love.graphics.setColor(1.0,1.0,1.0,0.2)
+		love.graphics.draw(frames[currentIdx+1].pic,offsetcvs.x,offsetcvs.y,0,applicativezoom,applicativezoom)
+	end
+	
+	love.graphics.setColor(1.0,1.0,1.0,1.0)
+
+
+end
 
 local function rendertouicanvas()
 	love.graphics.setCanvas(ui)
@@ -580,18 +594,20 @@ local function rendertouicanvas()
 
 
 --we dont blit light table for color frame
-	if lightTable==true and currentIdx-1>0 and frames[currentIdx].cf==nil then 
-		love.graphics.setColor(1.0,1.0,1.0,0.2)
-		love.graphics.draw(frames[currentIdx-1].pic,offsetcvs.x,offsetcvs.y,0,applicativezoom,applicativezoom)
-	end
+	-- if lightTable==true and currentIdx-1>0 and frames[currentIdx].cf==nil then 
+	-- 	love.graphics.setColor(1.0,1.0,1.0,0.2)
+	-- 	love.graphics.draw(frames[currentIdx-1].pic,offsetcvs.x,offsetcvs.y,0,applicativezoom,applicativezoom)
+	-- end
 
-	if lightTable==true and frames[currentIdx+1] and frames[currentIdx].cf==nil then 
-		love.graphics.setColor(1.0,1.0,1.0,0.2)
-		love.graphics.draw(frames[currentIdx+1].pic,offsetcvs.x,offsetcvs.y,0,applicativezoom,applicativezoom)
-	end
+	-- if lightTable==true and frames[currentIdx+1] and frames[currentIdx].cf==nil then 
+	-- 	love.graphics.setColor(1.0,1.0,1.0,0.2)
+	-- 	love.graphics.draw(frames[currentIdx+1].pic,offsetcvs.x,offsetcvs.y,0,applicativezoom,applicativezoom)
+	-- end
 	
-	love.graphics.setColor(1.0,1.0,1.0,1.0)
+	-- love.graphics.setColor(1.0,1.0,1.0,1.0)
+	rdrLightTable()
 	
+
 	--antialias ink of current frame
 --	love.graphics.setShader(inksmooth)
   if backBufferRender==true then

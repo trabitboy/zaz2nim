@@ -128,7 +128,13 @@ local function rendertouicanvas()
 
 	end
 
+
+  rdrLightTable()
+  
 	love.graphics.draw(frames[currentIdx].pic,offsetcvs.x,offsetcvs.y)
+
+
+
 
 	renderWidgets(widgets)
 

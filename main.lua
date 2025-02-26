@@ -14,8 +14,6 @@
 -- linux: flicking outside window crashes
 -- on slugcolo, when flicking order of frames is all over the place
 
-
-
 --BUG color frame not merged with next frame in export
 
 
