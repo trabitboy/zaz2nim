@@ -26,6 +26,11 @@ function toPlayback()
 	 playFrom(currentIdx)
 end
 
+function initRecordSound()
+	--TODO start sound record
+	startRecord()
+	toPlayback()
+end
 
 
 local function rendertouicanvas()
@@ -161,9 +166,12 @@ function updatePlayback()
 		-- else
       currentIdx=pbIdx
       initCanvases(currentIdx)
+    	resetUndo()
+		toPaintMode()
 
-			resetUndo()
-			toPaintMode()
-		-- end
+		--WIP check sound recorder existence?
+		if soundRecorder~=nil then
+			stopRecord()
+		end
 	end
 end

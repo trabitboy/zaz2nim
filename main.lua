@@ -1,18 +1,52 @@
+--feedback brotaru anima 2025
+--shortcut to do bigger or smaller brush on paint screen with key+mouse/stylus
+--attract mode to play current flipbook when not touch for some time
+--bucket fill very dangerous> hide with feature flag, 
+	--config creations, functions but put return in global variables
+	--insert feature flag if in function creation functions
+	--extract button configurations in separage file
+	--feature flag + configuration 
+	--profiles : line anim profile, color profile
+-- going from last frame to first frame unintuitive > add automatical interframe > not writable nor removable?
+--undo button real pic
+--redo button real pic
+--undo cross frame : people are lost when they lose undo going back and forth between frames
+--dot when you come back from settings is annoying
+--people do not understand icons > ? icon that overlays text description on all buttons
+--discord server to talk on the project
+--tutorial videos
+-- export tool that is an app
+-- export tool web
+-- export tool on docker / vm?
+
+
+--WIP flickmode test/fix
+-- linux: flicking outside window crashes
+-- on slugcolo, when flicking order of frames is all over the place
+
+
+
+--WIP sound recording
+--poc done in testrec/
+--variation of playmode
+-- separate button where goes to playmode but records sound 
+-- (with sound decoration)
+-- WIP play sound when coming back to paint mode
+-- WIP or replay segment?
+--WIP compose save path and pass it to wav . lua using love api
+--WIP on android 1 recording device shown but recording does not start
+-- store sound in frame after record
+-- update save routine (wav are just moved at the moment)
+
 --WIP zoom and flip in copy paste
 -- zoom works but selection box is wrong 
 -- maybe can be simplified by always chamging zoom ?
-
-
 
 
 --WIP sync scripts
 --TEST on gdx jam folders
 --TODO generate them on project create
 --or create script to init allfolders on local linux ?
-
---WIP flickmode test/fix
--- linux: flicking outside window crashes
--- on slugcolo, when flicking order of frames is all over the place
 
 --BUG color frame not merged with next frame in export
 
@@ -637,7 +671,7 @@ require('widgetutils')
 require('msg')
 require('zznerrorhandler')
 
-
+require('soundrec')
 require('picbutton')
 require('anpicbutton')
 require('textbutton')
@@ -691,6 +725,7 @@ require('mixpaintbasicmode')
 require('shaderpaintundermode')
 require('basicpaintundermode')
 require('basicpaintmode')
+require('paintbuttonconfigurations')
 require('paintmode')
 require("hovermessage")
 

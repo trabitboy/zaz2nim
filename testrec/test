@@ -1,0 +1,23 @@
+require("wav")
+-- ...
+local sounddata = rd:getData()
+rd:stop()
+local channelCount = sounddata:getChannelCount()
+local sampleRate   = sounddata:getSampleRate()
+local bitDepth     = sounddata:getBitDepth()
+local samples = {}
+for i = 0, sounddata:getSampleCount() - 1 do
+	local sample = sounddata:getSample(i)
+	local n
+	local to16bit = sample * 32767
+	if (to16bit > 0) then
+		n = math.floor(math.min(to16bit, 32767))
+	else
+		n = math.floor(math.max(to16bit, -32768))
+	end
+	table.insert(samples, n)
+end
+local w = wav.create_context("test.wav", "w")
+w.init(channelCount, sampleRate, bitDepth)
+w.write_samples_interlaced(samples)
+w.finish()

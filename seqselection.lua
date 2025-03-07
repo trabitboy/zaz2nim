@@ -2,6 +2,7 @@
 --if not present, we use a default location
 
  local currentFsInfo=love.filesystem.getInfo('currentproject.lua')
+ print(love.filesystem.getAppdataDirectory())
  print('current project file  ')
  print(currentFsInfo)
  if currentFsInfo then

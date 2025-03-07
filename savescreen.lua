@@ -191,6 +191,9 @@ updateSaveScreen = function ()
       
 			addMsg('after save')
 --			toPaintMode()
+      local savepath=love.filesystem.getSaveDirectory()..'/'..conf.prjfld
+      setHoverMsg('save folder in clipboard '..savepath)
+      love.system.setClipboardText(savepath)
       callback()
 		   -- for critical save that calls function directly
 		   return 'finished'

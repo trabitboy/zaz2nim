@@ -13,6 +13,9 @@ local widgets={}
 
 local clockQuad = {x=64, y=64, w=64, h=64}
 
+
+local recordSoundQuad={x=1*64, y=10*64, w=64, h=64}
+
 cursorQuad = {x=0, y=0, w=64, h=64}
 playQuad={x=0, y=4*64, w=64, h=64}
 paletteQuad={x=64, y=6*64, w=64, h=64}
@@ -350,6 +353,7 @@ createSettingsButtons=function()
   local wBG =createpicbutton(uiw-256*buttonZoom,0*buttonZoom,buttonsPic,toggleBg,bgQuad,buttonZoom)
   local wRB =createpicbutton(uiw-320*buttonZoom,0*buttonZoom,buttonsPic,setRangeBegin,rangeBeginQuad,buttonZoom)
   local wRE =createpicbutton(uiw-384*buttonZoom,0*buttonZoom,buttonsPic,setRangeEnd,rangeEndQuad,buttonZoom)
+  local wRS =createpicbutton(uiw-384*buttonZoom,64*buttonZoom,buttonsPic,initRecordSound,recordSoundQuad,buttonZoom)
   local wPR =createpicbutton(uiw-384*buttonZoom,uih-64*buttonZoom,buttonsPic,pasteRangeDirect,pasteRangeQuad,buttonZoom)
   local wEX =createpicbutton(uiw-512*buttonZoom,uih-64*buttonZoom,buttonsPic,composeExport,exportQuad,buttonZoom)
   local wPRR =createpicbutton(uiw-384*buttonZoom,uih-128*buttonZoom,buttonsPic,pasteRangeReverse,pasteRangeReverseQuad,buttonZoom)
@@ -392,7 +396,7 @@ createSettingsButtons=function()
 
   local wCTAP =createpicbutton(uiw-384*buttonZoom,uih-256*buttonZoom,buttonsPic,copyToOtherProject,copyToOtherProjectQuad,buttonZoom)  
 
-
+  table.insert(widgets,wRS)
   table.insert(widgets,wPlay)
   table.insert(widgets,wPalette)
   table.insert(widgets,wPicker)
